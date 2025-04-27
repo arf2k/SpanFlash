@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'; // Add useEffect later
+import { useState, useEffect } from 'react'; 
+import Flashcard from './components/Flashcard';
 import './App.css';
 
 // Define constants
-const TOTAL_CHUNKS = 23; // The number of chunk files you created
+const TOTAL_CHUNKS = 23; 
 
 function App() {
     // === State Variables ===
@@ -13,7 +14,7 @@ function App() {
     const [score, setScore] = useState({ correct: 0, incorrect: 0 }); // Tracks the score
     const [hintData, setHintData] = useState(null); // Stores hint data from MW API
 
-    // === Placeholder for functions we will add later ===
+   
      const fetchRandomPair = async () => {
       console.log("Attempting to fetch new pair....")
       setIsLoading(true);
@@ -71,8 +72,7 @@ function App() {
       fetchRandomPair();
      }, []);
 
-    // === Component Return (Basic Structure) ===
-    // Inside the App function component...
+
 
 // === Component Return ===
 return (
@@ -87,11 +87,11 @@ return (
 
       {/* Display Flashcard Area (only if NOT loading, NO error, and pair exists) */}
       {!isLoading && !error && currentPair && (
-          <div className="flashcard-area">
-              {/* We will put the actual Flashcard component here later */}
-              <h2>Card Loaded (Placeholder)</h2>
-              <p>English: {currentPair.english}</p>
-              <p>Spanish: {currentPair.spanish}</p>
+          <div>
+              <Flashcard
+              pair={currentPair}
+              direction={languageDirection}
+              />
               <button onClick={fetchRandomPair} disabled={isLoading}>
                   {isLoading ? 'Loading...' : 'Next Card'}
               </button>
