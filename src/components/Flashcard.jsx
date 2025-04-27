@@ -1,11 +1,16 @@
-import React, { useState } from 'react'; 
+// src/components/Flashcard.jsx
+import React, { useState, useEffect } from 'react';
 
-const Flashcard = ({ pair, direction, onAnswerSubmit }) => { 
+const Flashcard = ({ pair, direction, onAnswerSubmit, showFeedback }) => {
 
     const [answer, setAnswer] = useState('');
 
- 
-    let wordToShow = '';
+    useEffect(() => {
+        setAnswer('');
+    }, [pair, showFeedback]);
+
+    // --- Check if this block is present and correct in your file ---
+    let wordToShow = ''; // <--- DEFINITION IS HERE
     let placeholderText = 'Type your answer...';
     if (pair) {
         if (direction === 'spa-eng') {
@@ -16,45 +21,52 @@ const Flashcard = ({ pair, direction, onAnswerSubmit }) => {
             placeholderText = 'Type the Spanish translation...';
         }
     }
+    // --- End check ---
+
 
     const handleSubmit = (event) => {
-        event.preventDefault(); 
-        if (!answer.trim()) return; // Don't submit empty answers (optional)
+     event.preventDefault(); // Stop page reload
+    if (!answer.trim() || showFeedback) {
+         console.log("Submit prevented (empty answer or feedback showing)."); // Optional log
+         return; // Don't submit if answer is empty or feedback is showing
+    }
 
-        console.log('Submitting answer:', answer); 
+    console.log('Flashcard: Submitting answer:', answer); // Log that Flashcard's submit ran
 
-      
-        onAnswerSubmit(answer);
+    // Call the function passed down from App component
+    onAnswerSubmit(answer);
 
-        // Clear the input field after submitting
-        setAnswer('');
+    // Note: Clearing the input ('setAnswer('')') is now handled by the useEffect hook
+    // based on changes to 'pair' or 'showFeedback', so we don't need it here.
+
     };
 
     return (
         <div className="flashcard">
-            {/* Conditionally render the word */}
+            {/* Word Display */}
             {pair ? (
+                 // Make sure 'wordToShow' is spelled correctly here
                 <p className="flashcard-word">{wordToShow}</p>
             ) : (
                 <p>No card data.</p>
             )}
 
-            {/* Render form only if there's a card to answer */}
-            {pair && (
-                <form onSubmit={handleSubmit} className="answer-form">
-                    <input
-                        type="text"
-                        value={answer} 
-                        onChange={(e) => setAnswer(e.target.value)} 
-                        placeholder={placeholderText}
-                        className="answer-input"
-                        autoFocus // Automatically focus the input field
-                        required // Basic HTML validation: requires an answer
-                    />
-                    <button type="submit" className="submit-button">
-                        Check Answer
-                    </button>
-                </form>
+            {/* Answer Form */}
+            {pair && !showFeedback && (
+               <form onSubmit={handleSubmit} className="answer-form">
+               <input
+                   type="text"
+                   value={answer}
+                   onChange={(e) => setAnswer(e.target.value)}
+                   placeholder={placeholderText}
+                   className="answer-input"
+                   autoFocus
+                   required
+               />
+               <button type="submit" className="submit-button">
+                   Check Answer
+               </button>
+           </form>
             )}
         </div>
     );

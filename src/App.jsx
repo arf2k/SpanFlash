@@ -13,6 +13,8 @@ function App() {
     const [error, setError] = useState(null); // Stores any error messages
     const [score, setScore] = useState({ correct: 0, incorrect: 0 }); // Tracks the score
     const [hintData, setHintData] = useState(null); // Stores hint data from MW API
+    const [showFeedback, setShowFeedback] = useState(false); // Track if showing feedback (after incorrect answer)
+const [lastCorrectAnswer, setLastCorrectAnswer] = useState('');
 
    
      const fetchRandomPair = async () => {
@@ -62,44 +64,66 @@ function App() {
     }
 }
 
- 
-   const handleAnswerSubmit = (userAnswer) => { 
-    if (!currentPair) return; // Should not happen if form is visible, but good check
+// const handleAnswerSubmit = (userAnswer) => {
+//   if (!currentPair || showFeedback) return; // Don't process if no pair or feedback is showing
 
-    console.log(`Checking answer: User submitted "${userAnswer}"`);
+//   console.log(`Checking answer: User submitted "${userAnswer}"`);
 
-    // Determine the correct answer based on the current direction
-    const correctAnswer = languageDirection === 'spa-eng'
-        ? currentPair.english
-        : currentPair.spanish;
+//   const correctAnswer = languageDirection === 'spa-eng'
+//       ? currentPair.english
+//       : currentPair.spanish;
 
-    // Normalize answers for comparison (lowercase, trim whitespace)
-    // We can add more robust comparison later (e.g., ignore punctuation/accents)
-    const normalizedUserAnswer = userAnswer.toLowerCase().trim();
-    const normalizedCorrectAnswer = correctAnswer.toLowerCase().trim();
+//   const normalizedUserAnswer = userAnswer.toLowerCase().trim();
+//   const normalizedCorrectAnswer = correctAnswer.toLowerCase().trim();
 
-    if (normalizedUserAnswer === normalizedCorrectAnswer) {
-        console.log("Correct!");
-        // Update score for correct answer
-        setScore(prevScore => ({
-             ...prevScore,
-             correct: prevScore.correct + 1
-        }));
-        // Add visual feedback later (e.g., flash green)
-    } else {
-        console.log(`Incorrect. Correct answer was: "${correctAnswer}"`);
-        // Update score for incorrect answer
-        setScore(prevScore => ({
-            ...prevScore,
-            incorrect: prevScore.incorrect + 1
-       }));
-       // Add visual feedback later (e.g., flip card, show answer)
-    }
+//   if (normalizedUserAnswer === normalizedCorrectAnswer) {
+//       console.log("Correct Fetching next!");
+//       setScore(prevScore => ({ ...prevScore, correct: prevScore.correct + 1 }));
+//       // Correct: Fetch next card immediately (or add tiny delay later for feedback animation)
+//       // We could briefly set a 'correct' feedback state here if needed for animation
+//       fetchRandomPair(); // Proceed to next card
+//   } else {
+//       console.log(`Incorrect. Correct answer was: "${correctAnswer}"`);
+//       setScore(prevScore => ({ ...prevScore, incorrect: prevScore.incorrect + 1 }));
+//       setLastCorrectAnswer(correctAnswer); // Store the correct answer to show it
+//       console.log("Setting showFeedback=true"); // <-- Log before setting
 
-    // Fetch the next card automatically after answering
-    // We might add a slight delay or user confirmation later
-    fetchRandomPair();
+//       setShowFeedback(true); // Set state to show feedback UI
+//   }
+// };
+const handleAnswerSubmit = (userAnswer) => {
+  if (!currentPair || showFeedback) return;
+
+  console.log(`Checking answer: User submitted "${userAnswer}"`);
+
+  const correctAnswer = languageDirection === 'spa-eng'
+      ? currentPair.english
+      : currentPair.spanish;
+
+  const normalizedUserAnswer = userAnswer.toLowerCase().trim();
+  const normalizedCorrectAnswer = correctAnswer.toLowerCase().trim();
+
+  // --- ADD THIS LOG ---
+  console.log(`Comparing: "<span class="math-inline">\{normalizedUserAnswer\}" vs "</span>{normalizedCorrectAnswer}"`);
+  // --- END LOG ---
+
+  if (normalizedUserAnswer === normalizedCorrectAnswer) {
+      console.log("CORRECT branch executed. Fetching next card...");
+      setScore(prevScore => ({ ...prevScore, correct: prevScore.correct + 1 }));
+      fetchRandomPair();
+  } else {
+      console.log("INCORRECT branch executed. Setting showFeedback=true.");
+      setScore(prevScore => ({ ...prevScore, incorrect: prevScore.incorrect + 1 }));
+      setLastCorrectAnswer(correctAnswer);
+      setShowFeedback(true);
+  }
 };
+const handleNextCard = () => {
+  setShowFeedback(false);      // Hide feedback UI
+  setLastCorrectAnswer('');   // Clear stored answer
+  fetchRandomPair();          // Fetch the next card
+};
+
     
     // function handleGetHint() { ... }
    const switchLanguageDirection = () => { 
@@ -139,10 +163,20 @@ return (
               pair={currentPair}
               direction={languageDirection}
               onAnswerSubmit={handleAnswerSubmit}
+              showFeedback={showFeedback}
               />
-              {/* <button onClick={fetchRandomPair} disabled={isLoading}>
-                  {isLoading ? 'Loading...' : 'Next Card'}
-              </button> */}
+         {/* --- Feedback and Manual Next Button --- */}
+         {showFeedback && ( // Only show this block when feedback is active
+                        <div className="feedback-area">
+                            <p style={{ color: 'red', fontWeight: 'bold' }}>
+                                Incorrect. The correct answer was: "{lastCorrectAnswer}"
+                            </p>
+                            <button onClick={handleNextCard}>
+                                Next Card
+                            </button>
+                        </div>
+                    )}
+                    {/* --- End Feedback Area --- */}
           </div>
       )}
 

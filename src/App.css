@@ -1,7 +1,5 @@
 /* src/App.css */
-/* Add this (and other App-specific styles later) */
 
-/* Make the debug <pre> block scrollable and formatted */
 details pre {
   background-color: #f8f8f8; /* Light background */
   border: 1px solid #eee;   /* Subtle border */
@@ -12,9 +10,9 @@ details pre {
   overflow-y: auto;          /* Add a vertical scrollbar if content overflows */
   white-space: pre-wrap;     /* Wrap long lines within the pre block */
   word-wrap: break-word;     /* Break long words if necessary */
+  color: #333333;            /* <-- ADD THIS LINE (sets text to dark gray) */
 }
 
-/* Optional: Style the summary tag */
 details summary {
   cursor: pointer;
   font-weight: bold;
