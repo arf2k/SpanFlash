@@ -1,0 +1,121 @@
+import { useState, useEffect } from 'react'; // Add useEffect later
+import './App.css';
+
+// Define constants
+const TOTAL_CHUNKS = 23; // The number of chunk files you created
+
+function App() {
+    // === State Variables ===
+    const [currentPair, setCurrentPair] = useState(null); // Holds the current {english, spanish} object
+    const [languageDirection, setLanguageDirection] = useState('spa-eng'); // 'spa-eng' or 'eng-spa'
+    const [isLoading, setIsLoading] = useState(true); // True while fetching chunks/hints
+    const [error, setError] = useState(null); // Stores any error messages
+    const [score, setScore] = useState({ correct: 0, incorrect: 0 }); // Tracks the score
+    const [hintData, setHintData] = useState(null); // Stores hint data from MW API
+
+    // === Placeholder for functions we will add later ===
+     const fetchRandomPair = async () => {
+      console.log("Attempting to fetch new pair....")
+      setIsLoading(true);
+      setError(null);
+      setHintData(null);
+      setCurrentPair(null);
+      try {
+        // 1. Select a random chunk file number (1 to TOTAL_CHUNKS)
+        const randomChunkNum = Math.floor(Math.random() * TOTAL_CHUNKS) + 1;
+        const chunkUrl = `/data_chunks/chunk_${randomChunkNum}.json`;
+        console.log(`Workspaceing chunk file: ${chunkUrl}`);
+
+        // 2. Fetch the selected JSON file from the public folder
+        const response = await fetch(chunkUrl);
+
+        // Check if the fetch was successful
+        if (!response.ok) {
+            // If response status is not 2xx, throw an error
+            throw new Error(`Network response was not ok: ${response.status} ${response.statusText} while fetching ${chunkUrl}`);
+        }
+
+        // 3. Parse the JSON data from the response
+        const currentChunkData = await response.json(); // This should be an array of {english, spanish} objects
+
+        // 4. Check if data is valid and pick a random pair
+        if (Array.isArray(currentChunkData) && currentChunkData.length > 0) {
+            const randomIndex = Math.floor(Math.random() * currentChunkData.length);
+            const pair = currentChunkData[randomIndex];
+            console.log("Successfully selected pair:", pair);
+            setCurrentPair(pair); // Update the state with the new pair
+        } else {
+            // Handle cases where the chunk file is empty or not an array
+            throw new Error(`Loaded data from ${chunkUrl} is empty or invalid.`);
+        }
+
+    } catch (err) {
+        // Handle any errors during fetch or processing
+        console.error("Error fetching random pair:", err);
+        setError(err.message || 'Failed to load flashcard data. Please try again.');
+        setCurrentPair(null); // Reset current pair if an error occurred
+    } finally {
+        // This block runs regardless of success or error
+        setIsLoading(false); // Stop loading indicator
+        console.log("Fetching attempt finished.");
+    }
+}
+
+ 
+    // function handleAnswerSubmit(answer) { ... }
+    // function handleGetHint() { ... }
+    // function switchLanguageDirection() { ... }
+
+    useEffect(() => { 
+      console.log("App component mounted. Fetching initial flashcard pair")
+      fetchRandomPair();
+     }, []);
+
+    // === Component Return (Basic Structure) ===
+    // Inside the App function component...
+
+// === Component Return ===
+return (
+  <div className="App">
+      <h1>Spanish Flashcards</h1>
+
+      {/* Display Loading Message */}
+      {isLoading && <p>Loading flashcard...</p>}
+
+      {/* Display Error Message */}
+      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+
+      {/* Display Flashcard Area (only if NOT loading, NO error, and pair exists) */}
+      {!isLoading && !error && currentPair && (
+          <div className="flashcard-area">
+              {/* We will put the actual Flashcard component here later */}
+              <h2>Card Loaded (Placeholder)</h2>
+              <p>English: {currentPair.english}</p>
+              <p>Spanish: {currentPair.spanish}</p>
+              <button onClick={fetchRandomPair} disabled={isLoading}>
+                  {isLoading ? 'Loading...' : 'Next Card'}
+              </button>
+          </div>
+      )}
+
+      {/* Fallback message if loading finished but no pair and no error */}
+      {!isLoading && !error && !currentPair && (
+          <p>No flashcard data available. Check console for errors or try refreshing.</p>
+      )}
+
+      {/* --- Debug State Display (Optional but helpful) --- */}
+      <details style={{ marginTop: '20px' }}>
+          <summary>Show Current State</summary>
+          <pre style={{ textAlign: 'left', fontSize: '12px', opacity: 0.7, border: '1px solid #ccc', padding: '10px', background: '#f9f9f9' }}>
+              isLoading: {JSON.stringify(isLoading)}{'\n'}
+              Error: {JSON.stringify(error)}{'\n'}
+              Current Pair: {JSON.stringify(currentPair, null, 2)}{'\n'}
+              Score: {JSON.stringify(score)}{'\n'}
+              Hint Data: {JSON.stringify(hintData, null, 2)}
+          </pre>
+      </details>
+       {/* --- End Debug State Display --- */}
+  </div>
+);
+}
+export default App;
