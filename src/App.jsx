@@ -1,153 +1,220 @@
-import { useState, useEffect } from 'react'; 
+// src/App.jsx
+import { useState, useEffect, useRef } from 'react';
 import Flashcard from './components/Flashcard';
-import './App.css';
+import './App.css'; // Make sure this contains the CSS for details > pre
 
 // Define constants
-const TOTAL_CHUNKS = 23; 
+const TOTAL_CHUNKS = 23;
 
 function App() {
     // === State Variables ===
-    const [currentPair, setCurrentPair] = useState(null); 
-    const [languageDirection, setLanguageDirection] = useState('spa-eng'); // 'spa-eng' or 'eng-spa'
-    const [isLoading, setIsLoading] = useState(true); // True while fetching chunks/hints
-    const [error, setError] = useState(null); 
-    const [score, setScore] = useState({ correct: 0, incorrect: 0 }); 
-    const [hintData, setHintData] = useState(null); // Stores hint data from MW API
-    const [showFeedback, setShowFeedback] = useState(false); // Track if showing feedback (after incorrect answer)
-const [lastCorrectAnswer, setLastCorrectAnswer] = useState('');
+    const [currentPair, setCurrentPair] = useState(null);
+    const [languageDirection, setLanguageDirection] = useState('spa-eng');
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [score, setScore] = useState({ correct: 0, incorrect: 0 });
+    const [hintData, setHintData] = useState(null);
+    const [showFeedback, setShowFeedback] = useState(false);
+    const [lastCorrectAnswer, setLastCorrectAnswer] = useState('');
+    const [maxWords, setMaxWords] = useState(5); // State for max words, default 5
 
-   
-     const fetchRandomPair = async () => {
-      console.log("Attempting to fetch new pair....")
-      setIsLoading(true);
-      setError(null);
-      setHintData(null);
-      setCurrentPair(null);
-      try {
-        // 1. Select a random chunk file number (1 to TOTAL_CHUNKS)
-        const randomChunkNum = Math.floor(Math.random() * TOTAL_CHUNKS) + 1;
-        const chunkUrl = `/data_chunks/chunk_${randomChunkNum}.json`;
-        console.log(`Workspaceing chunk file: ${chunkUrl}`);
+    const isInitialMount = useRef(true);
 
-        // 2. Fetch the selected JSON file from the public folder
-        const response = await fetch(chunkUrl);
 
-        // Check if the fetch was successful
-        if (!response.ok) {
-            // If response status is not 2xx, throw an error
-            throw new Error(`Network response was not ok: ${response.status} ${response.statusText} while fetching ${chunkUrl}`);
+    // === Fetching Logic ===
+    const fetchRandomPair = async () => {
+        console.log("Attempting to fetch a new pair...");
+        setIsLoading(true);
+        setError(null);
+        setHintData(null);
+        setCurrentPair(null);
+        setShowFeedback(false); // Reset feedback when fetching
+
+        try {
+            const randomChunkNum = Math.floor(Math.random() * TOTAL_CHUNKS) + 1;
+            const chunkUrl = `/data_chunks/chunk_${randomChunkNum}.json`;
+            console.log(`Workspaceing chunk file: ${chunkUrl}`);
+
+            const response = await fetch(chunkUrl);
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.status} ${response.statusText} while fetching ${chunkUrl}`);
+            }
+
+            const currentChunkData = await response.json();
+            if (!Array.isArray(currentChunkData)) {
+                 throw new Error(`Data from chunk ${randomChunkNum} is not a valid array.`);
+            }
+            console.log(`Loaded ${currentChunkData.length} pairs from chunk ${randomChunkNum}. Filtering (max words: ${maxWords})...`); // Use state in log
+
+            // Filter the loaded data based on maxWords state
+            const filteredData = currentChunkData.filter(pair => {
+                if (!pair || typeof pair.english !== 'string' || typeof pair.spanish !== 'string') {
+                    return false;
+                }
+                const englishWords = pair.english.split(' ').filter(word => word.length > 0).length;
+                const spanishWords = pair.spanish.split(' ').filter(word => word.length > 0).length;
+                // Use maxWords state variable here for comparison
+                return englishWords > 0 && englishWords <= maxWords &&
+                       spanishWords > 0 && spanishWords <= maxWords;
+            });
+            console.log(`Found ${filteredData.length} pairs matching max words criteria.`);
+
+            // Select random pair from the FILTERED list
+            if (filteredData.length > 0) {
+                const randomIndex = Math.floor(Math.random() * filteredData.length);
+                const pair = filteredData[randomIndex];
+                console.log("Successfully selected filtered pair:", pair);
+                setCurrentPair(pair); // Update state with the filtered pair
+            } else {
+                // Handle cases where the chunk has no pairs meeting the criteria
+                // Use maxWords state variable in the error message
+                throw new Error(`No pairs found in chunk ${randomChunkNum} with <= ${maxWords} words per side. Try 'Next Card'.`);
+            }
+
+        } catch (err) {
+            console.error("Error fetching/filtering random pair:", err);
+            setError(err.message || 'Failed to load flashcard data. Please try again.');
+            setCurrentPair(null);
+        } finally {
+            setIsLoading(false);
+            console.log("Fetching attempt finished.");
         }
+    };
 
-        // 3. Parse the JSON data from the response
-        const currentChunkData = await response.json(); // This should be an array of {english, spanish} objects
+    // === Answer Submission Logic ===
+    const handleAnswerSubmit = (userAnswer) => {
+        const punctuationRegex = /[.?!¡¿]+$/;
+        if (!currentPair || showFeedback) return;
 
-        // 4. Check if data is valid and pick a random pair
-        if (Array.isArray(currentChunkData) && currentChunkData.length > 0) {
-            const randomIndex = Math.floor(Math.random() * currentChunkData.length);
-            const pair = currentChunkData[randomIndex];
-            console.log("Successfully selected pair:", pair);
-            setCurrentPair(pair); // Update the state with the new pair
+        console.log(`Checking answer: User submitted "${userAnswer}"`);
+
+        const correctAnswer = languageDirection === 'spa-eng'
+            ? currentPair.english
+            : currentPair.spanish;
+
+        const normalizedUserAnswer = userAnswer
+            .toLowerCase()
+            .trim()
+            .replace(punctuationRegex, '');
+
+        const normalizedCorrectAnswer = correctAnswer
+            .toLowerCase()
+            .trim()
+            .replace(punctuationRegex, '');
+
+        console.log(`Comparing (punctuation ignored): "${normalizedUserAnswer}" vs "${normalizedCorrectAnswer}"`);
+
+        if (normalizedUserAnswer === normalizedCorrectAnswer) {
+            console.log("CORRECT branch executed. Fetching next card...");
+            setScore(prevScore => ({ ...prevScore, correct: prevScore.correct + 1 }));
+            fetchRandomPair(); // Proceed to next card
         } else {
-            // Handle cases where the chunk file is empty or not an array
-            throw new Error(`Loaded data from ${chunkUrl} is empty or invalid.`);
+            console.log("INCORRECT branch executed. Setting showFeedback=true.");
+            setScore(prevScore => ({ ...prevScore, incorrect: prevScore.incorrect + 1 }));
+            setLastCorrectAnswer(correctAnswer);
+            setShowFeedback(true);
         }
+    };
 
-    } catch (err) {
-        // Handle any errors during fetch or processing
-        console.error("Error fetching random pair:", err);
-        setError(err.message || 'Failed to load flashcard data. Please try again.');
-        setCurrentPair(null); // Reset current pair if an error occurred
-    } finally {
-        // This block runs regardless of success or error
-        setIsLoading(false); // Stop loading indicator
-        console.log("Fetching attempt finished.");
-    }
-}
+    // === Handling "Next Card" After Incorrect Answer ===
+    const handleNextCard = () => {
+        setShowFeedback(false);
+        setLastCorrectAnswer('');
+        fetchRandomPair();
+    };
 
-const handleAnswerSubmit = (userAnswer) => {
-  const punctuationRegex = /[.?!¡¿]+$/;
-  if (!currentPair || showFeedback) return;
+    // === Handling Max Words Setting Change ===
+    const handleMaxWordsChange = (event) => {
+        const newValue = parseInt(event.target.value, 10);
+        setMaxWords(newValue >= 1 ? newValue : 1);
+        console.log("Max words setting changed to:", newValue >= 1 ? newValue : 1);
+    };
 
-  console.log(`Checking answer: User submitted "${userAnswer}"`);
+    // === Handling Language Direction Switch ===
+    const switchLanguageDirection = () => {
+        setLanguageDirection(prevDirection => {
+            const newDirection = prevDirection === 'spa-eng' ? 'eng-spa' : 'spa-eng';
+            console.log(`Switching direction from ${prevDirection} to ${newDirection}`);
+            return newDirection;
+        });
+        setShowFeedback(false); // Reset feedback when direction changes
+        setLastCorrectAnswer('');
+    };
 
-  const correctAnswer = languageDirection === 'spa-eng'
-      ? currentPair.english
-      : currentPair.spanish;
- 
+    // === Effects Hooks ===
+    useEffect(() => {
+        console.log("App component mounted. Fetching initial flashcard pair.");
+        fetchRandomPair();
+     }, []); // Empty dependency array runs only once on mount
 
-      const normalizedUserAnswer = userAnswer
-          .toLowerCase()
-          .trim()
-          .replace(punctuationRegex, ''); // Remove trailing punctuation
-  
-      const normalizedCorrectAnswer = correctAnswer
-          .toLowerCase()
-          .trim()
-          .replace(punctuationRegex, '');
+     useEffect(() => {
+      // Prevent fetching on the very first render when maxWords is initialized
+      if (isInitialMount.current) {
+          isInitialMount.current = false; // Toggle ref so effect runs on subsequent changes
+      } else {
+          // Only run fetch if it's NOT the initial mount/render
+          console.log(`Max words changed to ${maxWords}, refetching...`);
+          fetchRandomPair(); // Fetch a new pair matching the new criteria
+      }
+  }, [maxWords]); // Dependency array: run this effect when maxWords changes
 
+    // === Component Return ===
+    return (
+        <div className="App">
+            <h1>Spanish Flashcards</h1>
 
-  if (normalizedUserAnswer === normalizedCorrectAnswer) {
-      console.log("CORRECT branch executed. Fetching next card...");
-      setScore(prevScore => ({ ...prevScore, correct: prevScore.correct + 1 }));
-      fetchRandomPair();
-  } else {
-      console.log("INCORRECT branch executed. Setting showFeedback=true.");
-      setScore(prevScore => ({ ...prevScore, incorrect: prevScore.incorrect + 1 }));
-      setLastCorrectAnswer(correctAnswer);
-      setShowFeedback(true);
-  }
-};
-const handleNextCard = () => {
-  setShowFeedback(false);      // Hide feedback UI
-  setLastCorrectAnswer('');   // Clear stored answer
-  fetchRandomPair();          // Fetch the next card
-};
+            {/* --- Controls --- */}
+            <div className="controls" style={{ marginBottom: '15px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '20px' }}> {/* Added flexWrap and gap */}
+                {/* Switch Direction Button */}
+                <button onClick={switchLanguageDirection}>
+                    Switch Direction (Current: {languageDirection === 'spa-eng' ? 'Spanish -> English' : 'English -> Spanish'})
+                </button>
 
-    
-    // function handleGetHint() { ... }
-   const switchLanguageDirection = () => { 
-    setLanguageDirection(prevDirection => {
-      const newDirection = prevDirection === 'spa-eng' ? 'eng-spa' : 'spa-eng';
-      console.log(`Switching direction from ${prevDirection} to ${newDirection}`);
-      return newDirection;
-  });
-  }
+                {/* Max Words Slider Control */}
+                <div className="setting-max-words" style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                    <label htmlFor="maxWordsInput">
+                        Max Words:
+                    </label>
+                    <input
+                        type="range" // Use slider
+                        id="maxWordsInput"
+                        value={maxWords}
+                        onChange={handleMaxWordsChange}
+                        min="1"     // Min value
+                        max="10"    // Max value (adjust if needed)
+                        style={{ cursor: 'pointer', flexGrow: '1' }} // Allow slider to grow a bit
+                    />
+                    {/* Display the current value */}
+                    <span style={{ fontWeight: 'bold', minWidth: '20px', textAlign: 'right' }}>
+                        {maxWords}
+                    </span>
+                </div>
+            </div>
 
-    useEffect(() => { 
-      console.log("App component mounted. Fetching initial flashcard pair")
-      fetchRandomPair();
-     }, []);
-
-
-
-// === Component Return ===
-return (
-  <div className="App">
-      <h1>Spanish Flashcards</h1>
-      <div className="controls">
-            <button onClick={switchLanguageDirection}>
-                Switch Direction (Current: {languageDirection === 'spa-eng' ? 'Spanish -> English' : 'English -> Spanish'})
-            </button>
+            {/* --- Status Messages --- */}
+            {isLoading && <p>Loading flashcard...</p>}
+    {error && !isLoading && ( // Show error block only if not loading
+        <div className="error-area" style={{ marginBottom: '10px' }}>
+             <p style={{ color: 'red' }}>Error: {error}</p>
+             {/* Add button specifically when there's an error */}
+             <button onClick={fetchRandomPair}>Try Fetching New Card</button>
         </div>
-      {/* Display Loading Message */}
-      {isLoading && <p>Loading flashcard...</p>}
+    )}
 
-      {/* Display Error Message */}
-      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+            {/* --- Flashcard Area --- */}
+            {!isLoading && !error && currentPair && (
+                <div className="flashcard-area">
+                    <Flashcard
+                        pair={currentPair}
+                        direction={languageDirection}
+                        onAnswerSubmit={handleAnswerSubmit}
+                        showFeedback={showFeedback}
+                    />
 
-      {/* Display Flashcard Area (only if NOT loading, NO error, and pair exists) */}
-      {!isLoading && !error && currentPair && (
-          <div>
-              <Flashcard
-              pair={currentPair}
-              direction={languageDirection}
-              onAnswerSubmit={handleAnswerSubmit}
-              showFeedback={showFeedback}
-              />
-         {/* --- Feedback and Manual Next Button --- */}
-         {showFeedback && ( // Only show this block when feedback is active
-                        <div className="feedback-area">
-                            <p style={{ color: 'red', fontWeight: 'bold' }}>
+                    {/* Feedback Area (only shown after incorrect answer) */}
+                    {showFeedback && (
+                        <div className="feedback-area" style={{ marginTop: '10px' }}>
+                            <p style={{ color: 'darkred', fontWeight: 'bold', margin: '0 0 5px 0' }}>
                                 Incorrect. The correct answer was: "{lastCorrectAnswer}"
                             </p>
                             <button onClick={handleNextCard}>
@@ -155,28 +222,28 @@ return (
                             </button>
                         </div>
                     )}
-                    {/* --- End Feedback Area --- */}
-          </div>
-      )}
+                </div>
+            )}
 
-      {/* Fallback message if loading finished but no pair and no error */}
-      {!isLoading && !error && !currentPair && (
-          <p>No flashcard data available. Check console for errors or try refreshing.</p>
-      )}
+            {/* Fallback message */}
+            {!isLoading && !error && !currentPair && (
+                <p>No flashcard data available. Check console for errors or try refreshing.</p>
+            )}
 
-      {/* --- Debug State Display (Optional but helpful) --- */}
-      <details style={{ marginTop: '20px' }}>
-          <summary>Show Current State</summary>
-          <pre style={{ textAlign: 'left', fontSize: '12px', opacity: 0.7, border: '1px solid #ccc', padding: '10px', background: '#f9f9f9' }}>
-              isLoading: {JSON.stringify(isLoading)}{'\n'}
-              Error: {JSON.stringify(error)}{'\n'}
-              Current Pair: {JSON.stringify(currentPair, null, 2)}{'\n'}
-              Score: {JSON.stringify(score)}{'\n'}
-              Hint Data: {JSON.stringify(hintData, null, 2)}
-          </pre>
-      </details>
-       {/* --- End Debug State Display --- */}
-  </div>
-);
+            {/* --- Debug State Display --- */}
+            <details style={{ marginTop: '20px' }}>
+                <summary>Show Current State</summary>
+                <pre> {/* CSS for pre is in App.css */}
+                    isLoading: {JSON.stringify(isLoading)}{'\n'}
+                    Error: {JSON.stringify(error)}{'\n'}
+                    Current Pair: {JSON.stringify(currentPair, null, 2)}{'\n'}
+                    Max Words: {JSON.stringify(maxWords)}{'\n'}
+                    Show Feedback: {JSON.stringify(showFeedback)}{'\n'}
+                    Score: {JSON.stringify(score)}{'\n'}
+                    Hint Data: {JSON.stringify(hintData, null, 2)}
+                </pre>
+            </details>
+        </div>
+    );
 }
 export default App;
