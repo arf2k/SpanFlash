@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import Flashcard from './components/Flashcard';
-import { getMwHint } from './services/dictionaryService.js';
+import { getMwHint } from './services/dictionaryServices.js';
 import './App.css';
 
 // Define constants
