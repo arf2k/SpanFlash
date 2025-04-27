@@ -1,4 +1,3 @@
-// src/components/Flashcard.jsx
 import React, { useState, useEffect } from 'react';
 
 const Flashcard = ({ pair, direction, onAnswerSubmit, showFeedback }) => {
