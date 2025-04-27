@@ -63,7 +63,44 @@ function App() {
 }
 
  
-    // function handleAnswerSubmit(answer) { ... }
+   const handleAnswerSubmit = (userAnswer) => { 
+    if (!currentPair) return; // Should not happen if form is visible, but good check
+
+    console.log(`Checking answer: User submitted "${userAnswer}"`);
+
+    // Determine the correct answer based on the current direction
+    const correctAnswer = languageDirection === 'spa-eng'
+        ? currentPair.english
+        : currentPair.spanish;
+
+    // Normalize answers for comparison (lowercase, trim whitespace)
+    // We can add more robust comparison later (e.g., ignore punctuation/accents)
+    const normalizedUserAnswer = userAnswer.toLowerCase().trim();
+    const normalizedCorrectAnswer = correctAnswer.toLowerCase().trim();
+
+    if (normalizedUserAnswer === normalizedCorrectAnswer) {
+        console.log("Correct!");
+        // Update score for correct answer
+        setScore(prevScore => ({
+             ...prevScore,
+             correct: prevScore.correct + 1
+        }));
+        // Add visual feedback later (e.g., flash green)
+    } else {
+        console.log(`Incorrect. Correct answer was: "${correctAnswer}"`);
+        // Update score for incorrect answer
+        setScore(prevScore => ({
+            ...prevScore,
+            incorrect: prevScore.incorrect + 1
+       }));
+       // Add visual feedback later (e.g., flip card, show answer)
+    }
+
+    // Fetch the next card automatically after answering
+    // We might add a slight delay or user confirmation later
+    fetchRandomPair();
+};
+    
     // function handleGetHint() { ... }
    const switchLanguageDirection = () => { 
     setLanguageDirection(prevDirection => {
@@ -101,10 +138,11 @@ return (
               <Flashcard
               pair={currentPair}
               direction={languageDirection}
+              onAnswerSubmit={handleAnswerSubmit}
               />
-              <button onClick={fetchRandomPair} disabled={isLoading}>
+              {/* <button onClick={fetchRandomPair} disabled={isLoading}>
                   {isLoading ? 'Loading...' : 'Next Card'}
-              </button>
+              </button> */}
           </div>
       )}
 

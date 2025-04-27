@@ -1,42 +1,24 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* src/App.css */
+/* Add this (and other App-specific styles later) */
+
+/* Make the debug <pre> block scrollable and formatted */
+details pre {
+  background-color: #f8f8f8; /* Light background */
+  border: 1px solid #eee;   /* Subtle border */
+  padding: 10px;             /* Add some padding */
+  font-size: 12px;           /* Smaller font */
+  text-align: left;          /* Ensure text is left-aligned */
+  max-height: 200px;         /* Limit the height */
+  overflow-y: auto;          /* Add a vertical scrollbar if content overflows */
+  white-space: pre-wrap;     /* Wrap long lines within the pre block */
+  word-wrap: break-word;     /* Break long words if necessary */
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Optional: Style the summary tag */
+details summary {
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
+/* Add other styles for .App, .flashcard-area etc. as needed */
