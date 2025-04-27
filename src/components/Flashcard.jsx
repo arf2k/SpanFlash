@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
-const Flashcard = ({ pair, direction, onAnswerSubmit, showFeedback }) => {
+
+const Flashcard = ({
+    pair,
+    direction,
+    onAnswerSubmit,
+    showFeedback,
+    onGetHint,        
+    hint,            
+    isHintLoading    
+ }) => {
 
     const [answer, setAnswer] = useState('');
 
@@ -8,65 +17,56 @@ const Flashcard = ({ pair, direction, onAnswerSubmit, showFeedback }) => {
         setAnswer('');
     }, [pair, showFeedback]);
 
-    // --- Check if this block is present and correct in your file ---
-    let wordToShow = ''; // <--- DEFINITION IS HERE
-    let placeholderText = 'Type your answer...';
-    if (pair) {
-        if (direction === 'spa-eng') {
-            wordToShow = pair.spanish;
-            placeholderText = 'Type the English translation...';
-        } else if (direction === 'eng-spa') {
-            wordToShow = pair.english;
-            placeholderText = 'Type the Spanish translation...';
-        }
-    }
-    // --- End check ---
-
+    // ... (wordToShow, placeholderText logic) ...
 
     const handleSubmit = (event) => {
-     event.preventDefault(); // Stop page reload
-    if (!answer.trim() || showFeedback) {
-         console.log("Submit prevented (empty answer or feedback showing)."); // Optional log
-         return; // Don't submit if answer is empty or feedback is showing
-    }
-
-    console.log('Flashcard: Submitting answer:', answer); // Log that Flashcard's submit ran
-
-    // Call the function passed down from App component
-    onAnswerSubmit(answer);
-
-    // Note: Clearing the input ('setAnswer('')') is now handled by the useEffect hook
-    // based on changes to 'pair' or 'showFeedback', so we don't need it here.
-
+        event.preventDefault();
+        if (!answer.trim() || showFeedback) return;
+        onAnswerSubmit(answer);
     };
 
     return (
         <div className="flashcard">
             {/* Word Display */}
             {pair ? (
-                 // Make sure 'wordToShow' is spelled correctly here
                 <p className="flashcard-word">{wordToShow}</p>
             ) : (
                 <p>No card data.</p>
             )}
 
-            {/* Answer Form */}
+            {/* Answer Form - Render only if pair exists AND feedback is NOT showing */}
             {pair && !showFeedback && (
-               <form onSubmit={handleSubmit} className="answer-form">
-               <input
-                   type="text"
-                   value={answer}
-                   onChange={(e) => setAnswer(e.target.value)}
-                   placeholder={placeholderText}
-                   className="answer-input"
-                   autoFocus
-                   required
-               />
-               <button type="submit" className="submit-button">
-                   Check Answer
-               </button>
-           </form>
+                <form onSubmit={handleSubmit} className="answer-form">
+                    <input
+                        // ... (input props) ...
+                        placeholder={placeholderText}
+                        className="answer-input"
+                        autoFocus
+                        required
+                    />
+                    <button type="submit" className="submit-button">
+                        Check Answer
+                    </button>
+                    <button
+                        type="button" // Important: type="button" prevents form submission
+                        onClick={onGetHint}
+                        className="hint-button"
+                        disabled={isHintLoading || !!hint} // Disable if loading or hint already shown
+                        style={{ marginLeft: '10px' }} // Basic spacing
+                    >
+                        {isHintLoading ? 'Getting Hint...' : 'Hint'}
+                    </button>
+                    {/* --- END HINT BUTTON --- */}
+                </form>
             )}
+
+             {/* --- ADD HINT DISPLAY AREA --- */}
+             {hint && ( // Only display if hint data exists
+                <div className="hint-display" style={{ marginTop: '10px', fontSize: '0.9em', fontStyle: 'italic', borderTop: '1px solid #eee', paddingTop: '5px' }}>
+                    <strong>Hint:</strong> {JSON.stringify(hint)} {/* Basic display for now */}
+                </div>
+             )}
+             {/* --- END HINT DISPLAY AREA --- */}
         </div>
     );
 };
