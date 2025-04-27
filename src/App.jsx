@@ -65,7 +65,13 @@ function App() {
  
     // function handleAnswerSubmit(answer) { ... }
     // function handleGetHint() { ... }
-    // function switchLanguageDirection() { ... }
+   const switchLanguageDirection = () => { 
+    setLanguageDirection(prevDirection => {
+      const newDirection = prevDirection === 'spa-eng' ? 'eng-spa' : 'spa-eng';
+      console.log(`Switching direction from ${prevDirection} to ${newDirection}`);
+      return newDirection;
+  });
+  }
 
     useEffect(() => { 
       console.log("App component mounted. Fetching initial flashcard pair")
@@ -78,7 +84,11 @@ function App() {
 return (
   <div className="App">
       <h1>Spanish Flashcards</h1>
-
+      <div className="controls">
+            <button onClick={switchLanguageDirection}>
+                Switch Direction (Current: {languageDirection === 'spa-eng' ? 'Spanish -> English' : 'English -> Spanish'})
+            </button>
+        </div>
       {/* Display Loading Message */}
       {isLoading && <p>Loading flashcard...</p>}
 
