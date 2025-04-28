@@ -19527,5 +19527,7046 @@
   {
     "spanish": "el pájaro",
     "english": "bird"
+  },
+  {
+    "spanish": "el glaciar",
+    "english": "glacier"
+  },
+  {
+    "spanish": "la vida silvestre",
+    "english": "wildlife"
+  },
+  {
+    "spanish": "el smog",
+    "english": "smog"
+  },
+  {
+    "spanish": "autosuficiente",
+    "english": "self-sufficient"
+  },
+  {
+    "spanish": "depender de",
+    "english": "to rely on"
+  },
+  {
+    "spanish": "la reforestación",
+    "english": "reforestation"
+  },
+  {
+    "spanish": "la protesta",
+    "english": "protest"
+  },
+  {
+    "spanish": "proteger",
+    "english": "to protect"
+  },
+  {
+    "spanish": "el pesticida",
+    "english": "pesticide"
+  },
+  {
+    "spanish": "el contaminante",
+    "english": "pollutant"
+  },
+  {
+    "spanish": "cadena alimentaria",
+    "english": "food chain"
+  },
+  {
+    "spanish": "el ecosistema",
+    "english": "ecosystem"
+  },
+  {
+    "spanish": "ecológico",
+    "english": "eco-friendly"
+  },
+  {
+    "spanish": "el vertedero",
+    "english": "dump"
+  },
+  {
+    "spanish": "donar",
+    "english": "to donate"
+  },
+  {
+    "spanish": "el país en desarrollo",
+    "english": "developing country"
+  },
+  {
+    "spanish": "viciado",
+    "english": "contaminated"
+  },
+  {
+    "spanish": "consumir",
+    "english": "to consume"
+  },
+  {
+    "spanish": "el compost",
+    "english": "compost"
+  },
+  {
+    "spanish": "la tala",
+    "english": "felling"
+  },
+  {
+    "spanish": "personas que comparten vehículo",
+    "english": "carpool"
+  },
+  {
+    "spanish": "la prohibición",
+    "english": "ban"
+  },
+  {
+    "spanish": "los combustibles fósiles",
+    "english": "fossil fuels"
+  },
+  {
+    "spanish": "la preservación",
+    "english": "preservation"
+  },
+  {
+    "spanish": "mareomotriz",
+    "english": "tidal"
+  },
+  {
+    "spanish": "la energía solar",
+    "english": "solar energy"
+  },
+  {
+    "spanish": "tóxico",
+    "english": "toxic"
+  },
+  {
+    "spanish": "amenazar",
+    "english": "to threaten"
+  },
+  {
+    "spanish": "aguas residuales",
+    "english": "sewage"
+  },
+  {
+    "spanish": "reutilizable",
+    "english": "reusable"
+  },
+  {
+    "spanish": "bosque lluvioso",
+    "english": "rainforest"
+  },
+  {
+    "spanish": "purificar",
+    "english": "to purify"
+  },
+  {
+    "spanish": "la precipitación",
+    "english": "precipitation"
+  },
+  {
+    "spanish": "venenoso",
+    "english": "poisonous"
+  },
+  {
+    "spanish": "el veneno",
+    "english": "poison"
+  },
+  {
+    "spanish": "el gas natural",
+    "english": "natural gas"
+  },
+  {
+    "spanish": "la fuga",
+    "english": "leak"
+  },
+  {
+    "spanish": "el metal pesado",
+    "english": "heavy metal"
+  },
+  {
+    "spanish": "el hidrocarburo",
+    "english": "hydrocarbon"
+  },
+  {
+    "spanish": "la ola de calor",
+    "english": "heat wave"
+  },
+  {
+    "spanish": "el perjuicio",
+    "english": "harm"
+  },
+  {
+    "spanish": "el humo",
+    "english": "fumes"
+  },
+  {
+    "spanish": "el abono",
+    "english": "fertilizer"
+  },
+  {
+    "spanish": "erosionar",
+    "english": "to erode"
+  },
+  {
+    "spanish": "el/la ecologista",
+    "english": "environmentalist"
+  },
+  {
+    "spanish": "extinguirse",
+    "english": "to die out"
+  },
+  {
+    "spanish": "el animal",
+    "english": "animal"
+  },
+  {
+    "spanish": "el bicho",
+    "english": "creature"
+  },
+  {
+    "spanish": "la catástrofe",
+    "english": "catastrophe"
+  },
+  {
+    "spanish": "la biosfera",
+    "english": "biosphere"
+  },
+  {
+    "spanish": "el derrame de petróleo",
+    "english": "oil spill"
+  },
+  {
+    "spanish": "gastar",
+    "english": "to use up"
+  },
+  {
+    "spanish": "el desarrollo sostenible",
+    "english": "sustainable development"
+  },
+  {
+    "spanish": "la energía renovable",
+    "english": "renewable energy"
+  },
+  {
+    "spanish": "el efecto invernadero",
+    "english": "greenhouse effect"
+  },
+  {
+    "spanish": "extinto",
+    "english": "extinct"
+  },
+  {
+    "spanish": "la extinción",
+    "english": "extinction"
+  },
+  {
+    "spanish": "la conservación",
+    "english": "conservation"
+  },
+  {
+    "spanish": "la energía",
+    "english": "energy"
+  },
+  {
+    "spanish": "especies en peligro de extinción",
+    "english": "endangered species"
+  },
+  {
+    "spanish": "desechable",
+    "english": "disposable"
+  },
+  {
+    "spanish": "la desertización",
+    "english": "desertification"
+  },
+  {
+    "spanish": "la deforestación",
+    "english": "deforestation"
+  },
+  {
+    "spanish": "el dióxido de carbono",
+    "english": "carbon dioxide"
+  },
+  {
+    "spanish": "el monóxido de carbono",
+    "english": "carbon monoxide"
+  },
+  {
+    "spanish": "la biodiversidad",
+    "english": "biodiversity"
+  },
+  {
+    "spanish": "biodegradable",
+    "english": "biodegradable"
+  },
+  {
+    "spanish": "el incentivo",
+    "english": "incentive"
+  },
+  {
+    "spanish": "la política",
+    "english": "politics"
+  },
+  {
+    "spanish": "la política",
+    "english": "policy"
+  },
+  {
+    "spanish": "tirar",
+    "english": "to throw away"
+  },
+  {
+    "spanish": "reciclar",
+    "english": "to recycle"
+  },
+  {
+    "spanish": "reutilizar",
+    "english": "to reuse"
+  },
+  {
+    "spanish": "el reciclaje",
+    "english": "recycling"
+  },
+  {
+    "spanish": "renovable",
+    "english": "renewable"
+  },
+  {
+    "spanish": "el agotamiento",
+    "english": "depletion"
+  },
+  {
+    "spanish": "el recurso natural",
+    "english": "natural resource"
+  },
+  {
+    "spanish": "la basura",
+    "english": "litter"
+  },
+  {
+    "spanish": "la sequía",
+    "english": "drought"
+  },
+  {
+    "spanish": "seco",
+    "english": "dry"
+  },
+  {
+    "spanish": "húmedo",
+    "english": "humid"
+  },
+  {
+    "spanish": "el desastre natural",
+    "english": "natural disaster"
+  },
+  {
+    "spanish": "huella de carbono",
+    "english": "carbon footprint"
+  },
+  {
+    "spanish": "el volcán",
+    "english": "volcano"
+  },
+  {
+    "spanish": "la lava",
+    "english": "lava"
+  },
+  {
+    "spanish": "la atmósfera",
+    "english": "atmosphere"
+  },
+  {
+    "spanish": "el/la ecologista",
+    "english": "ecologist"
+  },
+  {
+    "spanish": "la ecología",
+    "english": "ecology"
+  },
+  {
+    "spanish": "global",
+    "english": "global"
+  },
+  {
+    "spanish": "la emanación",
+    "english": "emission"
+  },
+  {
+    "spanish": "el cambio climático",
+    "english": "climate change"
+  },
+  {
+    "spanish": "el calentamiento global",
+    "english": "global warming"
+  },
+  {
+    "spanish": "la montaña",
+    "english": "mountain"
+  },
+  {
+    "spanish": "el cielo",
+    "english": "sky"
+  },
+  {
+    "spanish": "el aguacero",
+    "english": "downpour"
+  },
+  {
+    "spanish": "el diluvio",
+    "english": "deluge"
+  },
+  {
+    "spanish": "la inundación",
+    "english": "flood"
+  },
+  {
+    "spanish": "el terremoto",
+    "english": "earthquake"
+  },
+  {
+    "spanish": "el alud",
+    "english": "landslide"
+  },
+  {
+    "spanish": "la tromba",
+    "english": "waterspout"
+  },
+  {
+    "spanish": "el tifón",
+    "english": "typhoon"
+  },
+  {
+    "spanish": "el huracán",
+    "english": "hurricane"
+  },
+  {
+    "spanish": "el tornado",
+    "english": "tornado"
+  },
+  {
+    "spanish": "la tormenta",
+    "english": "storm"
+  },
+  {
+    "spanish": "frío",
+    "english": "cold"
+  },
+  {
+    "spanish": "el calor",
+    "english": "heat"
+  },
+  {
+    "spanish": "la nieve",
+    "english": "snow"
+  },
+  {
+    "spanish": "el sol",
+    "english": "sun"
+  },
+  {
+    "spanish": "la ola",
+    "english": "wave"
+  },
+  {
+    "spanish": "la poza",
+    "english": "pool"
+  },
+  {
+    "spanish": "la base",
+    "english": "base"
+  },
+  {
+    "spanish": "ácido",
+    "english": "acidic"
+  },
+  {
+    "spanish": "el mundo",
+    "english": "world"
+  },
+  {
+    "spanish": "la química",
+    "english": "chemistry"
+  },
+  {
+    "spanish": "la biología",
+    "english": "biology"
+  },
+  {
+    "spanish": "la hierba",
+    "english": "grass"
+  },
+  {
+    "spanish": "la Tierra",
+    "english": "Earth"
+  },
+  {
+    "spanish": "la capa de ozono",
+    "english": "ozone layer"
+  },
+  {
+    "spanish": "el ozono",
+    "english": "ozone"
+  },
+  {
+    "spanish": "el carbono",
+    "english": "carbon"
+  },
+  {
+    "spanish": "la lluvia ácida",
+    "english": "acid rain"
+  },
+  {
+    "spanish": "la lluvia",
+    "english": "rain"
+  },
+  {
+    "spanish": "el acuífero",
+    "english": "aquifer"
+  },
+  {
+    "spanish": "el suelo",
+    "english": "ground"
+  },
+  {
+    "spanish": "la tierra",
+    "english": "dirt"
+  },
+  {
+    "spanish": "ecologista",
+    "english": "green"
+  },
+  {
+    "spanish": "el cenagal",
+    "english": "bog"
+  },
+  {
+    "spanish": "el pantano",
+    "english": "swamp"
+  },
+  {
+    "spanish": "el golfo",
+    "english": "gulf"
+  },
+  {
+    "spanish": "el delta",
+    "english": "delta"
+  },
+  {
+    "spanish": "el afluente",
+    "english": "tributary"
+  },
+  {
+    "spanish": "el riachuelo",
+    "english": "brook"
+  },
+  {
+    "spanish": "el arroyo",
+    "english": "stream"
+  },
+  {
+    "spanish": "el río",
+    "english": "river"
+  },
+  {
+    "spanish": "el lago",
+    "english": "lake"
+  },
+  {
+    "spanish": "el océano",
+    "english": "ocean"
+  },
+  {
+    "spanish": "el/la mar",
+    "english": "sea"
+  },
+  {
+    "spanish": "la contaminación",
+    "english": "contamination"
+  },
+  {
+    "spanish": "la contaminación",
+    "english": "pollution"
+  },
+  {
+    "spanish": "el aire",
+    "english": "air"
+  },
+  {
+    "spanish": "el agua",
+    "english": "water"
+  },
+  {
+    "spanish": "el árbol",
+    "english": "tree"
+  },
+  {
+    "spanish": "fuera",
+    "english": "outside"
+  },
+  {
+    "spanish": "el tiempo",
+    "english": "weather"
+  },
+  {
+    "spanish": "la planta",
+    "english": "plant"
+  },
+  {
+    "spanish": "el clima",
+    "english": "climate"
+  },
+  {
+    "spanish": "el medio ambiente",
+    "english": "environment"
+  },
+
+  {
+    "spanish": "la comisaría",
+    "english": "police station"
+  },
+  {
+    "spanish": "la estación de bomberos",
+    "english": "fire station"
+  },
+  {
+    "spanish": "el mapa",
+    "english": "map"
+  },
+  {
+    "spanish": "Puerto Rico",
+    "english": "Puerto Rico"
+  },
+  {
+    "spanish": "Sudáfrica",
+    "english": "South Africa"
+  },
+  {
+    "spanish": "la Bermudas",
+    "english": "Bermuda"
+  },
+  {
+    "spanish": "la India",
+    "english": "India"
+  },
+  {
+    "spanish": "Estados Unidos",
+    "english": "United States"
+  },
+  {
+    "spanish": "el Reino Unido",
+    "english": "United Kingdom"
+  },
+  {
+    "spanish": "Trinidad y Tobago",
+    "english": "Trinidad and Tobago"
+  },
+  {
+    "spanish": "Nueva Zelanda",
+    "english": "New Zealand"
+  },
+  {
+    "spanish": "Jamaica",
+    "english": "Jamaica"
+  },
+  {
+    "spanish": "Irlanda",
+    "english": "Ireland"
+  },
+  {
+    "spanish": "Guyana",
+    "english": "Guyana"
+  },
+  {
+    "spanish": "Canadá",
+    "english": "Canada"
+  },
+  {
+    "spanish": "el Belice",
+    "english": "Belize"
+  },
+  {
+    "spanish": "Barbados",
+    "english": "Barbados"
+  },
+  {
+    "spanish": "la Bahamas",
+    "english": "Bahamas"
+  },
+  {
+    "spanish": "Antigua y Barbuda",
+    "english": "Antigua and Barbuda"
+  },
+  {
+    "spanish": "Australia",
+    "english": "Australia"
+  },
+  {
+    "spanish": "Panamá",
+    "english": "Panama"
+  },
+  {
+    "spanish": "Argentina",
+    "english": "Argentina"
+  },
+  {
+    "spanish": "Paraguay",
+    "english": "Paraguay"
+  },
+  {
+    "spanish": "el Uruguay",
+    "english": "Uruguay"
+  },
+  {
+    "spanish": "Bolivia",
+    "english": "Bolivia"
+  },
+  {
+    "spanish": "Chile",
+    "english": "Chile"
+  },
+  {
+    "spanish": "Colombia",
+    "english": "Colombia"
+  },
+  {
+    "spanish": "Costa Rica",
+    "english": "Costa Rica"
+  },
+  {
+    "spanish": "la República Dominicana",
+    "english": "Dominican Republic"
+  },
+  {
+    "spanish": "la Cuba",
+    "english": "Cuba"
+  },
+  {
+    "spanish": "Ecuador",
+    "english": "Ecuador"
+  },
+  {
+    "spanish": "El Salvador",
+    "english": "El Salvador"
+  },
+  {
+    "spanish": "Guinea Ecuatorial",
+    "english": "Equatorial Guinea"
+  },
+  {
+    "spanish": "Honduras",
+    "english": "Honduras"
+  },
+  {
+    "spanish": "Guatemala",
+    "english": "Guatemala"
+  },
+  {
+    "spanish": "México",
+    "english": "Mexico"
+  },
+  {
+    "spanish": "Nicaragua",
+    "english": "Nicaragua"
+  },
+  {
+    "spanish": "Perú",
+    "english": "Peru"
+  },
+  {
+    "spanish": "España",
+    "english": "Spain"
+  },
+  {
+    "spanish": "la Venezuela",
+    "english": "Venezuela"
+  },
+  {
+    "spanish": "el astillero",
+    "english": "shipyard"
+  },
+  {
+    "spanish": "la depresión",
+    "english": "hollow"
+  },
+  {
+    "spanish": "la prisión",
+    "english": "prison"
+  },
+  {
+    "spanish": "la cárcel",
+    "english": "jail"
+  },
+  {
+    "spanish": "el mirador",
+    "english": "viewpoint"
+  },
+  {
+    "spanish": "el aula",
+    "english": "classroom"
+  },
+  {
+    "spanish": "la esquina",
+    "english": "corner"
+  },
+  {
+    "spanish": "el almacén",
+    "english": "storehouse"
+  },
+  {
+    "spanish": "el solar",
+    "english": "lot"
+  },
+  {
+    "spanish": "el establo",
+    "english": "barn"
+  },
+  {
+    "spanish": "la sede",
+    "english": "seat"
+  },
+  {
+    "spanish": "la sede",
+    "english": "headquarters"
+  },
+  {
+    "spanish": "la fuente",
+    "english": "source"
+  },
+  {
+    "spanish": "la gasolinera",
+    "english": "gas station"
+  },
+  {
+    "spanish": "el club",
+    "english": "club"
+  },
+  {
+    "spanish": "el embalse",
+    "english": "reservoir"
+  },
+  {
+    "spanish": "el pantano",
+    "english": "swamp"
+  },
+  {
+    "spanish": "el cenagal",
+    "english": "bog"
+  },
+  {
+    "spanish": "el universo",
+    "english": "universe"
+  },
+  {
+    "spanish": "el monumento",
+    "english": "monument"
+  },
+  {
+    "spanish": "por todas partes",
+    "english": "everywhere"
+  },
+  {
+    "spanish": "el huerto",
+    "english": "orchard"
+  },
+  {
+    "spanish": "la frontera",
+    "english": "border"
+  },
+  {
+    "spanish": "la caseta",
+    "english": "shed"
+  },
+  {
+    "spanish": "el hábitat",
+    "english": "habitat"
+  },
+  {
+    "spanish": "el casco",
+    "english": "quarter"
+  },
+  {
+    "spanish": "casco antiguo",
+    "english": "old quarter"
+  },
+  {
+    "spanish": "el cajero automático",
+    "english": "ATM"
+  },
+  {
+    "spanish": "la residencia estudiantil",
+    "english": "dormitory"
+  },
+  {
+    "spanish": "hogar de ancianos",
+    "english": "nursing home"
+  },
+  {
+    "spanish": "la fonda",
+    "english": "boarding house"
+  },
+  {
+    "spanish": "aislado",
+    "english": "isolated"
+  },
+  {
+    "spanish": "el balcón",
+    "english": "balcony"
+  },
+  {
+    "spanish": "la estación de esquí",
+    "english": "ski resort"
+  },
+  {
+    "spanish": "el campo de golf",
+    "english": "golf course"
+  },
+  {
+    "spanish": "la bolera",
+    "english": "bowling alley"
+  },
+  {
+    "spanish": "la taquilla",
+    "english": "box office"
+  },
+  {
+    "spanish": "el palacio de justicia",
+    "english": "courthouse"
+  },
+  {
+    "spanish": "el cementerio",
+    "english": "graveyard"
+  },
+  {
+    "spanish": "la tumba",
+    "english": "tomb"
+  },
+  {
+    "spanish": "la tumba",
+    "english": "grave"
+  },
+  {
+    "spanish": "el desierto",
+    "english": "desert"
+  },
+  {
+    "spanish": "el sendero",
+    "english": "path"
+  },
+  {
+    "spanish": "el canal",
+    "english": "canal"
+  },
+  {
+    "spanish": "el campo",
+    "english": "field"
+  },
+  {
+    "spanish": "el taller",
+    "english": "repair shop"
+  },
+  {
+    "spanish": "el garaje",
+    "english": "garage"
+  },
+  {
+    "spanish": "el taller",
+    "english": "workshop"
+  },
+  {
+    "spanish": "la mina",
+    "english": "mine"
+  },
+  {
+    "spanish": "UA",
+    "english": "AU"
+  },
+  {
+    "spanish": "la agencia de viajes",
+    "english": "travel agency"
+  },
+  {
+    "spanish": "las afueras",
+    "english": "outskirts"
+  },
+  {
+    "spanish": "las cercanías",
+    "english": "suburbs"
+  },
+  {
+    "spanish": "el cierre",
+    "english": "closing"
+  },
+  {
+    "spanish": "la reapertura",
+    "english": "reopening"
+  },
+  {
+    "spanish": "gran apertura",
+    "english": "grand opening"
+  },
+  {
+    "spanish": "la tienda de campaña",
+    "english": "tent"
+  },
+  {
+    "spanish": "la selva tropical",
+    "english": "rainforest"
+  },
+  {
+    "spanish": "la jungla",
+    "english": "jungle"
+  },
+  {
+    "spanish": "el bosque",
+    "english": "woods"
+  },
+  {
+    "spanish": "la costa",
+    "english": "shore"
+  },
+  {
+    "spanish": "la orilla",
+    "english": "shore"
+  },
+  {
+    "spanish": "el planeta",
+    "english": "planet"
+  },
+  {
+    "spanish": "Latinoamérica",
+    "english": "Latin America"
+  },
+  {
+    "spanish": "el armario",
+    "english": "closet"
+  },
+  {
+    "spanish": "el estadio",
+    "english": "stadium"
+  },
+  {
+    "spanish": "el suelo",
+    "english": "floor"
+  },
+  {
+    "spanish": "el castillo",
+    "english": "castle"
+  },
+  {
+    "spanish": "el palacio",
+    "english": "palace"
+  },
+  {
+    "spanish": "el entorno",
+    "english": "surroundings"
+  },
+  {
+    "spanish": "la valla",
+    "english": "fence"
+  },
+  {
+    "spanish": "la puerta",
+    "english": "gate"
+  },
+  {
+    "spanish": "el puesto",
+    "english": "stand"
+  },
+  {
+    "spanish": "el vertedero",
+    "english": "dump"
+  },
+  {
+    "spanish": "el extremo",
+    "english": "tip"
+  },
+  {
+    "spanish": "la entrada",
+    "english": "entrance"
+  },
+  {
+    "spanish": "la salida",
+    "english": "exit"
+  },
+  {
+    "spanish": "la Antártida",
+    "english": "Antarctica"
+  },
+  {
+    "spanish": "Oceanía",
+    "english": "Oceania"
+  },
+  {
+    "spanish": "Asia",
+    "english": "Asia"
+  },
+  {
+    "spanish": "África",
+    "english": "Africa"
+  },
+  {
+    "spanish": "Norteamérica",
+    "english": "North America"
+  },
+  {
+    "spanish": "América Central",
+    "english": "Central America"
+  },
+  {
+    "spanish": "Sudamérica",
+    "english": "South America"
+  },
+  {
+    "spanish": "Europa",
+    "english": "Europe"
+  },
+  {
+    "spanish": "la llanura",
+    "english": "plain"
+  },
+  {
+    "spanish": "el solar",
+    "english": "plot"
+  },
+  {
+    "spanish": "los grandes almacenes",
+    "english": "department store"
+  },
+  {
+    "spanish": "el parque nacional",
+    "english": "national park"
+  },
+  {
+    "spanish": "la hacienda",
+    "english": "estate"
+  },
+  {
+    "spanish": "el coto",
+    "english": "reserve"
+  },
+  {
+    "spanish": "la plantación",
+    "english": "plantation"
+  },
+  {
+    "spanish": "la colina",
+    "english": "hill"
+  },
+  {
+    "spanish": "al extranjero",
+    "english": "abroad"
+  },
+  {
+    "spanish": "el albergue",
+    "english": "hostel"
+  },
+  {
+    "spanish": "el motel",
+    "english": "motel"
+  },
+  {
+    "spanish": "la posada",
+    "english": "inn"
+  },
+  {
+    "spanish": "la bodega",
+    "english": "wine cellar"
+  },
+  {
+    "spanish": "la bodega",
+    "english": "winery"
+  },
+  {
+    "spanish": "el sótano",
+    "english": "cellar"
+  },
+  {
+    "spanish": "el sótano",
+    "english": "basement"
+  },
+  {
+    "spanish": "el arrecife",
+    "english": "reef"
+  },
+  {
+    "spanish": "el bosque",
+    "english": "forest"
+  },
+  {
+    "spanish": "la parada de autobús",
+    "english": "bus stop"
+  },
+  {
+    "spanish": "la estación de autobuses",
+    "english": "bus station"
+  },
+  {
+    "spanish": "estación de ferrocarril",
+    "english": "train station"
+  },
+  {
+    "spanish": "la estación",
+    "english": "station"
+  },
+  {
+    "spanish": "la zona",
+    "english": "area"
+  },
+  {
+    "spanish": "el espacio",
+    "english": "space"
+  },
+  {
+    "spanish": "la región",
+    "english": "region"
+  },
+  {
+    "spanish": "la escena",
+    "english": "scene"
+  },
+  {
+    "spanish": "el escenario",
+    "english": "scene"
+  },
+  {
+    "spanish": "rural",
+    "english": "rural"
+  },
+  {
+    "spanish": "urbano",
+    "english": "urban"
+  },
+  {
+    "spanish": "el fondo",
+    "english": "bottom"
+  },
+  {
+    "spanish": "la parte superior",
+    "english": "top"
+  },
+  {
+    "spanish": "el medio",
+    "english": "middle"
+  },
+  {
+    "spanish": "el estanque",
+    "english": "pond"
+  },
+  {
+    "spanish": "el lago",
+    "english": "lake"
+  },
+  {
+    "spanish": "la autovía",
+    "english": "highway"
+  },
+  {
+    "spanish": "el polideportivo",
+    "english": "sports center"
+  },
+  {
+    "spanish": "el centro",
+    "english": "center"
+  },
+  {
+    "spanish": "la plaza mayor",
+    "english": "main square"
+  },
+  {
+    "spanish": "el destino",
+    "english": "destination"
+  },
+  {
+    "spanish": "la isla",
+    "english": "island"
+  },
+  {
+    "spanish": "el comedor",
+    "english": "dining hall"
+  },
+  {
+    "spanish": "la piscina",
+    "english": "pool"
+  },
+  {
+    "spanish": "la vivienda",
+    "english": "housing"
+  },
+  {
+    "spanish": "el lugar",
+    "english": "spot"
+  },
+  {
+    "spanish": "el juzgado",
+    "english": "court"
+  },
+  {
+    "spanish": "la montaña",
+    "english": "mountain"
+  },
+  {
+    "spanish": "la isleta",
+    "english": "traffic island"
+  },
+  {
+    "spanish": "la glorieta",
+    "english": "roundabout"
+  },
+  {
+    "spanish": "el refugio",
+    "english": "refuge"
+  },
+  {
+    "spanish": "el albergue",
+    "english": "shelter"
+  },
+  {
+    "spanish": "el refugio",
+    "english": "shelter"
+  },
+  {
+    "spanish": "la tierra",
+    "english": "land"
+  },
+  {
+    "spanish": "el despacho",
+    "english": "office"
+  },
+  {
+    "spanish": "el despacho",
+    "english": "study"
+  },
+  {
+    "spanish": "el lugar de nacimiento",
+    "english": "place of birth"
+  },
+  {
+    "spanish": "el almacén",
+    "english": "warehouse"
+  },
+  {
+    "spanish": "la oficina de correos",
+    "english": "post office"
+  },
+  {
+    "spanish": "la escalera",
+    "english": "staircase"
+  },
+  {
+    "spanish": "cerca",
+    "english": "near"
+  },
+  {
+    "spanish": "lejos",
+    "english": "far"
+  },
+  {
+    "spanish": "la barbería",
+    "english": "barber shop"
+  },
+  {
+    "spanish": "la peluquería",
+    "english": "hair salon"
+  },
+  {
+    "spanish": "el país en desarrollo",
+    "english": "developing country"
+  },
+  {
+    "spanish": "la nación",
+    "english": "nation"
+  },
+  {
+    "spanish": "la fuente",
+    "english": "fountain"
+  },
+  {
+    "spanish": "el condado",
+    "english": "county"
+  },
+  {
+    "spanish": "la manzana",
+    "english": "block"
+  },
+  {
+    "spanish": "la atmósfera",
+    "english": "atmosphere"
+  },
+  {
+    "spanish": "el ambiente",
+    "english": "environment"
+  },
+  {
+    "spanish": "el centro comercial",
+    "english": "shopping center"
+  },
+  {
+    "spanish": "el centro comercial",
+    "english": "mall"
+  },
+  {
+    "spanish": "la farmacia",
+    "english": "pharmacy"
+  },
+  {
+    "spanish": "la muralla",
+    "english": "wall"
+  },
+  {
+    "spanish": "la capital",
+    "english": "capital"
+  },
+  {
+    "spanish": "el mercadillo",
+    "english": "flea market"
+  },
+  {
+    "spanish": "el mercado",
+    "english": "market"
+  },
+  {
+    "spanish": "el teatro",
+    "english": "theater"
+  },
+  {
+    "spanish": "el cinema",
+    "english": "movie theater"
+  },
+  {
+    "spanish": "la casa",
+    "english": "house"
+  },
+  {
+    "spanish": "el edificio de apartamentos",
+    "english": "apartment building"
+  },
+  {
+    "spanish": "la casucha",
+    "english": "hovel"
+  },
+  {
+    "spanish": "la choza",
+    "english": "hut"
+  },
+  {
+    "spanish": "la chabola",
+    "english": "shack"
+  },
+  {
+    "spanish": "el edificio",
+    "english": "building"
+  },
+  {
+    "spanish": "el/la mar",
+    "english": "sea"
+  },
+  {
+    "spanish": "la bahía",
+    "english": "bay"
+  },
+  {
+    "spanish": "el océano",
+    "english": "ocean"
+  },
+  {
+    "spanish": "la ubicación",
+    "english": "position"
+  },
+  {
+    "spanish": "el muelle",
+    "english": "pier"
+  },
+  {
+    "spanish": "el parque de atracciones",
+    "english": "amusement park"
+  },
+  {
+    "spanish": "el puerto deportivo",
+    "english": "marina"
+  },
+  {
+    "spanish": "el puerto",
+    "english": "port"
+  },
+  {
+    "spanish": "el gimnasio",
+    "english": "gym"
+  },
+  {
+    "spanish": "el fuerte",
+    "english": "fort"
+  },
+  {
+    "spanish": "la comunidad",
+    "english": "community"
+  },
+  {
+    "spanish": "el museo de la ciencia",
+    "english": "science museum"
+  },
+  {
+    "spanish": "el museo de arte",
+    "english": "art museum"
+  },
+  {
+    "spanish": "el museo",
+    "english": "museum"
+  },
+  {
+    "spanish": "el zoo",
+    "english": "zoo"
+  },
+  {
+    "spanish": "en ninguna parte",
+    "english": "nowhere"
+  },
+  {
+    "spanish": "cualquier lugar",
+    "english": "anywhere"
+  },
+  {
+    "spanish": "ahí",
+    "english": "there"
+  },
+  {
+    "spanish": "aquí",
+    "english": "here"
+  },
+  {
+    "spanish": "el puente",
+    "english": "bridge"
+  },
+  {
+    "spanish": "el concejo",
+    "english": "town hall"
+  },
+  {
+    "spanish": "el ayuntamiento",
+    "english": "city hall"
+  },
+  {
+    "spanish": "la plaza",
+    "english": "square"
+  },
+  {
+    "spanish": "el acampo",
+    "english": "pasture"
+  },
+  {
+    "spanish": "el establo",
+    "english": "stable"
+  },
+  {
+    "spanish": "el rancho",
+    "english": "ranch"
+  },
+  {
+    "spanish": "la granja",
+    "english": "farm"
+  },
+  {
+    "spanish": "el tabernáculo",
+    "english": "tabernacle"
+  },
+  {
+    "spanish": "la mezquita",
+    "english": "mosque"
+  },
+  {
+    "spanish": "el templo",
+    "english": "temple"
+  },
+  {
+    "spanish": "la sinagoga",
+    "english": "synagogue"
+  },
+  {
+    "spanish": "la iglesia",
+    "english": "church"
+  },
+  {
+    "spanish": "el río",
+    "english": "river"
+  },
+  {
+    "spanish": "la ventana",
+    "english": "window"
+  },
+  {
+    "spanish": "la puerta",
+    "english": "door"
+  },
+  {
+    "spanish": "la ubicación",
+    "english": "location"
+  },
+  {
+    "spanish": "la pradera",
+    "english": "meadow"
+  },
+  {
+    "spanish": "el barrio",
+    "english": "neighborhood"
+  },
+  {
+    "spanish": "la calle",
+    "english": "street"
+  },
+  {
+    "spanish": "el parque",
+    "english": "park"
+  },
+  {
+    "spanish": "jardín trasero",
+    "english": "backyard"
+  },
+  {
+    "spanish": "el jardín delantero",
+    "english": "front yard"
+  },
+  {
+    "spanish": "el huerto",
+    "english": "vegetable garden"
+  },
+  {
+    "spanish": "el jardín",
+    "english": "yard"
+  },
+  {
+    "spanish": "el jardín",
+    "english": "garden"
+  },
+  {
+    "spanish": "el banco",
+    "english": "bank"
+  },
+  {
+    "spanish": "el patio",
+    "english": "patio"
+  },
+  {
+    "spanish": "la cantina",
+    "english": "cafeteria"
+  },
+  {
+    "spanish": "el pub",
+    "english": "pub"
+  },
+  {
+    "spanish": "el bar",
+    "english": "bar"
+  },
+  {
+    "spanish": "el café",
+    "english": "café"
+  },
+  {
+    "spanish": "la biblioteca",
+    "english": "library"
+  },
+  {
+    "spanish": "la residencia de ancianos",
+    "english": "retirement home"
+  },
+  {
+    "spanish": "la guardería",
+    "english": "daycare center"
+  },
+  {
+    "spanish": "la escuela pública",
+    "english": "public school"
+  },
+  {
+    "spanish": "la escuela privada",
+    "english": "private school"
+  },
+  {
+    "spanish": "el internado",
+    "english": "boarding school"
+  },
+  {
+    "spanish": "la universidad",
+    "english": "university"
+  },
+  {
+    "spanish": "dentro",
+    "english": "inside"
+  },
+  {
+    "spanish": "fuera",
+    "english": "outside"
+  },
+  {
+    "spanish": "la papelería",
+    "english": "stationery store"
+  },
+  {
+    "spanish": "la librería",
+    "english": "bookshop"
+  },
+  {
+    "spanish": "la librería",
+    "english": "bookstore"
+  },
+  {
+    "spanish": "la juguetería",
+    "english": "toy store"
+  },
+  {
+    "spanish": "la ferretería",
+    "english": "hardware store"
+  },
+  {
+    "spanish": "la panadería",
+    "english": "bakery"
+  },
+  {
+    "spanish": "la frutería",
+    "english": "greengrocer's"
+  },
+  {
+    "spanish": "la tienda de comestibles",
+    "english": "grocery store"
+  },
+  {
+    "spanish": "el supermercado",
+    "english": "supermarket"
+  },
+  {
+    "spanish": "la carnicería",
+    "english": "butcher's"
+  },
+  {
+    "spanish": "el/la dentista",
+    "english": "dentist"
+  },
+  {
+    "spanish": "el consultorio médico",
+    "english": "doctor's office"
+  },
+  {
+    "spanish": "el hospital",
+    "english": "hospital"
+  },
+  {
+    "spanish": "el campo",
+    "english": "countryside"
+  },
+  {
+    "spanish": "el hotel",
+    "english": "hotel"
+  },
+  {
+    "spanish": "la playa",
+    "english": "beach"
+  },
+  {
+    "spanish": "el rascacielos",
+    "english": "skyscraper"
+  },
+  {
+    "spanish": "la oficina",
+    "english": "office"
+  },
+  {
+    "spanish": "el puesto",
+    "english": "stall"
+  },
+  {
+    "spanish": "el quiosco",
+    "english": "kiosk"
+  },
+  {
+    "spanish": "la tienda",
+    "english": "shop"
+  },
+  {
+    "spanish": "el negocio",
+    "english": "business"
+  },
+  {
+    "spanish": "la aldea",
+    "english": "hamlet"
+  },
+  {
+    "spanish": "el pueblo",
+    "english": "village"
+  },
+  {
+    "spanish": "el pueblo",
+    "english": "town"
+  },
+  {
+    "spanish": "la ciudad",
+    "english": "city"
+  },
+  {
+    "spanish": "el aeropuerto",
+    "english": "airport"
+  },
+  {
+    "spanish": "el lugar",
+    "english": "place"
+  },
+  {
+    "spanish": "el país",
+    "english": "country"
+  },
+  {
+    "spanish": "el restaurante",
+    "english": "restaurant"
+  },
+  {
+    "spanish": "el instituto",
+    "english": "high school"
+  },
+  {
+    "spanish": "el colegio",
+    "english": "school"
+  },
+  {
+    "spanish": "la escuela",
+    "english": "school"
+  },
+  {
+    "spanish": "elástico",
+    "english": "stretchy"
+  },
+  {
+    "spanish": "moderno",
+    "english": "trendy"
+  },
+  {
+    "spanish": "forrado",
+    "english": "lined"
+  },
+  {
+    "spanish": "plisado",
+    "english": "pleated"
+  },
+  {
+    "spanish": "in",
+    "english": "in"
+  },
+  {
+    "spanish": "provocador",
+    "english": "provocative"
+  },
+  {
+    "spanish": "la marca",
+    "english": "brand"
+  },
+  {
+    "spanish": "tejer",
+    "english": "to knit"
+  },
+  {
+    "spanish": "sofisticado",
+    "english": "sophisticated"
+  },
+  {
+    "spanish": "chic",
+    "english": "chic"
+  },
+  {
+    "spanish": "largo",
+    "english": "long"
+  },
+  {
+    "spanish": "el short",
+    "english": "shorts"
+  },
+  {
+    "spanish": "acampanado",
+    "english": "flared"
+  },
+  {
+    "spanish": "la tela escocesa",
+    "english": "plaid"
+  },
+  {
+    "spanish": "estampado",
+    "english": "printed"
+  },
+  {
+    "spanish": "el forro polar",
+    "english": "fleece"
+  },
+  {
+    "spanish": "limpiar",
+    "english": "to clean"
+  },
+  {
+    "spanish": "planchar",
+    "english": "to iron"
+  },
+  {
+    "spanish": "puesto",
+    "english": "well-dressed"
+  },
+  {
+    "spanish": "el mocasín",
+    "english": "loafer"
+  },
+  {
+    "spanish": "el chanclo",
+    "english": "galosh"
+  },
+  {
+    "spanish": "la alpargata",
+    "english": "espadrille"
+  },
+  {
+    "spanish": "el zueco",
+    "english": "clog"
+  },
+  {
+    "spanish": "la baleta",
+    "english": "ballet flat"
+  },
+  {
+    "spanish": "el botín",
+    "english": "ankle boot"
+  },
+  {
+    "spanish": "la campera",
+    "english": "cowboy boot"
+  },
+  {
+    "spanish": "la blusa",
+    "english": "blouse"
+  },
+  {
+    "spanish": "el albornoz",
+    "english": "bathrobe"
+  },
+  {
+    "spanish": "la mochila",
+    "english": "backpack"
+  },
+  {
+    "spanish": "el prendedor",
+    "english": "brooch"
+  },
+  {
+    "spanish": "el tejano",
+    "english": "cowboy hat"
+  },
+  {
+    "spanish": "la sarita",
+    "english": "straw hat"
+  },
+  {
+    "spanish": "la boina",
+    "english": "beret"
+  },
+  {
+    "spanish": "el reloj de bolsillo",
+    "english": "pocket watch"
+  },
+  {
+    "spanish": "la capa",
+    "english": "cape"
+  },
+  {
+    "spanish": "la calzoneta",
+    "english": "swimming trunks"
+  },
+  {
+    "spanish": "la camisa",
+    "english": "button-down shirt"
+  },
+  {
+    "spanish": "las gafas de sol",
+    "english": "sunglasses"
+  },
+  {
+    "spanish": "la diadema",
+    "english": "headband"
+  },
+  {
+    "spanish": "el niki",
+    "english": "polo shirt"
+  },
+  {
+    "spanish": "las mallas",
+    "english": "leggings"
+  },
+  {
+    "spanish": "la zapatilla",
+    "english": "slipper"
+  },
+  {
+    "spanish": "la bata",
+    "english": "robe"
+  },
+  {
+    "spanish": "el camisón",
+    "english": "nightgown"
+  },
+  {
+    "spanish": "el bañador",
+    "english": "swimsuit"
+  },
+  {
+    "spanish": "la camiseta",
+    "english": "undershirt"
+  },
+  {
+    "spanish": "la camiseta de tirantes",
+    "english": "tank top"
+  },
+  {
+    "spanish": "el hoodie",
+    "english": "hoodie"
+  },
+  {
+    "spanish": "la seda",
+    "english": "silk"
+  },
+  {
+    "spanish": "el nylon",
+    "english": "nylon"
+  },
+  {
+    "spanish": "el/la pijama",
+    "english": "pajamas"
+  },
+  {
+    "spanish": "casual",
+    "english": "casual"
+  },
+  {
+    "spanish": "en boga",
+    "english": "fashionable"
+  },
+  {
+    "spanish": "estiloso",
+    "english": "stylish"
+  },
+  {
+    "spanish": "desordenado",
+    "english": "untidy"
+  },
+  {
+    "spanish": "arrugado",
+    "english": "wrinkled"
+  },
+  {
+    "spanish": "a la medida",
+    "english": "tailored"
+  },
+  {
+    "spanish": "rayado",
+    "english": "striped"
+  },
+  {
+    "spanish": "de cuadros",
+    "english": "checked"
+  },
+  {
+    "spanish": "floral",
+    "english": "floral"
+  },
+  {
+    "spanish": "de lunares",
+    "english": "polka-dot"
+  },
+  {
+    "spanish": "entallado",
+    "english": "fitted"
+  },
+  {
+    "spanish": "dejado",
+    "english": "slovenly"
+  },
+  {
+    "spanish": "en onda",
+    "english": "hip"
+  },
+  {
+    "spanish": "combinar",
+    "english": "to go with"
+  },
+  {
+    "spanish": "casar",
+    "english": "to go together"
+  },
+  {
+    "spanish": "chillar",
+    "english": "to clash"
+  },
+  {
+    "spanish": "arrugarse",
+    "english": "to get wrinkled"
+  },
+  {
+    "spanish": "probarse",
+    "english": "to try on"
+  },
+  {
+    "spanish": "el plegado",
+    "english": "fold"
+  },
+  {
+    "spanish": "la caída",
+    "english": "hang"
+  },
+  {
+    "spanish": "la culera",
+    "english": "seat"
+  },
+  {
+    "spanish": "la cola",
+    "english": "train"
+  },
+  {
+    "spanish": "la raja",
+    "english": "tear"
+  },
+  {
+    "spanish": "informal",
+    "english": "casual"
+  },
+  {
+    "spanish": "elegante",
+    "english": "elegant"
+  },
+  {
+    "spanish": "la tintorería",
+    "english": "cleaners"
+  },
+  {
+    "spanish": "la medida",
+    "english": "measurement"
+  },
+  {
+    "spanish": "sin mangas",
+    "english": "sleeveless"
+  },
+  {
+    "spanish": "la manga",
+    "english": "sleeve"
+  },
+  {
+    "spanish": "secar",
+    "english": "to dry"
+  },
+  {
+    "spanish": "lavar",
+    "english": "to wash"
+  },
+  {
+    "spanish": "el huipil",
+    "english": "huipil"
+  },
+  {
+    "spanish": "usar",
+    "english": "to wear"
+  },
+  {
+    "spanish": "la playera",
+    "english": "canvas shoe"
+  },
+  {
+    "spanish": "la puntilla",
+    "english": "lace edging"
+  },
+  {
+    "spanish": "la línea",
+    "english": "style"
+  },
+  {
+    "spanish": "la cenefa",
+    "english": "edging"
+  },
+  {
+    "spanish": "el paliacate",
+    "english": "kerchief"
+  },
+  {
+    "spanish": "la chancla",
+    "english": "flip-flop"
+  },
+  {
+    "spanish": "la sandalia",
+    "english": "sandal"
+  },
+  {
+    "spanish": "la costura",
+    "english": "sewing"
+  },
+  {
+    "spanish": "el lazo",
+    "english": "bow"
+  },
+  {
+    "spanish": "transparente",
+    "english": "sheer"
+  },
+  {
+    "spanish": "la lencería",
+    "english": "lingerie"
+  },
+  {
+    "spanish": "el sujetador",
+    "english": "bra"
+  },
+  {
+    "spanish": "la ropa interior",
+    "english": "underwear"
+  },
+  {
+    "spanish": "el/la tanga",
+    "english": "thong"
+  },
+  {
+    "spanish": "los bóxers",
+    "english": "boxers"
+  },
+  {
+    "spanish": "colorido",
+    "english": "colorful"
+  },
+  {
+    "spanish": "el patrón",
+    "english": "pattern"
+  },
+  {
+    "spanish": "el lunar",
+    "english": "polka dot"
+  },
+  {
+    "spanish": "el rayado",
+    "english": "stripes"
+  },
+  {
+    "spanish": "el textil",
+    "english": "textile"
+  },
+  {
+    "spanish": "el delantal",
+    "english": "apron"
+  },
+  {
+    "spanish": "el mandilón",
+    "english": "smock"
+  },
+  {
+    "spanish": "el babi",
+    "english": "smock"
+  },
+  {
+    "spanish": "el pichi",
+    "english": "pinafore"
+  },
+  {
+    "spanish": "encogerse",
+    "english": "to shrink"
+  },
+  {
+    "spanish": "el bolsillo",
+    "english": "pocket"
+  },
+  {
+    "spanish": "el modelo",
+    "english": "design"
+  },
+  {
+    "spanish": "incómodo",
+    "english": "uncomfortable"
+  },
+  {
+    "spanish": "el zapato de salón",
+    "english": "pump"
+  },
+  {
+    "spanish": "el pijama mono",
+    "english": "onesie"
+  },
+  {
+    "spanish": "la capota",
+    "english": "bonnet"
+  },
+  {
+    "spanish": "la chistera",
+    "english": "top hat"
+  },
+  {
+    "spanish": "el casco",
+    "english": "helmet"
+  },
+  {
+    "spanish": "la parka",
+    "english": "parka"
+  },
+  {
+    "spanish": "el poncho",
+    "english": "poncho"
+  },
+  {
+    "spanish": "el chal",
+    "english": "wrap"
+  },
+  {
+    "spanish": "ojalar",
+    "english": "to make buttonholes on"
+  },
+  {
+    "spanish": "la mancha",
+    "english": "stain"
+  },
+  {
+    "spanish": "el disfraz",
+    "english": "disguise"
+  },
+  {
+    "spanish": "la alta costura",
+    "english": "haute couture"
+  },
+  {
+    "spanish": "arreglarse",
+    "english": "to get ready"
+  },
+  {
+    "spanish": "los tirantes",
+    "english": "suspenders"
+  },
+  {
+    "spanish": "el cinturón",
+    "english": "belt"
+  },
+  {
+    "spanish": "la polaina",
+    "english": "gaiter"
+  },
+  {
+    "spanish": "la bufanda",
+    "english": "scarf"
+  },
+  {
+    "spanish": "la gorrita",
+    "english": "beanie"
+  },
+  {
+    "spanish": "demasiado pequeño",
+    "english": "too small"
+  },
+  {
+    "spanish": "demasiado grande",
+    "english": "too big"
+  },
+  {
+    "spanish": "caber",
+    "english": "to fit"
+  },
+  {
+    "spanish": "la manopla",
+    "english": "mitten"
+  },
+  {
+    "spanish": "el guante",
+    "english": "glove"
+  },
+  {
+    "spanish": "la tela vaquera",
+    "english": "denim"
+  },
+  {
+    "spanish": "ponerse",
+    "english": "to put on"
+  },
+  {
+    "spanish": "la zapatilla",
+    "english": "sneaker"
+  },
+  {
+    "spanish": "el zapato de tenis",
+    "english": "tennis shoe"
+  },
+  {
+    "spanish": "la pantalla",
+    "english": "earring"
+  },
+  {
+    "spanish": "el sombrero de béisbol",
+    "english": "baseball cap"
+  },
+  {
+    "spanish": "el tocado",
+    "english": "fascinator"
+  },
+  {
+    "spanish": "la toca",
+    "english": "headdress"
+  },
+  {
+    "spanish": "la braga",
+    "english": "panties"
+  },
+  {
+    "spanish": "el uniforme",
+    "english": "uniform"
+  },
+  {
+    "spanish": "grande",
+    "english": "large"
+  },
+  {
+    "spanish": "mediano",
+    "english": "medium"
+  },
+  {
+    "spanish": "el diamante",
+    "english": "diamond"
+  },
+  {
+    "spanish": "la piel",
+    "english": "fur"
+  },
+  {
+    "spanish": "camisa de mangas cortas",
+    "english": "short-sleeved shirt"
+  },
+  {
+    "spanish": "la camisa de manga larga",
+    "english": "long-sleeved shirt"
+  },
+  {
+    "spanish": "los complementos",
+    "english": "accessories"
+  },
+  {
+    "spanish": "la plata",
+    "english": "silver"
+  },
+  {
+    "spanish": "el oro",
+    "english": "gold"
+  },
+  {
+    "spanish": "confortable",
+    "english": "comfortable"
+  },
+  {
+    "spanish": "el top",
+    "english": "top"
+  },
+  {
+    "spanish": "el sobretodo",
+    "english": "overcoat"
+  },
+  {
+    "spanish": "la bota",
+    "english": "boot"
+  },
+  {
+    "spanish": "el impermeable",
+    "english": "raincoat"
+  },
+  {
+    "spanish": "la chaqueta",
+    "english": "jacket"
+  },
+  {
+    "spanish": "el bolso",
+    "english": "bag"
+  },
+  {
+    "spanish": "el terciopelo",
+    "english": "velvet"
+  },
+  {
+    "spanish": "el velcro",
+    "english": "Velcro"
+  },
+  {
+    "spanish": "el ante",
+    "english": "suede"
+  },
+  {
+    "spanish": "el cuero",
+    "english": "leather"
+  },
+  {
+    "spanish": "la talla",
+    "english": "size"
+  },
+  {
+    "spanish": "la moda",
+    "english": "fashion"
+  },
+  {
+    "spanish": "la carrera",
+    "english": "run"
+  },
+  {
+    "spanish": "el mono",
+    "english": "jumpsuit"
+  },
+  {
+    "spanish": "el mameluco",
+    "english": "overalls"
+  },
+  {
+    "spanish": "el ropero",
+    "english": "wardrobe"
+  },
+  {
+    "spanish": "el disfraz",
+    "english": "costume"
+  },
+  {
+    "spanish": "acrílico",
+    "english": "acrylic"
+  },
+  {
+    "spanish": "la angora",
+    "english": "angora"
+  },
+  {
+    "spanish": "el poliéster",
+    "english": "polyester"
+  },
+  {
+    "spanish": "el lino",
+    "english": "linen"
+  },
+  {
+    "spanish": "el algodón",
+    "english": "cotton"
+  },
+  {
+    "spanish": "la lana",
+    "english": "wool"
+  },
+  {
+    "spanish": "la textura",
+    "english": "texture"
+  },
+  {
+    "spanish": "el anillo",
+    "english": "ring"
+  },
+  {
+    "spanish": "la pulsera",
+    "english": "bracelet"
+  },
+  {
+    "spanish": "el pendiente",
+    "english": "earring"
+  },
+  {
+    "spanish": "ancho",
+    "english": "loose"
+  },
+  {
+    "spanish": "la tela",
+    "english": "fabric"
+  },
+  {
+    "spanish": "la botonadura",
+    "english": "buttons"
+  },
+  {
+    "spanish": "la cremallera",
+    "english": "zipper"
+  },
+  {
+    "spanish": "la bragueta",
+    "english": "zipper"
+  },
+  {
+    "spanish": "romper",
+    "english": "to break"
+  },
+  {
+    "spanish": "rajar",
+    "english": "to rip"
+  },
+  {
+    "spanish": "el desgarrón",
+    "english": "rip"
+  },
+  {
+    "spanish": "las gafas",
+    "english": "glasses"
+  },
+  {
+    "spanish": "quitarse",
+    "english": "to take off"
+  },
+  {
+    "spanish": "hacer el dobladillo",
+    "english": "to hem"
+  },
+  {
+    "spanish": "llevar",
+    "english": "to wear"
+  },
+  {
+    "spanish": "ajustado",
+    "english": "tight"
+  },
+  {
+    "spanish": "holgado",
+    "english": "baggy"
+  },
+  {
+    "spanish": "chico",
+    "english": "small"
+  },
+  {
+    "spanish": "grande",
+    "english": "big"
+  },
+  {
+    "spanish": "la cuña",
+    "english": "wedge"
+  },
+  {
+    "spanish": "los tacones",
+    "english": "high heels"
+  },
+  {
+    "spanish": "el gorro",
+    "english": "hat"
+  },
+  {
+    "spanish": "el sombrero",
+    "english": "hat"
+  },
+  {
+    "spanish": "los leotardos",
+    "english": "tights"
+  },
+  {
+    "spanish": "el calcetín",
+    "english": "sock"
+  },
+  {
+    "spanish": "el conjunto",
+    "english": "outfit"
+  },
+  {
+    "spanish": "el abrigo",
+    "english": "coat"
+  },
+  {
+    "spanish": "la falda",
+    "english": "skirt"
+  },
+  {
+    "spanish": "el vestido",
+    "english": "dress"
+  },
+  {
+    "spanish": "el vestido largo",
+    "english": "gown"
+  },
+  {
+    "spanish": "vestirse",
+    "english": "to get dressed"
+  },
+  {
+    "spanish": "la bolsa",
+    "english": "purse"
+  },
+  {
+    "spanish": "la cartera",
+    "english": "wallet"
+  },
+  {
+    "spanish": "la gema",
+    "english": "gem"
+  },
+  {
+    "spanish": "el bikini",
+    "english": "bikini"
+  },
+  {
+    "spanish": "el traje de baño",
+    "english": "bathing suit"
+  },
+  {
+    "spanish": "el chándal",
+    "english": "tracksuit"
+  },
+  {
+    "spanish": "el pantalón de chándal",
+    "english": "sweatpants"
+  },
+  {
+    "spanish": "la camisa",
+    "english": "shirt"
+  },
+  {
+    "spanish": "la corbata",
+    "english": "necktie"
+  },
+  {
+    "spanish": "la pajarita",
+    "english": "bow tie"
+  },
+  {
+    "spanish": "la corbata",
+    "english": "tie"
+  },
+  {
+    "spanish": "la faja",
+    "english": "cummerbund"
+  },
+  {
+    "spanish": "el chaleco",
+    "english": "waistcoat"
+  },
+  {
+    "spanish": "el chaleco",
+    "english": "vest"
+  },
+  {
+    "spanish": "el smoking",
+    "english": "tuxedo"
+  },
+  {
+    "spanish": "el traje",
+    "english": "suit"
+  },
+  {
+    "spanish": "la camisa de vestir",
+    "english": "dress shirt"
+  },
+  {
+    "spanish": "la camiseta",
+    "english": "T-shirt"
+  },
+  {
+    "spanish": "la sudadera",
+    "english": "sweatshirt"
+  },
+  {
+    "spanish": "los pantalones cortos",
+    "english": "shorts"
+  },
+  {
+    "spanish": "los vaqueros",
+    "english": "jeans"
+  },
+  {
+    "spanish": "el pantalón",
+    "english": "pants"
+  },
+  {
+    "spanish": "el collar",
+    "english": "necklace"
+  },
+  {
+    "spanish": "las medias",
+    "english": "pantyhose"
+  },
+  {
+    "spanish": "el jersey",
+    "english": "sweater"
+  },
+  {
+    "spanish": "el zapato",
+    "english": "shoe"
+  },
+  {
+    "spanish": "la piedra semipreciosa",
+    "english": "gemstone"
+  },
+  {
+    "spanish": "las alhajas",
+    "english": "jewelry"
+  },
+  {
+    "spanish": "la tela",
+    "english": "cloth"
+  },
+  {
+    "spanish": "la vestimenta",
+    "english": "clothes"
+  },
+  {
+    "spanish": "la ropa",
+    "english": "clothing"
+  },
+  {
+    "spanish": "la sala de juegos",
+    "english": "game room"
+  },
+  {
+    "spanish": "la perrera",
+    "english": "kennel"
+  },
+  {
+    "spanish": "la terraza",
+    "english": "terrace"
+  },
+  {
+    "spanish": "jardín trasero",
+    "english": "backyard"
+  },
+  {
+    "spanish": "la habitación",
+    "english": "bedroom"
+  },
+  {
+    "spanish": "el dormitorio",
+    "english": "bedroom"
+  },
+  {
+    "spanish": "la chimenea",
+    "english": "chimney"
+  },
+  {
+    "spanish": "la mesilla",
+    "english": "side table"
+  },
+  {
+    "spanish": "el reposapiés",
+    "english": "footrest"
+  },
+  {
+    "spanish": "la mesita de noche",
+    "english": "bedside table"
+  },
+  {
+    "spanish": "el patio",
+    "english": "patio"
+  },
+  {
+    "spanish": "la mesa auxiliar",
+    "english": "end table"
+  },
+  {
+    "spanish": "en el piso de abajo",
+    "english": "downstairs"
+  },
+  {
+    "spanish": "arriba",
+    "english": "upstairs"
+  },
+  {
+    "spanish": "limpiar",
+    "english": "to clean"
+  },
+  {
+    "spanish": "sacar la basura",
+    "english": "to take out the trash"
+  },
+  {
+    "spanish": "quitar el polvo",
+    "english": "to dust"
+  },
+  {
+    "spanish": "el cuarto de lavar",
+    "english": "laundry room"
+  },
+  {
+    "spanish": "el patio delantero",
+    "english": "front yard"
+  },
+  {
+    "spanish": "la cama marinera",
+    "english": "bunk bed"
+  },
+  {
+    "spanish": "casita del árbol",
+    "english": "tree house"
+  },
+  {
+    "spanish": "lavar los platos",
+    "english": "to wash the dishes"
+  },
+  {
+    "spanish": "dar de comer al perro",
+    "english": "to feed the dog"
+  },
+  {
+    "spanish": "dar de comer al gato",
+    "english": "to feed the cat"
+  },
+  {
+    "spanish": "lavar la ropa",
+    "english": "to do the laundry"
+  },
+  {
+    "spanish": "cocinar",
+    "english": "to cook"
+  },
+  {
+    "spanish": "ir de compras",
+    "english": "to go shopping"
+  },
+  {
+    "spanish": "trapear el piso",
+    "english": "to mop the floor"
+  },
+  {
+    "spanish": "cortar el césped",
+    "english": "to mow the lawn"
+  },
+  {
+    "spanish": "pasear al perro",
+    "english": "to walk the dog"
+  },
+  {
+    "spanish": "limpiar la mesa",
+    "english": "to clear the table"
+  },
+  {
+    "spanish": "poner la mesa",
+    "english": "to set the table"
+  },
+  {
+    "spanish": "desyerbar",
+    "english": "to weed"
+  },
+  {
+    "spanish": "regar las plantas",
+    "english": "to water the plants"
+  },
+  {
+    "spanish": "fregar",
+    "english": "to mop"
+  },
+  {
+    "spanish": "limpiar el piso",
+    "english": "clean the floor"
+  },
+  {
+    "spanish": "limpiar el baño",
+    "english": "to clean the bathroom"
+  },
+  {
+    "spanish": "limpiar la cocina",
+    "english": "to clean the kitchen"
+  },
+  {
+    "spanish": "el jarrón",
+    "english": "vase"
+  },
+  {
+    "spanish": "la mecedora",
+    "english": "rocking chair"
+  },
+  {
+    "spanish": "el cartel",
+    "english": "poster"
+  },
+  {
+    "spanish": "el cuadro",
+    "english": "picture"
+  },
+  {
+    "spanish": "el cuadro",
+    "english": "painting"
+  },
+  {
+    "spanish": "la pantalla",
+    "english": "lampshade"
+  },
+  {
+    "spanish": "el despertador",
+    "english": "alarm clock"
+  },
+  {
+    "spanish": "la cabecera",
+    "english": "headboard"
+  },
+  {
+    "spanish": "la colcha",
+    "english": "bedspread"
+  },
+  {
+    "spanish": "el edredón",
+    "english": "duvet"
+  },
+  {
+    "spanish": "el paño",
+    "english": "tea towel"
+  },
+  {
+    "spanish": "el frutero",
+    "english": "fruit bowl"
+  },
+  {
+    "spanish": "el mantel",
+    "english": "tablecloth"
+  },
+  {
+    "spanish": "el abridor",
+    "english": "bottle opener"
+  },
+  {
+    "spanish": "la botella",
+    "english": "bottle"
+  },
+  {
+    "spanish": "el abrelatas",
+    "english": "can opener"
+  },
+  {
+    "spanish": "el pelador",
+    "english": "peeler"
+  },
+  {
+    "spanish": "el triturador",
+    "english": "garlic press"
+  },
+  {
+    "spanish": "el colador",
+    "english": "colander"
+  },
+  {
+    "spanish": "la espumadera",
+    "english": "skimmer"
+  },
+  {
+    "spanish": "el reposapiés",
+    "english": "footstool"
+  },
+  {
+    "spanish": "la mesilla",
+    "english": "nightstand"
+  },
+  {
+    "spanish": "la cuna",
+    "english": "crib"
+  },
+  {
+    "spanish": "la mesa de centro",
+    "english": "coffee table"
+  },
+  {
+    "spanish": "la coqueta",
+    "english": "dressing table"
+  },
+  {
+    "spanish": "el archivero",
+    "english": "filing cabinet"
+  },
+  {
+    "spanish": "el futón",
+    "english": "futon"
+  },
+  {
+    "spanish": "la estufa de gas",
+    "english": "gas stove"
+  },
+  {
+    "spanish": "el calentador de agua",
+    "english": "water heater"
+  },
+  {
+    "spanish": "el microondas",
+    "english": "microwave"
+  },
+  {
+    "spanish": "la fortaleza",
+    "english": "fort"
+  },
+  {
+    "spanish": "la casa solariega",
+    "english": "manor"
+  },
+  {
+    "spanish": "la mansión",
+    "english": "mansion"
+  },
+  {
+    "spanish": "la cabaña",
+    "english": "hut"
+  },
+  {
+    "spanish": "el invernadero",
+    "english": "greenhouse"
+  },
+  {
+    "spanish": "el porche",
+    "english": "porch"
+  },
+  {
+    "spanish": "el salón de juegos",
+    "english": "games room"
+  },
+  {
+    "spanish": "el garaje",
+    "english": "garage"
+  },
+  {
+    "spanish": "el solario",
+    "english": "sunroom"
+  },
+  {
+    "spanish": "el estudio",
+    "english": "study"
+  },
+  {
+    "spanish": "el cuarto de los niños",
+    "english": "nursery"
+  },
+  {
+    "spanish": "el dormitorio de huéspedes",
+    "english": "guest bedroom"
+  },
+  {
+    "spanish": "el seto",
+    "english": "hedge"
+  },
+  {
+    "spanish": "el relleno",
+    "english": "stuffing"
+  },
+  {
+    "spanish": "el edificio de apartamentos",
+    "english": "apartment building"
+  },
+  {
+    "spanish": "la finca",
+    "english": "property"
+  },
+  {
+    "spanish": "el césped",
+    "english": "lawn"
+  },
+  {
+    "spanish": "el escritorio",
+    "english": "desk"
+  },
+  {
+    "spanish": "el empapelado",
+    "english": "wallpaper"
+  },
+  {
+    "spanish": "la frontera",
+    "english": "border"
+  },
+  {
+    "spanish": "el reciclaje",
+    "english": "recycling"
+  },
+  {
+    "spanish": "la privada",
+    "english": "gated community"
+  },
+  {
+    "spanish": "el bombillo",
+    "english": "light bulb"
+  },
+  {
+    "spanish": "el escape",
+    "english": "leak"
+  },
+  {
+    "spanish": "el loft",
+    "english": "loft"
+  },
+  {
+    "spanish": "vivir",
+    "english": "to live"
+  },
+  {
+    "spanish": "la fuente",
+    "english": "fountain"
+  },
+  {
+    "spanish": "tomar en arriendo",
+    "english": "to lease"
+  },
+  {
+    "spanish": "la hipoteca",
+    "english": "mortgage"
+  },
+  {
+    "spanish": "comprar",
+    "english": "to buy"
+  },
+  {
+    "spanish": "el alquiler",
+    "english": "rent"
+  },
+  {
+    "spanish": "la residencia",
+    "english": "residence"
+  },
+  {
+    "spanish": "el cofre",
+    "english": "chest"
+  },
+  {
+    "spanish": "los cubiertos",
+    "english": "cutlery"
+  },
+  {
+    "spanish": "hacer la cama",
+    "english": "to make the bed"
+  },
+  {
+    "spanish": "el tragaluz",
+    "english": "skylight"
+  },
+  {
+    "spanish": "el balcón",
+    "english": "balcony"
+  },
+  {
+    "spanish": "la urbanización",
+    "english": "housing development"
+  },
+  {
+    "spanish": "el interiorismo",
+    "english": "interior design"
+  },
+  {
+    "spanish": "la morada",
+    "english": "abode"
+  },
+  {
+    "spanish": "la vivienda",
+    "english": "dwelling"
+  },
+  {
+    "spanish": "poner en orden",
+    "english": "to tidy up"
+  },
+  {
+    "spanish": "planchar",
+    "english": "to iron"
+  },
+  {
+    "spanish": "la despensa",
+    "english": "pantry"
+  },
+  {
+    "spanish": "el contenedor",
+    "english": "skip"
+  },
+  {
+    "spanish": "la puerta trasera",
+    "english": "back door"
+  },
+  {
+    "spanish": "puerta principal",
+    "english": "front door"
+  },
+  {
+    "spanish": "el pasillo",
+    "english": "hall"
+  },
+  {
+    "spanish": "el hall",
+    "english": "foyer"
+  },
+  {
+    "spanish": "el portal",
+    "english": "vestibule"
+  },
+  {
+    "spanish": "la vela",
+    "english": "candle"
+  },
+  {
+    "spanish": "la araña",
+    "english": "chandelier"
+  },
+  {
+    "spanish": "el escalón",
+    "english": "step"
+  },
+  {
+    "spanish": "el tocador",
+    "english": "powder room"
+  },
+  {
+    "spanish": "el baño",
+    "english": "restroom"
+  },
+  {
+    "spanish": "acogedor",
+    "english": "cozy"
+  },
+  {
+    "spanish": "la dirección",
+    "english": "address"
+  },
+  {
+    "spanish": "el útiles de aseo",
+    "english": "toiletries"
+  },
+  {
+    "spanish": "la buhardilla",
+    "english": "dormer"
+  },
+  {
+    "spanish": "el ático",
+    "english": "attic"
+  },
+  {
+    "spanish": "el teléfono",
+    "english": "telephone"
+  },
+  {
+    "spanish": "el televisor",
+    "english": "television"
+  },
+  {
+    "spanish": "el radio",
+    "english": "radio"
+  },
+  {
+    "spanish": "la máquina",
+    "english": "machine"
+  },
+  {
+    "spanish": "el estante de libros",
+    "english": "bookshelf"
+  },
+  {
+    "spanish": "la balda",
+    "english": "shelf"
+  },
+  {
+    "spanish": "el armario",
+    "english": "cabinet"
+  },
+  {
+    "spanish": "la alacena",
+    "english": "cupboard"
+  },
+  {
+    "spanish": "el cable principal",
+    "english": "main"
+  },
+  {
+    "spanish": "la plomería",
+    "english": "plumbing"
+  },
+  {
+    "spanish": "la cómoda",
+    "english": "chest of drawers"
+  },
+  {
+    "spanish": "la librera",
+    "english": "bookcase"
+  },
+  {
+    "spanish": "el tocador",
+    "english": "dresser"
+  },
+  {
+    "spanish": "la organización",
+    "english": "organization"
+  },
+  {
+    "spanish": "la toalla",
+    "english": "towel"
+  },
+  {
+    "spanish": "la hamaca",
+    "english": "hammock"
+  },
+  {
+    "spanish": "el suelo",
+    "english": "floor"
+  },
+  {
+    "spanish": "el palacio",
+    "english": "palace"
+  },
+  {
+    "spanish": "roto",
+    "english": "broken"
+  },
+  {
+    "spanish": "el diseño",
+    "english": "design"
+  },
+  {
+    "spanish": "la entrada",
+    "english": "entrance"
+  },
+  {
+    "spanish": "la puerta",
+    "english": "gate"
+  },
+  {
+    "spanish": "la sábana",
+    "english": "sheet"
+  },
+  {
+    "spanish": "la decoración",
+    "english": "decorations"
+  },
+  {
+    "spanish": "la cortina",
+    "english": "curtain"
+  },
+  {
+    "spanish": "pulcro",
+    "english": "neat"
+  },
+  {
+    "spanish": "la curiosidad",
+    "english": "curio"
+  },
+  {
+    "spanish": "las normas de convivencia",
+    "english": "house rules"
+  },
+  {
+    "spanish": "mi habitación",
+    "english": "my room"
+  },
+  {
+    "spanish": "el bote",
+    "english": "jar"
+  },
+  {
+    "spanish": "el tacho de basura",
+    "english": "bin"
+  },
+  {
+    "spanish": "la basura",
+    "english": "trash"
+  },
+  {
+    "spanish": "el ventilador",
+    "english": "fan"
+  },
+  {
+    "spanish": "el peine",
+    "english": "comb"
+  },
+  {
+    "spanish": "la pantalla",
+    "english": "screen"
+  },
+  {
+    "spanish": "desordenado",
+    "english": "messy"
+  },
+  {
+    "spanish": "barrer el suelo",
+    "english": "to sweep the floor"
+  },
+  {
+    "spanish": "el sótano",
+    "english": "cellar"
+  },
+  {
+    "spanish": "el sótano",
+    "english": "basement"
+  },
+  {
+    "spanish": "el utensilio",
+    "english": "utensil"
+  },
+  {
+    "spanish": "limpio",
+    "english": "clean"
+  },
+  {
+    "spanish": "el tramo",
+    "english": "flight"
+  },
+  {
+    "spanish": "ordenado",
+    "english": "tidy"
+  },
+  {
+    "spanish": "la piscina",
+    "english": "swimming pool"
+  },
+  {
+    "spanish": "la aspiradora",
+    "english": "vacuum cleaner"
+  },
+  {
+    "spanish": "el jabón",
+    "english": "soap"
+  },
+  {
+    "spanish": "el alojamiento",
+    "english": "accommodations"
+  },
+  {
+    "spanish": "el adosado",
+    "english": "duplex"
+  },
+  {
+    "spanish": "el condominio",
+    "english": "condominium"
+  },
+  {
+    "spanish": "el apartamento",
+    "english": "apartment"
+  },
+  {
+    "spanish": "la vivienda",
+    "english": "housing"
+  },
+  {
+    "spanish": "la jardinería",
+    "english": "gardening"
+  },
+  {
+    "spanish": "el armario",
+    "english": "closet"
+  },
+  {
+    "spanish": "el armario",
+    "english": "wardrobe"
+  },
+  {
+    "spanish": "el banco",
+    "english": "bench"
+  },
+  {
+    "spanish": "la caseta",
+    "english": "shed"
+  },
+  {
+    "spanish": "el establo",
+    "english": "barn"
+  },
+  {
+    "spanish": "el pájaro",
+    "english": "bird"
+  },
+  {
+    "spanish": "el perro",
+    "english": "dog"
+  },
+  {
+    "spanish": "el gato",
+    "english": "cat"
+  },
+  {
+    "spanish": "la mascota",
+    "english": "pet"
+  },
+  {
+    "spanish": "la hoja",
+    "english": "leaf"
+  },
+  {
+    "spanish": "rastrillar",
+    "english": "to rake"
+  },
+  {
+    "spanish": "el cortacésped",
+    "english": "lawnmower"
+  },
+  {
+    "spanish": "la hierba",
+    "english": "grass"
+  },
+  {
+    "spanish": "el jardín",
+    "english": "yard"
+  },
+  {
+    "spanish": "el jardín",
+    "english": "garden"
+  },
+  {
+    "spanish": "la luna",
+    "english": "window"
+  },
+  {
+    "spanish": "la cerca",
+    "english": "fence"
+  },
+  {
+    "spanish": "el lavavajillas",
+    "english": "dishwasher"
+  },
+  {
+    "spanish": "el horno",
+    "english": "oven"
+  },
+  {
+    "spanish": "la cocina",
+    "english": "stove"
+  },
+  {
+    "spanish": "el/la refri",
+    "english": "fridge"
+  },
+  {
+    "spanish": "la secadora",
+    "english": "dryer"
+  },
+  {
+    "spanish": "la lavadora",
+    "english": "washing machine"
+  },
+  {
+    "spanish": "los inmuebles",
+    "english": "real estate"
+  },
+  {
+    "spanish": "tender",
+    "english": "to set"
+  },
+  {
+    "spanish": "el radiador",
+    "english": "radiator"
+  },
+  {
+    "spanish": "el aire acondicionado",
+    "english": "air conditioning"
+  },
+  {
+    "spanish": "la calefacción",
+    "english": "heating"
+  },
+  {
+    "spanish": "la alfombra",
+    "english": "carpet"
+  },
+  {
+    "spanish": "la alfombra",
+    "english": "rug"
+  },
+  {
+    "spanish": "la manta",
+    "english": "blanket"
+  },
+  {
+    "spanish": "la almohada",
+    "english": "pillow"
+  },
+  {
+    "spanish": "la escalera",
+    "english": "stairs"
+  },
+  {
+    "spanish": "el comedor",
+    "english": "dining room"
+  },
+  {
+    "spanish": "el espejo",
+    "english": "mirror"
+  },
+  {
+    "spanish": "el taburete",
+    "english": "stool"
+  },
+  {
+    "spanish": "el asiento",
+    "english": "seat"
+  },
+  {
+    "spanish": "la valla",
+    "english": "fence"
+  },
+  {
+    "spanish": "el electrodoméstico",
+    "english": "appliance"
+  },
+  {
+    "spanish": "el vecino",
+    "english": "neighbor"
+  },
+  {
+    "spanish": "mi casa",
+    "english": "my house"
+  },
+  {
+    "spanish": "la chimenea",
+    "english": "fireplace"
+  },
+  {
+    "spanish": "el fuego",
+    "english": "fire"
+  },
+  {
+    "spanish": "el matamoscas",
+    "english": "fly swatter"
+  },
+  {
+    "spanish": "sin hogar",
+    "english": "homeless"
+  },
+  {
+    "spanish": "el reloj",
+    "english": "clock"
+  },
+  {
+    "spanish": "fuera",
+    "english": "outside"
+  },
+  {
+    "spanish": "dentro",
+    "english": "inside"
+  },
+  {
+    "spanish": "la llave",
+    "english": "key"
+  },
+  {
+    "spanish": "la lámpara",
+    "english": "lamp"
+  },
+  {
+    "spanish": "la cacerola",
+    "english": "pan"
+  },
+  {
+    "spanish": "la olla",
+    "english": "pot"
+  },
+  {
+    "spanish": "la cuchara",
+    "english": "spoon"
+  },
+  {
+    "spanish": "el cuchillo",
+    "english": "knife"
+  },
+  {
+    "spanish": "el tenedor",
+    "english": "fork"
+  },
+  {
+    "spanish": "la copa",
+    "english": "glass"
+  },
+  {
+    "spanish": "el vaso",
+    "english": "glass"
+  },
+  {
+    "spanish": "el bol",
+    "english": "bowl"
+  },
+  {
+    "spanish": "el lavabo",
+    "english": "sink"
+  },
+  {
+    "spanish": "el retrete",
+    "english": "toilet"
+  },
+  {
+    "spanish": "la vajilla",
+    "english": "dishes"
+  },
+  {
+    "spanish": "el tejado",
+    "english": "roof"
+  },
+  {
+    "spanish": "el techo",
+    "english": "ceiling"
+  },
+  {
+    "spanish": "la pared",
+    "english": "wall"
+  },
+  {
+    "spanish": "la silla de oficina",
+    "english": "office chair"
+  },
+  {
+    "spanish": "el sillón",
+    "english": "armchair"
+  },
+  {
+    "spanish": "el sofá",
+    "english": "sofa"
+  },
+  {
+    "spanish": "el diván",
+    "english": "couch"
+  },
+  {
+    "spanish": "la silla",
+    "english": "chair"
+  },
+  {
+    "spanish": "la bañera",
+    "english": "bathtub"
+  },
+  {
+    "spanish": "la ducha",
+    "english": "shower"
+  },
+  {
+    "spanish": "los quehaceres",
+    "english": "housework"
+  },
+  {
+    "spanish": "ayudar en casa",
+    "english": "to help at home"
+  },
+  {
+    "spanish": "la ventana",
+    "english": "window"
+  },
+  {
+    "spanish": "la puerta",
+    "english": "door"
+  },
+  {
+    "spanish": "la cama",
+    "english": "bed"
+  },
+  {
+    "spanish": "la mesa",
+    "english": "table"
+  },
+  {
+    "spanish": "el hogar",
+    "english": "household"
+  },
+  {
+    "spanish": "la sala",
+    "english": "living room"
+  },
+  {
+    "spanish": "el cuarto",
+    "english": "room"
+  },
+  {
+    "spanish": "el baño",
+    "english": "bathroom"
+  },
+  {
+    "spanish": "el mobiliario",
+    "english": "furniture"
+  },
+  {
+    "spanish": "las tareas domésticas",
+    "english": "chores"
+  },
+  {
+    "spanish": "la cocina",
+    "english": "kitchen"
+  },
+  {
+    "spanish": "la casa",
+    "english": "house"
+  },
+  {
+    "spanish": "el hogar",
+    "english": "home"
+  },
+  {
+    "spanish": "¿Puedes repetir, por favor?",
+    "english": "Can you say that again, please?"
+  },
+  {
+    "spanish": "¡Buen provecho!",
+    "english": "Enjoy your meal!"
+  },
+  {
+    "spanish": "¿Me trae la cuenta, por favor?",
+    "english": "Can I get the bill, please?"
+  },
+  {
+    "spanish": "el entrante",
+    "english": "starter"
+  },
+  {
+    "spanish": "la salsa picante",
+    "english": "spicy sauce"
+  },
+  {
+    "spanish": "cuántas personas",
+    "english": "how many people"
+  },
+  {
+    "spanish": "la cajita",
+    "english": "little box"
+  },
+  {
+    "spanish": "la salsa de soja",
+    "english": "soy sauce"
+  },
+  {
+    "spanish": "la mermelada",
+    "english": "jelly"
+  },
+  {
+    "spanish": "la mayonesa",
+    "english": "mayonnaise"
+  },
+  {
+    "spanish": "afrutado",
+    "english": "fruity"
+  },
+  {
+    "spanish": "picoso",
+    "english": "spicy"
+  },
+  {
+    "spanish": "moler",
+    "english": "to grind"
+  },
+  {
+    "spanish": "hornear",
+    "english": "to bake"
+  },
+  {
+    "spanish": "saltear",
+    "english": "to sauté"
+  },
+  {
+    "spanish": "cocer a fuego lento",
+    "english": "to simmer"
+  },
+  {
+    "spanish": "hervir",
+    "english": "to boil"
+  },
+  {
+    "spanish": "mezclar",
+    "english": "to blend"
+  },
+  {
+    "spanish": "batir",
+    "english": "to whisk"
+  },
+  {
+    "spanish": "escurrir",
+    "english": "to drain"
+  },
+  {
+    "spanish": "revolver",
+    "english": "to toss"
+  },
+  {
+    "spanish": "rallar",
+    "english": "to grate"
+  },
+  {
+    "spanish": "el pomelo",
+    "english": "grapefruit"
+  },
+  {
+    "spanish": "la mandarina",
+    "english": "tangerine"
+  },
+  {
+    "spanish": "la esponja",
+    "english": "sponge"
+  },
+  {
+    "spanish": "la pileta",
+    "english": "sink"
+  },
+  {
+    "spanish": "la vajilla",
+    "english": "dishes"
+  },
+  {
+    "spanish": "el lavavajillas",
+    "english": "dishwasher"
+  },
+  {
+    "spanish": "la tabla de cortar",
+    "english": "cutting board"
+  },
+  {
+    "spanish": "el microondas",
+    "english": "microwave"
+  },
+  {
+    "spanish": "el congelador",
+    "english": "freezer"
+  },
+  {
+    "spanish": "el/la refri",
+    "english": "fridge"
+  },
+  {
+    "spanish": "la nevera",
+    "english": "refrigerator"
+  },
+  {
+    "spanish": "la encimera",
+    "english": "counter"
+  },
+  {
+    "spanish": "jarabe de arce",
+    "english": "maple syrup"
+  },
+  {
+    "spanish": "las papas hash brown",
+    "english": "hash browns"
+  },
+  {
+    "spanish": "el jugo de naranja",
+    "english": "orange juice"
+  },
+  {
+    "spanish": "huevos al gusto",
+    "english": "eggs any style"
+  },
+  {
+    "spanish": "el arándano rojo",
+    "english": "cranberry"
+  },
+  {
+    "spanish": "el chantillí",
+    "english": "whipped cream"
+  },
+  {
+    "spanish": "sofrito",
+    "english": "sautéed"
+  },
+  {
+    "spanish": "frito",
+    "english": "fried"
+  },
+  {
+    "spanish": "saltado",
+    "english": "stir-fried"
+  },
+  {
+    "spanish": "soso",
+    "english": "tasteless"
+  },
+  {
+    "spanish": "de rechupete",
+    "english": "yummy"
+  },
+  {
+    "spanish": "tibio",
+    "english": "lukewarm"
+  },
+  {
+    "spanish": "crujiente",
+    "english": "crunchy"
+  },
+  {
+    "spanish": "mohoso",
+    "english": "moldy"
+  },
+  {
+    "spanish": "huevos y tocino",
+    "english": "bacon and eggs"
+  },
+  {
+    "spanish": "la alcaparra",
+    "english": "caper"
+  },
+  {
+    "spanish": "el pastel de café",
+    "english": "coffee cake"
+  },
+  {
+    "spanish": "el pastel de coco",
+    "english": "coconut cake"
+  },
+  {
+    "spanish": "pastel de ángel",
+    "english": "angel food cake"
+  },
+  {
+    "spanish": "ponqué",
+    "english": "pound cake"
+  },
+  {
+    "spanish": "la tarta de zanahoria",
+    "english": "carrot cake"
+  },
+  {
+    "spanish": "el pastel de frutas",
+    "english": "fruitcake"
+  },
+  {
+    "spanish": "el bizcocho de cumpleaños",
+    "english": "birthday cake"
+  },
+  {
+    "spanish": "el pastel de tres leches",
+    "english": "tres leches cake"
+  },
+  {
+    "spanish": "el pay de queso",
+    "english": "cheesecake"
+  },
+  {
+    "spanish": "pastel de chocolate",
+    "english": "chocolate cake"
+  },
+  {
+    "spanish": "los frijoles al horno",
+    "english": "baked beans"
+  },
+  {
+    "spanish": "la papa frita",
+    "english": "french fry"
+  },
+  {
+    "spanish": "el/la sartén",
+    "english": "frying pan"
+  },
+  {
+    "spanish": "la cacerola",
+    "english": "saucepan"
+  },
+  {
+    "spanish": "el cazo",
+    "english": "ladle"
+  },
+  {
+    "spanish": "la batidora",
+    "english": "mixer"
+  },
+  {
+    "spanish": "la tetera",
+    "english": "kettle"
+  },
+  {
+    "spanish": "la tetera",
+    "english": "teapot"
+  },
+  {
+    "spanish": "la cafetera",
+    "english": "coffee maker"
+  },
+  {
+    "spanish": "el régimen",
+    "english": "diet"
+  },
+  {
+    "spanish": "el buffet",
+    "english": "buffet"
+  },
+  {
+    "spanish": "el efectivo",
+    "english": "cash"
+  },
+  {
+    "spanish": "la tarjeta de crédito",
+    "english": "credit card"
+  },
+  {
+    "spanish": "compartir",
+    "english": "to split"
+  },
+  {
+    "spanish": "reservado",
+    "english": "reserved"
+  },
+  {
+    "spanish": "por ciento",
+    "english": "percent"
+  },
+  {
+    "spanish": "cuánto le debo",
+    "english": "how much is it"
+  },
+  {
+    "spanish": "insípido",
+    "english": "bland"
+  },
+  {
+    "spanish": "salado",
+    "english": "salted"
+  },
+  {
+    "spanish": "rico",
+    "english": "tasty"
+  },
+  {
+    "spanish": "frío",
+    "english": "cold"
+  },
+  {
+    "spanish": "yo quisiera",
+    "english": "I'd like"
+  },
+  {
+    "spanish": "voy a pedir",
+    "english": "I'm going to order"
+  },
+  {
+    "spanish": "qué vas a pedir",
+    "english": "what are you going to order"
+  },
+  {
+    "spanish": "¿Qué vas a pedir de postre?",
+    "english": "What are you having for dessert?"
+  },
+  {
+    "spanish": "que aproveche",
+    "english": "enjoy your meal"
+  },
+  {
+    "spanish": "tráigame",
+    "english": "bring me"
+  },
+  {
+    "spanish": "¿Me trae la cuenta, por favor?",
+    "english": "Can I get the check, please?"
+  },
+  {
+    "spanish": "reservar",
+    "english": "to book"
+  },
+  {
+    "spanish": "una mesa para cuatro, por favor",
+    "english": "a table for four, please"
+  },
+  {
+    "spanish": "pagar en efectivo",
+    "english": "to pay cash"
+  },
+  {
+    "spanish": "pagar con tarjeta",
+    "english": "to pay by card"
+  },
+  {
+    "spanish": "pagar la cuenta",
+    "english": "to pay the check"
+  },
+  {
+    "spanish": "pedir comida",
+    "english": "to order food"
+  },
+  {
+    "spanish": "el camarero",
+    "english": "waiter"
+  },
+  {
+    "spanish": "¿Cómo te gusta la carne?",
+    "english": "How do you like your meat?"
+  },
+  {
+    "spanish": "el/la comensal",
+    "english": "dinner guest"
+  },
+  {
+    "spanish": "el cliente",
+    "english": "customer"
+  },
+  {
+    "spanish": "la copa",
+    "english": "glass"
+  },
+  {
+    "spanish": "el plato principal",
+    "english": "main course"
+  },
+  {
+    "spanish": "la reservación",
+    "english": "reservation"
+  },
+  {
+    "spanish": "sin gluten",
+    "english": "gluten-free"
+  },
+  {
+    "spanish": "picante",
+    "english": "spicy"
+  },
+  {
+    "spanish": "con gas o sin gas",
+    "english": "sparkling or flat"
+  },
+  {
+    "spanish": "la manzana",
+    "english": "apple"
+  },
+  {
+    "spanish": "la jarra medidora",
+    "english": "measuring cup"
+  },
+  {
+    "spanish": "la bandeja para horno",
+    "english": "cookie sheet"
+  },
+  {
+    "spanish": "el abrelatas",
+    "english": "can opener"
+  },
+  {
+    "spanish": "el abrebotellas",
+    "english": "bottle opener"
+  },
+  {
+    "spanish": "las pinzas",
+    "english": "tongs"
+  },
+  {
+    "spanish": "el queso cheddar",
+    "english": "cheddar cheese"
+  },
+  {
+    "spanish": "el bagel",
+    "english": "bagel"
+  },
+  {
+    "spanish": "el té dulce",
+    "english": "sweet tea"
+  },
+  {
+    "spanish": "la gelatina",
+    "english": "Jell-O"
+  },
+  {
+    "spanish": "sándwich de queso a la parrilla",
+    "english": "grilled cheese sandwich"
+  },
+  {
+    "spanish": "el espagueti con albóndigas",
+    "english": "spaghetti and meatballs"
+  },
+  {
+    "spanish": "la salsa de arándano",
+    "english": "cranberry sauce"
+  },
+  {
+    "spanish": "el puré de papas",
+    "english": "mashed potatoes"
+  },
+  {
+    "spanish": "la patata asada",
+    "english": "baked potato"
+  },
+  {
+    "spanish": "la salsa de queso",
+    "english": "cheese sauce"
+  },
+  {
+    "spanish": "la hamburguesa con queso",
+    "english": "cheeseburger"
+  },
+  {
+    "spanish": "la galleta con pepitas de chocolate",
+    "english": "chocolate chip cookie"
+  },
+  {
+    "spanish": "el crujiente de papa",
+    "english": "tater tot"
+  },
+  {
+    "spanish": "el pan de masa fermentada",
+    "english": "sourdough bread"
+  },
+  {
+    "spanish": "el guisado de carne",
+    "english": "pot roast"
+  },
+  {
+    "spanish": "el banana split",
+    "english": "banana split"
+  },
+  {
+    "spanish": "el pan de maíz",
+    "english": "cornbread"
+  },
+  {
+    "spanish": "el pastel de pacana",
+    "english": "pecan pie"
+  },
+  {
+    "spanish": "pastel de carne",
+    "english": "meat loaf"
+  },
+  {
+    "spanish": "los macarrones con queso",
+    "english": "macaroni and cheese"
+  },
+  {
+    "spanish": "la ensalada de papa",
+    "english": "potato salad"
+  },
+  {
+    "spanish": "crema de cacahuate y mermelada",
+    "english": "peanut butter and jelly"
+  },
+  {
+    "spanish": "el sándwich de crema de cacahuate y mermelada",
+    "english": "peanut butter and jelly sandwich"
+  },
+  {
+    "spanish": "el gofre",
+    "english": "waffle"
+  },
+  {
+    "spanish": "la crema de almejas",
+    "english": "clam chowder"
+  },
+  {
+    "spanish": "las alitas de búfalo",
+    "english": "buffalo wings"
+  },
+  {
+    "spanish": "la cebolla roja",
+    "english": "red onion"
+  },
+  {
+    "spanish": "el salmón ahumado",
+    "english": "lox"
+  },
+  {
+    "spanish": "a la parrilla",
+    "english": "broiled"
+  },
+  {
+    "spanish": "agrio",
+    "english": "tart"
+  },
+  {
+    "spanish": "refrescante",
+    "english": "refreshing"
+  },
+  {
+    "spanish": "las chispas",
+    "english": "sprinkles"
+  },
+  {
+    "spanish": "copa de helados",
+    "english": "ice cream sundae"
+  },
+  {
+    "spanish": "la mora",
+    "english": "mulberry"
+  },
+  {
+    "spanish": "el requesón",
+    "english": "cottage cheese"
+  },
+  {
+    "spanish": "el queso fresco",
+    "english": "cottage cheese"
+  },
+  {
+    "spanish": "el queso manchego",
+    "english": "Manchego cheese"
+  },
+  {
+    "spanish": "queso rallado",
+    "english": "grated cheese"
+  },
+  {
+    "spanish": "la leche entera",
+    "english": "whole milk"
+  },
+  {
+    "spanish": "leche desnatada",
+    "english": "skim milk"
+  },
+  {
+    "spanish": "la leche condensada",
+    "english": "condensed milk"
+  },
+  {
+    "spanish": "la leche en polvo",
+    "english": "powdered milk"
+  },
+  {
+    "spanish": "la nata montada",
+    "english": "whipped cream"
+  },
+  {
+    "spanish": "la crema pastelera",
+    "english": "pastry cream"
+  },
+  {
+    "spanish": "carne de cerdo",
+    "english": "pork"
+  },
+  {
+    "spanish": "la carne de res",
+    "english": "beef"
+  },
+  {
+    "spanish": "la carne de vaca",
+    "english": "beef"
+  },
+  {
+    "spanish": "carne de res molida",
+    "english": "minced beef"
+  },
+  {
+    "spanish": "el pollo frito",
+    "english": "fried chicken"
+  },
+  {
+    "spanish": "la almeja",
+    "english": "clam"
+  },
+  {
+    "spanish": "la vieira",
+    "english": "scallop"
+  },
+  {
+    "spanish": "el mejillón",
+    "english": "mussel"
+  },
+  {
+    "spanish": "la ternera",
+    "english": "veal"
+  },
+  {
+    "spanish": "la trucha",
+    "english": "trout"
+  },
+  {
+    "spanish": "el lunch",
+    "english": "cold buffet"
+  },
+  {
+    "spanish": "picar",
+    "english": "to nibble on"
+  },
+  {
+    "spanish": "la leche de coco",
+    "english": "coconut milk"
+  },
+  {
+    "spanish": "el smoothie",
+    "english": "smoothie"
+  },
+  {
+    "spanish": "la agua de coco",
+    "english": "coconut water"
+  },
+  {
+    "spanish": "la leche de soja",
+    "english": "soy milk"
+  },
+  {
+    "spanish": "la agua con gas",
+    "english": "carbonated water"
+  },
+  {
+    "spanish": "el agua mineral",
+    "english": "mineral water"
+  },
+  {
+    "spanish": "el aliado",
+    "english": "mixed drink"
+  },
+  {
+    "spanish": "el cóctel",
+    "english": "cocktail"
+  },
+  {
+    "spanish": "la sidra",
+    "english": "cider"
+  },
+  {
+    "spanish": "el té verde",
+    "english": "green tea"
+  },
+  {
+    "spanish": "el batido",
+    "english": "milkshake"
+  },
+  {
+    "spanish": "el chocolate caliente",
+    "english": "hot chocolate"
+  },
+  {
+    "spanish": "el té helado",
+    "english": "iced tea"
+  },
+  {
+    "spanish": "el zumo de tomate",
+    "english": "tomato juice"
+  },
+  {
+    "spanish": "zumo de uva",
+    "english": "grape juice"
+  },
+  {
+    "spanish": "el jugo de piña",
+    "english": "pineapple juice"
+  },
+  {
+    "spanish": "el jugo de manzana",
+    "english": "apple juice"
+  },
+  {
+    "spanish": "el aguardiente",
+    "english": "liquor"
+  },
+  {
+    "spanish": "las bebidas alcohólicas fuertes",
+    "english": "spirits"
+  },
+  {
+    "spanish": "la gordita",
+    "english": "gordita"
+  },
+  {
+    "spanish": "la jícama",
+    "english": "jicama"
+  },
+  {
+    "spanish": "el pulque",
+    "english": "pulque"
+  },
+  {
+    "spanish": "el chamorro",
+    "english": "pork shank"
+  },
+  {
+    "spanish": "el alambre",
+    "english": "kebab"
+  },
+  {
+    "spanish": "el chapulín",
+    "english": "grasshopper"
+  },
+  {
+    "spanish": "la birria",
+    "english": "stew"
+  },
+  {
+    "spanish": "el picadillo",
+    "english": "picadillo"
+  },
+  {
+    "spanish": "la queca",
+    "english": "quesadilla"
+  },
+  {
+    "spanish": "la chalupa",
+    "english": "chalupa"
+  },
+  {
+    "spanish": "el taquito",
+    "english": "flauta"
+  },
+  {
+    "spanish": "el pambazo",
+    "english": "bread roll dipped in guajillo chili sauce filled with potatoes with chorizo"
+  },
+  {
+    "spanish": "el tamarindo",
+    "english": "tamarind"
+  },
+  {
+    "spanish": "el totopo",
+    "english": "tortilla chip"
+  },
+  {
+    "spanish": "los chilaquiles",
+    "english": "chilaquiles"
+  },
+  {
+    "spanish": "los frijoles de la olla",
+    "english": "baked bean stew"
+  },
+  {
+    "spanish": "los frijoles refritos",
+    "english": "refried beans"
+  },
+  {
+    "spanish": "el pan de muerto",
+    "english": "bread of the dead"
+  },
+  {
+    "spanish": "el sope",
+    "english": "fried corn dough topped with beans, cream, lettuce, and cheese"
+  },
+  {
+    "spanish": "al pastor",
+    "english": "al pastor"
+  },
+  {
+    "spanish": "el guacamole",
+    "english": "guacamole"
+  },
+  {
+    "spanish": "el tamal",
+    "english": "tamale"
+  },
+  {
+    "spanish": "la torta de chocolate",
+    "english": "chocolate cake"
+  },
+  {
+    "spanish": "los chiles rellenos",
+    "english": "stuffed chilies"
+  },
+  {
+    "spanish": "la garnacha",
+    "english": "tortilla stuffed with meat and cheese"
+  },
+  {
+    "spanish": "el pozole",
+    "english": "pozole"
+  },
+  {
+    "spanish": "la quesadilla",
+    "english": "quesadilla"
+  },
+  {
+    "spanish": "la carnitas",
+    "english": "carnitas"
+  },
+  {
+    "spanish": "la capirotada",
+    "english": "capirotada"
+  },
+  {
+    "spanish": "el chicharrón",
+    "english": "pork cracklings"
+  },
+  {
+    "spanish": "el mollete",
+    "english": "toast topped with beans and melted cheese"
+  },
+  {
+    "spanish": "la arrachera",
+    "english": "hanger steak"
+  },
+  {
+    "spanish": "el buñuelo",
+    "english": "fritter"
+  },
+  {
+    "spanish": "el atole",
+    "english": "atole"
+  },
+  {
+    "spanish": "el huitlacoche",
+    "english": "corn smut"
+  },
+  {
+    "spanish": "la paleta",
+    "english": "Popsicle"
+  },
+  {
+    "spanish": "la flauta",
+    "english": "baguette"
+  },
+  {
+    "spanish": "el molote",
+    "english": "fried corn pancake"
+  },
+  {
+    "spanish": "la alegría",
+    "english": "amaranth bar"
+  },
+  {
+    "spanish": "la cochinita pibil",
+    "english": "cochinita pibil"
+  },
+  {
+    "spanish": "el orujo",
+    "english": "orujo"
+  },
+  {
+    "spanish": "el vino",
+    "english": "wine"
+  },
+  {
+    "spanish": "las natillas",
+    "english": "custard"
+  },
+  {
+    "spanish": "el turrón",
+    "english": "nougat"
+  },
+  {
+    "spanish": "el pisto",
+    "english": "ratatouille"
+  },
+  {
+    "spanish": "la fabada",
+    "english": "fabada"
+  },
+  {
+    "spanish": "las migas",
+    "english": "fried breadcrumbs"
+  },
+  {
+    "spanish": "la albóndiga",
+    "english": "meatball"
+  },
+  {
+    "spanish": "la tortilla de patatas",
+    "english": "Spanish omelet"
+  },
+  {
+    "spanish": "el gazpacho",
+    "english": "gazpacho"
+  },
+  {
+    "spanish": "el alioli",
+    "english": "aioli"
+  },
+  {
+    "spanish": "las patatas bravas",
+    "english": "fried potatoes with spicy tomato sauce"
+  },
+  {
+    "spanish": "la paella",
+    "english": "paella"
+  },
+  {
+    "spanish": "el helado de chocolate",
+    "english": "chocolate ice cream"
+  },
+  {
+    "spanish": "el helado de fresa",
+    "english": "strawberry ice cream"
+  },
+  {
+    "spanish": "el helado de vainilla",
+    "english": "vanilla ice cream"
+  },
+  {
+    "spanish": "el pay de limón",
+    "english": "lemon pie"
+  },
+  {
+    "spanish": "la tarta de queso",
+    "english": "cheesecake"
+  },
+  {
+    "spanish": "la tarta de manzana",
+    "english": "apple pie"
+  },
+  {
+    "spanish": "la tarta de calabaza",
+    "english": "pumpkin pie"
+  },
+  {
+    "spanish": "la tarta de chocolate",
+    "english": "chocolate pie"
+  },
+  {
+    "spanish": "el pastel de nata",
+    "english": "egg tart pastry"
+  },
+  {
+    "spanish": "el bastón de caramelo",
+    "english": "candy cane"
+  },
+  {
+    "spanish": "la magdalena",
+    "english": "muffin"
+  },
+  {
+    "spanish": "pastel de chocolate",
+    "english": "chocolate pie"
+  },
+  {
+    "spanish": "el pastelito",
+    "english": "cupcake"
+  },
+  {
+    "spanish": "cortar en rebanadas",
+    "english": "to slice"
+  },
+  {
+    "spanish": "espolvorear",
+    "english": "to sprinkle"
+  },
+  {
+    "spanish": "pelar",
+    "english": "to peel"
+  },
+  {
+    "spanish": "cocer a fuego lento",
+    "english": "to cook over a low heat"
+  },
+  {
+    "spanish": "medir",
+    "english": "to measure"
+  },
+  {
+    "spanish": "añadir",
+    "english": "to add"
+  },
+  {
+    "spanish": "hervir a fuego lento",
+    "english": "to simmer"
+  },
+  {
+    "spanish": "fundir",
+    "english": "to melt"
+  },
+  {
+    "spanish": "la batidora",
+    "english": "whisk"
+  },
+  {
+    "spanish": "montar",
+    "english": "to whip"
+  },
+  {
+    "spanish": "drenar",
+    "english": "to drain"
+  },
+  {
+    "spanish": "colar",
+    "english": "to strain"
+  },
+  {
+    "spanish": "asar",
+    "english": "to roast"
+  },
+  {
+    "spanish": "voltear",
+    "english": "to turn over"
+  },
+  {
+    "spanish": "revolver",
+    "english": "to stir"
+  },
+  {
+    "spanish": "ácido",
+    "english": "acid"
+  },
+  {
+    "spanish": "sazonado",
+    "english": "seasoned"
+  },
+  {
+    "spanish": "azucarado",
+    "english": "sugary"
+  },
+  {
+    "spanish": "salobre",
+    "english": "salty"
+  },
+  {
+    "spanish": "la mantequilla de cacahuate",
+    "english": "peanut butter"
+  },
+  {
+    "spanish": "la mermelada",
+    "english": "jam"
+  },
+  {
+    "spanish": "la salsa roja",
+    "english": "salsa roja"
+  },
+  {
+    "spanish": "la salsa macha",
+    "english": "salsa macha"
+  },
+  {
+    "spanish": "la salsa verde",
+    "english": "salsa verde"
+  },
+  {
+    "spanish": "la albahaca",
+    "english": "basil"
+  },
+  {
+    "spanish": "el laurel",
+    "english": "bay leaf"
+  },
+  {
+    "spanish": "la cayena",
+    "english": "cayenne pepper"
+  },
+  {
+    "spanish": "el cilantro",
+    "english": "coriander"
+  },
+  {
+    "spanish": "el comino",
+    "english": "cumin"
+  },
+  {
+    "spanish": "el curry",
+    "english": "curry powder"
+  },
+  {
+    "spanish": "el eneldo",
+    "english": "dill"
+  },
+  {
+    "spanish": "la yerbabuena",
+    "english": "mint"
+  },
+  {
+    "spanish": "el estragón",
+    "english": "tarragon"
+  },
+  {
+    "spanish": "la borraja",
+    "english": "borage"
+  },
+  {
+    "spanish": "el epazote",
+    "english": "epazote"
+  },
+  {
+    "spanish": "la lavanda",
+    "english": "lavender"
+  },
+  {
+    "spanish": "el toronjil",
+    "english": "lemon balm"
+  },
+  {
+    "spanish": "el romero",
+    "english": "rosemary"
+  },
+  {
+    "spanish": "el tomillo",
+    "english": "thyme"
+  },
+  {
+    "spanish": "el achiote",
+    "english": "annatto"
+  },
+  {
+    "spanish": "el cardamomo",
+    "english": "cardamom"
+  },
+  {
+    "spanish": "la chía",
+    "english": "chia"
+  },
+  {
+    "spanish": "el clavo de olor",
+    "english": "clove"
+  },
+  {
+    "spanish": "la nuez moscada",
+    "english": "nutmeg"
+  },
+  {
+    "spanish": "la mejorana",
+    "english": "marjoram"
+  },
+  {
+    "spanish": "el perejil",
+    "english": "parsley"
+  },
+  {
+    "spanish": "el chipotle",
+    "english": "chipotle"
+  },
+  {
+    "spanish": "la alcachofa",
+    "english": "artichoke"
+  },
+  {
+    "spanish": "el coles de Bruselas",
+    "english": "Brussels sprouts"
+  },
+  {
+    "spanish": "la endibia",
+    "english": "endive"
+  },
+  {
+    "spanish": "el hinojo",
+    "english": "fennel"
+  },
+  {
+    "spanish": "la acelga",
+    "english": "chard"
+  },
+  {
+    "spanish": "la rúcula",
+    "english": "arugula"
+  },
+  {
+    "spanish": "el ruibarbo",
+    "english": "rhubarb"
+  },
+  {
+    "spanish": "la chirivía",
+    "english": "parsnip"
+  },
+  {
+    "spanish": "el nabo",
+    "english": "turnip"
+  },
+  {
+    "spanish": "el rábano",
+    "english": "radish"
+  },
+  {
+    "spanish": "la berenjena",
+    "english": "eggplant"
+  },
+  {
+    "spanish": "la okra",
+    "english": "okra"
+  },
+  {
+    "spanish": "el chalote",
+    "english": "shallot"
+  },
+  {
+    "spanish": "el calabacín",
+    "english": "zucchini"
+  },
+  {
+    "spanish": "el espárrago",
+    "english": "asparagus"
+  },
+  {
+    "spanish": "el mamey",
+    "english": "mammee"
+  },
+  {
+    "spanish": "el membrillo",
+    "english": "quince"
+  },
+  {
+    "spanish": "el lichi",
+    "english": "lychee"
+  },
+  {
+    "spanish": "la fruta tropical",
+    "english": "tropical fruit"
+  },
+  {
+    "spanish": "el hueso",
+    "english": "stone"
+  },
+  {
+    "spanish": "el cítrico",
+    "english": "citrus fruit"
+  },
+  {
+    "spanish": "el caqui",
+    "english": "persimmon"
+  },
+  {
+    "spanish": "el/la maracuyá",
+    "english": "passion fruit"
+  },
+  {
+    "spanish": "la papaya",
+    "english": "papaya"
+  },
+  {
+    "spanish": "el gluten",
+    "english": "gluten"
+  },
+  {
+    "spanish": "el vegetariano",
+    "english": "vegetarian"
+  },
+  {
+    "spanish": "el vegano",
+    "english": "vegan"
+  },
+  {
+    "spanish": "plato típico",
+    "english": "typical dish"
+  },
+  {
+    "spanish": "el plato del día",
+    "english": "dish of the day"
+  },
+  {
+    "spanish": "a punto",
+    "english": "ripe"
+  },
+  {
+    "spanish": "dividir",
+    "english": "to divide"
+  },
+  {
+    "spanish": "eso es todo",
+    "english": "that's all"
+  },
+  {
+    "spanish": "nada más",
+    "english": "nothing else"
+  },
+  {
+    "spanish": "¿Cuánto es?",
+    "english": "How much is it?"
+  },
+  {
+    "spanish": "con gas",
+    "english": "sparkling"
+  },
+  {
+    "spanish": "sin gas",
+    "english": "still"
+  },
+  {
+    "spanish": "insípido",
+    "english": "tasteless"
+  },
+  {
+    "spanish": "otro",
+    "english": "another"
+  },
+  {
+    "spanish": "un poco más",
+    "english": "a little more"
+  },
+  {
+    "spanish": "la alergia",
+    "english": "allergy"
+  },
+  {
+    "spanish": "la mesa",
+    "english": "table"
+  },
+  {
+    "spanish": "el tabernero",
+    "english": "bartender"
+  },
+  {
+    "spanish": "el/la barman",
+    "english": "bartender"
+  },
+  {
+    "spanish": "la salsa de tomate",
+    "english": "tomato sauce"
+  },
+  {
+    "spanish": "el kétchup",
+    "english": "ketchup"
+  },
+  {
+    "spanish": "la mostaza",
+    "english": "mustard"
+  },
+  {
+    "spanish": "la salsa picante",
+    "english": "hot sauce"
+  },
+  {
+    "spanish": "el salero",
+    "english": "salt shaker"
+  },
+  {
+    "spanish": "el champiñón",
+    "english": "mushroom"
+  },
+  {
+    "spanish": "lavar los platos",
+    "english": "to wash the dishes"
+  },
+  {
+    "spanish": "aplastar",
+    "english": "to crush"
+  },
+  {
+    "spanish": "el caramelo",
+    "english": "caramel"
+  },
+  {
+    "spanish": "el escabeche",
+    "english": "marinade"
+  },
+  {
+    "spanish": "el ají",
+    "english": "chilli sauce"
+  },
+  {
+    "spanish": "el ajillo",
+    "english": "garlic sauce"
+  },
+  {
+    "spanish": "los tallarines",
+    "english": "noodles"
+  },
+  {
+    "spanish": "cal",
+    "english": "cal"
+  },
+  {
+    "spanish": "la mayonesa",
+    "english": "mayo"
+  },
+  {
+    "spanish": "la plancha",
+    "english": "griddle"
+  },
+  {
+    "spanish": "el nacho",
+    "english": "nacho"
+  },
+  {
+    "spanish": "la baila",
+    "english": "spotted sea bass"
+  },
+  {
+    "spanish": "el moho",
+    "english": "mold"
+  },
+  {
+    "spanish": "la causa",
+    "english": "causa"
+  },
+  {
+    "spanish": "el redondo",
+    "english": "round"
+  },
+  {
+    "spanish": "la fonda",
+    "english": "cheap restaurant"
+  },
+  {
+    "spanish": "el pelón",
+    "english": "nectarine"
+  },
+  {
+    "spanish": "la masa",
+    "english": "dough"
+  },
+  {
+    "spanish": "la yuca",
+    "english": "yucca"
+  },
+  {
+    "spanish": "el tocino",
+    "english": "bacon"
+  },
+  {
+    "spanish": "las vainas",
+    "english": "green beans"
+  },
+  {
+    "spanish": "la baya",
+    "english": "berry"
+  },
+  {
+    "spanish": "el panal",
+    "english": "honeycomb"
+  },
+  {
+    "spanish": "la aloja",
+    "english": "mead"
+  },
+  {
+    "spanish": "el fregadero",
+    "english": "sink"
+  },
+  {
+    "spanish": "verter",
+    "english": "to pour"
+  },
+  {
+    "spanish": "el mesón",
+    "english": "bar"
+  },
+  {
+    "spanish": "fregar",
+    "english": "to wash"
+  },
+  {
+    "spanish": "destapar",
+    "english": "to take the lid off"
+  },
+  {
+    "spanish": "la temporada",
+    "english": "season"
+  },
+  {
+    "spanish": "el huerto",
+    "english": "orchard"
+  },
+  {
+    "spanish": "la fuente",
+    "english": "platter"
+  },
+  {
+    "spanish": "buen provecho",
+    "english": "enjoy your meal"
+  },
+  {
+    "spanish": "el oporto",
+    "english": "port"
+  },
+  {
+    "spanish": "el picadillo",
+    "english": "mince"
+  },
+  {
+    "spanish": "el casco",
+    "english": "wedge"
+  },
+  {
+    "spanish": "el pincho",
+    "english": "hors d'oeuvres"
+  },
+  {
+    "spanish": "menear",
+    "english": "to shake"
+  },
+  {
+    "spanish": "rellenar",
+    "english": "to refill"
+  },
+  {
+    "spanish": "la morcilla",
+    "english": "blood sausage"
+  },
+  {
+    "spanish": "la rellena",
+    "english": "blood sausage"
+  },
+  {
+    "spanish": "el ingrediente",
+    "english": "ingredient"
+  },
+  {
+    "spanish": "el alcohol",
+    "english": "alcohol"
+  },
+  {
+    "spanish": "el cucurucho",
+    "english": "cone"
+  },
+  {
+    "spanish": "el orégano",
+    "english": "oregano"
+  },
+  {
+    "spanish": "la repostería",
+    "english": "bakery"
+  },
+  {
+    "spanish": "la toma",
+    "english": "feed"
+  },
+  {
+    "spanish": "la manteca de cerdo",
+    "english": "lard"
+  },
+  {
+    "spanish": "la root beer",
+    "english": "root beer"
+  },
+  {
+    "spanish": "sé cocinar",
+    "english": "I know how to cook"
+  },
+  {
+    "spanish": "el rallador",
+    "english": "grater"
+  },
+  {
+    "spanish": "al vapor",
+    "english": "steamed"
+  },
+  {
+    "spanish": "deshidratado",
+    "english": "dehydrated"
+  },
+  {
+    "spanish": "paso",
+    "english": "dried"
+  },
+  {
+    "spanish": "ahumado",
+    "english": "smoked"
+  },
+  {
+    "spanish": "de crianza",
+    "english": "aged"
+  },
+  {
+    "spanish": "la receta",
+    "english": "recipe"
+  },
+  {
+    "spanish": "la mantecada",
+    "english": "mantecada"
+  },
+  {
+    "spanish": "los cubiertos",
+    "english": "cutlery"
+  },
+  {
+    "spanish": "la fresa",
+    "english": "strawberry"
+  },
+  {
+    "spanish": "achicharrado",
+    "english": "charred"
+  },
+  {
+    "spanish": "quemado",
+    "english": "burnt"
+  },
+  {
+    "spanish": "crudo",
+    "english": "undercooked"
+  },
+  {
+    "spanish": "la falda",
+    "english": "skirt steak"
+  },
+  {
+    "spanish": "la tartera",
+    "english": "lunch box"
+  },
+  {
+    "spanish": "la tarta",
+    "english": "cake"
+  },
+  {
+    "spanish": "la lonchería",
+    "english": "snack bar"
+  },
+  {
+    "spanish": "las palomitas",
+    "english": "popcorn"
+  },
+  {
+    "spanish": "el pimentón",
+    "english": "bell pepper"
+  },
+  {
+    "spanish": "la pimienta roja",
+    "english": "red pepper"
+  },
+  {
+    "spanish": "el pimiento verde",
+    "english": "green pepper"
+  },
+  {
+    "spanish": "la batata",
+    "english": "sweet potato"
+  },
+  {
+    "spanish": "qué hay para cenar",
+    "english": "what's for dinner"
+  },
+  {
+    "spanish": "carne de puerco",
+    "english": "pork"
+  },
+  {
+    "spanish": "beber",
+    "english": "to drink"
+  },
+  {
+    "spanish": "tomar",
+    "english": "to drink"
+  },
+  {
+    "spanish": "el gas",
+    "english": "gas"
+  },
+  {
+    "spanish": "el carbón vegetal",
+    "english": "charcoal"
+  },
+  {
+    "spanish": "la papilla",
+    "english": "pap"
+  },
+  {
+    "spanish": "la croqueta",
+    "english": "croquette"
+  },
+  {
+    "spanish": "el nopal",
+    "english": "prickly pear"
+  },
+  {
+    "spanish": "la comida para llevar",
+    "english": "takeout"
+  },
+  {
+    "spanish": "la despensa",
+    "english": "pantry"
+  },
+  {
+    "spanish": "el delantal",
+    "english": "apron"
+  },
+  {
+    "spanish": "el higo",
+    "english": "fig"
+  },
+  {
+    "spanish": "la tabla de picar",
+    "english": "chopping board"
+  },
+  {
+    "spanish": "la avena",
+    "english": "oatmeal"
+  },
+  {
+    "spanish": "la tinga",
+    "english": "tinga"
+  },
+  {
+    "spanish": "la crema agria",
+    "english": "sour cream"
+  },
+  {
+    "spanish": "la pasta",
+    "english": "cookie"
+  },
+  {
+    "spanish": "la galleta",
+    "english": "biscuit"
+  },
+  {
+    "spanish": "la hamburguesa",
+    "english": "burger"
+  },
+  {
+    "spanish": "la propina",
+    "english": "tip"
+  },
+  {
+    "spanish": "la jaiba",
+    "english": "crayfish"
+  },
+  {
+    "spanish": "la nécora",
+    "english": "crab"
+  },
+  {
+    "spanish": "las papas fritas",
+    "english": "chips"
+  },
+  {
+    "spanish": "las patatas fritas",
+    "english": "chips"
+  },
+  {
+    "spanish": "el jengibre",
+    "english": "ginger"
+  },
+  {
+    "spanish": "el bote",
+    "english": "container"
+  },
+  {
+    "spanish": "la dieta",
+    "english": "diet"
+  },
+  {
+    "spanish": "el wrap",
+    "english": "wrap"
+  },
+  {
+    "spanish": "la servilleta",
+    "english": "napkin"
+  },
+  {
+    "spanish": "comer fuera",
+    "english": "to eat out"
+  },
+  {
+    "spanish": "mezclar",
+    "english": "to mix"
+  },
+  {
+    "spanish": "la maicena",
+    "english": "cornstarch"
+  },
+  {
+    "spanish": "la cucharadita",
+    "english": "teaspoon"
+  },
+  {
+    "spanish": "la crema",
+    "english": "cream"
+  },
+  {
+    "spanish": "la nata",
+    "english": "cream"
+  },
+  {
+    "spanish": "el maíz",
+    "english": "corn"
+  },
+  {
+    "spanish": "la ciruela pasa",
+    "english": "prune"
+  },
+  {
+    "spanish": "la uva pasa",
+    "english": "raisin"
+  },
+  {
+    "spanish": "el fruto seco",
+    "english": "dried fruit and nuts"
+  },
+  {
+    "spanish": "el guisante",
+    "english": "pea"
+  },
+  {
+    "spanish": "criar",
+    "english": "to grow"
+  },
+  {
+    "spanish": "la piña",
+    "english": "pineapple"
+  },
+  {
+    "spanish": "el ceviche",
+    "english": "ceviche"
+  },
+  {
+    "spanish": "el alga",
+    "english": "seaweed"
+  },
+  {
+    "spanish": "la torrija",
+    "english": "French toast"
+  },
+  {
+    "spanish": "el panqueque",
+    "english": "pancake"
+  },
+  {
+    "spanish": "batir",
+    "english": "to beat"
+  },
+  {
+    "spanish": "la nube",
+    "english": "marshmallow"
+  },
+  {
+    "spanish": "el mordisco",
+    "english": "bite"
+  },
+  {
+    "spanish": "el riñón",
+    "english": "kidney"
+  },
+  {
+    "spanish": "verde",
+    "english": "unripe"
+  },
+  {
+    "spanish": "maduro",
+    "english": "ripe"
+  },
+  {
+    "spanish": "la birria de res",
+    "english": "beef stew"
+  },
+  {
+    "spanish": "la sed",
+    "english": "thirst"
+  },
+  {
+    "spanish": "la castaña",
+    "english": "chestnut"
+  },
+  {
+    "spanish": "la nuez",
+    "english": "walnut"
+  },
+  {
+    "spanish": "el cava",
+    "english": "cava"
+  },
+  {
+    "spanish": "el champán",
+    "english": "champagne"
+  },
+  {
+    "spanish": "la gringa",
+    "english": "gringa"
+  },
+  {
+    "spanish": "la margarina",
+    "english": "margarine"
+  },
+  {
+    "spanish": "la mantequilla",
+    "english": "butter"
+  },
+  {
+    "spanish": "soso",
+    "english": "bland"
+  },
+  {
+    "spanish": "el jardín",
+    "english": "garden"
+  },
+  {
+    "spanish": "el chicle",
+    "english": "gum"
+  },
+  {
+    "spanish": "la salsa",
+    "english": "sauce"
+  },
+  {
+    "spanish": "el churro",
+    "english": "churro"
+  },
+  {
+    "spanish": "el dulce de leche",
+    "english": "dulce de leche"
+  },
+  {
+    "spanish": "el flan",
+    "english": "crème caramel"
+  },
+  {
+    "spanish": "el paladar",
+    "english": "palate"
+  },
+  {
+    "spanish": "el café",
+    "english": "café"
+  },
+  {
+    "spanish": "la cantina",
+    "english": "cafeteria"
+  },
+  {
+    "spanish": "zampar",
+    "english": "to wolf down"
+  },
+  {
+    "spanish": "dañado",
+    "english": "spoiled"
+  },
+  {
+    "spanish": "la espinaca",
+    "english": "spinach"
+  },
+  {
+    "spanish": "el reserva",
+    "english": "vintage"
+  },
+  {
+    "spanish": "el pastel",
+    "english": "pastry"
+  },
+  {
+    "spanish": "la cuenta",
+    "english": "check"
+  },
+  {
+    "spanish": "la cuenta",
+    "english": "bill"
+  },
+  {
+    "spanish": "el tarro",
+    "english": "jar"
+  },
+  {
+    "spanish": "la lata",
+    "english": "tin"
+  },
+  {
+    "spanish": "la lata",
+    "english": "can"
+  },
+  {
+    "spanish": "pasado",
+    "english": "off"
+  },
+  {
+    "spanish": "malo",
+    "english": "bad"
+  },
+  {
+    "spanish": "pasado",
+    "english": "stale"
+  },
+  {
+    "spanish": "fresco",
+    "english": "fresh"
+  },
+  {
+    "spanish": "el arándano",
+    "english": "blueberry"
+  },
+  {
+    "spanish": "la mora",
+    "english": "blackberry"
+  },
+  {
+    "spanish": "la frambuesa",
+    "english": "raspberry"
+  },
+  {
+    "spanish": "leve",
+    "english": "slight"
+  },
+  {
+    "spanish": "la bebida",
+    "english": "beverage"
+  },
+  {
+    "spanish": "la agricultura",
+    "english": "agriculture"
+  },
+  {
+    "spanish": "dorar",
+    "english": "to brown"
+  },
+  {
+    "spanish": "brindar",
+    "english": "to toast"
+  },
+  {
+    "spanish": "el queso crema",
+    "english": "cream cheese"
+  },
+  {
+    "spanish": "comestible",
+    "english": "edible"
+  },
+  {
+    "spanish": "la gaseosa",
+    "english": "soft drink"
+  },
+  {
+    "spanish": "la limonada",
+    "english": "lemonade"
+  },
+  {
+    "spanish": "la pajita",
+    "english": "straw"
+  },
+  {
+    "spanish": "el hielo",
+    "english": "ice"
+  },
+  {
+    "spanish": "servir",
+    "english": "to serve"
+  },
+  {
+    "spanish": "el batido",
+    "english": "batter"
+  },
+  {
+    "spanish": "el jarabe",
+    "english": "syrup"
+  },
+  {
+    "spanish": "la miel",
+    "english": "honey"
+  },
+  {
+    "spanish": "la boca",
+    "english": "taste"
+  },
+  {
+    "spanish": "bien hecho",
+    "english": "well done"
+  },
+  {
+    "spanish": "al punto",
+    "english": "medium"
+  },
+  {
+    "spanish": "a término medio",
+    "english": "medium rare"
+  },
+  {
+    "spanish": "poco hecho",
+    "english": "rare"
+  },
+  {
+    "spanish": "el utensilio",
+    "english": "utensil"
+  },
+  {
+    "spanish": "repetir",
+    "english": "to have a second helping of"
+  },
+  {
+    "spanish": "la porción",
+    "english": "helping"
+  },
+  {
+    "spanish": "el bitute",
+    "english": "chow"
+  },
+  {
+    "spanish": "la tostada",
+    "english": "toast"
+  },
+  {
+    "spanish": "el brindis",
+    "english": "toast"
+  },
+  {
+    "spanish": "el guisado",
+    "english": "casserole"
+  },
+  {
+    "spanish": "el guiso",
+    "english": "stew"
+  },
+  {
+    "spanish": "el caldo",
+    "english": "soup"
+  },
+  {
+    "spanish": "cortar en trozos",
+    "english": "to chop"
+  },
+  {
+    "spanish": "las patatas fritas",
+    "english": "fries"
+  },
+  {
+    "spanish": "las papas fritas",
+    "english": "fries"
+  },
+  {
+    "spanish": "la carne de ave",
+    "english": "poultry"
+  },
+  {
+    "spanish": "la comida basura",
+    "english": "junk food"
+  },
+  {
+    "spanish": "la pinta",
+    "english": "pint"
+  },
+  {
+    "spanish": "delicioso",
+    "english": "delicious"
+  },
+  {
+    "spanish": "sabroso",
+    "english": "tasty"
+  },
+  {
+    "spanish": "la gallina",
+    "english": "hen"
+  },
+  {
+    "spanish": "cascar",
+    "english": "to crack"
+  },
+  {
+    "spanish": "cortar en dados",
+    "english": "to dice"
+  },
+  {
+    "spanish": "cortar",
+    "english": "to cut"
+  },
+  {
+    "spanish": "el refresco de cola",
+    "english": "cola"
+  },
+  {
+    "spanish": "la soda",
+    "english": "soda water"
+  },
+  {
+    "spanish": "la soda",
+    "english": "soda"
+  },
+  {
+    "spanish": "el dátil",
+    "english": "date"
+  },
+  {
+    "spanish": "la lasaña",
+    "english": "lasagna"
+  },
+  {
+    "spanish": "el filete",
+    "english": "steak"
+  },
+  {
+    "spanish": "el bistec",
+    "english": "steak"
+  },
+  {
+    "spanish": "la agricultura",
+    "english": "farming"
+  },
+  {
+    "spanish": "la caza",
+    "english": "hunting"
+  },
+  {
+    "spanish": "la pesca",
+    "english": "fishing"
+  },
+  {
+    "spanish": "buen provecho",
+    "english": "bon appétit"
+  },
+  {
+    "spanish": "el ron",
+    "english": "rum"
+  },
+  {
+    "spanish": "el güisqui",
+    "english": "whiskey"
+  },
+  {
+    "spanish": "el vodka",
+    "english": "vodka"
+  },
+  {
+    "spanish": "el aguacate",
+    "english": "avocado"
+  },
+  {
+    "spanish": "las especias",
+    "english": "spice"
+  },
+  {
+    "spanish": "el picor",
+    "english": "heat"
+  },
+  {
+    "spanish": "el comedor",
+    "english": "dining room"
+  },
+  {
+    "spanish": "la tijera",
+    "english": "scissors"
+  },
+  {
+    "spanish": "repetir",
+    "english": "to have an aftertaste"
+  },
+  {
+    "spanish": "la cosecha",
+    "english": "harvest"
+  },
+  {
+    "spanish": "la calabaza",
+    "english": "squash"
+  },
+  {
+    "spanish": "la textura",
+    "english": "texture"
+  },
+  {
+    "spanish": "comprar",
+    "english": "to buy"
+  },
+  {
+    "spanish": "la compra",
+    "english": "shopping"
+  },
+  {
+    "spanish": "la horchata",
+    "english": "horchata"
+  },
+  {
+    "spanish": "la nutrición",
+    "english": "nutrition"
+  },
+  {
+    "spanish": "la salchicha",
+    "english": "sausage"
+  },
+  {
+    "spanish": "el chorizo",
+    "english": "sausage"
+  },
+  {
+    "spanish": "el hot dog",
+    "english": "hot dog"
+  },
+  {
+    "spanish": "la hamburguesa",
+    "english": "hamburger"
+  },
+  {
+    "spanish": "el hambre",
+    "english": "hunger"
+  },
+  {
+    "spanish": "cazar",
+    "english": "to hunt"
+  },
+  {
+    "spanish": "pescar",
+    "english": "to fish"
+  },
+  {
+    "spanish": "el yogur",
+    "english": "yogurt"
+  },
+  {
+    "spanish": "la pasta",
+    "english": "pasta"
+  },
+  {
+    "spanish": "el fruto seco",
+    "english": "nut"
+  },
+  {
+    "spanish": "la nuez",
+    "english": "nut"
+  },
+  {
+    "spanish": "el cereal",
+    "english": "cereal"
+  },
+  {
+    "spanish": "los lácteos",
+    "english": "dairy"
+  },
+  {
+    "spanish": "el zumo",
+    "english": "juice"
+  },
+  {
+    "spanish": "el jugo",
+    "english": "juice"
+  },
+  {
+    "spanish": "a la plancha",
+    "english": "grilled"
+  },
+  {
+    "spanish": "el grill",
+    "english": "broiler"
+  },
+  {
+    "spanish": "a la brasa",
+    "english": "barbecued"
+  },
+  {
+    "spanish": "hirviente",
+    "english": "boiling"
+  },
+  {
+    "spanish": "horneado",
+    "english": "baked"
+  },
+  {
+    "spanish": "helado",
+    "english": "freezing"
+  },
+  {
+    "spanish": "congelado",
+    "english": "frozen"
+  },
+  {
+    "spanish": "templado",
+    "english": "lukewarm"
+  },
+  {
+    "spanish": "pedir",
+    "english": "to order"
+  },
+  {
+    "spanish": "el huevo",
+    "english": "egg"
+  },
+  {
+    "spanish": "la tortilla",
+    "english": "omelette"
+  },
+  {
+    "spanish": "la tortilla",
+    "english": "tortilla"
+  },
+  {
+    "spanish": "la legumbre",
+    "english": "legume"
+  },
+  {
+    "spanish": "el taco",
+    "english": "taco"
+  },
+  {
+    "spanish": "el garbanzo",
+    "english": "chickpea"
+  },
+  {
+    "spanish": "la lenteja",
+    "english": "lentil"
+  },
+  {
+    "spanish": "el frijol",
+    "english": "bean"
+  },
+  {
+    "spanish": "el melón",
+    "english": "cantaloupe"
+  },
+  {
+    "spanish": "la sandía",
+    "english": "watermelon"
+  },
+  {
+    "spanish": "la cuchara sopera",
+    "english": "tablespoon"
+  },
+  {
+    "spanish": "el procesador de alimentos",
+    "english": "food processor"
+  },
+  {
+    "spanish": "la licuadora",
+    "english": "blender"
+  },
+  {
+    "spanish": "el azafrán",
+    "english": "saffron"
+  },
+  {
+    "spanish": "el pimiento",
+    "english": "pepper"
+  },
+  {
+    "spanish": "el chile",
+    "english": "chili"
+  },
+  {
+    "spanish": "la paleta",
+    "english": "spatula"
+  },
+  {
+    "spanish": "la espátula",
+    "english": "spatula"
+  },
+  {
+    "spanish": "el cucharón",
+    "english": "ladle"
+  },
+  {
+    "spanish": "la cuchara para servir",
+    "english": "serving spoon"
+  },
+  {
+    "spanish": "la cucharilla",
+    "english": "teaspoon"
+  },
+  {
+    "spanish": "la cuchara",
+    "english": "spoon"
+  },
+  {
+    "spanish": "el tenedor",
+    "english": "fork"
+  },
+  {
+    "spanish": "el cuchillo",
+    "english": "knife"
+  },
+  {
+    "spanish": "la taza",
+    "english": "mug"
+  },
+  {
+    "spanish": "el vaso",
+    "english": "glass"
+  },
+  {
+    "spanish": "la cocina",
+    "english": "stove"
+  },
+  {
+    "spanish": "la cocina",
+    "english": "cooker"
+  },
+  {
+    "spanish": "el horno",
+    "english": "oven"
+  },
+  {
+    "spanish": "la repostería",
+    "english": "baking"
+  },
+  {
+    "spanish": "el pinche",
+    "english": "kitchen assistant"
+  },
+  {
+    "spanish": "el mercado",
+    "english": "market"
+  },
+  {
+    "spanish": "el verdulero",
+    "english": "greengrocer"
+  },
+  {
+    "spanish": "el frutero",
+    "english": "greengrocer"
+  },
+  {
+    "spanish": "el carnicero",
+    "english": "butcher"
+  },
+  {
+    "spanish": "el pescadero",
+    "english": "fishmonger"
+  },
+  {
+    "spanish": "la panadería",
+    "english": "bakery"
+  },
+  {
+    "spanish": "el marisco",
+    "english": "shellfish"
+  },
+  {
+    "spanish": "la comida de mar",
+    "english": "seafood"
+  },
+  {
+    "spanish": "el menú",
+    "english": "menu"
+  },
+  {
+    "spanish": "la carta",
+    "english": "menu"
+  },
+  {
+    "spanish": "el plato",
+    "english": "course"
+  },
+  {
+    "spanish": "el plato",
+    "english": "dish"
+  },
+  {
+    "spanish": "el plato",
+    "english": "plate"
+  },
+  {
+    "spanish": "el tazón",
+    "english": "bowl"
+  },
+  {
+    "spanish": "el cacahuate",
+    "english": "peanut"
+  },
+  {
+    "spanish": "el maní",
+    "english": "peanut"
+  },
+  {
+    "spanish": "la almendra",
+    "english": "almond"
+  },
+  {
+    "spanish": "el arroz",
+    "english": "rice"
+  },
+  {
+    "spanish": "comida española",
+    "english": "Spanish food"
+  },
+  {
+    "spanish": "la salsa de carne",
+    "english": "gravy"
+  },
+  {
+    "spanish": "el relleno",
+    "english": "stuffing"
+  },
+  {
+    "spanish": "el cocido",
+    "english": "stew"
+  },
+  {
+    "spanish": "el menudo",
+    "english": "tripe stew"
+  },
+  {
+    "spanish": "el durazno",
+    "english": "peach"
+  },
+  {
+    "spanish": "el melocotón",
+    "english": "peach"
+  },
+  {
+    "spanish": "el coco",
+    "english": "coconut"
+  },
+  {
+    "spanish": "la ciruela",
+    "english": "plum"
+  },
+  {
+    "spanish": "el limón verde",
+    "english": "lime"
+  },
+  {
+    "spanish": "la lima",
+    "english": "lime"
+  },
+  {
+    "spanish": "la cereza",
+    "english": "cherry"
+  },
+  {
+    "spanish": "el apio",
+    "english": "celery"
+  },
+  {
+    "spanish": "el jitomate",
+    "english": "tomato"
+  },
+  {
+    "spanish": "el tomate",
+    "english": "tomato"
+  },
+  {
+    "spanish": "el millo",
+    "english": "millet"
+  },
+  {
+    "spanish": "el pub",
+    "english": "pub"
+  },
+  {
+    "spanish": "el bar",
+    "english": "bar"
+  },
+  {
+    "spanish": "el supermercado",
+    "english": "supermarket"
+  },
+  {
+    "spanish": "la tienda de comestibles",
+    "english": "grocery store"
+  },
+  {
+    "spanish": "la trituradora",
+    "english": "grinder"
+  },
+  {
+    "spanish": "el sándwich de baguette",
+    "english": "sub"
+  },
+  {
+    "spanish": "el bocadillo",
+    "english": "sandwich"
+  },
+  {
+    "spanish": "el sándwich",
+    "english": "sandwich"
+  },
+  {
+    "spanish": "agrio",
+    "english": "sour"
+  },
+  {
+    "spanish": "amargo",
+    "english": "bitter"
+  },
+  {
+    "spanish": "la golosina",
+    "english": "sweet"
+  },
+  {
+    "spanish": "dulce",
+    "english": "sweet"
+  },
+  {
+    "spanish": "la chuche",
+    "english": "candy"
+  },
+  {
+    "spanish": "la ensalada",
+    "english": "salad"
+  },
+  {
+    "spanish": "la sopa",
+    "english": "soup"
+  },
+  {
+    "spanish": "el aperitivo",
+    "english": "appetizer"
+  },
+  {
+    "spanish": "las tapas",
+    "english": "tapas"
+  },
+  {
+    "spanish": "la pimienta",
+    "english": "pepper"
+  },
+  {
+    "spanish": "la sal",
+    "english": "salt"
+  },
+  {
+    "spanish": "la especia",
+    "english": "spice"
+  },
+  {
+    "spanish": "la galleta",
+    "english": "cookie"
+  },
+  {
+    "spanish": "el pay",
+    "english": "pie"
+  },
+  {
+    "spanish": "salado",
+    "english": "salty"
+  },
+  {
+    "spanish": "picante",
+    "english": "hot"
+  },
+  {
+    "spanish": "caliente",
+    "english": "hot"
+  },
+  {
+    "spanish": "la cerveza",
+    "english": "beer"
+  },
+  {
+    "spanish": "la carne guisada",
+    "english": "beef stew"
+  },
+  {
+    "spanish": "el vino tinto",
+    "english": "red wine"
+  },
+  {
+    "spanish": "el vino blanco",
+    "english": "white wine"
+  },
+  {
+    "spanish": "de vainilla",
+    "english": "vanilla"
+  },
+  {
+    "spanish": "la canela",
+    "english": "cinnamon"
+  },
+  {
+    "spanish": "la avellana",
+    "english": "hazelnut"
+  },
+  {
+    "spanish": "la barbacoa",
+    "english": "barbecue"
+  },
+  {
+    "spanish": "la cocina",
+    "english": "kitchen"
+  },
+  {
+    "spanish": "la langosta",
+    "english": "lobster"
+  },
+  {
+    "spanish": "el pulpo",
+    "english": "octopus"
+  },
+  {
+    "spanish": "el calamar",
+    "english": "squid"
+  },
+  {
+    "spanish": "el bacalao",
+    "english": "cod"
+  },
+  {
+    "spanish": "el salmón",
+    "english": "salmon"
+  },
+  {
+    "spanish": "el atún",
+    "english": "tuna"
+  },
+  {
+    "spanish": "el bonito",
+    "english": "tuna"
+  },
+  {
+    "spanish": "la tuna",
+    "english": "tuna"
+  },
+  {
+    "spanish": "la tuna",
+    "english": "prickly pear"
+  },
+  {
+    "spanish": "masticar",
+    "english": "to chew"
+  },
+  {
+    "spanish": "el aceite de oliva",
+    "english": "olive oil"
+  },
+  {
+    "spanish": "el aceite",
+    "english": "oil"
+  },
+  {
+    "spanish": "la cebolla",
+    "english": "onion"
+  },
+  {
+    "spanish": "el ajo",
+    "english": "garlic"
+  },
+  {
+    "spanish": "la hierba",
+    "english": "herb"
+  },
+  {
+    "spanish": "salado",
+    "english": "savory"
+  },
+  {
+    "spanish": "saborear",
+    "english": "to savor"
+  },
+  {
+    "spanish": "el sabor",
+    "english": "taste"
+  },
+  {
+    "spanish": "la prueba",
+    "english": "taste"
+  },
+  {
+    "spanish": "probar",
+    "english": "to try"
+  },
+  {
+    "spanish": "magro",
+    "english": "lean"
+  },
+  {
+    "spanish": "grasiento",
+    "english": "greasy"
+  },
+  {
+    "spanish": "comida rápida",
+    "english": "fast food"
+  },
+  {
+    "spanish": "insalubre",
+    "english": "unhealthy"
+  },
+  {
+    "spanish": "saludable",
+    "english": "healthy"
+  },
+  {
+    "spanish": "el pepino",
+    "english": "cucumber"
+  },
+  {
+    "spanish": "la zanahoria",
+    "english": "carrot"
+  },
+  {
+    "spanish": "la col",
+    "english": "cabbage"
+  },
+  {
+    "spanish": "la lechuga",
+    "english": "lettuce"
+  },
+  {
+    "spanish": "el/la coliflor",
+    "english": "cauliflower"
+  },
+  {
+    "spanish": "el brécol",
+    "english": "broccoli"
+  },
+  {
+    "spanish": "el ñame",
+    "english": "yam"
+  },
+  {
+    "spanish": "la patata",
+    "english": "potato"
+  },
+  {
+    "spanish": "la papa",
+    "english": "potato"
+  },
+  {
+    "spanish": "la leche",
+    "english": "milk"
+  },
+  {
+    "spanish": "el chocolate",
+    "english": "chocolate"
+  },
+  {
+    "spanish": "la lonja",
+    "english": "slice"
+  },
+  {
+    "spanish": "el queso",
+    "english": "cheese"
+  },
+  {
+    "spanish": "el fiambre",
+    "english": "cold cut"
+  },
+  {
+    "spanish": "el jamón",
+    "english": "ham"
+  },
+  {
+    "spanish": "el bacon",
+    "english": "bacon"
+  },
+  {
+    "spanish": "el kiwi",
+    "english": "kiwi"
+  },
+  {
+    "spanish": "el mango",
+    "english": "mango"
+  },
+  {
+    "spanish": "el plátano macho",
+    "english": "plantain"
+  },
+  {
+    "spanish": "la uva",
+    "english": "grape"
+  },
+  {
+    "spanish": "la clementina",
+    "english": "clementine"
+  },
+  {
+    "spanish": "la pera",
+    "english": "pear"
+  },
+  {
+    "spanish": "el plátano",
+    "english": "banana"
+  },
+  {
+    "spanish": "la banana",
+    "english": "banana"
+  },
+  {
+    "spanish": "satisfecho",
+    "english": "full"
+  },
+  {
+    "spanish": "lleno",
+    "english": "full"
+  },
+  {
+    "spanish": "sediento",
+    "english": "thirsty"
+  },
+  {
+    "spanish": "hambriento",
+    "english": "hungry"
+  },
+  {
+    "spanish": "el pastel",
+    "english": "cake"
+  },
+  {
+    "spanish": "la tarta",
+    "english": "pie"
+  },
+  {
+    "spanish": "el postre",
+    "english": "dessert"
+  },
+  {
+    "spanish": "freír",
+    "english": "to fry"
+  },
+  {
+    "spanish": "el helado",
+    "english": "ice cream"
+  },
+  {
+    "spanish": "la olla",
+    "english": "pot"
+  },
+  {
+    "spanish": "el pan",
+    "english": "bread"
+  },
+  {
+    "spanish": "la cacerola",
+    "english": "pan"
+  },
+  {
+    "spanish": "la comida india",
+    "english": "Indian food"
+  },
+  {
+    "spanish": "la comida china",
+    "english": "Chinese food"
+  },
+  {
+    "spanish": "comida italiana",
+    "english": "Italian food"
+  },
+  {
+    "spanish": "la pizza",
+    "english": "pizza"
+  },
+  {
+    "spanish": "la comida mexicana",
+    "english": "Mexican food"
+  },
+  {
+    "spanish": "el agua",
+    "english": "water"
+  },
+  {
+    "spanish": "el restaurante",
+    "english": "restaurant"
+  },
+  {
+    "spanish": "cenar",
+    "english": "to have dinner"
+  },
+  {
+    "spanish": "merendar",
+    "english": "to have an afternoon snack"
+  },
+  {
+    "spanish": "comer",
+    "english": "to eat"
+  },
+  {
+    "spanish": "almorzar",
+    "english": "to have lunch"
+  },
+  {
+    "spanish": "desayunar",
+    "english": "to have breakfast"
+  },
+  {
+    "spanish": "la cabra",
+    "english": "goat"
+  },
+  {
+    "spanish": "el guajolote",
+    "english": "turkey"
+  },
+  {
+    "spanish": "el cerdo",
+    "english": "pork"
+  },
+  {
+    "spanish": "el cordero",
+    "english": "lamb"
+  },
+  {
+    "spanish": "el pollo",
+    "english": "chicken"
+  },
+  {
+    "spanish": "la carne",
+    "english": "meat"
+  },
+  {
+    "spanish": "el café",
+    "english": "coffee"
+  },
+  {
+    "spanish": "el té",
+    "english": "tea"
+  },
+  {
+    "spanish": "el azúcar moreno",
+    "english": "brown sugar"
+  },
+  {
+    "spanish": "el/la azúcar",
+    "english": "sugar"
+  },
+  {
+    "spanish": "la harina",
+    "english": "flour"
+  },
+  {
+    "spanish": "el almuerzo",
+    "english": "mid-morning snack"
+  },
+  {
+    "spanish": "el tentempié",
+    "english": "snack"
+  },
+  {
+    "spanish": "la cena",
+    "english": "dinner"
+  },
+  {
+    "spanish": "la comida",
+    "english": "lunch"
+  },
+  {
+    "spanish": "el almuerzo",
+    "english": "lunch"
+  },
+  {
+    "spanish": "la soja",
+    "english": "soy"
+  },
+  {
+    "spanish": "el pescado",
+    "english": "fish"
+  },
+  {
+    "spanish": "el desayuno",
+    "english": "breakfast"
+  },
+  {
+    "spanish": "la naranja",
+    "english": "orange"
+  },
+  {
+    "spanish": "la comida",
+    "english": "meal"
+  },
+  {
+    "spanish": "el menaje",
+    "english": "tableware"
+  },
+  {
+    "spanish": "el/la chef",
+    "english": "chef"
+  },
+  {
+    "spanish": "cocinar",
+    "english": "to cook"
+  },
+  {
+    "spanish": "el cocinero",
+    "english": "cook"
+  },
+  {
+    "spanish": "la cocción",
+    "english": "cooking"
+  },
+  {
+    "spanish": "la verdura",
+    "english": "vegetable"
+  },
+  {
+    "spanish": "el sabor",
+    "english": "flavor"
+  },
+  {
+    "spanish": "la fruta",
+    "english": "fruit"
+  },
+  {
+    "spanish": "la bebida",
+    "english": "drink"
+  },
+  {
+    "spanish": "el alimento",
+    "english": "food"
+  },
+  {
+    "spanish": "la comida",
+    "english": "food"
   }
 ]
