@@ -17535,5 +17535,1997 @@
   {
     "spanish": "el hombre",
     "english": "man"
+  },
+  {
+    "spanish": "el gimnasio",
+    "english": "gym"
+  },
+  {
+    "spanish": "el hangar",
+    "english": "hangar"
+  },
+  {
+    "spanish": "el garaje",
+    "english": "parking garage"
+  },
+  {
+    "spanish": "el faro",
+    "english": "lighthouse"
+  },
+  {
+    "spanish": "estación de ferrocarril",
+    "english": "train station"
+  },
+  {
+    "spanish": "la estación de autobuses",
+    "english": "bus station"
+  },
+  {
+    "spanish": "el aeropuerto",
+    "english": "airport"
+  },
+  {
+    "spanish": "el búnker",
+    "english": "bunker"
+  },
+  {
+    "spanish": "el cuartel",
+    "english": "barracks"
+  },
+  {
+    "spanish": "el parlamento",
+    "english": "parliament"
+  },
+  {
+    "spanish": "la oficina de correos",
+    "english": "post office"
+  },
+  {
+    "spanish": "la comisaría",
+    "english": "police station"
+  },
+  {
+    "spanish": "la estación de bomberos",
+    "english": "fire station"
+  },
+  {
+    "spanish": "la embajada",
+    "english": "embassy"
+  },
+  {
+    "spanish": "el palacio de justicia",
+    "english": "courthouse"
+  },
+  {
+    "spanish": "el ayuntamiento",
+    "english": "town hall"
+  },
+  {
+    "spanish": "la alcaldía",
+    "english": "city hall"
+  },
+  {
+    "spanish": "la mezquita",
+    "english": "mosque"
+  },
+  {
+    "spanish": "la pagoda",
+    "english": "pagoda"
+  },
+  {
+    "spanish": "el templo",
+    "english": "temple"
+  },
+  {
+    "spanish": "la sinagoga",
+    "english": "synagogue"
+  },
+  {
+    "spanish": "la ermita",
+    "english": "shrine"
+  },
+  {
+    "spanish": "la capilla",
+    "english": "chapel"
+  },
+  {
+    "spanish": "la catedral",
+    "english": "cathedral"
+  },
+  {
+    "spanish": "la iglesia",
+    "english": "church"
+  },
+  {
+    "spanish": "el museo",
+    "english": "museum"
+  },
+  {
+    "spanish": "la biblioteca",
+    "english": "library"
+  },
+  {
+    "spanish": "la arena",
+    "english": "arena"
+  },
+  {
+    "spanish": "el molino de viento",
+    "english": "windmill"
+  },
+  {
+    "spanish": "el establo",
+    "english": "stable"
+  },
+  {
+    "spanish": "el silo",
+    "english": "silo"
+  },
+  {
+    "spanish": "el invernadero",
+    "english": "greenhouse"
+  },
+  {
+    "spanish": "el granero",
+    "english": "granary"
+  },
+  {
+    "spanish": "la masada",
+    "english": "farmhouse"
+  },
+  {
+    "spanish": "la funeraria",
+    "english": "funeral home"
+  },
+  {
+    "spanish": "el teatro",
+    "english": "theater"
+  },
+  {
+    "spanish": "el lavacoches",
+    "english": "car wash"
+  },
+  {
+    "spanish": "el complejo turístico",
+    "english": "resort"
+  },
+  {
+    "spanish": "el casino",
+    "english": "casino"
+  },
+  {
+    "spanish": "la posada",
+    "english": "inn"
+  },
+  {
+    "spanish": "el motel",
+    "english": "motel"
+  },
+  {
+    "spanish": "el hotel",
+    "english": "hotel"
+  },
+  {
+    "spanish": "la prisión",
+    "english": "prison"
+  },
+  {
+    "spanish": "la cárcel",
+    "english": "jail"
+  },
+  {
+    "spanish": "la residencia estudiantil",
+    "english": "dormitory"
+  },
+  {
+    "spanish": "el asilo de ancianos",
+    "english": "retirement home"
+  },
+  {
+    "spanish": "el adosado",
+    "english": "duplex"
+  },
+  {
+    "spanish": "el casita de campo",
+    "english": "cottage"
+  },
+  {
+    "spanish": "el granero",
+    "english": "barn"
+  },
+  {
+    "spanish": "la granja",
+    "english": "farm"
+  },
+  {
+    "spanish": "el rancho",
+    "english": "ranch"
+  },
+  {
+    "spanish": "la posesión",
+    "english": "estate"
+  },
+  {
+    "spanish": "la finca",
+    "english": "property"
+  },
+  {
+    "spanish": "el almacén",
+    "english": "storehouse"
+  },
+  {
+    "spanish": "la construcción",
+    "english": "construction"
+  },
+  {
+    "spanish": "las obras",
+    "english": "work"
+  },
+  {
+    "spanish": "el hospital",
+    "english": "hospital"
+  },
+  {
+    "spanish": "la escuela",
+    "english": "school"
+  },
+  {
+    "spanish": "la oficina",
+    "english": "office"
+  },
+  {
+    "spanish": "la factoría",
+    "english": "factory"
+  },
+  {
+    "spanish": "la choza",
+    "english": "hut"
+  },
+  {
+    "spanish": "las galerías",
+    "english": "shopping center"
+  },
+  {
+    "spanish": "el centro comercial",
+    "english": "mall"
+  },
+  {
+    "spanish": "el restaurante",
+    "english": "restaurant"
+  },
+  {
+    "spanish": "el refugio",
+    "english": "shelter"
+  },
+  {
+    "spanish": "el condominio",
+    "english": "condominium"
+  },
+  {
+    "spanish": "el edificio de apartamentos",
+    "english": "apartment building"
+  },
+  {
+    "spanish": "la casa",
+    "english": "house"
+  },
+  {
+    "spanish": "la caseta",
+    "english": "shed"
+  },
+  {
+    "spanish": "la traza",
+    "english": "design"
+  },
+  {
+    "spanish": "la arquitectura",
+    "english": "architecture"
+  },
+  {
+    "spanish": "el almacén",
+    "english": "warehouse"
+  },
+  {
+    "spanish": "el edificio",
+    "english": "building"
+  },
+  {
+    "spanish": "el enano",
+    "english": "dwarf"
+  },
+  {
+    "spanish": "el destello",
+    "english": "sparkle"
+  },
+  {
+    "spanish": "la purpurina",
+    "english": "glitter"
+  },
+  {
+    "spanish": "el cuerno",
+    "english": "horn"
+  },
+  {
+    "spanish": "mágico",
+    "english": "magic"
+  },
+  {
+    "spanish": "mágico",
+    "english": "magical"
+  },
+  {
+    "spanish": "el cíclope",
+    "english": "Cyclops"
+  },
+  {
+    "spanish": "el fénix",
+    "english": "phoenix"
+  },
+  {
+    "spanish": "el grifo",
+    "english": "griffin"
+  },
+  {
+    "spanish": "el trol",
+    "english": "troll"
+  },
+  {
+    "spanish": "el ogro",
+    "english": "ogre"
+  },
+  {
+    "spanish": "el hada",
+    "english": "fairy"
+  },
+  {
+    "spanish": "el hombre lobo",
+    "english": "werewolf"
+  },
+  {
+    "spanish": "el yeti",
+    "english": "yeti"
+  },
+  {
+    "spanish": "el duende",
+    "english": "leprechaun"
+  },
+  {
+    "spanish": "el chupacabras",
+    "english": "chupacabra"
+  },
+  {
+    "spanish": "el dragón",
+    "english": "dragon"
+  },
+  {
+    "spanish": "el embrujo",
+    "english": "curse"
+  },
+  {
+    "spanish": "el hechizo",
+    "english": "spell"
+  },
+  {
+    "spanish": "el vampiro",
+    "english": "vampire"
+  },
+  {
+    "spanish": "el fantasma",
+    "english": "ghost"
+  },
+  {
+    "spanish": "el marciano",
+    "english": "Martian"
+  },
+  {
+    "spanish": "el coco",
+    "english": "boogeyman"
+  },
+  {
+    "spanish": "la posesión",
+    "english": "possession"
+  },
+  {
+    "spanish": "existir",
+    "english": "to exist"
+  },
+  {
+    "spanish": "la aparición",
+    "english": "apparition"
+  },
+  {
+    "spanish": "el genio",
+    "english": "genie"
+  },
+  {
+    "spanish": "el fenómeno",
+    "english": "freak"
+  },
+  {
+    "spanish": "la criatura",
+    "english": "creature"
+  },
+  {
+    "spanish": "imaginario",
+    "english": "imaginary"
+  },
+  {
+    "spanish": "mítico",
+    "english": "mythical"
+  },
+  {
+    "spanish": "el unicornio",
+    "english": "unicorn"
+  },
+  {
+    "spanish": "el mago",
+    "english": "wizard"
+  },
+  {
+    "spanish": "la bruja",
+    "english": "witch"
+  },
+  {
+    "spanish": "la sirena",
+    "english": "mermaid"
+  },
+  {
+    "spanish": "la ventisca",
+    "english": "blizzard"
+  },
+  {
+    "spanish": "la bota",
+    "english": "boot"
+  },
+  {
+    "spanish": "la chimenea",
+    "english": "fireplace"
+  },
+  {
+    "spanish": "el abrigo",
+    "english": "coat"
+  },
+  {
+    "spanish": "el resfriado",
+    "english": "cold"
+  },
+  {
+    "spanish": "frío",
+    "english": "cold"
+  },
+  {
+    "spanish": "el edredón",
+    "english": "comforter"
+  },
+  {
+    "spanish": "la franela",
+    "english": "flannel"
+  },
+  {
+    "spanish": "lluvia engelante",
+    "english": "freezing rain"
+  },
+  {
+    "spanish": "la congelación",
+    "english": "frostbite"
+  },
+  {
+    "spanish": "congelado",
+    "english": "freezing"
+  },
+  {
+    "spanish": "el copo de nieve",
+    "english": "snowflake"
+  },
+  {
+    "spanish": "congelado",
+    "english": "frozen"
+  },
+  {
+    "spanish": "el guante",
+    "english": "glove"
+  },
+  {
+    "spanish": "la calefacción",
+    "english": "heating"
+  },
+  {
+    "spanish": "hibernar",
+    "english": "to hibernate"
+  },
+  {
+    "spanish": "la hipotermia",
+    "english": "hypothermia"
+  },
+  {
+    "spanish": "el hockey",
+    "english": "hockey"
+  },
+  {
+    "spanish": "el chocolate caliente",
+    "english": "hot chocolate"
+  },
+  {
+    "spanish": "el hielo",
+    "english": "ice"
+  },
+  {
+    "spanish": "el carámbano",
+    "english": "icicle"
+  },
+  {
+    "spanish": "el patín de hielo",
+    "english": "ice skate"
+  },
+  {
+    "spanish": "gélido",
+    "english": "icy"
+  },
+  {
+    "spanish": "el leño",
+    "english": "log"
+  },
+  {
+    "spanish": "la manopla",
+    "english": "mitten"
+  },
+  {
+    "spanish": "el edredón",
+    "english": "quilt"
+  },
+  {
+    "spanish": "el radiador",
+    "english": "radiator"
+  },
+  {
+    "spanish": "la gripe",
+    "english": "flu"
+  },
+  {
+    "spanish": "el acondicionador de aire",
+    "english": "air conditioner"
+  },
+  {
+    "spanish": "el traje de baño",
+    "english": "bathing suit"
+  },
+  {
+    "spanish": "el calor",
+    "english": "heat"
+  },
+  {
+    "spanish": "el béisbol",
+    "english": "baseball"
+  },
+  {
+    "spanish": "la playa",
+    "english": "beach"
+  },
+  {
+    "spanish": "el camping",
+    "english": "camping"
+  },
+  {
+    "spanish": "el ventilador",
+    "english": "fan"
+  },
+  {
+    "spanish": "el frisbee",
+    "english": "Frisbee"
+  },
+  {
+    "spanish": "la fruta",
+    "english": "fruit"
+  },
+  {
+    "spanish": "la jardinería",
+    "english": "gardening"
+  },
+  {
+    "spanish": "la hierba",
+    "english": "grass"
+  },
+  {
+    "spanish": "el feriado",
+    "english": "holiday"
+  },
+  {
+    "spanish": "la humedad",
+    "english": "humidity"
+  },
+  {
+    "spanish": "el senderismo",
+    "english": "hiking"
+  },
+  {
+    "spanish": "el helado",
+    "english": "ice cream"
+  },
+  {
+    "spanish": "el relámpago",
+    "english": "bolt of lightning"
+  },
+  {
+    "spanish": "bochornoso",
+    "english": "muggy"
+  },
+  {
+    "spanish": "el océano",
+    "english": "ocean"
+  },
+  {
+    "spanish": "al aire libre",
+    "english": "outdoor"
+  },
+  {
+    "spanish": "el parque",
+    "english": "park"
+  },
+  {
+    "spanish": "el pícnic",
+    "english": "picnic"
+  },
+  {
+    "spanish": "la paleta de hielo",
+    "english": "Popsicle"
+  },
+  {
+    "spanish": "la recreación",
+    "english": "recreation"
+  },
+  {
+    "spanish": "el viaje por carretera",
+    "english": "road trip"
+  },
+  {
+    "spanish": "el solsticio",
+    "english": "solstice"
+  },
+  {
+    "spanish": "la solera",
+    "english": "sundress"
+  },
+  {
+    "spanish": "la sandalia",
+    "english": "sandal"
+  },
+  {
+    "spanish": "la orilla del mar",
+    "english": "seashore"
+  },
+  {
+    "spanish": "el sol",
+    "english": "sun"
+  },
+  {
+    "spanish": "la tormenta eléctrica",
+    "english": "thunderstorm"
+  },
+  {
+    "spanish": "el nacimiento",
+    "english": "birth"
+  },
+  {
+    "spanish": "florecer",
+    "english": "to blossom"
+  },
+  {
+    "spanish": "el conejito",
+    "english": "bunny"
+  },
+  {
+    "spanish": "el pollito",
+    "english": "chick"
+  },
+  {
+    "spanish": "el narciso",
+    "english": "daffodil"
+  },
+  {
+    "spanish": "la Pascua",
+    "english": "Easter"
+  },
+  {
+    "spanish": "el huevo",
+    "english": "egg"
+  },
+  {
+    "spanish": "la flor",
+    "english": "flower"
+  },
+  {
+    "spanish": "crecer",
+    "english": "to grow"
+  },
+  {
+    "spanish": "el cordero",
+    "english": "lamb"
+  },
+  {
+    "spanish": "derretirse",
+    "english": "to melt"
+  },
+  {
+    "spanish": "el nido",
+    "english": "nest"
+  },
+  {
+    "spanish": "el charco",
+    "english": "puddle"
+  },
+  {
+    "spanish": "el barro",
+    "english": "mud"
+  },
+  {
+    "spanish": "el arco iris",
+    "english": "rainbow"
+  },
+  {
+    "spanish": "el renacimiento",
+    "english": "rebirth"
+  },
+  {
+    "spanish": "la lluvia",
+    "english": "rain"
+  },
+  {
+    "spanish": "el petirrojo",
+    "english": "robin"
+  },
+  {
+    "spanish": "la primavera",
+    "english": "spring"
+  },
+  {
+    "spanish": "el sol",
+    "english": "sunshine"
+  },
+  {
+    "spanish": "las vacaciones de primavera",
+    "english": "spring break"
+  },
+  {
+    "spanish": "el retoño",
+    "english": "sprout"
+  },
+  {
+    "spanish": "el deshielo",
+    "english": "thaw"
+  },
+  {
+    "spanish": "el paraguas",
+    "english": "umbrella"
+  },
+  {
+    "spanish": "ventoso",
+    "english": "windy"
+  },
+  {
+    "spanish": "cálido",
+    "english": "warm"
+  },
+  {
+    "spanish": "alérgico",
+    "english": "allergic"
+  },
+  {
+    "spanish": "cielo azul",
+    "english": "blue sky"
+  },
+  {
+    "spanish": "nuevo comienzo",
+    "english": "new beginning"
+  },
+  {
+    "spanish": "el polen",
+    "english": "pollen"
+  },
+  {
+    "spanish": "la especia",
+    "english": "spice"
+  },
+  {
+    "spanish": "la nuez moscada",
+    "english": "nutmeg"
+  },
+  {
+    "spanish": "la canela",
+    "english": "cinnamon"
+  },
+  {
+    "spanish": "azucarado",
+    "english": "sugary"
+  },
+  {
+    "spanish": "naranjado",
+    "english": "orange"
+  },
+  {
+    "spanish": "el clavo de olor",
+    "english": "clove"
+  },
+  {
+    "spanish": "el café",
+    "english": "coffee"
+  },
+  {
+    "spanish": "rico",
+    "english": "delicious"
+  },
+  {
+    "spanish": "el latte",
+    "english": "latte"
+  },
+  {
+    "spanish": "el jengibre",
+    "english": "ginger"
+  },
+  {
+    "spanish": "el gorro",
+    "english": "hat"
+  },
+  {
+    "spanish": "el suéter",
+    "english": "sweater"
+  },
+  {
+    "spanish": "la bufanda",
+    "english": "scarf"
+  },
+  {
+    "spanish": "la calabaza",
+    "english": "pumpkin"
+  },
+  {
+    "spanish": "la tarta de calabaza",
+    "english": "pumpkin pie"
+  },
+  {
+    "spanish": "la bellota",
+    "english": "acorn"
+  },
+  {
+    "spanish": "el follaje",
+    "english": "foliage"
+  },
+  {
+    "spanish": "la huerta de calabazas",
+    "english": "pumpkin patch"
+  },
+  {
+    "spanish": "el maíz",
+    "english": "corn"
+  },
+  {
+    "spanish": "otoñal",
+    "english": "autumnal"
+  },
+  {
+    "spanish": "la cosecha",
+    "english": "harvest"
+  },
+  {
+    "spanish": "el espantapájaros",
+    "english": "scarecrow"
+  },
+  {
+    "spanish": "la manzana",
+    "english": "apple"
+  },
+  {
+    "spanish": "la sidra",
+    "english": "cider"
+  },
+  {
+    "spanish": "la ardilla",
+    "english": "squirrel"
+  },
+  {
+    "spanish": "el rastrillo",
+    "english": "rake"
+  },
+  {
+    "spanish": "la cornucopia",
+    "english": "cornucopia"
+  },
+  {
+    "spanish": "frío y despejado",
+    "english": "crisp"
+  },
+  {
+    "spanish": "el otoño",
+    "english": "autumn"
+  },
+  {
+    "spanish": "el otoño",
+    "english": "fall"
+  },
+  {
+    "spanish": "la ostra",
+    "english": "oyster"
+  },
+  {
+    "spanish": "el toro",
+    "english": "bull"
+  },
+  {
+    "spanish": "la marmota de América",
+    "english": "groundhog"
+  },
+  {
+    "spanish": "la musaraña",
+    "english": "shrew"
+  },
+  {
+    "spanish": "el jerbo",
+    "english": "gerbil"
+  },
+  {
+    "spanish": "el babuino",
+    "english": "baboon"
+  },
+  {
+    "spanish": "la tijereta",
+    "english": "earwig"
+  },
+  {
+    "spanish": "la mariquita",
+    "english": "ladybird"
+  },
+  {
+    "spanish": "la corneja",
+    "english": "crow"
+  },
+  {
+    "spanish": "el plancton",
+    "english": "plankton"
+  },
+  {
+    "spanish": "el dorado",
+    "english": "mahi-mahi"
+  },
+  {
+    "spanish": "el kril",
+    "english": "krill"
+  },
+  {
+    "spanish": "la acedia",
+    "english": "flounder"
+  },
+  {
+    "spanish": "el pez payaso",
+    "english": "clown fish"
+  },
+  {
+    "spanish": "el narval",
+    "english": "narwhal"
+  },
+  {
+    "spanish": "el ermitaño",
+    "english": "hermit crab"
+  },
+  {
+    "spanish": "la caracola",
+    "english": "conch"
+  },
+  {
+    "spanish": "el tritón",
+    "english": "newt"
+  },
+  {
+    "spanish": "la babosa",
+    "english": "slug"
+  },
+  {
+    "spanish": "la viuda negra",
+    "english": "black widow"
+  },
+  {
+    "spanish": "la leona",
+    "english": "lioness"
+  },
+  {
+    "spanish": "el puma",
+    "english": "puma"
+  },
+  {
+    "spanish": "canino",
+    "english": "canine"
+  },
+  {
+    "spanish": "el felino",
+    "english": "feline"
+  },
+  {
+    "spanish": "el gato montés",
+    "english": "bobcat"
+  },
+  {
+    "spanish": "el ocelote",
+    "english": "ocelot"
+  },
+  {
+    "spanish": "la pantera",
+    "english": "panther"
+  },
+  {
+    "spanish": "el tigre",
+    "english": "tiger"
+  },
+  {
+    "spanish": "diurno",
+    "english": "diurnal"
+  },
+  {
+    "spanish": "el/la carnívoro",
+    "english": "carnivore"
+  },
+  {
+    "spanish": "el omnívoro",
+    "english": "omnivore"
+  },
+  {
+    "spanish": "el herbívoro",
+    "english": "herbivore"
+  },
+  {
+    "spanish": "carnívoro",
+    "english": "carnivorous"
+  },
+  {
+    "spanish": "nocturno",
+    "english": "nocturnal"
+  },
+  {
+    "spanish": "salvaje",
+    "english": "wild"
+  },
+  {
+    "spanish": "domesticado",
+    "english": "domesticated"
+  },
+  {
+    "spanish": "manso",
+    "english": "tame"
+  },
+  {
+    "spanish": "apacible",
+    "english": "gentle"
+  },
+  {
+    "spanish": "dócil",
+    "english": "docile"
+  },
+  {
+    "spanish": "fiero",
+    "english": "ferocious"
+  },
+  {
+    "spanish": "terco",
+    "english": "stubborn"
+  },
+  {
+    "spanish": "rabioso",
+    "english": "rabid"
+  },
+  {
+    "spanish": "afectuoso",
+    "english": "affectionate"
+  },
+  {
+    "spanish": "esponjoso",
+    "english": "fluffy"
+  },
+  {
+    "spanish": "feroz",
+    "english": "fierce"
+  },
+  {
+    "spanish": "amoroso",
+    "english": "loving"
+  },
+  {
+    "spanish": "aterrador",
+    "english": "terrifying"
+  },
+  {
+    "spanish": "mono",
+    "english": "cute"
+  },
+  {
+    "spanish": "la liebre",
+    "english": "hare"
+  },
+  {
+    "spanish": "la ardilla listada",
+    "english": "chipmunk"
+  },
+  {
+    "spanish": "el hurón",
+    "english": "ferret"
+  },
+  {
+    "spanish": "la comadreja",
+    "english": "weasel"
+  },
+  {
+    "spanish": "la cebra",
+    "english": "zebra"
+  },
+  {
+    "spanish": "el visón",
+    "english": "mink"
+  },
+  {
+    "spanish": "el mapache",
+    "english": "raccoon"
+  },
+  {
+    "spanish": "el topo",
+    "english": "mole"
+  },
+  {
+    "spanish": "la gacela",
+    "english": "gazelle"
+  },
+  {
+    "spanish": "el venado",
+    "english": "stag"
+  },
+  {
+    "spanish": "el perezoso",
+    "english": "sloth"
+  },
+  {
+    "spanish": "el tejón",
+    "english": "badger"
+  },
+  {
+    "spanish": "el antílope",
+    "english": "antelope"
+  },
+  {
+    "spanish": "el castor",
+    "english": "beaver"
+  },
+  {
+    "spanish": "el lince",
+    "english": "lynx"
+  },
+  {
+    "spanish": "la onza",
+    "english": "snow leopard"
+  },
+  {
+    "spanish": "la tortuga de mar",
+    "english": "sea turtle"
+  },
+  {
+    "spanish": "la anaconda",
+    "english": "anaconda"
+  },
+  {
+    "spanish": "la cobra",
+    "english": "cobra"
+  },
+  {
+    "spanish": "la pitón",
+    "english": "python"
+  },
+  {
+    "spanish": "el crótalo",
+    "english": "rattlesnake"
+  },
+  {
+    "spanish": "la iguana",
+    "english": "iguana"
+  },
+  {
+    "spanish": "el caimán",
+    "english": "caiman"
+  },
+  {
+    "spanish": "la salamandra",
+    "english": "salamander"
+  },
+  {
+    "spanish": "la sanguijuela",
+    "english": "leech"
+  },
+  {
+    "spanish": "el caracol",
+    "english": "snail"
+  },
+  {
+    "spanish": "la polilla",
+    "english": "moth"
+  },
+  {
+    "spanish": "la luciérnaga",
+    "english": "lightning bug"
+  },
+  {
+    "spanish": "el ácaro",
+    "english": "mite"
+  },
+  {
+    "spanish": "la langosta",
+    "english": "locust"
+  },
+  {
+    "spanish": "el gorgojo",
+    "english": "weevil"
+  },
+  {
+    "spanish": "el pulgón",
+    "english": "aphid"
+  },
+  {
+    "spanish": "el piojo",
+    "english": "louse"
+  },
+  {
+    "spanish": "el escarabajo",
+    "english": "beetle"
+  },
+  {
+    "spanish": "la pulga",
+    "english": "flea"
+  },
+  {
+    "spanish": "la cucaracha",
+    "english": "cockroach"
+  },
+  {
+    "spanish": "la mantis religiosa",
+    "english": "praying mantis"
+  },
+  {
+    "spanish": "la mariquita",
+    "english": "ladybug"
+  },
+  {
+    "spanish": "la libélula",
+    "english": "dragonfly"
+  },
+  {
+    "spanish": "el grillo",
+    "english": "cricket"
+  },
+  {
+    "spanish": "el saltamontes",
+    "english": "grasshopper"
+  },
+  {
+    "spanish": "el chapulín",
+    "english": "grasshopper"
+  },
+  {
+    "spanish": "el/la chinche",
+    "english": "bedbug"
+  },
+  {
+    "spanish": "la chicharra",
+    "english": "cicada"
+  },
+  {
+    "spanish": "la tarántula",
+    "english": "tarantula"
+  },
+  {
+    "spanish": "el insecto",
+    "english": "insect"
+  },
+  {
+    "spanish": "el bicho",
+    "english": "bug"
+  },
+  {
+    "spanish": "el ciempiés",
+    "english": "centipede"
+  },
+  {
+    "spanish": "la garrapata",
+    "english": "tick"
+  },
+  {
+    "spanish": "el mosquito",
+    "english": "mosquito"
+  },
+  {
+    "spanish": "la mosca",
+    "english": "fly"
+  },
+  {
+    "spanish": "la oruga",
+    "english": "caterpillar"
+  },
+  {
+    "spanish": "el abejorro",
+    "english": "bumblebee"
+  },
+  {
+    "spanish": "la luciérnaga",
+    "english": "firefly"
+  },
+  {
+    "spanish": "el escorpión",
+    "english": "scorpion"
+  },
+  {
+    "spanish": "el alacrán",
+    "english": "scorpion"
+  },
+  {
+    "spanish": "el lechón",
+    "english": "piglet"
+  },
+  {
+    "spanish": "la alpaca",
+    "english": "alpaca"
+  },
+  {
+    "spanish": "la llama",
+    "english": "llama"
+  },
+  {
+    "spanish": "el chivo",
+    "english": "kid"
+  },
+  {
+    "spanish": "el patito",
+    "english": "duckling"
+  },
+  {
+    "spanish": "la gallina",
+    "english": "hen"
+  },
+  {
+    "spanish": "la potra",
+    "english": "filly"
+  },
+  {
+    "spanish": "el mulo",
+    "english": "mule"
+  },
+  {
+    "spanish": "el buitre",
+    "english": "vulture"
+  },
+  {
+    "spanish": "el pavo",
+    "english": "turkey"
+  },
+  {
+    "spanish": "el tucán",
+    "english": "toucan"
+  },
+  {
+    "spanish": "el halcón",
+    "english": "falcon"
+  },
+  {
+    "spanish": "la cigüeña",
+    "english": "stork"
+  },
+  {
+    "spanish": "el gorrión",
+    "english": "sparrow"
+  },
+  {
+    "spanish": "el pavo real",
+    "english": "peacock"
+  },
+  {
+    "spanish": "el avestruz",
+    "english": "ostrich"
+  },
+  {
+    "spanish": "el petirrojo",
+    "english": "robin"
+  },
+  {
+    "spanish": "la cacatúa",
+    "english": "cockatoo"
+  },
+  {
+    "spanish": "el albatros",
+    "english": "albatross"
+  },
+  {
+    "spanish": "el cardenal",
+    "english": "cardinal"
+  },
+  {
+    "spanish": "el ganso",
+    "english": "goose"
+  },
+  {
+    "spanish": "el flamenco",
+    "english": "flamingo"
+  },
+  {
+    "spanish": "la trucha",
+    "english": "trout"
+  },
+  {
+    "spanish": "el bagre",
+    "english": "catfish"
+  },
+  {
+    "spanish": "el arenque",
+    "english": "herring"
+  },
+  {
+    "spanish": "la carpa",
+    "english": "carp"
+  },
+  {
+    "spanish": "el salmón",
+    "english": "salmon"
+  },
+  {
+    "spanish": "la piraña",
+    "english": "piranha"
+  },
+  {
+    "spanish": "la lubina",
+    "english": "sea bass"
+  },
+  {
+    "spanish": "el emperador",
+    "english": "swordfish"
+  },
+  {
+    "spanish": "la gamba",
+    "english": "shrimp"
+  },
+  {
+    "spanish": "el camarón",
+    "english": "shrimp"
+  },
+  {
+    "spanish": "la esponja",
+    "english": "sponge"
+  },
+  {
+    "spanish": "el pez globo",
+    "english": "puffer fish"
+  },
+  {
+    "spanish": "el pez sierra",
+    "english": "sawfish"
+  },
+  {
+    "spanish": "la caballa",
+    "english": "mackerel"
+  },
+  {
+    "spanish": "el ballenato",
+    "english": "whale calf"
+  },
+  {
+    "spanish": "la anguila",
+    "english": "eel"
+  },
+  {
+    "spanish": "el manatí",
+    "english": "manatee"
+  },
+  {
+    "spanish": "el bacalao",
+    "english": "cod"
+  },
+  {
+    "spanish": "la barracuda",
+    "english": "barracuda"
+  },
+  {
+    "spanish": "el boquerón",
+    "english": "anchovy"
+  },
+  {
+    "spanish": "el caballo de mar",
+    "english": "seahorse"
+  },
+  {
+    "spanish": "la sepia",
+    "english": "cuttlefish"
+  },
+  {
+    "spanish": "la almeja",
+    "english": "clam"
+  },
+  {
+    "spanish": "el cangrejo",
+    "english": "crab"
+  },
+  {
+    "spanish": "el coral",
+    "english": "coral"
+  },
+  {
+    "spanish": "el mejillón",
+    "english": "mussel"
+  },
+  {
+    "spanish": "la gaviota",
+    "english": "seagull"
+  },
+  {
+    "spanish": "el pelícano",
+    "english": "pelican"
+  },
+  {
+    "spanish": "el frailecillo",
+    "english": "puffin"
+  },
+  {
+    "spanish": "la nutria",
+    "english": "otter"
+  },
+  {
+    "spanish": "la estrella de mar",
+    "english": "starfish"
+  },
+  {
+    "spanish": "el bogavante",
+    "english": "lobster"
+  },
+  {
+    "spanish": "la vieira",
+    "english": "scallop"
+  },
+  {
+    "spanish": "la medusa",
+    "english": "jellyfish"
+  },
+  {
+    "spanish": "la orca",
+    "english": "killer whale"
+  },
+  {
+    "spanish": "el calamar",
+    "english": "squid"
+  },
+  {
+    "spanish": "el ladrido",
+    "english": "bark"
+  },
+  {
+    "spanish": "la raza",
+    "english": "breed"
+  },
+  {
+    "spanish": "el miau",
+    "english": "mew"
+  },
+  {
+    "spanish": "el ejercicio",
+    "english": "exercise"
+  },
+  {
+    "spanish": "abatirse",
+    "english": "to swoop down"
+  },
+  {
+    "spanish": "sacar a pasear",
+    "english": "to take out for a walk"
+  },
+  {
+    "spanish": "dar de comer",
+    "english": "to feed"
+  },
+  {
+    "spanish": "acariciar",
+    "english": "to pet"
+  },
+  {
+    "spanish": "gruñir",
+    "english": "to growl"
+  },
+  {
+    "spanish": "aparear",
+    "english": "to mate"
+  },
+  {
+    "spanish": "capar",
+    "english": "to castrate"
+  },
+  {
+    "spanish": "ronronear",
+    "english": "to purr"
+  },
+  {
+    "spanish": "castrar",
+    "english": "to neuter"
+  },
+  {
+    "spanish": "esterilizar",
+    "english": "to spay"
+  },
+  {
+    "spanish": "esterilizar",
+    "english": "to sterilize"
+  },
+  {
+    "spanish": "domar",
+    "english": "to tame"
+  },
+  {
+    "spanish": "morder",
+    "english": "to bite"
+  },
+  {
+    "spanish": "picar",
+    "english": "to sting"
+  },
+  {
+    "spanish": "galopar",
+    "english": "to gallop"
+  },
+  {
+    "spanish": "volar",
+    "english": "to fly"
+  },
+  {
+    "spanish": "abalanzarse sobre",
+    "english": "to swoop down on"
+  },
+  {
+    "spanish": "la percha",
+    "english": "perch"
+  },
+  {
+    "spanish": "arañar",
+    "english": "to scratch"
+  },
+  {
+    "spanish": "rascar",
+    "english": "to scratch"
+  },
+  {
+    "spanish": "el rinoceronte",
+    "english": "rhinoceros"
+  },
+  {
+    "spanish": "el sapo",
+    "english": "toad"
+  },
+  {
+    "spanish": "el periquito",
+    "english": "budgie"
+  },
+  {
+    "spanish": "el pez dorado",
+    "english": "goldfish"
+  },
+  {
+    "spanish": "el veterinario",
+    "english": "veterinarian"
+  },
+  {
+    "spanish": "el juguete",
+    "english": "toy"
+  },
+  {
+    "spanish": "la correa",
+    "english": "leash"
+  },
+  {
+    "spanish": "el collar",
+    "english": "collar"
+  },
+  {
+    "spanish": "la caja de arena",
+    "english": "litter box"
+  },
+  {
+    "spanish": "el cepillo",
+    "english": "brush"
+  },
+  {
+    "spanish": "la jaula",
+    "english": "cage"
+  },
+  {
+    "spanish": "la casa del perro",
+    "english": "doghouse"
+  },
+  {
+    "spanish": "la tortuga",
+    "english": "tortoise"
+  },
+  {
+    "spanish": "la tortuga",
+    "english": "turtle"
+  },
+  {
+    "spanish": "la abeja",
+    "english": "bee"
+  },
+  {
+    "spanish": "la avispa",
+    "english": "wasp"
+  },
+  {
+    "spanish": "la mariposa",
+    "english": "butterfly"
+  },
+  {
+    "spanish": "la araña",
+    "english": "spider"
+  },
+  {
+    "spanish": "la lombriz",
+    "english": "worm"
+  },
+  {
+    "spanish": "el gusano",
+    "english": "worm"
+  },
+  {
+    "spanish": "el/la delfín",
+    "english": "dolphin"
+  },
+  {
+    "spanish": "el cocodrilo",
+    "english": "crocodile"
+  },
+  {
+    "spanish": "la rana",
+    "english": "frog"
+  },
+  {
+    "spanish": "el elefante",
+    "english": "elephant"
+  },
+  {
+    "spanish": "el camello",
+    "english": "camel"
+  },
+  {
+    "spanish": "la jirafa",
+    "english": "giraffe"
+  },
+  {
+    "spanish": "el hipopótamo",
+    "english": "hippopotamus"
+  },
+  {
+    "spanish": "el murciélago",
+    "english": "bat"
+  },
+  {
+    "spanish": "el pato",
+    "english": "duck"
+  },
+  {
+    "spanish": "el loro",
+    "english": "parrot"
+  },
+  {
+    "spanish": "el pingüino",
+    "english": "penguin"
+  },
+  {
+    "spanish": "el cisne",
+    "english": "swan"
+  },
+  {
+    "spanish": "el can",
+    "english": "dog"
+  },
+  {
+    "spanish": "el gato",
+    "english": "cat"
+  },
+  {
+    "spanish": "el perro",
+    "english": "dog"
+  },
+  {
+    "spanish": "el conejo",
+    "english": "rabbit"
+  },
+  {
+    "spanish": "la ardilla",
+    "english": "squirrel"
+  },
+  {
+    "spanish": "el cerdo",
+    "english": "pig"
+  },
+  {
+    "spanish": "el conejito",
+    "english": "bunny"
+  },
+  {
+    "spanish": "el cuy",
+    "english": "guinea pig"
+  },
+  {
+    "spanish": "el/la cobaya",
+    "english": "guinea pig"
+  },
+  {
+    "spanish": "el hámster",
+    "english": "hamster"
+  },
+  {
+    "spanish": "la rata",
+    "english": "rat"
+  },
+  {
+    "spanish": "el ratón",
+    "english": "mouse"
+  },
+  {
+    "spanish": "la culebra",
+    "english": "snake"
+  },
+  {
+    "spanish": "la serpiente",
+    "english": "snake"
+  },
+  {
+    "spanish": "la víbora",
+    "english": "viper"
+  },
+  {
+    "spanish": "la ballena",
+    "english": "whale"
+  },
+  {
+    "spanish": "el tiburón",
+    "english": "shark"
+  },
+  {
+    "spanish": "el pez",
+    "english": "fish"
+  },
+  {
+    "spanish": "el/la gorila",
+    "english": "gorilla"
+  },
+  {
+    "spanish": "el mono",
+    "english": "monkey"
+  },
+  {
+    "spanish": "el zorro",
+    "english": "fox"
+  },
+  {
+    "spanish": "el oso",
+    "english": "bear"
+  },
+  {
+    "spanish": "el venado",
+    "english": "deer"
+  },
+  {
+    "spanish": "el oso polar",
+    "english": "polar bear"
+  },
+  {
+    "spanish": "el lobo",
+    "english": "wolf"
+  },
+  {
+    "spanish": "el león marino",
+    "english": "sea lion"
+  },
+  {
+    "spanish": "la foca",
+    "english": "seal"
+  },
+  {
+    "spanish": "el león",
+    "english": "lion"
+  },
+  {
+    "spanish": "la hiena",
+    "english": "hyena"
+  },
+  {
+    "spanish": "el colibrí",
+    "english": "hummingbird"
+  },
+  {
+    "spanish": "el águila",
+    "english": "eagle"
+  },
+  {
+    "spanish": "el búho",
+    "english": "owl"
+  },
+  {
+    "spanish": "el burro",
+    "english": "donkey"
+  },
+  {
+    "spanish": "el carnero",
+    "english": "ram"
+  },
+  {
+    "spanish": "el cordero",
+    "english": "lamb"
+  },
+  {
+    "spanish": "el borrego",
+    "english": "sheep"
+  },
+  {
+    "spanish": "la oveja",
+    "english": "sheep"
+  },
+  {
+    "spanish": "la cabra",
+    "english": "goat"
+  },
+  {
+    "spanish": "el caballo",
+    "english": "horse"
+  },
+  {
+    "spanish": "la vaca",
+    "english": "cow"
+  },
+  {
+    "spanish": "el buey",
+    "english": "ox"
+  },
+  {
+    "spanish": "el pulpo",
+    "english": "octopus"
+  },
+  {
+    "spanish": "la mantarraya",
+    "english": "manta ray"
+  },
+  {
+    "spanish": "el bisonte",
+    "english": "bison"
+  },
+  {
+    "spanish": "el erizo de mar",
+    "english": "sea urchin"
+  },
+  {
+    "spanish": "el erizo",
+    "english": "hedgehog"
+  },
+  {
+    "spanish": "el/la capibara",
+    "english": "capybara"
+  },
+  {
+    "spanish": "el oso hormiguero",
+    "english": "anteater"
+  },
+  {
+    "spanish": "el guepardo",
+    "english": "cheetah"
+  },
+  {
+    "spanish": "el leopardo",
+    "english": "leopard"
+  },
+  {
+    "spanish": "el jaguar",
+    "english": "jaguar"
+  },
+  {
+    "spanish": "el coyote",
+    "english": "coyote"
+  },
+  {
+    "spanish": "la zarigüeya",
+    "english": "opossum"
+  },
+  {
+    "spanish": "el pájaro",
+    "english": "bird"
   }
 ]
