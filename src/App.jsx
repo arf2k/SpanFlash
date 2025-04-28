@@ -218,11 +218,11 @@ function App() {
                 <button onClick={switchLanguageDirection}>
                     Switch Direction (Current: {languageDirection === 'spa-eng' ? 'Spanish -> English' : 'English -> Spanish'})
                 </button>
-                 <div className="setting-max-words" style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                 {/* <div className="setting-max-words" style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                      <label htmlFor="maxWordsInput">Max Words:</label>
                      <input type="range" id="maxWordsInput" value={maxWords} onChange={handleMaxWordsChange} min="1" max="10" style={{ cursor: 'pointer', flexGrow: '1' }} />
                      <span style={{ fontWeight: 'bold', minWidth: '20px', textAlign: 'right' }}>{maxWords}</span>
-                 </div>
+                 </div> */}
                 {/* --- Update General Next Card Button text and action --- */}
                  {/* This button now just selects a new pair from the loaded list */}
                 <button onClick={() => selectNewPair()} disabled={isLoading || wordList.length === 0}>

@@ -26568,5 +26568,802 @@
   {
     "spanish": "la comida",
     "english": "food"
+  },
+
+  {
+    "spanish": "asaltar",
+    "english": "to hold up"
+  },
+  {
+    "spanish": "ultrajar",
+    "english": "to offend"
+  },
+  {
+    "spanish": "hurtar",
+    "english": "to steal"
+  },
+  {
+    "spanish": "interrogar",
+    "english": "to question"
+  },
+  {
+    "spanish": "enjuiciar",
+    "english": "to indict"
+  },
+  {
+    "spanish": "condenar",
+    "english": "to convict"
+  },
+  {
+    "spanish": "delinquir",
+    "english": "to commit a crime"
+  },
+  {
+    "spanish": "asesinar",
+    "english": "to assassinate"
+  },
+  {
+    "spanish": "violar",
+    "english": "to rape"
+  },
+  {
+    "spanish": "atacar",
+    "english": "to attack"
+  },
+  {
+    "spanish": "asaltar",
+    "english": "to mug"
+  },
+  {
+    "spanish": "robar",
+    "english": "to steal"
+  },
+  {
+    "spanish": "demandar",
+    "english": "to sue"
+  },
+  {
+    "spanish": "procesar",
+    "english": "to prosecute"
+  },
+  {
+    "spanish": "encausar",
+    "english": "to prosecute"
+  },
+  {
+    "spanish": "someter a interrogatorio",
+    "english": "to interrogate"
+  },
+  {
+    "spanish": "condenar",
+    "english": "to sentence"
+  },
+  {
+    "spanish": "juzgar",
+    "english": "to judge"
+  },
+  {
+    "spanish": "apelar",
+    "english": "to appeal"
+  },
+  {
+    "spanish": "multar",
+    "english": "to fine"
+  },
+  {
+    "spanish": "escapar",
+    "english": "to escape"
+  },
+  {
+    "spanish": "encerrado",
+    "english": "locked up"
+  },
+  {
+    "spanish": "violentar",
+    "english": "to break into"
+  },
+  {
+    "spanish": "forense",
+    "english": "forensic"
+  },
+  {
+    "spanish": "sobornar",
+    "english": "to bribe"
+  },
+  {
+    "spanish": "la acusación",
+    "english": "charge"
+  },
+  {
+    "spanish": "la cárcel",
+    "english": "prison"
+  },
+  {
+    "spanish": "la cárcel",
+    "english": "jail"
+  },
+  {
+    "spanish": "la pena de muerte",
+    "english": "death penalty"
+  },
+  {
+    "spanish": "la horca",
+    "english": "gallows"
+  },
+  {
+    "spanish": "huir",
+    "english": "to escape"
+  },
+  {
+    "spanish": "se busca",
+    "english": "wanted"
+  },
+  {
+    "spanish": "la evidencia",
+    "english": "evidence"
+  },
+  {
+    "spanish": "falsificar",
+    "english": "to counterfeit"
+  },
+  {
+    "spanish": "en secreto",
+    "english": "undercover"
+  },
+  {
+    "spanish": "destapar",
+    "english": "to uncover"
+  },
+  {
+    "spanish": "el camello",
+    "english": "dealer"
+  },
+  {
+    "spanish": "el/la traficante de drogas",
+    "english": "drug dealer"
+  },
+  {
+    "spanish": "denunciar",
+    "english": "to report"
+  },
+  {
+    "spanish": "presenciar",
+    "english": "to witness"
+  },
+  {
+    "spanish": "el/la testigo",
+    "english": "witness"
+  },
+  {
+    "spanish": "matar",
+    "english": "to kill"
+  },
+  {
+    "spanish": "la trama",
+    "english": "plot"
+  },
+  {
+    "spanish": "la entrevista",
+    "english": "interview"
+  },
+  {
+    "spanish": "la investigación",
+    "english": "investigation"
+  },
+  {
+    "spanish": "el delito",
+    "english": "crime"
+  },
+  {
+    "spanish": "el apaño",
+    "english": "fix"
+  },
+  {
+    "spanish": "la barrida",
+    "english": "sweep"
+  },
+  {
+    "spanish": "el fierro",
+    "english": "knife"
+  },
+  {
+    "spanish": "el caso",
+    "english": "case"
+  },
+  {
+    "spanish": "excarcelar",
+    "english": "to release"
+  },
+  {
+    "spanish": "el ladrón",
+    "english": "thief"
+  },
+  {
+    "spanish": "engañoso",
+    "english": "deceitful"
+  },
+  {
+    "spanish": "absolver",
+    "english": "to acquit"
+  },
+  {
+    "spanish": "inculpar",
+    "english": "to charge"
+  },
+  {
+    "spanish": "la fianza",
+    "english": "bail"
+  },
+  {
+    "spanish": "el pecado",
+    "english": "sin"
+  },
+  {
+    "spanish": "el interrogatorio",
+    "english": "questioning"
+  },
+  {
+    "spanish": "atracar",
+    "english": "to mug"
+  },
+  {
+    "spanish": "asaltar",
+    "english": "to rob"
+  },
+  {
+    "spanish": "arrestar",
+    "english": "to arrest"
+  },
+  {
+    "spanish": "apresar",
+    "english": "to apprehend"
+  },
+  {
+    "spanish": "el/la asaltante",
+    "english": "robber"
+  },
+  {
+    "spanish": "el cleptómano",
+    "english": "kleptomaniac"
+  },
+  {
+    "spanish": "la pandilla",
+    "english": "gang"
+  },
+  {
+    "spanish": "asesinar",
+    "english": "to murder"
+  },
+  {
+    "spanish": "traicionar",
+    "english": "to betray"
+  },
+  {
+    "spanish": "el sádico",
+    "english": "sadist"
+  },
+  {
+    "spanish": "lastimar",
+    "english": "to hurt"
+  },
+  {
+    "spanish": "el secuestro",
+    "english": "kidnapping"
+  },
+  {
+    "spanish": "raptar",
+    "english": "to kidnap"
+  },
+  {
+    "spanish": "el ataque",
+    "english": "attack"
+  },
+  {
+    "spanish": "el rifle",
+    "english": "rifle"
+  },
+  {
+    "spanish": "el arma",
+    "english": "weapon"
+  },
+  {
+    "spanish": "el accidente",
+    "english": "accident"
+  },
+  {
+    "spanish": "el asalto",
+    "english": "robbery"
+  },
+  {
+    "spanish": "el robo",
+    "english": "robbery"
+  },
+  {
+    "spanish": "la cuerda",
+    "english": "rope"
+  },
+  {
+    "spanish": "el levantamiento",
+    "english": "uprising"
+  },
+  {
+    "spanish": "la pistola",
+    "english": "pistol"
+  },
+  {
+    "spanish": "el/la pirata",
+    "english": "pirate"
+  },
+  {
+    "spanish": "hacer aparecer como culpable",
+    "english": "to frame"
+  },
+  {
+    "spanish": "el crimen",
+    "english": "crime"
+  },
+  {
+    "spanish": "la erupción",
+    "english": "eruption"
+  },
+  {
+    "spanish": "el huaico",
+    "english": "mudslide"
+  },
+  {
+    "spanish": "el alud",
+    "english": "avalanche"
+  },
+  {
+    "spanish": "la avalancha",
+    "english": "avalanche"
+  },
+  {
+    "spanish": "la ventisca",
+    "english": "blizzard"
+  },
+  {
+    "spanish": "el tsunami",
+    "english": "tsunami"
+  },
+  {
+    "spanish": "el incendio forestal",
+    "english": "forest fire"
+  },
+  {
+    "spanish": "el tornado",
+    "english": "tornado"
+  },
+  {
+    "spanish": "el huracán",
+    "english": "hurricane"
+  },
+  {
+    "spanish": "la batalla",
+    "english": "battle"
+  },
+  {
+    "spanish": "la discriminación",
+    "english": "discrimination"
+  },
+  {
+    "spanish": "la insensatez",
+    "english": "senselessness"
+  },
+  {
+    "spanish": "la estupidez",
+    "english": "stupidity"
+  },
+  {
+    "spanish": "la insensatez",
+    "english": "foolishness"
+  },
+  {
+    "spanish": "el machismo",
+    "english": "male chauvinism"
+  },
+  {
+    "spanish": "los celos",
+    "english": "jealousy"
+  },
+  {
+    "spanish": "la riña",
+    "english": "argument"
+  },
+  {
+    "spanish": "el favor",
+    "english": "favor"
+  },
+  {
+    "spanish": "la lucha",
+    "english": "struggle"
+  },
+  {
+    "spanish": "la desgracia",
+    "english": "misfortune"
+  },
+  {
+    "spanish": "el apuro",
+    "english": "predicament"
+  },
+  {
+    "spanish": "la censura",
+    "english": "censorship"
+  },
+  {
+    "spanish": "rescatar",
+    "english": "to rescue"
+  },
+  {
+    "spanish": "la guerra",
+    "english": "war"
+  },
+  {
+    "spanish": "el terremoto",
+    "english": "earthquake"
+  },
+  {
+    "spanish": "el alud",
+    "english": "landslide"
+  },
+  {
+    "spanish": "la sequía",
+    "english": "drought"
+  },
+  {
+    "spanish": "la inundación",
+    "english": "flood"
+  },
+  {
+    "spanish": "el relámpago",
+    "english": "bolt of lightning"
+  },
+  {
+    "spanish": "quejarse",
+    "english": "to complain"
+  },
+  {
+    "spanish": "la paz",
+    "english": "peace"
+  },
+  {
+    "spanish": "la quemadura",
+    "english": "burn"
+  },
+  {
+    "spanish": "el sexismo",
+    "english": "sexism"
+  },
+  {
+    "spanish": "el lío",
+    "english": "mess"
+  },
+  {
+    "spanish": "falta de",
+    "english": "lack of"
+  },
+  {
+    "spanish": "la objeción",
+    "english": "objection"
+  },
+  {
+    "spanish": "el racismo",
+    "english": "racism"
+  },
+  {
+    "spanish": "reventar",
+    "english": "to burst"
+  },
+  {
+    "spanish": "el moho",
+    "english": "mold"
+  },
+  {
+    "spanish": "el remedio",
+    "english": "remedy"
+  },
+  {
+    "spanish": "el remedio",
+    "english": "choice"
+  },
+  {
+    "spanish": "la crisis",
+    "english": "crisis"
+  },
+  {
+    "spanish": "estallar",
+    "english": "to explode"
+  },
+  {
+    "spanish": "el desperdicio",
+    "english": "waste"
+  },
+  {
+    "spanish": "el lastre",
+    "english": "burden"
+  },
+  {
+    "spanish": "la solución",
+    "english": "solution"
+  },
+  {
+    "spanish": "el/la chance",
+    "english": "opportunity"
+  },
+  {
+    "spanish": "malvado",
+    "english": "evil"
+  },
+  {
+    "spanish": "suspender",
+    "english": "to fail"
+  },
+  {
+    "spanish": "fracasar",
+    "english": "to fail"
+  },
+  {
+    "spanish": "la caída",
+    "english": "fall"
+  },
+  {
+    "spanish": "el suspenso",
+    "english": "F"
+  },
+  {
+    "spanish": "zurrar",
+    "english": "to wallop"
+  },
+  {
+    "spanish": "el piojo",
+    "english": "louse"
+  },
+  {
+    "spanish": "asesinar",
+    "english": "to murder"
+  },
+  {
+    "spanish": "ceder",
+    "english": "to give in"
+  },
+  {
+    "spanish": "la enfermedad",
+    "english": "illness"
+  },
+  {
+    "spanish": "el punto débil",
+    "english": "weak point"
+  },
+  {
+    "spanish": "el error",
+    "english": "mistake"
+  },
+  {
+    "spanish": "el trastorno",
+    "english": "disruption"
+  },
+  {
+    "spanish": "mal",
+    "english": "wrong"
+  },
+  {
+    "spanish": "la cuita",
+    "english": "trouble"
+  },
+  {
+    "spanish": "la tormenta",
+    "english": "storm"
+  },
+  {
+    "spanish": "el contratiempo",
+    "english": "setback"
+  },
+  {
+    "spanish": "gritar",
+    "english": "to scream"
+  },
+  {
+    "spanish": "el apuro",
+    "english": "fix"
+  },
+  {
+    "spanish": "el asunto",
+    "english": "issue"
+  },
+  {
+    "spanish": "dañarse",
+    "english": "to get hurt"
+  },
+  {
+    "spanish": "romper",
+    "english": "to break"
+  },
+  {
+    "spanish": "el veneno",
+    "english": "poison"
+  },
+  {
+    "spanish": "la ventaja",
+    "english": "advantage"
+  },
+  {
+    "spanish": "la paradoja",
+    "english": "paradox"
+  },
+  {
+    "spanish": "el veneno",
+    "english": "venom"
+  },
+  {
+    "spanish": "amenazar",
+    "english": "to threaten"
+  },
+  {
+    "spanish": "la espada",
+    "english": "sword"
+  },
+  {
+    "spanish": "el alborotador",
+    "english": "troublemaker"
+  },
+  {
+    "spanish": "el/la pendenciero",
+    "english": "troublemaker"
+  },
+  {
+    "spanish": "el gamberro",
+    "english": "troublemaker"
+  },
+  {
+    "spanish": "la culpa",
+    "english": "fault"
+  },
+  {
+    "spanish": "la grieta",
+    "english": "crack"
+  },
+  {
+    "spanish": "la lesión",
+    "english": "injury"
+  },
+  {
+    "spanish": "asumir un reto",
+    "english": "to take on a challenge"
+  },
+  {
+    "spanish": "la amenaza",
+    "english": "threat"
+  },
+  {
+    "spanish": "la preocupación",
+    "english": "concern"
+  },
+  {
+    "spanish": "el apoyo",
+    "english": "support"
+  },
+  {
+    "spanish": "la escisión",
+    "english": "split"
+  },
+  {
+    "spanish": "traicionar",
+    "english": "to betray"
+  },
+  {
+    "spanish": "hacer daño",
+    "english": "to hurt"
+  },
+  {
+    "spanish": "la invitación",
+    "english": "invitation"
+  },
+  {
+    "spanish": "impedir",
+    "english": "to prevent"
+  },
+  {
+    "spanish": "el ataque",
+    "english": "attack"
+  },
+  {
+    "spanish": "la polémica",
+    "english": "controversy"
+  },
+  {
+    "spanish": "discutir",
+    "english": "to argue"
+  },
+  {
+    "spanish": "batallar",
+    "english": "to fight"
+  },
+  {
+    "spanish": "luchar",
+    "english": "to fight"
+  },
+  {
+    "spanish": "la bronca",
+    "english": "fight"
+  },
+  {
+    "spanish": "la pelea",
+    "english": "fight"
+  },
+  {
+    "spanish": "la lucha",
+    "english": "fight"
+  },
+  {
+    "spanish": "el empujón",
+    "english": "shove"
+  },
+  {
+    "spanish": "la incógnita",
+    "english": "mystery"
+  },
+  {
+    "spanish": "el acercamiento",
+    "english": "approach"
+  },
+  {
+    "spanish": "el robo",
+    "english": "robbery"
+  },
+  {
+    "spanish": "el inconveniente",
+    "english": "problem"
+  },
+  {
+    "spanish": "la mancha",
+    "english": "spot"
+  },
+  {
+    "spanish": "el circo",
+    "english": "farce"
+  },
+  {
+    "spanish": "el cachondeo",
+    "english": "farce"
+  },
+  {
+    "spanish": "el rifle",
+    "english": "rifle"
+  },
+  {
+    "spanish": "la pistola",
+    "english": "gun"
+  },
+  {
+    "spanish": "el conflicto",
+    "english": "conflict"
+  },
+  {
+    "spanish": "descifrar",
+    "english": "to work out"
+  },
+  {
+    "spanish": "la emergencia",
+    "english": "emergency"
+  },
+  {
+    "spanish": "el reto",
+    "english": "challenge"
+  },
+  {
+    "spanish": "la llave",
+    "english": "key"
+  },
+  {
+    "spanish": "el problema",
+    "english": "problem"
+  },
+  {
+    "spanish": "el escape",
+    "english": "leak"
+  },
+  {
+    "spanish": "el accidente",
+    "english": "accident"
   }
 ]
