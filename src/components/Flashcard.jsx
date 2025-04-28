@@ -7,8 +7,9 @@ const Flashcard = ({
     onAnswerSubmit,
     showFeedback,
     onGetHint,
-    hint,             // Hint object { type: '...', data: ..., etc. } or null
-    isHintLoading     // Boolean
+    hint,
+    isHintLoading,
+    feedbackSignal // Accepted prop
  }) => {
 
     const [answer, setAnswer] = useState('');
@@ -34,13 +35,19 @@ const Flashcard = ({
     // Handle form submission
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (!answer.trim() || showFeedback) return; // Prevent submit if empty or feedback showing
+        if (!answer.trim() || showFeedback) return;
         console.log('Flashcard: Submitting answer:', answer);
         onAnswerSubmit(answer);
     };
 
+    // Determine dynamic className for the flashcard div based on feedbackSignal
+    const cardClassName = `flashcard ${
+        feedbackSignal ? `flashcard--${feedbackSignal}` : '' // Adds 'flashcard--correct' or 'flashcard--incorrect'
+    }`.trim(); // Use trim to remove potential trailing space if no signal class
+
     return (
-        <div className="flashcard">
+        // --- Use the dynamic className ---
+        <div className={cardClassName}>
             {/* Word Display */}
             {pair ? (
                 <p className="flashcard-word">{wordToShow}</p>
@@ -50,7 +57,7 @@ const Flashcard = ({
 
             {/* Answer Form - Render only if pair exists AND feedback is NOT showing */}
             {pair && !showFeedback && (
-                <form onSubmit={handleSubmit} className="answer-form" style={{ marginTop: '10px' }}> {/* Added margin */}
+                <form onSubmit={handleSubmit} className="answer-form" style={{ marginTop: '10px' }}>
                     <input
                         type="text"
                         value={answer}
@@ -59,7 +66,7 @@ const Flashcard = ({
                         className="answer-input"
                         autoFocus
                         required
-                        style={{ marginRight: '10px' }} // Added margin
+                        style={{ marginRight: '10px' }}
                     />
                     <button type="submit" className="submit-button">
                         Check Answer
@@ -69,8 +76,7 @@ const Flashcard = ({
                         type="button"
                         onClick={onGetHint}
                         className="hint-button"
-                        // Disable if loading, hint shown (unless it was an error), or feedback showing
-                        disabled={isHintLoading || (hint && hint.type !== 'error') || showFeedback}
+                        disabled={isHintLoading || (hint && hint.type !== 'error') || showFeedback || feedbackSignal === 'incorrect'} // Also disable hint if incorrect feedback showing
                         style={{ marginLeft: '10px' }}
                     >
                         {isHintLoading ? 'Getting Hint...' : 'Hint'}
@@ -78,48 +84,39 @@ const Flashcard = ({
                 </form>
             )}
 
-            {/* --- UPDATED HINT DISPLAY AREA --- */}
-            <div className="hint-display" style={{ marginTop: '15px', fontSize: '0.9em', fontStyle: 'italic', borderTop: '1px solid #eee', paddingTop: '10px', minHeight: '1.2em' }}>
-                {isHintLoading ? (
-                    // Show loading indicator
-                    <span>Loading hint...</span>
-                ) : hint ? (
-                    // If not loading and hint object exists, process it
-                    <>
-                        <strong>Hint:</strong>
-                        {hint.type === 'definitions' && hint.data?.fl && (
-                            // Show functional label (part of speech) if available
-                            <em> ({hint.data.fl})</em>
-                        )}
-                        {hint.type === 'definitions' && hint.data?.shortdef && hint.data.shortdef.length > 0 ? (
-                            // Show short definitions, joined by semicolon
-                            <span>: {hint.data.shortdef.join('; ')}</span>
-                        ) : hint.type === 'definitions' ? (
-                            // Handle case where definition exists but no shortdef
-                            <span>: Definition details not found in expected format.</span>
-                        ) : null /* End of definitions check */}
+             {/* Hint Display Area */}
+             <div className="hint-display" style={{ marginTop: '15px', fontSize: '0.9em', fontStyle: 'italic', borderTop: '1px solid #eee', paddingTop: '10px', minHeight: '1.2em' }}>
+                 {isHintLoading ? (
+                     <span>Loading hint...</span>
+                 ) : hint ? (
+                     <>
+                         <strong>Hint:</strong>
+                         {hint.type === 'definitions' && hint.data?.fl && (
+                             <em> ({hint.data.fl})</em>
+                         )}
+                         {hint.type === 'definitions' && hint.data?.shortdef && hint.data.shortdef.length > 0 ? (
+                             <span>: {hint.data.shortdef.join('; ')}</span>
+                         ) : hint.type === 'definitions' ? (
+                             <span>: Definition details not found in expected format.</span>
+                         ) : null}
 
-                        {hint.type === 'suggestions' && (
-                           // Show suggestions if API returned them
-                           <span> Did you mean: {hint.suggestions.join(', ')}?</span>
-                        )}
+                         {hint.type === 'suggestions' && (
+                            <span> Did you mean: {hint.suggestions.join(', ')}?</span>
+                         )}
 
-                        {hint.type === 'error' && (
-                           // Show error message from App.jsx
-                           <span style={{ color: 'orange' }}> {hint.message}</span>
-                        )}
+                         {hint.type === 'error' && (
+                            <span style={{ color: 'orange' }}> {hint.message}</span>
+                         )}
 
-                        {hint.type === 'unknown' && (
-                            // Handle unknown structure
-                            <span style={{ color: 'orange' }}> Unrecognized hint format.</span>
-                        )}
-                    </>
-                ) : (
-                    // If not loading and no hint data, show nothing (or a placeholder)
-                    <span> </span> // Ensures the div keeps its height
-                )}
-            </div>
-            {/* --- END HINT DISPLAY AREA --- */}
+                         {hint.type === 'unknown' && (
+                             <span style={{ color: 'orange' }}> Unrecognized hint format.</span>
+                         )}
+                     </>
+                 ) : (
+                     <span> </span> // Placeholder for height
+                 )}
+             </div>
+             {/* END Hint Display Area */}
         </div>
     );
 };

@@ -26,18 +26,28 @@ details summary {
 }
 
 .flashcard {
-  background-color: #ffffff; /* White background */
-  border: 1px solid #cccccc; /* Light grey border */
-  border-radius: 8px;        /* Rounded corners */
-  padding: 25px;             /* Internal spacing */
-  min-height: 150px;         /* Minimum height */
-  width: 80%;               /* Width relative to container */
-  max-width: 450px;         /* Max width */
-  margin: 20px auto;         /* Center the card horizontally, add vertical space */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  display: flex;             /* Use flexbox for internal layout */
-  flex-direction: column;    /* Stack elements vertically */
-  justify-content: space-between; /* Space out content and form/hint */
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  padding: 25px;
+  min-height: 150px;
+  width: 80%;
+  max-width: 450px;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color 0.3s ease-out, background-color 0.3s ease-out; /* <-- Add transition */
+}
+.flashcard--correct {
+  border-color: #28a745; /* Green border */
+  background-color: #f0fff0; /* Optional: Very light green background */
+}
+
+.flashcard--incorrect {
+  border-color: #dc3545; /* Red border */
+  background-color: #fff5f5; /* Optional: Very light red background */
 }
 
 .flashcard-word {

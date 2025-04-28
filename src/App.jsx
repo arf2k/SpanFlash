@@ -20,6 +20,7 @@ function App() {
     const [lastCorrectAnswer, setLastCorrectAnswer] = useState('');
     const [maxWords, setMaxWords] = useState(5);
     const [isHintLoading, setIsHintLoading] = useState(false);
+    const [feedbackSignal, setFeedbackSignal] = useState(null)
 
     const isInitialMount = useRef(true); // Used for maxWords effect
 
@@ -30,7 +31,8 @@ function App() {
         setHintData(null);      // Clear previous hints
         setCurrentPair(null); // Clear current pair before selecting new one
         setShowFeedback(false); // Hide feedback
-        setIsHintLoading(false); // Reset hint loading
+        setIsHintLoading(false); 
+        setFeedbackSignal(null)
 
         if (!listToUse || listToUse.length === 0) {
             setError("Word list is empty or not loaded yet.");
@@ -111,7 +113,7 @@ function App() {
     const handleAnswerSubmit = (userAnswer) => {
         // ... (Normalization and comparison logic remains the same) ...
         const punctuationRegex = /[.?!¡¿]+$/;
-        if (!currentPair || showFeedback) return;
+        if (!currentPair || showFeedback || feedbackSignal) return;
         const correctAnswer = languageDirection === 'spa-eng' ? currentPair.english : currentPair.spanish;
         const normalizedUserAnswer = userAnswer.toLowerCase().trim().replace(punctuationRegex, '');
         const normalizedCorrectAnswer = correctAnswer.toLowerCase().trim().replace(punctuationRegex, '');
@@ -121,13 +123,15 @@ function App() {
         if (normalizedUserAnswer === normalizedCorrectAnswer) {
             console.log("CORRECT branch executed. Selecting next pair...");
             setScore(prevScore => ({ ...prevScore, correct: prevScore.correct + 1 }));
-            selectNewPair(); // <-- CALL selectNewPair (uses list from state)
+            selectNewPair(); 
+            setFeedbackSignal('correct');
+
         } else {
             console.log("INCORRECT branch executed. Setting showFeedback=true.");
             setScore(prevScore => ({ ...prevScore, incorrect: prevScore.incorrect + 1 }));
             setLastCorrectAnswer(correctAnswer);
             setShowFeedback(true);
-            // Don't select next pair here, wait for handleNextCard
+            setFeedbackSignal('incorrect');
         }
     };
 
@@ -174,12 +178,13 @@ function App() {
         setShowFeedback(false);
         setLastCorrectAnswer('');
         setHintData(null);
+        setFeedbackSignal(null);
     };
 
     // === Hint Handling Logic ===
     // (Keep handleGetHint as is - it uses currentPair.spanish)
     const handleGetHint = async () => {
-        if (!currentPair || hintData || showFeedback || isHintLoading) return;
+        if (!currentPair || hintData || showFeedback || isHintLoading || feedbackSignal === 'incorrect') return;
         const wordToLookup = currentPair.spanish;
         console.log(`Getting hint for: "${wordToLookup}"`);
         setIsHintLoading(true);
@@ -258,6 +263,7 @@ function App() {
                         onGetHint={handleGetHint}
                         hint={hintData}
                         isHintLoading={isHintLoading}
+                        feedbackSignal={feedbackSignal}
                     />
                     {/* Feedback Area */}
                     {showFeedback && (
