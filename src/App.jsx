@@ -212,7 +212,10 @@ function App() {
     return (
         <div className="App">
             <h1>Spanish Flashcards</h1>
-
+            <div className="score-display" style={{ marginBottom: '15px', fontSize: '1.1em', fontWeight: 'bold' }}> {/* Added margin & font weight */}
+                <span>Correct: {score.correct}</span>
+                <span style={{ marginLeft: '20px' }}>Incorrect: {score.incorrect}</span> {/* Increased margin */}
+            </div>
             {/* --- Controls --- */}
              <div className="controls" style={{ marginBottom: '15px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '15px' }}>
                 <button onClick={switchLanguageDirection}>
