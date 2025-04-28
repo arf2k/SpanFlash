@@ -27,12 +27,12 @@ function App() {
     // === NEW: Selection Logic (replaces fetchRandomPair's core selection part) ===
     const selectNewPair = (listToUse = wordList) => {
         console.log(`Selecting pair from list (${listToUse.length} items), max words: ${maxWords}`);
-        setError(null);         // Clear previous errors on selection attempt
-        setHintData(null);      // Clear previous hints
-        setCurrentPair(null); // Clear current pair before selecting new one
-        setShowFeedback(false); // Hide feedback
+        setError(null);         
+        setHintData(null);      
+        setCurrentPair(null); 
+        setShowFeedback(false); 
         setIsHintLoading(false); 
-        setFeedbackSignal(null)
+        setFeedbackSignal(null);
 
         if (!listToUse || listToUse.length === 0) {
             setError("Word list is empty or not loaded yet.");
@@ -113,7 +113,11 @@ function App() {
     const handleAnswerSubmit = (userAnswer) => {
         // ... (Normalization and comparison logic remains the same) ...
         const punctuationRegex = /[.?!¡¿]+$/;
-        if (!currentPair || showFeedback || feedbackSignal) return;
+        if (!currentPair || showFeedback) {
+          console.log(`Submission blocked by guard: currentPair=${!!currentPair}, showFeedback=${showFeedback}`);
+
+          return;
+      }
         const correctAnswer = languageDirection === 'spa-eng' ? currentPair.english : currentPair.spanish;
         const normalizedUserAnswer = userAnswer.toLowerCase().trim().replace(punctuationRegex, '');
         const normalizedCorrectAnswer = correctAnswer.toLowerCase().trim().replace(punctuationRegex, '');
@@ -123,8 +127,13 @@ function App() {
         if (normalizedUserAnswer === normalizedCorrectAnswer) {
             console.log("CORRECT branch executed. Selecting next pair...");
             setScore(prevScore => ({ ...prevScore, correct: prevScore.correct + 1 }));
-            selectNewPair(); 
             setFeedbackSignal('correct');
+            setTimeout(() => {
+              console.log("Executing selectNewPair after correct answer timeout.");
+              selectNewPair();
+              // We don't need to setFeedbackSignal(null) here because
+              // selectNewPair sets it to null at its start.
+         }, 50); // Small delay in milliseconds
 
         } else {
             console.log("INCORRECT branch executed. Setting showFeedback=true.");
