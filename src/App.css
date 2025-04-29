@@ -1,155 +1,133 @@
-/* src/App.css */
-
-/* Previous styles for details pre... */
-details pre {
-  background-color: #f8f8f8;
-  border: 1px solid #eee;
-  padding: 10px;
-  font-size: 12px;
-  text-align: left;
-  max-height: 200px;
-  overflow-y: auto;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  color: #333333;
-}
-details summary {
-  cursor: pointer;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-/* --- NEW FLASHCARD STYLES --- */
-
-.flashcard-area {
-  margin-top: 20px; /* Add space below controls */
-}
-
+/* === Flashcard Base Styles === */
+/* Add or update your existing base styles for the flashcard */
 .flashcard {
-  background-color: #ffffff;
-  border: 1px solid #cccccc;
+  border: 2px solid #ccc; /* Start with a neutral border */
+  padding: 20px 25px; /* Adjusted padding slightly */
+  background-color: #ffffff; /* White background */
   border-radius: 8px;
-  padding: 25px;
-  min-height: 150px;
-  width: 80%;
-  max-width: 450px;
-  margin: 20px auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: border-color 0.3s ease-out, background-color 0.3s ease-out; /* <-- Add transition */
-}
-.flashcard--correct {
-  border-color: #28a745; /* Green border */
-  background-color: #f0fff0; /* Optional: Very light green background */
-}
-
-.flashcard--incorrect {
-  border-color: #dc3545; /* Red border */
-  background-color: #fff5f5; /* Optional: Very light red background */
+  margin-bottom: 20px; /* Space below card */
+  text-align: center; /* Center text within the card */
+  transition: border-color 0.3s ease-in-out; /* Smooth transition for border */
+  width: 90%; /* Example width */
+  max-width: 500px; /* Example max-width */
+  margin-left: auto;
+  margin-right: auto; /* Center card */
 }
 
 .flashcard-word {
-  font-size: 1.8em;         /* Larger font for the word */
+  font-size: 1.8em; /* Make the main word larger */
   font-weight: bold;
-  text-align: center;       /* Center the word */
-  margin-top: 10px;
-  margin-bottom: 20px;
-  flex-grow: 1; /* Allow word area to grow */
-  display: flex; /* Center vertically too */
-  align-items: center;
-  justify-content: center;
-  color: #333333
+  margin: 15px 0;
+  color: #333;
+  min-height: 1.2em; /* Ensure space even if empty */
 }
 
+/* === Input Form Styles === */
 .answer-form {
-  display: flex;        /* Align input and buttons horizontally */
-  gap: 10px;            /* Space between items */
-  margin-top: 15px;     /* Space above the form */
+  margin-top: 15px;
+  display: flex; /* Use flexbox for better alignment */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  justify-content: center; /* Center items */
+  align-items: center; /* Align items vertically */
+  gap: 10px; /* Spacing between items */
 }
 
 .answer-input {
-  flex-grow: 1;        /* Allow input to take available space */
-  padding: 8px 10px;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  font-size: 1em;
+  flex-grow: 1; /* Allow input to take available space */
+  min-width: 150px; /* Minimum width before wrapping */
 }
 
 .submit-button,
 .hint-button {
-  padding: 8px 15px;
+  padding: 10px 18px;
   border: none;
   border-radius: 4px;
-  cursor: pointer;
-  background-color: #007bff; /* Blue background */
   color: white;
-  font-size: 0.9em;
+  cursor: pointer;
+  font-size: 0.95em; /* Slightly smaller button text */
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.submit-button {
+  background-color: #007bff; /* Blue */
+}
+.submit-button:hover:not(:disabled) {
+  background-color: #0056b3;
 }
 
 .hint-button {
-  background-color: #6c757d; /* Grey background for hint */
+  background-color: #6c757d; /* Gray */
+}
+.hint-button:hover:not(:disabled) {
+  background-color: #5a6268;
 }
 
 .submit-button:disabled,
 .hint-button:disabled {
-  background-color: #cccccc; /* Lighter grey when disabled */
+  background-color: #cccccc;
   cursor: not-allowed;
+  opacity: 0.7;
 }
 
+/* === Hint Display Styles === */
 .hint-display {
   margin-top: 15px;
-  font-size: 0.9em;
-  font-style: italic;
-  color: #555;
-  border-top: 1px solid #eee;
-  padding-top: 10px;
-  min-height: 1.2em;
-  text-align: left; /* Align hint text left */
-}
-
-.feedback-area {
-  margin-top: 15px;
   padding: 10px;
-  border: 1px dashed darkred;
+  background-color: #f8f9fa; /* Very light gray */
   border-radius: 4px;
-  background-color: #fff5f5;
-}
-
-.feedback-area p {
- color: darkred;
- font-weight: bold;
- margin: 0 0 10px 0;
-}
-
-.feedback-area button {
-  /* You can reuse button styles or add specific ones */
-  padding: 8px 15px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  background-color: #28a745; /* Green background */
-  color: white;
   font-size: 0.9em;
+  color: #495057; /* Darker gray text */
+  text-align: left; /* Align hint text left */
+  min-height: 1.2em; /* Ensure it takes some space */
+  border-top: 1px solid #eee;
+  font-style: italic;
+}
+.hint-display strong {
+  font-style: normal; /* Un-italicize the "Hint:" part */
+}
+.hint-display em {
+  color: #5a6268; /* Slightly different color for part of speech */
+  margin: 0 3px;
 }
 
-/* --- END FLASHCARD STYLES --- */
-
-/* Optional: Ensure App takes height */
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* === Visual Feedback Styles === */
+/* Modifier class for correct answer feedback */
+.flashcard--correct {
+  animation: flash-correct 0.6s ease-out;
+  border-color: #28a745; /* Vibrant Green */
 }
 
-
-
-.controls {
-  /* Styles for the overall controls area */
-  margin-bottom: 20px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #eee; /* Separator line */
+/* Modifier class for incorrect answer feedback */
+.flashcard--incorrect {
+  animation: flash-incorrect 0.6s ease-out;
+  border-color: #dc3545; /* Vibrant Red */
 }
 
-/* Add more specific styles as desired */
+/* Keyframes for the correct flash animation */
+@keyframes flash-correct {
+  0%, 100% {
+    background-color: #ffffff;
+    border-color: #28a745; /* End with green border */
+  }
+  50% {
+    background-color: #d4edda; /* Light Vibrant Green flash */
+    border-color: #28a745;
+  }
+}
+
+/* Keyframes for the incorrect flash animation */
+@keyframes flash-incorrect {
+  0%, 100% {
+    background-color: #ffffff;
+    border-color: #dc3545; /* End with red border */
+  }
+  50% {
+    background-color: #f8d7da; /* Light Vibrant Red flash */
+    border-color: #dc3545;
+  }
+}
