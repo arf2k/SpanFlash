@@ -2,11 +2,12 @@
  * Finds pairs of Spanish (UO6pWUJR) and English (xLusdC9B) words
  * assuming the English element immediately follows the Spanish element,
  * and outputs them as a JSON array of objects.
+ * Uses class names confirmed working as of May 3rd ~4:28 PM.
  */
 
 // --- Configuration ---
-const spanishClass = 'UO6pWUJR';
-const englishClass = 'xLusdC9B';
+const spanishClass = 'UO6pWUJR'; // Confirmed working (Letter 'O')
+const englishClass = 'xLusdC9B'; // Confirmed working (lowercase 'x', uppercase 'C')
 // --- End Configuration ---
 
 // --- Logic ---
@@ -25,29 +26,28 @@ spanishElements.forEach(spanishElement => {
     const spanishText = spanishElement.innerText.trim();
     const englishText = nextElement.innerText.trim();
 
-    // Add the pair as an object to our results array.
-    if (spanishText && englishText) { // Ensure neither text is empty
+    // Add the pair as an object to our results array, only if both texts are non-empty.
+    if (spanishText && englishText) { 
        wordPairs.push({
          spanish: spanishText,
          english: englishText
        });
     }
   } 
-  // Optional: Handle cases where a Spanish word doesn't have an English pair right after it
-  // else {
-  //   console.warn('Could not find matching English word immediately after:', spanishElement.innerText);
-  // }
 });
 
 // --- Output ---
 // Convert the array of pair objects into a JSON string.
-// The 'null, 2' arguments make the output nicely formatted (indented).
 const jsonOutput = JSON.stringify(wordPairs, null, 2);
 
 // Log the JSON string to the console.
 console.log("Extracted Word Pairs (JSON):");
-console.log(jsonOutput);
-
-// Optional: Log the array of objects directly (useful for further manipulation in console)
-// console.log("\nWord Pairs (JavaScript Array):");
-// console.log(wordPairs);
+// Handle case where no pairs were extracted despite finding Spanish elements
+if (jsonOutput === "[]" && spanishElements.length > 0) {
+     console.log("[] (Found Spanish elements, but couldn't find matching English pairs immediately after. Check HTML structure.)");
+} else if (jsonOutput === "[]") {
+     console.log("[] (No Spanish elements found with the specified class.)");
+}
+else {
+    console.log(jsonOutput); 
+}
