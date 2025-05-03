@@ -1,5 +1,5 @@
 // src/App.jsx
-import { useState, useEffect, useRef } from 'react'; // Ensure useRef is imported
+import { useState, useEffect, useRef } from 'react';
 import Flashcard from './components/Flashcard';
 import { getMwHint } from './services/dictionaryServices.js';
 import './App.css';
@@ -20,22 +20,15 @@ function App() {
     const [feedbackSignal, setFeedbackSignal] = useState(null);
 
     // === Refs ===
-    // ========================================================================
-    // Refs needed for score flash (incorrect only now) & maxWords effect
-    // ========================================================================
-    const incorrectScoreRef = useRef(null);   // Ref for the INCORRECT score span
-    const isInitialMountScore = useRef(true); // Ref to prevent score flash on initial load
-    const isInitialMountMaxWords = useRef(true); // Ref for maxWords effect
+    const incorrectScoreRef = useRef(null);
+    const isInitialMountScore = useRef(true);
+    const isInitialMountMaxWords = useRef(true);
 
-    // === Selection Logic ===
+    // === Selection Logic === (No changes needed here)
     const selectNewPair = (listToUse = wordList) => {
         console.log(`Selecting pair from list (${listToUse.length} items), max words: ${maxWords}`);
-        setError(null);
-        setHintData(null);
-        setCurrentPair(null);
-        setShowFeedback(false);
-        setIsHintLoading(false);
-        setFeedbackSignal(null); // Reset feedback signal for next card
+        setError(null); setHintData(null); setCurrentPair(null); setShowFeedback(false);
+        setIsHintLoading(false); setFeedbackSignal(null);
         if (!listToUse || listToUse.length === 0) {
             setError("Word list is empty or not loaded yet."); setIsLoading(false); return;
         }
@@ -51,17 +44,13 @@ function App() {
             if (filteredData.length > 0) {
                 const randomIndex = Math.floor(Math.random() * filteredData.length);
                 setCurrentPair(filteredData[randomIndex]);
-            } else {
-                throw new Error(`No pairs found with <= ${maxWords} words per side.`);
-            }
+            } else { throw new Error(`No pairs found with <= ${maxWords} words per side.`); }
         } catch (err) {
-            console.error("Error selecting/filtering pair:", err);
-            setError(err.message || 'Failed to select flashcard pair.');
-            setCurrentPair(null);
+            console.error("Error selecting/filtering pair:", err); setError(err.message || 'Failed to select flashcard pair.'); setCurrentPair(null);
         } finally { setIsLoading(false); }
     };
 
-    // === Initial Load Logic ===
+    // === Initial Load Logic === (No changes needed here)
     useEffect(() => {
         const loadWordData = async () => {
             console.log("App component mounted. Loading word list...");
@@ -73,100 +62,111 @@ function App() {
                 if (!Array.isArray(loadedList)) { throw new Error("Loaded data is not a valid array."); }
                 console.log(`Successfully loaded ${loadedList.length} pairs.`);
                 setWordList(loadedList); selectNewPair(loadedList);
-            } catch (err) {
-                console.error("Error loading word list:", err); setError(err.message || "Failed to load word list."); setIsLoading(false);
-            }
+            } catch (err) { console.error("Error loading word list:", err); setError(err.message || "Failed to load word list."); setIsLoading(false); }
         };
         loadWordData();
     }, []);
 
-
-    // ==================================================================
-    // ADDED useEffect for INCORRECT Score Flash
-    // ==================================================================
+    // === Effect for INCORRECT Score Flash === (No changes needed here)
     useEffect(() => {
-        // Prevent flash on the very first render
-        if (isInitialMountScore.current) {
-            // We only need this check once, so set it false after first run
-            // for either score effect (though only incorrect runs now)
-            isInitialMountScore.current = false;
-            return;
-        }
-
-        // Check if the incorrect score increased and the ref is connected
+        if (isInitialMountScore.current) { isInitialMountScore.current = false; return; }
         if (score.incorrect > 0 && incorrectScoreRef.current) {
             const element = incorrectScoreRef.current;
             console.log("ADDING flash class to INCORRECT score element:", element);
             element.classList.add('score-flash-incorrect');
-
-            // Remove class after animation (match CSS duration)
-            const animationDuration = 1000; // 1.0s in ms
+            const animationDuration = 1000;
             setTimeout(() => {
-                if (element) {
-                   console.log("REMOVING flash class from INCORRECT score element:", element);
-                   element.classList.remove('score-flash-incorrect');
-                }
+                if (element) { console.log("REMOVING flash class from INCORRECT score element:", element); element.classList.remove('score-flash-incorrect'); }
             }, animationDuration);
         }
-    }, [score.incorrect]); // This effect runs ONLY when score.incorrect changes
+    }, [score.incorrect]);
 
-
-    // --- REMOVED useEffect for CORRECT Score Flash ---
-
-
-    // === Answer Submission Logic ===
+    // ========================================================
+    // === Answer Submission Logic (Article & "To" Logic Updated) ===
+    // ========================================================
     const handleAnswerSubmit = (userAnswer) => {
         const punctuationRegex = /[.?!¡¿]+$/;
+        // Regex for English articles
         const englishArticleRegex = /^(the|a|an)\s+/i;
+        // --- >>> NEW: Regex for leading "to " for verbs <<< ---
+        const toVerbRegex = /^to\s+/i;
+
+        // Guard clause
         if (!currentPair || showFeedback) {
             console.log(`Submission blocked by guard: currentPair=${!!currentPair}, showFeedback=${showFeedback}`); return;
         }
+
+        // Determine correct answer
         const correctAnswer = languageDirection === 'spa-eng' ? currentPair.english : currentPair.spanish;
+
+        // Basic normalization
         let normalizedUserAnswer = userAnswer.toLowerCase().trim().replace(punctuationRegex, '');
         let normalizedCorrectAnswer = correctAnswer.toLowerCase().trim().replace(punctuationRegex, '');
+
+        // --- >>> ARTICLE & "TO" STRIPPING LOGIC <<< ---
         if (languageDirection === 'spa-eng') {
+            console.log('Direction is spa-eng, attempting normalization.');
+            // Store initial normalized versions for logging
+            const originalNormalizedUser = normalizedUserAnswer;
+            const originalNormalizedCorrect = normalizedCorrectAnswer;
+
+            // 1. Strip articles
             normalizedUserAnswer = normalizedUserAnswer.replace(englishArticleRegex, '');
             normalizedCorrectAnswer = normalizedCorrectAnswer.replace(englishArticleRegex, '');
-        }
-        console.log(`Comparing (punc/art ignored): "${normalizedUserAnswer}" vs "${normalizedCorrectAnswer}"`);
 
+            // --- >>> 2. Strip leading "to " AFTER stripping articles <<< ---
+            normalizedUserAnswer = normalizedUserAnswer.replace(toVerbRegex, '');
+            normalizedCorrectAnswer = normalizedCorrectAnswer.replace(toVerbRegex, '');
+
+            // Optional logging to see changes
+            if(originalNormalizedUser !== normalizedUserAnswer) console.log(`Normalized user answer: "${originalNormalizedUser}" -> "${normalizedUserAnswer}"`);
+            if(originalNormalizedCorrect !== normalizedCorrectAnswer) console.log(`Normalized correct answer: "${originalNormalizedCorrect}" -> "${normalizedCorrectAnswer}"`);
+        }
+        // --- >>> END ARTICLE & "TO" STRIPPING LOGIC <<< ---
+
+        // Log final versions being compared
+        console.log(`Comparing (final normalized): "${normalizedUserAnswer}" vs "${normalizedCorrectAnswer}"`);
+
+        // Comparison
         if (normalizedUserAnswer === normalizedCorrectAnswer) {
             console.log("CORRECT branch executed.");
             setScore(prevScore => ({ ...prevScore, correct: prevScore.correct + 1 }));
-            setFeedbackSignal('correct'); // Triggers flashcard flash
+            setFeedbackSignal('correct');
             setTimeout(() => {
                  console.log("Executing selectNewPair after correct answer timeout.");
                  selectNewPair();
             }, 50);
         } else {
             console.log("INCORRECT branch executed.");
-            // This state update triggers the useEffect above for incorrect score flash
             setScore(prevScore => ({ ...prevScore, incorrect: prevScore.incorrect + 1 }));
-            setLastCorrectAnswer(correctAnswer);
+            setLastCorrectAnswer(correctAnswer); // Show original correct answer
             setShowFeedback(true);
-            setFeedbackSignal('incorrect'); // Triggers flashcard flash
+            setFeedbackSignal('incorrect');
         }
     };
+    // ========================================================
+    // === End Answer Submission Logic Update ===
+    // ========================================================
 
-    // === Handling "Next Card" ===
+    // === Handling "Next Card" === (No changes needed here)
     const handleNextCard = () => { setShowFeedback(false); setLastCorrectAnswer(''); selectNewPair(); };
 
-    // === Handling Max Words Change ===
+    // === Handling Max Words Change === (No changes needed here)
     const handleMaxWordsChange = (event) => { const newVal = parseInt(event.target.value, 10); setMaxWords(newVal >= 1 ? newVal : 1); console.log("Max words:", newVal >= 1 ? newVal : 1); };
 
-    // === Effect for Max Words Change ===
+    // === Effect for Max Words Change === (No changes needed here)
     useEffect(() => {
          if (isInitialMountMaxWords.current) { isInitialMountMaxWords.current = false; }
          else { if (wordList.length > 0) { console.log(`Max words changed to ${maxWords}, selecting new pair...`); selectNewPair(); } }
     }, [maxWords, wordList]);
 
-    // === Handling Language Direction Switch ===
+    // === Handling Language Direction Switch === (No changes needed here)
     const switchLanguageDirection = () => {
         setLanguageDirection(prev => prev === 'spa-eng' ? 'eng-spa' : 'spa-eng');
         setShowFeedback(false); setLastCorrectAnswer(''); setHintData(null); setFeedbackSignal(null);
     };
 
-    // === Hint Handling Logic ===
+    // === Hint Handling Logic === (No changes needed here)
     const handleGetHint = async () => {
         if (!currentPair || hintData || showFeedback || isHintLoading || feedbackSignal === 'incorrect') return;
         const wordToLookup = currentPair.spanish; setIsHintLoading(true); setHintData(null);
@@ -182,58 +182,47 @@ function App() {
         finally { setIsHintLoading(false); }
     };
 
-    // === Component Return ===
+    // === Component Return === (No changes needed here)
     return (
         <div className="App">
             <h1>Spanish Flashcards</h1>
-            {/* === SCORE STACKS AREA === */}
+            {/* Score Stacks Area */}
             <div className="score-stacks-container">
-                {/* Correct Stack */}
                 <div className="stack correct-stack">
                     <div className="stack-label">Correct</div>
                     <div className="cards">
                         <span className="card-icon correct-icon" role="img" aria-label="Correct answers">✅</span>
-                        {/* Correct score span - NO REF */}
                         <span className="stack-count">{score.correct}</span>
                     </div>
                 </div>
-                {/* Incorrect Stack */}
                 <div className="stack incorrect-stack">
                     <div className="stack-label">Incorrect</div>
                     <div className="cards">
                         <span className="card-icon incorrect-icon" role="img" aria-label="Incorrect answers">❌</span>
-                        {/* ================================================= */}
-                        {/* ADD THE REF ATTRIBUTE to the INCORRECT score span */}
-                        {/* ================================================= */}
-                        <span className="stack-count" ref={incorrectScoreRef}>
-                            {score.incorrect}
-                        </span>
+                        <span className="stack-count" ref={incorrectScoreRef}>{score.incorrect}</span>
                     </div>
                 </div>
             </div>
-            {/* === END SCORE STACKS AREA === */}
 
-            {/* --- Controls --- */}
+            {/* Controls */}
             <div className="controls" style={{ marginBottom: '15px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '15px' }}>
                <button onClick={switchLanguageDirection}>Switch Direction ({languageDirection === 'spa-eng' ? 'Spa -> Eng' : 'Eng -> Spa'})</button>
                <button onClick={() => selectNewPair()} disabled={isLoading || wordList.length === 0}>{isLoading ? 'Loading...' : 'New Card'}</button>
             </div>
 
-            {/* --- Status Messages --- */}
+            {/* Status Messages */}
             {isLoading && !currentPair && wordList.length === 0 && <p>Loading word list...</p>}
             {isLoading && currentPair && <p>Loading new card...</p>}
             {error && !isLoading && ( <div className="error-area" style={{ marginBottom: '10px' }}><p style={{ color: 'red' }}>Error: {error}</p><button onClick={() => selectNewPair()} disabled={isLoading || wordList.length === 0}>Try New Card</button></div> )}
 
-            {/* --- Flashcard Area --- */}
+            {/* Flashcard Area */}
             {!isLoading && !error && currentPair && (
                 <div className="flashcard-area">
-                    {/* Flashcard component receives feedbackSignal for its own flash */}
                     <Flashcard
                         pair={currentPair} direction={languageDirection} onAnswerSubmit={handleAnswerSubmit}
                         showFeedback={showFeedback} onGetHint={handleGetHint} hint={hintData}
                         isHintLoading={isHintLoading} feedbackSignal={feedbackSignal}
                     />
-                    {/* Incorrect Answer Feedback Display */}
                     {showFeedback && (
                         <div className="feedback-area" style={{ marginTop: '10px' }}>
                             <p style={{ color: '#D90429', fontWeight: 'bold', margin: '0 0 5px 0' }}>Incorrect. Correct: "{lastCorrectAnswer}"</p>
@@ -247,10 +236,13 @@ function App() {
             {!isLoading && !error && !currentPair && wordList.length > 0 && ( <p>No flashcard data matching criteria. Try clicking New Card.</p> )}
             {!isLoading && !error && !currentPair && wordList.length === 0 && ( <p>Word list failed to load. Check console.</p> )}
 
-            {/* --- Debug State Display --- */}
+            {/* Debug State Display */}
             <details style={{ marginTop: '20px' }}>
                 <summary>Show Current State</summary>
-                <pre style={{ textAlign: 'left', backgroundColor: '#eee', padding: '10px', borderRadius: '4px', whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>{/* ... state values ... */}</pre>
+                <pre style={{ textAlign: 'left', backgroundColor: '#eee', padding: '10px', borderRadius: '4px', whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>
+                    State: {JSON.stringify({ isLoading, error: error?.message, currentPair, languageDirection, score, maxWords, feedbackSignal }, null, 2)}
+                    {'\n'}Hint Data Type: {hintData?.type}
+                </pre>
             </details>
         </div>
     );
