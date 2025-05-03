@@ -13,8 +13,8 @@ function App() {
     const [error, setError] = useState(null);
     const [score, setScore] = useState({ correct: 0, incorrect: 0 });
     const [hintData, setHintData] = useState(null);
-    const [showFeedback, setShowFeedback] = useState(false);
-    const [lastCorrectAnswer, setLastCorrectAnswer] = useState('');
+    const [showFeedback, setShowFeedback] = useState(false); // Still needed to show the message
+    const [lastCorrectAnswer, setLastCorrectAnswer] = useState(''); // Still needed for the message
     const [maxWords, setMaxWords] = useState(5);
     const [isHintLoading, setIsHintLoading] = useState(false);
     const [feedbackSignal, setFeedbackSignal] = useState(null);
@@ -24,10 +24,10 @@ function App() {
     const isInitialMountScore = useRef(true);
     const isInitialMountMaxWords = useRef(true);
 
-    // === Selection Logic === (No changes needed here)
+    // === Selection Logic ===
     const selectNewPair = (listToUse = wordList) => {
         console.log(`Selecting pair from list (${listToUse.length} items), max words: ${maxWords}`);
-        setError(null); setHintData(null); setCurrentPair(null); setShowFeedback(false);
+        setError(null); setHintData(null); setCurrentPair(null); setShowFeedback(false); // Resets showFeedback
         setIsHintLoading(false); setFeedbackSignal(null);
         if (!listToUse || listToUse.length === 0) {
             setError("Word list is empty or not loaded yet."); setIsLoading(false); return;
@@ -50,7 +50,7 @@ function App() {
         } finally { setIsLoading(false); }
     };
 
-    // === Initial Load Logic === (No changes needed here)
+    // === Initial Load Logic ===
     useEffect(() => {
         const loadWordData = async () => {
             console.log("App component mounted. Loading word list...");
@@ -67,7 +67,7 @@ function App() {
         loadWordData();
     }, []);
 
-    // === Effect for INCORRECT Score Flash === (No changes needed here)
+    // === Effect for INCORRECT Score Flash ===
     useEffect(() => {
         if (isInitialMountScore.current) { isInitialMountScore.current = false; return; }
         if (score.incorrect > 0 && incorrectScoreRef.current) {
@@ -81,92 +81,68 @@ function App() {
         }
     }, [score.incorrect]);
 
-    // ========================================================
-    // === Answer Submission Logic (Article & "To" Logic Updated) ===
-    // ========================================================
+    // === Answer Submission Logic ===
     const handleAnswerSubmit = (userAnswer) => {
         const punctuationRegex = /[.?!¡¿]+$/;
-        // Regex for English articles
         const englishArticleRegex = /^(the|a|an)\s+/i;
-        // --- >>> NEW: Regex for leading "to " for verbs <<< ---
         const toVerbRegex = /^to\s+/i;
-
-        // Guard clause
         if (!currentPair || showFeedback) {
             console.log(`Submission blocked by guard: currentPair=${!!currentPair}, showFeedback=${showFeedback}`); return;
         }
-
-        // Determine correct answer
         const correctAnswer = languageDirection === 'spa-eng' ? currentPair.english : currentPair.spanish;
-
-        // Basic normalization
         let normalizedUserAnswer = userAnswer.toLowerCase().trim().replace(punctuationRegex, '');
         let normalizedCorrectAnswer = correctAnswer.toLowerCase().trim().replace(punctuationRegex, '');
-
-        // --- >>> ARTICLE & "TO" STRIPPING LOGIC <<< ---
         if (languageDirection === 'spa-eng') {
             console.log('Direction is spa-eng, attempting normalization.');
-            // Store initial normalized versions for logging
-            const originalNormalizedUser = normalizedUserAnswer;
-            const originalNormalizedCorrect = normalizedCorrectAnswer;
-
-            // 1. Strip articles
-            normalizedUserAnswer = normalizedUserAnswer.replace(englishArticleRegex, '');
-            normalizedCorrectAnswer = normalizedCorrectAnswer.replace(englishArticleRegex, '');
-
-            // --- >>> 2. Strip leading "to " AFTER stripping articles <<< ---
-            normalizedUserAnswer = normalizedUserAnswer.replace(toVerbRegex, '');
-            normalizedCorrectAnswer = normalizedCorrectAnswer.replace(toVerbRegex, '');
-
-            // Optional logging to see changes
+            const originalNormalizedUser = normalizedUserAnswer; const originalNormalizedCorrect = normalizedCorrectAnswer;
+            normalizedUserAnswer = normalizedUserAnswer.replace(englishArticleRegex, ''); normalizedCorrectAnswer = normalizedCorrectAnswer.replace(englishArticleRegex, '');
+            normalizedUserAnswer = normalizedUserAnswer.replace(toVerbRegex, ''); normalizedCorrectAnswer = normalizedCorrectAnswer.replace(toVerbRegex, '');
             if(originalNormalizedUser !== normalizedUserAnswer) console.log(`Normalized user answer: "${originalNormalizedUser}" -> "${normalizedUserAnswer}"`);
             if(originalNormalizedCorrect !== normalizedCorrectAnswer) console.log(`Normalized correct answer: "${originalNormalizedCorrect}" -> "${normalizedCorrectAnswer}"`);
         }
-        // --- >>> END ARTICLE & "TO" STRIPPING LOGIC <<< ---
-
-        // Log final versions being compared
         console.log(`Comparing (final normalized): "${normalizedUserAnswer}" vs "${normalizedCorrectAnswer}"`);
 
-        // Comparison
         if (normalizedUserAnswer === normalizedCorrectAnswer) {
             console.log("CORRECT branch executed.");
             setScore(prevScore => ({ ...prevScore, correct: prevScore.correct + 1 }));
             setFeedbackSignal('correct');
-            setTimeout(() => {
-                 console.log("Executing selectNewPair after correct answer timeout.");
-                 selectNewPair();
-            }, 50);
+            setTimeout(() => { console.log("Executing selectNewPair after correct answer timeout."); selectNewPair(); }, 50);
         } else {
             console.log("INCORRECT branch executed.");
             setScore(prevScore => ({ ...prevScore, incorrect: prevScore.incorrect + 1 }));
-            setLastCorrectAnswer(correctAnswer); // Show original correct answer
-            setShowFeedback(true);
+            setLastCorrectAnswer(correctAnswer);
+            setShowFeedback(true); // Set state to show feedback message area
             setFeedbackSignal('incorrect');
         }
     };
-    // ========================================================
-    // === End Answer Submission Logic Update ===
-    // ========================================================
 
-    // === Handling "Next Card" === (No changes needed here)
-    const handleNextCard = () => { setShowFeedback(false); setLastCorrectAnswer(''); selectNewPair(); };
+    // ========================================================
+    // === REMOVED `handleNextCard` Function ===
+    // No longer needed as the button using it is removed.
+    // The main "New Card" button calls `selectNewPair` directly.
+    // ========================================================
+    // const handleNextCard = () => {
+    //     setShowFeedback(false);
+    //     setLastCorrectAnswer('');
+    //     selectNewPair();
+    // };
 
-    // === Handling Max Words Change === (No changes needed here)
+    // === Handling Max Words Change ===
     const handleMaxWordsChange = (event) => { const newVal = parseInt(event.target.value, 10); setMaxWords(newVal >= 1 ? newVal : 1); console.log("Max words:", newVal >= 1 ? newVal : 1); };
 
-    // === Effect for Max Words Change === (No changes needed here)
+    // === Effect for Max Words Change ===
     useEffect(() => {
          if (isInitialMountMaxWords.current) { isInitialMountMaxWords.current = false; }
          else { if (wordList.length > 0) { console.log(`Max words changed to ${maxWords}, selecting new pair...`); selectNewPair(); } }
     }, [maxWords, wordList]);
 
-    // === Handling Language Direction Switch === (No changes needed here)
+    // === Handling Language Direction Switch ===
     const switchLanguageDirection = () => {
         setLanguageDirection(prev => prev === 'spa-eng' ? 'eng-spa' : 'spa-eng');
         setShowFeedback(false); setLastCorrectAnswer(''); setHintData(null); setFeedbackSignal(null);
     };
 
-    // === Hint Handling Logic === (No changes needed here)
+    // === Hint Handling Logic ===
     const handleGetHint = async () => {
         if (!currentPair || hintData || showFeedback || isHintLoading || feedbackSignal === 'incorrect') return;
         const wordToLookup = currentPair.spanish; setIsHintLoading(true); setHintData(null);
@@ -182,31 +158,27 @@ function App() {
         finally { setIsHintLoading(false); }
     };
 
-    // === Component Return === (No changes needed here)
+    // === Component Return ===
     return (
         <div className="App">
             <h1>Spanish Flashcards</h1>
             {/* Score Stacks Area */}
             <div className="score-stacks-container">
-                <div className="stack correct-stack">
+                {/* ... stacks ... */}
+                 <div className="stack correct-stack">
                     <div className="stack-label">Correct</div>
-                    <div className="cards">
-                        <span className="card-icon correct-icon" role="img" aria-label="Correct answers">✅</span>
-                        <span className="stack-count">{score.correct}</span>
-                    </div>
+                    <div className="cards"> <span className="card-icon correct-icon" role="img" aria-label="Correct answers">✅</span> <span className="stack-count">{score.correct}</span> </div>
                 </div>
                 <div className="stack incorrect-stack">
                     <div className="stack-label">Incorrect</div>
-                    <div className="cards">
-                        <span className="card-icon incorrect-icon" role="img" aria-label="Incorrect answers">❌</span>
-                        <span className="stack-count" ref={incorrectScoreRef}>{score.incorrect}</span>
-                    </div>
+                    <div className="cards"> <span className="card-icon incorrect-icon" role="img" aria-label="Incorrect answers">❌</span> <span className="stack-count" ref={incorrectScoreRef}>{score.incorrect}</span> </div>
                 </div>
             </div>
 
             {/* Controls */}
             <div className="controls" style={{ marginBottom: '15px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '15px' }}>
                <button onClick={switchLanguageDirection}>Switch Direction ({languageDirection === 'spa-eng' ? 'Spa -> Eng' : 'Eng -> Spa'})</button>
+               {/* This is the main button to get a new card */}
                <button onClick={() => selectNewPair()} disabled={isLoading || wordList.length === 0}>{isLoading ? 'Loading...' : 'New Card'}</button>
             </div>
 
@@ -223,12 +195,18 @@ function App() {
                         showFeedback={showFeedback} onGetHint={handleGetHint} hint={hintData}
                         isHintLoading={isHintLoading} feedbackSignal={feedbackSignal}
                     />
+                    {/* ================================================ */}
+                    {/* Feedback Area - Button Removed */}
+                    {/* ================================================ */}
                     {showFeedback && (
                         <div className="feedback-area" style={{ marginTop: '10px' }}>
                             <p style={{ color: '#D90429', fontWeight: 'bold', margin: '0 0 5px 0' }}>Incorrect. Correct: "{lastCorrectAnswer}"</p>
-                            <button onClick={handleNextCard}>Next Card</button>
+                            {/* The <button onClick={handleNextCard}>Next Card</button> WAS here */}
                         </div>
                     )}
+                    {/* ================================================ */}
+                    {/* End Feedback Area Update */}
+                    {/* ================================================ */}
                 </div>
             )}
 
