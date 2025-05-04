@@ -4,6 +4,9 @@ import Flashcard from './components/Flashcard';
 import { getMwHint } from './services/dictionaryServices.js';
 import './App.css';
 
+import { db } from './db.js';
+
+
 function App() {
     // === State Variables ===
     const [wordList, setWordList] = useState([]);
@@ -67,6 +70,71 @@ function App() {
         loadWordData();
     }, []);
 
+// ================================================
+    // 2. useEffect for LOADING Score on Mount
+    // ================================================
+    useEffect(() => {
+        const loadScoreFromDB = async () => {
+            console.log("Attempting to load score from DB...");
+            try {
+                // Use .get() with the specific key ('userScore') we'll use for the score object
+                const savedState = await db.appState.get('userScore');
+                if (savedState) {
+                    console.log("Found saved score:", savedState);
+                    // Update component state with loaded score
+                    setScore({ correct: savedState.correct, incorrect: savedState.incorrect });
+                } else {
+                    console.log("No saved score found, using default.");
+                    // Optional: Save the initial default score if it doesn't exist
+                    await db.appState.put({ id: 'userScore', correct: 0, incorrect: 0 });
+                    console.log("Saved initial default score to DB.");
+                }
+            } catch (err) {
+                console.error("Failed to load or initialize score from DB:", err);
+                // Optionally set an error state specific to DB loading
+            } finally {
+                // Mark initial score load attempt as complete
+                 isInitialMountScore.current = false; // Allow saving effect to run now
+                 console.log("Score loading attempt finished.");
+            }
+        };
+
+        loadScoreFromDB();
+        // Empty dependency array ensures this runs only once on mount
+    }, []);
+
+    // ================================================
+    // 3. useEffect for SAVING Score on Change
+    // ================================================
+    useEffect(() => {
+        // Prevent saving the initial default state before loading from DB is attempted
+        if (isInitialMountScore.current) {
+             console.log("Score save effect: Initial mount, skipping save.");
+             return; // Don't save until loading effect has run
+        }
+
+        console.log("Score changed, attempting to save to DB:", score);
+        const saveScoreToDB = async () => {
+            try {
+                // Use .put() which updates if 'userScore' exists, or adds if it doesn't.
+                // The object needs the primary key property ('id' in our schema)
+                await db.appState.put({
+                    id: 'userScore', // The primary key value
+                    correct: score.correct,
+                    incorrect: score.incorrect
+                });
+                console.log("Score saved successfully to DB.");
+            } catch (err) {
+                console.error("Failed to save score to DB:", err);
+            }
+        };
+
+        saveScoreToDB();
+        // This effect runs whenever the 'score' state object changes
+    }, [score]);
+
+
+
     // === Effect for INCORRECT Score Flash ===
     useEffect(() => {
         if (isInitialMountScore.current) { isInitialMountScore.current = false; return; }
@@ -116,16 +184,7 @@ function App() {
         }
     };
 
-    // ========================================================
-    // === REMOVED `handleNextCard` Function ===
-    // No longer needed as the button using it is removed.
-    // The main "New Card" button calls `selectNewPair` directly.
-    // ========================================================
-    // const handleNextCard = () => {
-    //     setShowFeedback(false);
-    //     setLastCorrectAnswer('');
-    //     selectNewPair();
-    // };
+
 
     // === Handling Max Words Change ===
     const handleMaxWordsChange = (event) => { const newVal = parseInt(event.target.value, 10); setMaxWords(newVal >= 1 ? newVal : 1); console.log("Max words:", newVal >= 1 ? newVal : 1); };
