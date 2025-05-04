@@ -1,3 +1,12 @@
+/* Base App Styles (Example) */
+.App {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 15px;
+  font-family: sans-serif;
+  text-align: center;
+}
+
 /* === Flashcard Base Styles === */
 .flashcard {
   border: 2px solid #ccc;
@@ -12,6 +21,7 @@
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
+  position: relative; /* Needed if children are positioned absolutely */
 }
 
 .flashcard-word {
@@ -79,70 +89,54 @@
 .hint-display strong { font-style: normal; }
 .hint-display em { color: #5a6268; margin: 0 3px; }
 
-/* ================================================ */
 /* === Visual Feedback Styles (Flashcard) === */
-/* ================================================ */
 .flashcard--correct {
-  /* Use the vivid green animation */
   animation: flash-correct-vivid 0.6s ease-out;
-  border-color: #28a745; /* Vibrant Green */
+  border-color: #28a745;
 }
-
 .flashcard--incorrect {
-  /* Uses the existing vivid red animation */
   animation: flash-incorrect 0.6s ease-out;
-  border-color: #D90429; /* Vivid Red */
+  border-color: #D90429;
 }
-
+/* Keyframes for CORRECT flashcard - SOLID Background */
 @keyframes flash-correct-vivid {
-  0%, 100% {
-    background-color: #ffffff; /* Start/End white */
-    border-color: #28a745; /* End with green border */
-    color: #333; /* Ensure text color is default */
-  }
-  50% {
-    /* --- Reverting to SOLID green background and WHITE text --- */
-    background-color: #28a745; /* Solid Green Background */
-    color: white; /* White text for contrast */
-    border-color: #28a745; /* Keep border green */
-  }
+  0%, 100% { background-color: #ffffff; border-color: #28a745; color: #333; }
+  50% { background-color: #28a745; color: white; border-color: #28a745; }
 }
-
-/* Keyframes for the incorrect flash animation (No change needed here) */
+/* Keyframes for INCORRECT flashcard - LIGHT Background */
 @keyframes flash-incorrect {
-  /* ... this keyframe block remains unchanged ... */
-   0%, 100% {
-    background-color: #ffffff;
-    border-color: #D90429;
-  }
-  50% {
-    background-color: #ffcccc; /* Light version of vivid red */
-    border-color: #D90429;
-  }
+  0%, 100% { background-color: #ffffff; border-color: #D90429; }
+  50% { background-color: #ffcccc; border-color: #D90429; }
 }
-/* ================================================ */
-/* === Score Stacks Styles === */
-/* ================================================ */
+/* === End Visual Feedback Styles (Flashcard) === */
+
+
+/* === Score Stacks Styles (Using Option A - Cards) === */
 .score-stacks-container {
   display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
+  gap: 15px; /* Spacing between stack cards */
+  justify-content: center; /* Center the group of stacks */
+  align-items: stretch; /* Make cards equal height */
   width: 100%;
-  max-width: 350px;
+  max-width: 450px; /* Adjust as needed */
   margin: 15px auto 25px auto;
-  padding: 10px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+  /* Container itself is now just for layout, no background/padding */
 }
 
 .stack {
   text-align: center;
-  flex-basis: 45%;
+  flex: 1; /* Allow stacks to grow/shrink */
+  /* Card Styles */
+  background-color: #ffffff;
+  padding: 10px 5px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  min-width: 100px; /* Prevent becoming too narrow */
 }
 
 .stack-label {
-  font-size: 0.9em;
+  font-size: 0.85em;
   font-weight: bold;
   color: #6c757d;
   margin-bottom: 8px;
@@ -157,67 +151,73 @@
 }
 
 .card-icon {
-  font-size: 1.8em;
-  margin-right: 8px;
+  font-size: 1.6em;
+  margin-right: 6px;
   line-height: 1;
 }
 
 .stack-count {
-  font-size: 1.5em;
+  font-size: 1.4em;
   font-weight: bold;
   line-height: 1;
-  /* Base transition for smooth return after animation */
   transition: color 0.2s ease-out, background-color 0.2s ease-out, padding 0.2s ease-out;
 }
 
-/* Base Colors for counts */
-.correct-stack .stack-count {
-  color: #28a745; /* Vibrant Green */
-}
-.incorrect-stack .stack-count {
-  color: #D90429; /* Vivid Red */
-}
+/* Count Colors */
+.correct-stack .stack-count { color: #28a745; }
+.incorrect-stack .stack-count { color: #D90429; }
+.hard-words-stack .stack-count { color: #ffc107; }
 /* === End Score Stacks Styles === */
 
 
-/* ======================================================== */
-/* === ADDED Styles for INCORRECT Score Number Flash === */
-/* ======================================================== */
+/* === INCORRECT Score Number Flash Styles === */
 .score-flash-incorrect {
-  /* Reference the new red score flash animation */
-  animation: flash-red-score 1.0s ease-out; /* 1 second duration */
-
-  /* Base styling adjustments for flash visibility */
+  animation: flash-red-score 1.0s ease-out;
   display: inline-block;
   vertical-align: middle;
   border-radius: 4px;
   padding: 1px 4px;
   margin: -1px -4px; /* Counteract padding */
 }
-
-/* Keyframes for the incorrect score number flash */
 @keyframes flash-red-score {
-  0%, 100% {
-    /* Return to normal state */
-    color: #D90429; /* Base Red Text */
-    background-color: transparent;
-    transform: scale(1);
-    box-shadow: none;
-    padding: 1px 4px; /* Match base padding */
-    margin: -1px -4px; /* Match base margin */
-  }
-  50% {
-    /* Vivid Flash state */
-    color: white; /* White text for high contrast */
-    background-color: #D90429; /* Solid Red Background */
-    transform: scale(1.15);
-    box-shadow: 0 0 10px rgba(217, 4, 41, 0.8); /* Optional red glow */
-    padding: 1px 4px; /* Match base padding */
-    margin: -1px -4px; /* Match base margin */
-  }
+  0%, 100% { color: #D90429; background-color: transparent; transform: scale(1); box-shadow: none; padding: 1px 4px; margin: -1px -4px; }
+  50% { color: white; background-color: #D90429; transform: scale(1.15); box-shadow: 0 0 10px rgba(217, 4, 41, 0.8); padding: 1px 4px; margin: -1px -4px; }
 }
-/* === End Styles for INCORRECT Score Number Flash === */
+/* === End INCORRECT Score Number Flash Styles === */
 
+/* Other general styles */
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+}
 
-/* --- REMOVED Styles for CORRECT Score Number Flash --- */
-/* Ensure .score-flash-correct and @keyframes flash-green-score... are deleted */
+/* Error area styling */
+.error-area {
+  margin-bottom: 10px;
+  color: #D90429; /* Use vivid red */
+  border: 1px solid #D90429;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #ffcccc; /* Light red background */
+}
+.error-area button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  font-size: 0.9em;
+}
+
+/* Feedback area styling */
+.feedback-area {
+  margin-top: 10px;
+  padding: 8px;
+  background-color: #fff3cd; /* Light yellow feedback background */
+  border: 1px solid #ffeeba;
+  border-radius: 4px;
+}
+.feedback-area p {
+  color: #D90429; /* Use vivid red */
+  font-weight: bold;
+  margin: 0;
+}

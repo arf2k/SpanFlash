@@ -1,6 +1,7 @@
 // src/App.jsx
 import { useState, useEffect, useRef } from 'react';
 import Flashcard from './components/Flashcard';
+import ScoreStack from './components/ScoreStack'; // <-- Import the new component
 import { getMwHint } from './services/dictionaryServices.js';
 import { db } from './db';
 import './App.css';
@@ -22,17 +23,19 @@ function App() {
     const [feedbackSignal, setFeedbackSignal] = useState(null);
 
     // === Refs ===
-    const incorrectScoreRef = useRef(null);
-    const isInitialMountScore = useRef(true);
+    const incorrectScoreRef = useRef(null); // For incorrect score flash
+    const isInitialMountScore = useRef(true); // Prevent effects on initial load
     const isInitialMountMaxWords = useRef(true);
 
     // === Selection Logic ===
+    // (Handles selecting new card, resetting states - NO isLoading change)
     const selectNewPair = (listToUse = wordList) => {
         console.log(`Selecting pair from list (${listToUse.length} items), max words: ${maxWords}`);
         setError(null); setHintData(null); setCurrentPair(null); setShowFeedback(false);
         setIsHintLoading(false); setFeedbackSignal(null);
         if (!listToUse || listToUse.length === 0) { setError("Word list empty."); setIsLoading(false); return; }
-        setIsLoading(true); // Set loading true for selection process itself
+        // Don't set isLoading=true here, handled by caller if needed
+
         try {
             const filteredData = listToUse.filter(pair => {
                 if (!pair || typeof pair.english !== 'string' || typeof pair.spanish !== 'string') return false;
@@ -44,7 +47,8 @@ function App() {
             if (filteredData.length > 0) { setCurrentPair(filteredData[Math.floor(Math.random() * filteredData.length)]); }
             else { const errMsg = `No pairs found with <= ${maxWords} words.`; console.warn(errMsg); setError(errMsg); setCurrentPair(null); }
         } catch (err) { console.error("Error selecting pair:", err); setError(err.message); setCurrentPair(null); }
-        finally { setIsLoading(false); console.log("selectNewPair finished execution."); } // Set loading false after selection
+        finally { console.log("selectNewPair finished execution."); }
+        // Don't set isLoading=false here
     };
 
     // === Combined Initial Load useEffect ===
@@ -55,7 +59,7 @@ function App() {
             setScore({ correct: 0, incorrect: 0 }); setHardWordsList([]); setCurrentPair(null);
             try {
                 console.log("Fetching word list...");
-                const response = await fetch('/scrapedSpan411.json'); // Adjust path if needed
+                const response = await fetch('/scrapedSpan411.json');
                 if (!response.ok) { throw new Error(`Word list fetch failed: ${response.status} ${response.statusText}`); }
                 const loadedList = await response.json();
                 if (!Array.isArray(loadedList)) { throw new Error("Word list data invalid."); }
@@ -142,25 +146,77 @@ function App() {
     return (
         <div className="App">
             <h1>Spanish Flashcards</h1>
-            {/* Score Stacks Area */}
-            <div className="score-stacks-container"> <div className="stack correct-stack"> <div className="stack-label">Correct</div> <div className="cards"> <span className="card-icon">✅</span> <span className="stack-count">{score.correct}</span> </div> </div> <div className="stack incorrect-stack"> <div className="stack-label">Incorrect</div> <div className="cards"> <span className="card-icon">❌</span> <span className="stack-count" ref={incorrectScoreRef}>{score.incorrect}</span> </div> </div> </div>
-            {/* Controls */}
-            <div className="controls" style={{ marginBottom: '15px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '15px' }}> <button onClick={switchLanguageDirection}>Switch Dir ({languageDirection === 'spa-eng' ? 'S->E' : 'E->S'})</button> <button onClick={() => { setIsLoading(true); selectNewPair(); }} disabled={isLoading || wordList.length === 0}>{isLoading ? 'Loading...' : 'New Card'}</button> </div> {/* Note: setIsLoading(false) now happens in selectNewPair's finally block */}
-            {/* Status */}
-            {isLoading && <p>Loading...</p>} {error && !isLoading && ( <div><p style={{ color: 'red' }}>Error: {error}</p><button onClick={() => { setIsLoading(true); selectNewPair(); }} disabled={isLoading || wordList.length === 0}>Try New Card</button></div> )}
+
+            {/* === SCORE STACKS AREA (Using ScoreStack Component) === */}
+            <div className="score-stacks-container">
+                <ScoreStack type="correct" label="Correct" count={score.correct} icon="✅" />
+                <ScoreStack type="incorrect" label="Incorrect" count={score.incorrect} icon="❌" flashRef={incorrectScoreRef} />
+                <ScoreStack type="hard" label="Hard Words" count={hardWordsList.length} icon="⭐" />
+            </div>
+            {/* === END SCORE STACKS AREA === */}
+
+
+            {/* Controls Area */}
+            <div className="controls" style={{ marginBottom: '15px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '15px' }}>
+               <button onClick={switchLanguageDirection}>Switch Dir ({languageDirection === 'spa-eng' ? 'S->E' : 'E->S'})</button>
+               {/* Button now just calls selectNewPair, isLoading handled in effect/state */}
+               <button onClick={() => { setIsLoading(true); selectNewPair(); /* isLoading set false in selectNewPair finally */ }} disabled={isLoading || wordList.length === 0}>
+                 {isLoading ? 'Loading...' : 'New Card'}
+               </button>
+                 {/* Optional Max Words Slider */}
+                 {/* <div style={{ display: 'flex', ... }}>...</div> */}
+            </div>
+
+            {/* Status Messages Area */}
+            {isLoading && <p>Loading...</p>}
+            {error && !isLoading && (
+                <div className="error-area" style={{ /* ... error styles ... */ }}>
+                     <p>Error: {error}</p>
+                     <button onClick={() => { setIsLoading(true); selectNewPair(); }} disabled={isLoading || wordList.length === 0}>
+                         Try New Card
+                     </button>
+                </div>
+             )}
+
             {/* Flashcard Area */}
             {!isLoading && !error && currentPair && (
                 <div className="flashcard-area">
                     {(() => {
-                        const isCurrentCardMarked = hardWordsList.some(word => word.spanish === currentPair.spanish && word.english === currentPair.english);
-                        return ( <Flashcard pair={currentPair} direction={languageDirection} onAnswerSubmit={handleAnswerSubmit} showFeedback={showFeedback} onGetHint={handleGetHint} hint={hintData} isHintLoading={isHintLoading} feedbackSignal={feedbackSignal} onMarkHard={handleMarkHard} isMarkedHard={isCurrentCardMarked} /> );
+                        const isCurrentCardMarked = hardWordsList.some(
+                            word => word.spanish === currentPair.spanish && word.english === currentPair.english
+                        );
+                        return (
+                            <Flashcard
+                                pair={currentPair}
+                                direction={languageDirection}
+                                onAnswerSubmit={handleAnswerSubmit}
+                                showFeedback={showFeedback}
+                                onGetHint={handleGetHint}
+                                hint={hintData}
+                                isHintLoading={isHintLoading}
+                                feedbackSignal={feedbackSignal}
+                                onMarkHard={handleMarkHard}
+                                isMarkedHard={isCurrentCardMarked}
+                            />
+                        );
                     })()}
-                    {showFeedback && ( <div className="feedback-area" style={{ marginTop: '10px' }}> <p style={{ color: '#D90429', fontWeight: 'bold' }}>Incorrect. Correct: "{lastCorrectAnswer}"</p> </div> )}
+                    {/* Incorrect Feedback Display */}
+                    {showFeedback && (
+                        <div className="feedback-area" style={{ marginTop: '10px' }}>
+                            <p style={{ color: '#D90429', fontWeight: 'bold' }}>Incorrect. Correct: "{lastCorrectAnswer}"</p>
+                            {/* Button removed previously */}
+                        </div>
+                    )}
                 </div>
             )}
-            {/* Fallbacks */}
-            {!isLoading && !error && !currentPair && wordList.length > 0 && ( <p>No card matching criteria. Try 'New Card'.</p> )} {!isLoading && !error && !currentPair && wordList.length === 0 && ( <p>Word list failed or empty.</p> )}
-        
+
+            {/* Fallback Messages */}
+            {!isLoading && !error && !currentPair && wordList.length > 0 && ( <p>No card matching criteria. Try 'New Card'.</p> )}
+            {!isLoading && !error && !currentPair && wordList.length === 0 && ( <p>Word list failed or empty.</p> )}
+
+            {/* Debug State Display REMOVED as requested */}
+            {/* <details>...</details> */}
+
         </div>
     );
 }
