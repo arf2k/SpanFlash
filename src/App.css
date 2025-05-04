@@ -1,253 +1,235 @@
-/* Base App Styles (Example) */
+/* ================================== */
+/* Base HTML & Body Styles */
+/* ================================== */
+html {
+  font-size: 100%; /* Use user's default browser setting as base for 1rem (usually 16px) */
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0; /* Remove default margin */
+  font-family: 'Lato', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; /* Apply Lato with fallbacks */
+  line-height: 1.5; /* Base line spacing */
+  color: #333; /* Default text color */
+  background-color: #f8f9fa; /* Slightly off-white background for the whole page */
+}
+
+/* Ensure form elements inherit the font */
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+/* ================================== */
+/* App Container Styles */
+/* ================================== */
 .App {
   max-width: 700px;
-  margin: 20px auto;
-  padding: 15px;
-  font-family: sans-serif;
-  text-align: center;
-}
-
-/* === Flashcard Base Styles === */
-.flashcard {
-  border: 2px solid #ccc;
-  padding: 20px 25px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  text-align: center;
-  transition: border-color 0.3s ease-in-out;
-  width: 90%;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-  position: relative; /* Needed for positioning mark button */
-}
-
-.flashcard-word {
-  font-size: 1.8em;
-  font-weight: bold;
-  margin: 15px 0;
-  color: #333;
-  min-height: 1.2em;
-}
-
-/* === Input Form Styles === */
-.answer-form {
-  margin-top: 15px;
+  margin: 30px auto; /* Increased top/bottom margin */
+  padding: 20px; /* Increased padding */
+  /* font-family: sans-serif; */ /* Remove - Inherited from body */
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 25px; /* Increased gap between sections */
+  background-color: #ffffff; /* White background for the app container */
+  border-radius: 8px; /* Optional rounded corners for the app container */
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1); /* Optional shadow for the app container */
 }
 
-.answer-input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1em;
-  flex-grow: 1;
-  min-width: 150px;
+/* Main Heading */
+h1 {
+  font-size: 2.25rem; /* Approx 36px */
+  font-weight: 700; /* Use bold weight */
+  margin: 0 0 10px 0; /* Adjust margin */
+  color: #212529; /* Darker heading color */
 }
 
-.submit-button,
-.hint-button {
-  padding: 10px 18px;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  cursor: pointer;
-  font-size: 0.95em;
-  transition: background-color 0.2s ease, opacity 0.2s ease;
-}
-
-.submit-button { background-color: #007bff; }
-.submit-button:hover:not(:disabled) { background-color: #0056b3; }
-.hint-button { background-color: #6c757d; }
-.hint-button:hover:not(:disabled) { background-color: #5a6268; }
-.submit-button:disabled,
-.hint-button:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
-  opacity: 0.7;
-}
-
-/* === Hint Display Styles === */
-.hint-display {
-  margin-top: 15px;
-  padding: 10px;
-  background-color: #f8f9fa;
-  border-radius: 4px;
-  font-size: 0.9em;
-  color: #495057;
-  text-align: left;
-  min-height: 1.2em;
-  border-top: 1px solid #eee;
-  font-style: italic;
-}
-.hint-display strong { font-style: normal; }
-.hint-display em { color: #5a6268; margin: 0 3px; }
-
-/* === Visual Feedback Styles (Flashcard) === */
-.flashcard--correct {
-  animation: flash-correct-vivid 0.6s ease-out;
-  border-color: #28a745;
-}
-.flashcard--incorrect {
-  animation: flash-incorrect 0.6s ease-out;
-  border-color: #D90429;
-}
-/* Keyframes for CORRECT flashcard - SOLID Background */
-@keyframes flash-correct-vivid {
-  0%, 100% { background-color: #ffffff; border-color: #28a745; color: #333; }
-  50% { background-color: #28a745; color: white; border-color: #28a745; }
-}
-/* Keyframes for INCORRECT flashcard - LIGHT Background */
-@keyframes flash-incorrect {
-  0%, 100% { background-color: #ffffff; border-color: #D90429; }
-  50% { background-color: #ffcccc; border-color: #D90429; }
-}
-/* === End Visual Feedback Styles (Flashcard) === */
-
-
-/* === Score Stacks Styles (Using Option A - Cards) === */
+/* === Score Stacks Styles === */
 .score-stacks-container {
   display: flex;
-  gap: 15px; /* Spacing between stack cards */
-  justify-content: center; /* Center the group of stacks */
-  align-items: stretch; /* Make cards equal height */
+  gap: 15px;
+  justify-content: center;
+  align-items: stretch;
   width: 100%;
   max-width: 450px;
-  margin: 15px auto 25px auto;
-  /* Container is just for layout */
+  margin: 0; /* Rely on parent App gap */
 }
 
 .stack {
   text-align: center;
   flex: 1;
-  /* Card Styles */
   background-color: #ffffff;
-  padding: 10px 5px;
+  padding: 12px 8px; /* Adjusted padding */
   border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); /* Softer shadow */
   border: 1px solid #e0e0e0;
   min-width: 100px;
-  /* ======================== */
-  /* ADDED CURSOR & TRANSITION */
-  /* ======================== */
-  cursor: pointer; /* Indicate clickability */
+  cursor: pointer;
   transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 }
-
-/* Optional: Add a subtle hover effect */
 .stack:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
 }
-
-
 .stack-label {
-  font-size: 0.85em;
-  font-weight: bold;
+  font-size: 0.8rem; /* Approx 12.8px */
+  font-weight: 700; /* Bold label */
   color: #6c757d;
   margin-bottom: 8px;
   text-transform: uppercase;
+  letter-spacing: 0.5px; /* Slight letter spacing */
 }
-
 .cards {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 40px;
 }
-
 .card-icon {
-  font-size: 1.6em;
+  font-size: 1.5rem; /* Approx 24px */
   margin-right: 6px;
   line-height: 1;
 }
-
 .stack-count {
-  font-size: 1.4em;
-  font-weight: bold;
+  font-size: 1.6rem; /* Approx 25.6px */
+  font-weight: 700; /* Bold count */
   line-height: 1;
-  /* Base transition for smooth return after animation */
   transition: color 0.2s ease-out, background-color 0.2s ease-out, padding 0.2s ease-out;
 }
-
-/* Count Colors */
 .correct-stack .stack-count { color: #28a745; }
 .incorrect-stack .stack-count { color: #D90429; }
 .hard-words-stack .stack-count { color: #ffc107; }
 /* === End Score Stacks Styles === */
 
 
-/* === INCORRECT Score Number Flash Styles === */
-.score-flash-incorrect {
-  animation: flash-red-score 1.0s ease-out;
-  display: inline-block;
-  vertical-align: middle;
-  border-radius: 4px;
-  padding: 1px 4px;
-  margin: -1px -4px; /* Counteract padding */
+/* === Controls Styling === */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  max-width: 550px;
+  margin: 0; /* Rely on parent App gap */
 }
-@keyframes flash-red-score {
-  0%, 100% { color: #D90429; background-color: transparent; transform: scale(1); box-shadow: none; padding: 1px 4px; margin: -1px -4px; }
-  50% { color: white; background-color: #D90429; transform: scale(1.15); box-shadow: 0 0 10px rgba(217, 4, 41, 0.8); padding: 1px 4px; margin: -1px -4px; }
-}
-/* === End INCORRECT Score Number Flash Styles === */
 
-
-/* Other general styles */
-button {
-  cursor: pointer;
+/* Base Button Style (Apply to all buttons initially) */
+.controls button,
+.error-area button,
+.feedback-area button,
+.hard-words-view button, /* Style button in hard words view */
+.submit-button, /* Ensure submit/hint use base styles too */
+.hint-button {
+    font-size: 0.95rem; /* Approx 15px */
+    padding: 10px 18px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+    font-weight: 700; /* Bolder buttons */
+    line-height: 1.2;
 }
+/* Primary Action Button Style (e.g., New Card, Check Answer) */
+.controls button:last-of-type, /* Target New Card button */
+.submit-button {
+    background-color: #0d6efd; /* Bootstrap blue */
+}
+.controls button:last-of-type:hover:not(:disabled),
+.submit-button:hover:not(:disabled) {
+    background-color: #0b5ed7;
+}
+/* Secondary Action Button Style (e.g., Switch Dir, Hint, Close, Try Again) */
+.controls button:first-of-type, /* Target Switch Dir */
+.hint-button,
+.error-area button,
+.feedback-area button,
+.hard-words-view button { /* Style close/back button */
+    background-color: #6c757d; /* Bootstrap secondary grey */
+}
+.controls button:first-of-type:hover:not(:disabled),
+.hint-button:hover:not(:disabled),
+.error-area button:hover:not(:disabled),
+.feedback-area button:hover:not(:disabled),
+.hard-words-view button:hover:not(:disabled) {
+    background-color: #5a6268;
+}
+/* Disabled state */
 button:disabled {
+  background-color: #cccccc;
   cursor: not-allowed;
+  opacity: 0.65;
 }
 
-/* Error area styling */
-.error-area {
-  margin-bottom: 10px;
-  color: #D90429;
-  border: 1px solid #D90429;
-  padding: 10px;
+/* === Input Styling === */
+.answer-input {
+  padding: 10px 12px; /* Adjusted padding */
+  border: 1px solid #ced4da; /* Standard bootstrap border color */
   border-radius: 4px;
-  background-color: #ffcccc;
+  font-size: 1rem; /* Base size */
+  flex-grow: 1;
+  min-width: 150px;
+  line-height: 1.5;
 }
-.error-area button {
-  margin-left: 10px;
-  padding: 5px 10px;
-  font-size: 0.9em;
-}
-
-/* Feedback area styling */
-.feedback-area {
-  margin-top: 10px;
-  padding: 8px;
-  /* background-color: #fff3cd; // Removing yellow background */
-  /* border: 1px solid #ffeeba; */
-  border-radius: 4px;
-}
-.feedback-area p {
-  color: #D90429;
-  font-weight: bold;
-  margin: 0;
+.answer-input:focus {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25); /* Bootstrap focus glow */
 }
 
-/* Style for the placeholder view */
-.hard-words-view-placeholder {
-    padding: 20px;
-    border: 1px dashed grey;
-    margin-top: 20px;
-    background-color: #f0f0f0;
-    border-radius: 8px;
-}
-.hard-words-view-placeholder h2 {
-    margin-top: 0;
-}
-.hard-words-view-placeholder button {
-    margin-top: 10px;
-    padding: 8px 15px;
-}
+
+/* === Status Message Styling (Loading/Error) === */
+.App > p { font-style: italic; color: #6c757d; font-size: 1rem; }
+.error-area { margin: 0; color: #842029; border: 1px solid #f5c2c7; padding: 12px 15px; border-radius: 4px; background-color: #f8d7da; width: 100%; max-width: 500px; box-sizing: border-box; text-align: center; font-size: 0.95rem; }
+.error-area p { margin: 0 0 10px 0; font-weight: bold; }
+.error-area button { margin-left: 10px; padding: 5px 10px; font-size: 0.9rem; }
+
+
+/* === Flashcard Area Styling === */
+.flashcard-area { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 15px; /* Increased gap */ }
+
+/* Flashcard Base Styles */
+.flashcard { border: 1px solid #dee2e6; padding: 25px 30px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1); margin: 0; /* Rely on parent gap */ text-align: center; transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out; width: 100%; max-width: 500px; position: relative; box-sizing: border-box; }
+.flashcard-word { font-size: 2.1rem; /* Approx 33.6px */ font-weight: 700; margin: 15px 0 20px 0; /* Adjusted margin */ color: #212529; min-height: 1.3em; }
+
+/* Hint Display Styles */
+.hint-display { margin-top: 20px; padding: 12px 15px; background-color: #e9ecef; border-radius: 4px; font-size: 0.9rem; color: #495057; text-align: left; min-height: 1.5em; border-top: 1px solid #dee2e6; font-style: normal; }
+.hint-display strong { font-weight: 700; }
+.hint-display em { color: #5a6268; margin: 0 3px; font-style: italic; }
+
+/* Feedback Area Styling */
+.feedback-area { margin-top: 0; padding: 10px 15px; border-radius: 4px; width: 100%; max-width: 500px; box-sizing: border-box; text-align: center; background-color: #f8d7da; /* Light red background */ border: 1px solid #f5c2c7; }
+.feedback-area p { color: #842029; /* Darker red text */ font-weight: 700; /* Bold */ margin: 0 0 8px 0; font-size: 0.95rem; }
+.feedback-area button { margin-top: 0; /* Button is now inline with text potentially */ }
+
+/* === Visual Feedback Styles (Flashcard Animation) === */
+.flashcard--correct { animation: flash-correct-vivid 0.6s ease-out; border-color: #198754; /* Bootstrap success green */ }
+.flashcard--incorrect { animation: flash-incorrect 0.6s ease-out; border-color: #dc3545; /* Bootstrap danger red */ }
+@keyframes flash-correct-vivid { 0%, 100% { background-color: #ffffff; border-color: #198754; color: #333; } 50% { background-color: #198754; color: white; border-color: #198754; } }
+@keyframes flash-incorrect { 0%, 100% { background-color: #ffffff; border-color: #dc3545; } 50% { background-color: #f8d7da; border-color: #dc3545; } }
+/* === End Visual Feedback Styles (Flashcard) === */
+
+
+/* === Hard Words View Styling === */
+.hard-words-view { padding: 20px; border: 1px solid #dee2e6; margin-top: 0; background-color: #ffffff; border-radius: 8px; width: 100%; max-width: 550px; box-sizing: border-box; color: #333; text-align: left; box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1); }
+.hard-words-view h2 { margin-top: 0; margin-bottom: 20px; text-align: center; font-size: 1.5rem; /* Approx 24px */ color: #495057; }
+.hard-words-view ul { list-style: none; padding: 0; margin: 0 0 20px 0; /* Add bottom margin before close button */ }
+.hard-words-view li { border-bottom: 1px solid #eee; padding: 12px 5px; display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 1rem; /* Base size */ }
+.hard-words-view li span { flex-grow: 1; }
+.hard-words-view li span strong { font-weight: 700; }
+.hard-words-view li button { /* Remove button style */ display: inline-block; background: none; border: none; color: #dc3545; /* Bootstrap danger red */ cursor: pointer; font-size: 1.2rem; /* Slightly larger */ padding: 0 5px; line-height: 1; margin: 0; font-weight: bold; }
+.hard-words-view li button:hover { color: #a0041e; /* Darker red */ background-color: transparent; }
+.hard-words-view > button { /* Close button style */ font-size: 1rem; /* Consistent button size */ } /* Inherits from base button styles */
+
+
+/* === INCORRECT Score Number Flash Styles === */
+.score-flash-incorrect { animation: flash-red-score 1.0s ease-out; display: inline-block; vertical-align: middle; border-radius: 4px; padding: 1px 4px; margin: -1px -4px; }
+@keyframes flash-red-score { 0%, 100% { color: #D90429; background-color: transparent; transform: scale(1); box-shadow: none; padding: 1px 4px; margin: -1px -4px; } 50% { color: white; background-color: #D90429; transform: scale(1.15); box-shadow: 0 0 10px rgba(217, 4, 41, 0.8); padding: 1px 4px; margin: -1px -4px; } }
+/* === End INCORRECT Score Number Flash Styles === */
