@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import Flashcard from './components/Flashcard';
 import ScoreStack from './components/ScoreStack';
-import { getMwHint } from './services/dictionaryServices.js'; 
-import { db } from './db.js'; 
+import HardWordsView from './components/HardWordsView'; 
+import { getMwHint } from './services/dictionaryServices.js';
+import { db } from './db.js';
 import './App.css';
 
 function App() {
@@ -20,15 +21,15 @@ function App() {
     const [maxWords, setMaxWords] = useState(5);
     const [isHintLoading, setIsHintLoading] = useState(false);
     const [feedbackSignal, setFeedbackSignal] = useState(null);
-    // --- ADDED state for toggling view ---
-    const [showHardWordsView, setShowHardWordsView] = useState(false);
+    const [showHardWordsView, setShowHardWordsView] = useState(false); 
 
     // === Refs ===
-    const incorrectScoreRef = useRef(null); // For incorrect score flash
-    const isInitialMountScore = useRef(true); // Prevent effects on initial load
+    const incorrectScoreRef = useRef(null);
+    const isInitialMountScore = useRef(true);
     const isInitialMountMaxWords = useRef(true);
 
     // === Selection Logic ===
+    // (Handles selecting new card, resetting states - optionally manages isLoading)
     const selectNewPair = (listToUse = wordList, manageLoadingState = false) => {
         console.log(`Selecting pair (manageLoading: ${manageLoadingState})...`);
         if (manageLoadingState) { console.log("Setting isLoading = true (from selectNewPair)"); setIsLoading(true); }
@@ -60,7 +61,7 @@ function App() {
                 console.log("Fetching word list..."); const response = await fetch('/scrapedSpan411.json'); if (!response.ok) throw new Error(`Word list fetch failed: ${response.status}`); const loadedList = await response.json(); if (!Array.isArray(loadedList)) throw new Error("Word list data invalid."); console.log(`Loaded ${loadedList.length} pairs.`); setWordList(loadedList);
                 console.log("Loading score from DB..."); const savedScoreState = await db.appState.get('userScore'); if (savedScoreState) { setScore({ ...savedScoreState }); } else { await db.appState.put({ id: 'userScore', correct: 0, incorrect: 0 }); }
                 console.log("Loading hard words from DB..."); const loadedHardWords = await db.hardWords.toArray(); if (loadedHardWords) { setHardWordsList(loadedHardWords); console.log(`Loaded ${loadedHardWords.length} hard words.`); }
-                console.log("Selecting initial pair..."); selectNewPair(loadedList); // manageLoadingState defaults to false
+                console.log("Selecting initial pair..."); selectNewPair(loadedList); 
             } catch (err) { console.error("Error initial load:", err); setError(err.message || "Failed load."); setWordList([]); setCurrentPair(null); setScore({ correct: 0, incorrect: 0 }); setHardWordsList([]); }
             finally { console.log("Setting isLoading false after initial sequence."); setIsLoading(false); isInitialMountScore.current = false; }
         };
@@ -117,6 +118,15 @@ function App() {
         finally { setIsHintLoading(false); }
     };
 
+    // ================================================
+    // 2. Add Handler to Close the Hard Words View
+    // ================================================
+    const handleCloseHardWordsView = () => {
+        console.log("Closing Hard Words View"); 
+        setShowHardWordsView(false);
+    };
+
+
     // === Component Return ===
     return (
         <div className="App">
@@ -125,13 +135,12 @@ function App() {
             <div className="score-stacks-container">
                 <ScoreStack type="correct" label="Correct" count={score.correct} icon="✅" />
                 <ScoreStack type="incorrect" label="Incorrect" count={score.incorrect} icon="❌" flashRef={incorrectScoreRef} />
-              
                 <ScoreStack
                     type="hard"
                     label="Hard Words"
                     count={hardWordsList.length}
                     icon="⭐"
-                    onClick={() => setShowHardWordsView(prev => !prev)} // Toggle state
+                    onClick={() => { console.log("Hard words stack clicked"); setShowHardWordsView(prev => !prev); }} 
                 />
             </div>
 
@@ -139,28 +148,24 @@ function App() {
             <div className="controls" style={{ marginBottom: '15px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '15px' }}>
                <button onClick={switchLanguageDirection}>Switch Dir ({languageDirection === 'spa-eng' ? 'S->E' : 'E->S'})</button>
                <button onClick={() => selectNewPair(undefined, true)} disabled={isLoading || !wordList.length}> {isLoading ? 'Loading...' : 'New Card'} </button>
-              
             </div>
 
             {/* Status Messages Area */}
             {isLoading && <p>Loading...</p>}
             {error && !isLoading && ( <div className="error-area"> <p>Error: {error}</p> <button onClick={() => selectNewPair(undefined, true)} disabled={isLoading || !wordList.length}> Try New Card </button> </div> )}
 
-            {/* --- Main Content Area --- */}
-            {/* --- Conditionally Render Flashcard Area or Hard Words Placeholder --- */}
+            {/* Conditional Rendering for Main Content Area */}
             {showHardWordsView ? (
-                // Show placeholder when showHardWordsView is true
-                <div className="hard-words-view-placeholder" style={{ padding: '20px', border: '1px dashed grey', marginTop: '20px', backgroundColor: '#f0f0f0' }}>
-                    <h2>Hard Words Review</h2>
-                    <p>(List of hard words will appear here in the next step)</p>
-                    {/* Add button to close this view */}
-                    <button onClick={() => setShowHardWordsView(false)} style={{marginTop: '10px'}}>
-                        Back to Practice
-                    </button>
-                </div>
+                // ================================================
+                // 3. Render HardWordsView instead of placeholder
+                // ================================================
+                <HardWordsView
+                    hardWordsList={hardWordsList} 
+                    onClose={handleCloseHardWordsView} 
+                />
             ) : (
-                // Otherwise, show the normal flashcard area (if not loading/error/no pair)
-                <> {/* Use Fragment */}
+                // Otherwise, show the normal flashcard area
+                <>
                     {!isLoading && !error && currentPair && (
                         <div className="flashcard-area">
                             {(() => {
@@ -170,14 +175,14 @@ function App() {
                             {showFeedback && ( <div className="feedback-area"> <p style={{ color: '#D90429', fontWeight: 'bold' }}>Incorrect. Correct: "{lastCorrectAnswer}"</p> </div> )}
                         </div>
                     )}
-                    {/* Fallback Messages (only show if appropriate and not showing hard words) */}
+                    {/* Fallback Messages */}
                     {!isLoading && !error && !currentPair && wordList.length > 0 && ( <p>No card matching criteria. Try 'New Card'.</p> )}
                     {!isLoading && !error && !currentPair && wordList.length === 0 && ( <p>Word list failed or empty.</p> )}
                 </>
             )}
-            {/* --- END Conditional Rendering --- */}
+            {/* END Conditional Rendering */}
 
-         
+ 
         </div>
     );
 }
