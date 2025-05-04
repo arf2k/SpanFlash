@@ -52,58 +52,35 @@ const Flashcard = ({
                 </form>
             )}
 
-            {/* ================================================ */}
-            {/* UPDATED Hint Display Area                      */}
-            {/* ================================================ */}
-            <div className="hint-display" style={{ marginTop: '15px', fontSize: '0.9em', fontStyle: 'normal', /* Changed from italic */ borderTop: '1px solid #eee', paddingTop: '10px', minHeight: '1.5em' /* Slightly more height */ }}>
-                 {isHintLoading ? (
-                     <span>Loading hint...</span>
-                 ) : hint ? (
-                     <>
-                         {/* Display Suggestions */}
-                         {hint.type === 'suggestions' && hint.suggestions?.length > 0 && (
-                            <span>Did you mean: {hint.suggestions.join(', ')}?</span>
-                         )}
-
-                         {/* Display Definitions (Improved Formatting) */}
-                         {hint.type === 'definitions' && hint.data ? (
-                            <>
-                                <strong>Hint: </strong>
-                                {/* Show Functional Label (Part of Speech) if available */}
-                                {hint.data.fl && <em style={{marginRight: '5px'}}>({hint.data.fl})</em>}
-
-                                {/* Process and display shortdef array */}
-                                {hint.data.shortdef && hint.data.shortdef.length > 0 ? (
-                                    hint.data.shortdef.map((def, index) => (
-                                        // Display each short definition/translation
-                                        // Add semicolon separator except for the first one
-                                        <span key={index}>{index > 0 && '; '} {def}</span>
-                                    ))
-                                ) : (
-                                    // Fallback if shortdef is missing or empty
-                                    <span style={{ fontStyle: 'italic' }}> (No short definition available)</span>
-                                )}
-                            </>
-                         ) : null } {/* End definitions block */}
-
-                         {/* Display Errors */}
-                         {hint.type === 'error' && (
-                            <span style={{ color: 'orange' }}> Hint Error: {hint.message || 'Failed to load.'}</span>
-                         )}
-
-                         {/* Display Unknown Format */}
-                         {hint.type === 'unknown' && (
-                             <span style={{ color: 'orange' }}> Unrecognized hint format received.</span>
-                         )}
-                     </>
-                 ) : (
-                     // Render a non-breaking space to maintain height when no hint/loading
-                     <span>&nbsp;</span>
-                 )}
-            </div>
-            {/* ================================================ */}
-            {/* END UPDATED Hint Display Area                  */}
-            {/* ================================================ */}
+             {/* ================================================ */}
+             {/* UPDATED Hint Display Area - Conditional Render */}
+             {/* ================================================ */}
+             {/* Only render the hint div if hint is loading OR hint data exists */}
+             {(isHintLoading || hint) && (
+                 <div className="hint-display" style={{ marginTop: '15px', fontSize: '0.9rem', fontStyle: 'normal', borderTop: '1px solid #dee2e6', paddingTop: '10px', paddingBottom: '10px', minHeight: '1.5em' }}>
+                     {isHintLoading ? (
+                         <span>Loading hint...</span>
+                     ) : hint ? ( // We know hint exists here because of the outer condition
+                         <>
+                             {hint.type === 'suggestions' && hint.suggestions?.length > 0 && ( <span>Did you mean: {hint.suggestions.join(', ')}?</span> )}
+                             {hint.type === 'definitions' && hint.data ? (
+                                <>
+                                    <strong>Hint: </strong>
+                                    {hint.data.fl && <em style={{marginRight: '5px'}}>({hint.data.fl})</em>}
+                                    {hint.data.shortdef && hint.data.shortdef.length > 0 ? (
+                                        hint.data.shortdef.map((def, index) => ( <span key={index}>{index > 0 && '; '} {def}</span> ))
+                                    ) : ( <span style={{ fontStyle: 'italic' }}> (No short definition)</span> )}
+                                </>
+                             ) : null }
+                             {hint.type === 'error' && ( <span style={{ color: 'orange' }}> Hint Error: {hint.message || 'Failed.'}</span> )}
+                             {hint.type === 'unknown' && ( <span style={{ color: 'orange' }}> Unrecognized hint format.</span> )}
+                         </>
+                     ) : null } {/* Should not be reachable if outer condition is correct, but safe */}
+                 </div>
+             )}
+             {/* ================================================ */}
+             {/* END UPDATED Hint Display Area                  */}
+             {/* ================================================ */}
         </div>
     );
  };

@@ -29870,5 +29870,709 @@
   {
     "spanish": "espera un momento",
     "english": "wait a moment"
+  },
+  {
+    "spanish": "el dolor de garganta",
+    "english": "sore throat"
+  },
+  {
+    "spanish": "el virus",
+    "english": "virus"
+  },
+  {
+    "spanish": "el contagio",
+    "english": "infection"
+  },
+  {
+    "spanish": "la infección",
+    "english": "infection"
+  },
+  {
+    "spanish": "la acidez",
+    "english": "heartburn"
+  },
+  {
+    "spanish": "el infarto",
+    "english": "heart attack"
+  },
+  {
+    "spanish": "el cólico",
+    "english": "cramps"
+  },
+  {
+    "spanish": "la jaqueca",
+    "english": "migraine"
+  },
+  {
+    "spanish": "el dolor de cabeza",
+    "english": "headache"
+  },
+  {
+    "spanish": "la fiebre",
+    "english": "fever"
+  },
+  {
+    "spanish": "el dolor de oído",
+    "english": "earache"
+  },
+  {
+    "spanish": "la diarrea",
+    "english": "diarrhea"
+  },
+  {
+    "spanish": "la gripe",
+    "english": "flu"
+  },
+  {
+    "spanish": "el catarro",
+    "english": "cold"
+  },
+  {
+    "spanish": "el moretón",
+    "english": "bruise"
+  },
+  {
+    "spanish": "el hueso roto",
+    "english": "broken bone"
+  },
+  {
+    "spanish": "el dolor de estómago",
+    "english": "stomachache"
+  },
+  {
+    "spanish": "la alergia",
+    "english": "allergy"
+  },
+  {
+    "spanish": "el dolor",
+    "english": "pain"
+  },
+  {
+    "spanish": "la crema hidratante",
+    "english": "moisturizer"
+  },
+  {
+    "spanish": "el corrector",
+    "english": "concealer"
+  },
+  {
+    "spanish": "la base",
+    "english": "foundation"
+  },
+  {
+    "spanish": "la brocha",
+    "english": "brush"
+  },
+  {
+    "spanish": "el brillo de labios",
+    "english": "lip gloss"
+  },
+  {
+    "spanish": "el delineador",
+    "english": "lip liner"
+  },
+  {
+    "spanish": "la meditación",
+    "english": "meditation"
+  },
+  {
+    "spanish": "la concienciación",
+    "english": "mindfulness"
+  },
+  {
+    "spanish": "el bienestar",
+    "english": "wellness"
+  },
+  {
+    "spanish": "el masaje",
+    "english": "massage"
+  },
+  {
+    "spanish": "la relajación",
+    "english": "relaxation"
+  },
+  {
+    "spanish": "el autocuidado",
+    "english": "self-care"
+  },
+  {
+    "spanish": "darse el gusto",
+    "english": "to treat oneself to"
+  },
+  {
+    "spanish": "el descanso",
+    "english": "rest"
+  },
+  {
+    "spanish": "el yoga",
+    "english": "yoga"
+  },
+  {
+    "spanish": "el sueño",
+    "english": "sleep"
+  },
+  {
+    "spanish": "la trona",
+    "english": "high chair"
+  },
+  {
+    "spanish": "el andador",
+    "english": "walker"
+  },
+  {
+    "spanish": "la andadera",
+    "english": "walker"
+  },
+  {
+    "spanish": "el cochecito",
+    "english": "baby carriage"
+  },
+  {
+    "spanish": "la mamadera",
+    "english": "bottle"
+  },
+  {
+    "spanish": "el mameluco",
+    "english": "overalls"
+  },
+  {
+    "spanish": "el babero",
+    "english": "bib"
+  },
+  {
+    "spanish": "la sonaja",
+    "english": "rattle"
+  },
+  {
+    "spanish": "el biberón",
+    "english": "bottle"
+  },
+  {
+    "spanish": "la cuna",
+    "english": "cradle"
+  },
+  {
+    "spanish": "el termómetro",
+    "english": "thermometer"
+  },
+  {
+    "spanish": "el osito",
+    "english": "onesie"
+  },
+  {
+    "spanish": "el pelele",
+    "english": "onesie"
+  },
+  {
+    "spanish": "el calcetín",
+    "english": "sock"
+  },
+  {
+    "spanish": "la manta",
+    "english": "blanket"
+  },
+  {
+    "spanish": "el rebozo",
+    "english": "wrap"
+  },
+  {
+    "spanish": "la sillita",
+    "english": "stroller"
+  },
+  {
+    "spanish": "la carriola",
+    "english": "stroller"
+  },
+  {
+    "spanish": "la sombra de ojos",
+    "english": "eye shadow"
+  },
+  {
+    "spanish": "el maquillaje",
+    "english": "makeup"
+  },
+  {
+    "spanish": "el cosmético",
+    "english": "beauty product"
+  },
+  {
+    "spanish": "el afeitado",
+    "english": "shave"
+  },
+  {
+    "spanish": "corte de pelo",
+    "english": "haircut"
+  },
+  {
+    "spanish": "la mascarilla",
+    "english": "face mask"
+  },
+  {
+    "spanish": "el rulo",
+    "english": "curler"
+  },
+  {
+    "spanish": "el tubo",
+    "english": "curler"
+  },
+  {
+    "spanish": "peinarse",
+    "english": "to get one's hair done"
+  },
+  {
+    "spanish": "la plancha",
+    "english": "hair straightener"
+  },
+  {
+    "spanish": "peinarse",
+    "english": "to comb one's hair"
+  },
+  {
+    "spanish": "cuidarse",
+    "english": "to take care of oneself"
+  },
+  {
+    "spanish": "el perfume",
+    "english": "perfume"
+  },
+  {
+    "spanish": "el kleenex",
+    "english": "Kleenex"
+  },
+  {
+    "spanish": "estilo de vida saludable",
+    "english": "healthy lifestyle"
+  },
+  {
+    "spanish": "el pañal",
+    "english": "diaper"
+  },
+  {
+    "spanish": "la ducha",
+    "english": "shower"
+  },
+  {
+    "spanish": "lávate las manos",
+    "english": "wash your hands"
+  },
+  {
+    "spanish": "el bienestar",
+    "english": "well-being"
+  },
+  {
+    "spanish": "la salud",
+    "english": "health"
+  },
+  {
+    "spanish": "bañarse",
+    "english": "to take a bath"
+  },
+  {
+    "spanish": "el aseo personal",
+    "english": "personal hygiene"
+  },
+  {
+    "spanish": "el útiles de aseo",
+    "english": "toiletries"
+  },
+  {
+    "spanish": "el cortaúñas",
+    "english": "nail clippers"
+  },
+  {
+    "spanish": "el quitaesmalte",
+    "english": "nail polish remover"
+  },
+  {
+    "spanish": "la lima",
+    "english": "nail file"
+  },
+  {
+    "spanish": "el esmalte de uñas",
+    "english": "nail polish"
+  },
+  {
+    "spanish": "el gel de ducha",
+    "english": "shower gel"
+  },
+  {
+    "spanish": "el delineador",
+    "english": "eyeliner"
+  },
+  {
+    "spanish": "las pinzas",
+    "english": "tweezers"
+  },
+  {
+    "spanish": "la crema protectora",
+    "english": "sunblock"
+  },
+  {
+    "spanish": "la loción tonificante",
+    "english": "toner"
+  },
+  {
+    "spanish": "el colorete",
+    "english": "blush"
+  },
+  {
+    "spanish": "limpiarse con hilo dental",
+    "english": "to floss"
+  },
+  {
+    "spanish": "el polvo",
+    "english": "face powder"
+  },
+  {
+    "spanish": "el peine",
+    "english": "comb"
+  },
+  {
+    "spanish": "la loción",
+    "english": "lotion"
+  },
+  {
+    "spanish": "el acondicionador",
+    "english": "conditioner"
+  },
+  {
+    "spanish": "la diadema",
+    "english": "headband"
+  },
+  {
+    "spanish": "desodorante",
+    "english": "deodorant"
+  },
+  {
+    "spanish": "la colonia",
+    "english": "cologne"
+  },
+  {
+    "spanish": "el jabón",
+    "english": "soap"
+  },
+  {
+    "spanish": "el rímel",
+    "english": "mascara"
+  },
+  {
+    "spanish": "el shampoo",
+    "english": "shampoo"
+  },
+  {
+    "spanish": "el cepillo",
+    "english": "brush"
+  },
+  {
+    "spanish": "la barra de labios",
+    "english": "lipstick"
+  },
+  {
+    "spanish": "el pintalabios",
+    "english": "lipstick"
+  },
+  {
+    "spanish": "el dentífrico",
+    "english": "toothpaste"
+  },
+  {
+    "spanish": "la pasta de dientes",
+    "english": "toothpaste"
+  },
+  {
+    "spanish": "la rasuradora",
+    "english": "razor"
+  },
+  {
+    "spanish": "la maquinilla",
+    "english": "razor"
+  },
+  {
+    "spanish": "el cepillo de dientes",
+    "english": "toothbrush"
+  },
+  {
+    "spanish": "la psicoterapia",
+    "english": "psychotherapy"
+  },
+  {
+    "spanish": "la cirugía",
+    "english": "surgery"
+  },
+  {
+    "spanish": "la radiografía",
+    "english": "X-ray"
+  },
+  {
+    "spanish": "el procedimiento",
+    "english": "procedure"
+  },
+  {
+    "spanish": "la mastectomía",
+    "english": "mastectomy"
+  },
+  {
+    "spanish": "el ibuprofeno",
+    "english": "ibuprofen"
+  },
+  {
+    "spanish": "el comprimido",
+    "english": "pill"
+  },
+  {
+    "spanish": "el alcohol",
+    "english": "rubbing alcohol"
+  },
+  {
+    "spanish": "las gotas",
+    "english": "drops"
+  },
+  {
+    "spanish": "el bastón",
+    "english": "cane"
+  },
+  {
+    "spanish": "los primeros auxilios",
+    "english": "first aid"
+  },
+  {
+    "spanish": "el bloqueador",
+    "english": "blocker"
+  },
+  {
+    "spanish": "el aislamiento domiciliario",
+    "english": "self-isolation"
+  },
+  {
+    "spanish": "las gafas",
+    "english": "glasses"
+  },
+  {
+    "spanish": "el punto de sutura",
+    "english": "stitch"
+  },
+  {
+    "spanish": "los estupefacientes",
+    "english": "drugs"
+  },
+  {
+    "spanish": "IV",
+    "english": "IV"
+  },
+  {
+    "spanish": "el antídoto",
+    "english": "antidote"
+  },
+  {
+    "spanish": "intravenoso",
+    "english": "intravenous"
+  },
+  {
+    "spanish": "RCP",
+    "english": "CPR"
+  },
+  {
+    "spanish": "el/la curita",
+    "english": "Band-Aid"
+  },
+  {
+    "spanish": "el yeso",
+    "english": "cast"
+  },
+  {
+    "spanish": "el aparato",
+    "english": "brace"
+  },
+  {
+    "spanish": "la receta",
+    "english": "prescription"
+  },
+  {
+    "spanish": "el gotero",
+    "english": "drip"
+  },
+  {
+    "spanish": "la terapia",
+    "english": "therapy"
+  },
+  {
+    "spanish": "el gas",
+    "english": "gas"
+  },
+  {
+    "spanish": "la vacuna",
+    "english": "vaccine"
+  },
+  {
+    "spanish": "el fármaco",
+    "english": "medicine"
+  },
+  {
+    "spanish": "la inyección",
+    "english": "injection"
+  },
+  {
+    "spanish": "la aguja",
+    "english": "needle"
+  },
+  {
+    "spanish": "la temperatura",
+    "english": "temperature"
+  },
+  {
+    "spanish": "el aseo personal",
+    "english": "personal hygiene"
+  },
+  {
+    "spanish": "cómo te encuentras",
+    "english": "how are you feeling"
+  },
+  {
+    "spanish": "la pandemia",
+    "english": "pandemic"
+  },
+  {
+    "spanish": "el sistema inmunológico",
+    "english": "immune system"
+  },
+  {
+    "spanish": "revuelto",
+    "english": "upset"
+  },
+  {
+    "spanish": "la salud integral",
+    "english": "wellness"
+  },
+  {
+    "spanish": "oral",
+    "english": "oral"
+  },
+  {
+    "spanish": "el accidente",
+    "english": "accident"
+  },
+  {
+    "spanish": "la picadura",
+    "english": "bite"
+  },
+  {
+    "spanish": "la cordura",
+    "english": "sanity"
+  },
+  {
+    "spanish": "el escalofrío",
+    "english": "chill"
+  },
+  {
+    "spanish": "la menstruación",
+    "english": "period"
+  },
+  {
+    "spanish": "el alumbramiento",
+    "english": "delivery"
+  },
+  {
+    "spanish": "la dolencia",
+    "english": "ailment"
+  },
+  {
+    "spanish": "perturbado",
+    "english": "mentally unbalanced"
+  },
+  {
+    "spanish": "que te mejores",
+    "english": "get well soon"
+  },
+  {
+    "spanish": "débil",
+    "english": "weak"
+  },
+  {
+    "spanish": "la salud mental",
+    "english": "mental health"
+  },
+  {
+    "spanish": "el bienestar",
+    "english": "well-being"
+  },
+  {
+    "spanish": "la higiene",
+    "english": "hygiene"
+  },
+  {
+    "spanish": "morir",
+    "english": "to die"
+  },
+  {
+    "spanish": "la ola",
+    "english": "outbreak"
+  },
+  {
+    "spanish": "dolido",
+    "english": "hurt"
+  },
+  {
+    "spanish": "la crisis",
+    "english": "attack"
+  },
+  {
+    "spanish": "crítico",
+    "english": "critical"
+  },
+  {
+    "spanish": "la contracción",
+    "english": "contraction"
+  },
+  {
+    "spanish": "la discapacidad",
+    "english": "disability"
+  },
+  {
+    "spanish": "la mascarilla",
+    "english": "mask"
+  },
+  {
+    "spanish": "el examen físico",
+    "english": "physical"
+  },
+  {
+    "spanish": "vivo",
+    "english": "alive"
+  },
+  {
+    "spanish": "enfermo",
+    "english": "sick"
+  },
+  {
+    "spanish": "la salud",
+    "english": "health"
+  },
+  {
+    "spanish": "médico",
+    "english": "medical"
+  },
+  {
+    "spanish": "la infección",
+    "english": "infection"
+  },
+  {
+    "spanish": "adormecido",
+    "english": "numb"
+  },
+  {
+    "spanish": "el hospital",
+    "english": "hospital"
+  },
+  {
+    "spanish": "la emergencia",
+    "english": "emergency"
+  },
+  {
+    "spanish": "intenso",
+    "english": "intense"
+  },
+  {
+    "spanish": "el dolor",
+    "english": "pain"
   }
 ]
