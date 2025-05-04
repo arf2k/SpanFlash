@@ -1,7 +1,7 @@
 // src/App.jsx
 import { useState, useEffect, useRef } from 'react';
 import Flashcard from './components/Flashcard';
-import ScoreStack from './components/ScoreStack'; // <-- Import the new component
+import ScoreStack from './components/ScoreStack'; // Import ScoreStack
 import { getMwHint } from './services/dictionaryServices.js';
 import { db } from './db';
 import './App.css';
@@ -23,18 +23,34 @@ function App() {
     const [feedbackSignal, setFeedbackSignal] = useState(null);
 
     // === Refs ===
-    const incorrectScoreRef = useRef(null); // For incorrect score flash
-    const isInitialMountScore = useRef(true); // Prevent effects on initial load
+    const incorrectScoreRef = useRef(null);
+    const isInitialMountScore = useRef(true);
     const isInitialMountMaxWords = useRef(true);
 
-    // === Selection Logic ===
-    // (Handles selecting new card, resetting states - NO isLoading change)
-    const selectNewPair = (listToUse = wordList) => {
-        console.log(`Selecting pair from list (${listToUse.length} items), max words: ${maxWords}`);
+    // ================================================
+    // MODIFIED selectNewPair: Added manageLoadingState param
+    // ================================================
+    const selectNewPair = (listToUse = wordList, manageLoadingState = false) => {
+        console.log(`Selecting pair (manageLoading: ${manageLoadingState})...`);
+        // Only set loading if requested (e.g., by button click)
+        if (manageLoadingState) {
+            console.log("Setting isLoading = true (from selectNewPair)");
+            setIsLoading(true);
+        }
         setError(null); setHintData(null); setCurrentPair(null); setShowFeedback(false);
         setIsHintLoading(false); setFeedbackSignal(null);
-        if (!listToUse || listToUse.length === 0) { setError("Word list empty."); setIsLoading(false); return; }
-        // Don't set isLoading=true here, handled by caller if needed
+
+        if (!listToUse || listToUse.length === 0) {
+            console.error("selectNewPair called with empty list.");
+            setError("Cannot select pair: Word list is empty.");
+            setCurrentPair(null);
+            // Ensure loading is turned off if this call was managing it
+             if (manageLoadingState) {
+                 console.log("Setting isLoading = false (empty list in selectNewPair)");
+                 setIsLoading(false);
+             }
+            return; // Exit early
+        }
 
         try {
             const filteredData = listToUse.filter(pair => {
@@ -44,12 +60,30 @@ function App() {
                 return englishWords > 0 && englishWords <= maxWords && spanishWords > 0 && spanishWords <= maxWords;
             });
             console.log(`Found ${filteredData.length} pairs matching max words criteria.`);
-            if (filteredData.length > 0) { setCurrentPair(filteredData[Math.floor(Math.random() * filteredData.length)]); }
-            else { const errMsg = `No pairs found with <= ${maxWords} words.`; console.warn(errMsg); setError(errMsg); setCurrentPair(null); }
-        } catch (err) { console.error("Error selecting pair:", err); setError(err.message); setCurrentPair(null); }
-        finally { console.log("selectNewPair finished execution."); }
-        // Don't set isLoading=false here
+
+            if (filteredData.length > 0) {
+                const randomIndex = Math.floor(Math.random() * filteredData.length);
+                const pair = filteredData[randomIndex];
+                console.log("Successfully selected pair:", pair);
+                setCurrentPair(pair);
+            } else {
+                 const errMsg = `No pairs found with <= ${maxWords} words.`;
+                 console.warn(errMsg); setError(errMsg); setCurrentPair(null);
+            }
+        } catch (err) {
+            console.error("Error selecting/filtering pair:", err);
+            setError(err.message || 'Failed to select flashcard pair.');
+            setCurrentPair(null);
+        } finally {
+            // Set loading OFF only if this specific call was responsible for it
+            if (manageLoadingState) {
+                console.log("Setting isLoading = false (from selectNewPair finally)");
+                setIsLoading(false);
+            }
+            console.log("selectNewPair finished execution.");
+        }
     };
+
 
     // === Combined Initial Load useEffect ===
     useEffect(() => {
@@ -74,7 +108,13 @@ function App() {
                 const loadedHardWords = await db.hardWords.toArray();
                 if (loadedHardWords) { setHardWordsList(loadedHardWords); console.log(`Loaded ${loadedHardWords.length} hard words.`); }
 
-                console.log("Selecting initial pair..."); selectNewPair(loadedList);
+                console.log("Selecting initial pair...");
+                // ================================================
+                // Call selectNewPair WITHOUT manageLoadingState=true
+                // The outer finally block handles isLoading for initial load
+                // ================================================
+                selectNewPair(loadedList);
+
             } catch (err) { console.error("Error during initial data load:", err); setError(err.message || "Failed load."); setWordList([]); setCurrentPair(null); setScore({ correct: 0, incorrect: 0 }); setHardWordsList([]); }
             finally { console.log("Setting isLoading false after initial sequence."); setIsLoading(false); isInitialMountScore.current = false; }
         };
@@ -125,7 +165,7 @@ function App() {
         console.log(`Comparing: "${normUser}" vs "${normCorrect}"`);
         if (normUser === normCorrect) {
             setScore(prev => ({ ...prev, correct: prev.correct + 1 })); setFeedbackSignal('correct');
-            setTimeout(() => { selectNewPair(); }, 50);
+            setTimeout(() => { selectNewPair(); }, 50); // Call normally, isLoading handled elsewhere
         } else {
             setScore(prev => ({ ...prev, incorrect: prev.incorrect + 1 })); setLastCorrectAnswer(correctAnswer);
             setShowFeedback(true); setFeedbackSignal('incorrect');
@@ -134,7 +174,18 @@ function App() {
 
     // === Max Words Change ===
     const handleMaxWordsChange = (event) => { const newVal = parseInt(event.target.value, 10); setMaxWords(newVal >= 1 ? newVal : 1); };
-    useEffect(() => { if (isInitialMountMaxWords.current) isInitialMountMaxWords.current = false; else if (wordList.length > 0) selectNewPair(); }, [maxWords, wordList]);
+    useEffect(() => {
+        if (isInitialMountMaxWords.current) isInitialMountMaxWords.current = false;
+        else if (wordList.length > 0) {
+            console.log(`Max words changed, selecting new pair...`);
+             // ================================================
+             // Call selectNewPair WITHOUT manageLoadingState=true
+             // Let the component re-render naturally. If selection needs
+             // its own loading spinner, that's a separate enhancement.
+             // ================================================
+            selectNewPair();
+        }
+     }, [maxWords, wordList]); // Trigger effect when maxWords changes
 
     // === Language Switch ===
     const switchLanguageDirection = () => { setLanguageDirection(prev => prev === 'spa-eng' ? 'eng-spa' : 'spa-eng'); setShowFeedback(false); setLastCorrectAnswer(''); setHintData(null); setFeedbackSignal(null); };
@@ -146,21 +197,26 @@ function App() {
     return (
         <div className="App">
             <h1>Spanish Flashcards</h1>
-
-            {/* === SCORE STACKS AREA (Using ScoreStack Component) === */}
+            {/* Score Stacks Area */}
             <div className="score-stacks-container">
                 <ScoreStack type="correct" label="Correct" count={score.correct} icon="✅" />
                 <ScoreStack type="incorrect" label="Incorrect" count={score.incorrect} icon="❌" flashRef={incorrectScoreRef} />
                 <ScoreStack type="hard" label="Hard Words" count={hardWordsList.length} icon="⭐" />
             </div>
-            {/* === END SCORE STACKS AREA === */}
-
-
             {/* Controls Area */}
             <div className="controls" style={{ marginBottom: '15px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '15px' }}>
                <button onClick={switchLanguageDirection}>Switch Dir ({languageDirection === 'spa-eng' ? 'S->E' : 'E->S'})</button>
-               {/* Button now just calls selectNewPair, isLoading handled in effect/state */}
-               <button onClick={() => { setIsLoading(true); selectNewPair(); /* isLoading set false in selectNewPair finally */ }} disabled={isLoading || wordList.length === 0}>
+               {/* ================================== */}
+               {/* CORRECTED New Card Button onClick  */}
+               {/* ================================== */}
+               <button
+                 onClick={() => {
+                    console.log("New Card button clicked");
+                    // Don't set isLoading here explicitly
+                    selectNewPair(undefined, true); // Pass true to manage loading
+                 }}
+                 disabled={isLoading || wordList.length === 0}
+               >
                  {isLoading ? 'Loading...' : 'New Card'}
                </button>
                  {/* Optional Max Words Slider */}
@@ -170,9 +226,19 @@ function App() {
             {/* Status Messages Area */}
             {isLoading && <p>Loading...</p>}
             {error && !isLoading && (
-                <div className="error-area" style={{ /* ... error styles ... */ }}>
+                <div className="error-area" style={{ marginBottom: '10px', color: 'red', border: '1px solid red', padding: '10px', borderRadius: '4px' }}>
                      <p>Error: {error}</p>
-                     <button onClick={() => { setIsLoading(true); selectNewPair(); }} disabled={isLoading || wordList.length === 0}>
+                     {/* ======================================= */}
+                     {/* CORRECTED Try New Card Button onClick   */}
+                     {/* ======================================= */}
+                     <button
+                       onClick={() => {
+                          console.log("Try New Card button clicked");
+                          // Don't set isLoading here explicitly
+                          selectNewPair(undefined, true); // Pass true to manage loading
+                       }}
+                       disabled={isLoading || wordList.length === 0}
+                     >
                          Try New Card
                      </button>
                 </div>
@@ -182,31 +248,10 @@ function App() {
             {!isLoading && !error && currentPair && (
                 <div className="flashcard-area">
                     {(() => {
-                        const isCurrentCardMarked = hardWordsList.some(
-                            word => word.spanish === currentPair.spanish && word.english === currentPair.english
-                        );
-                        return (
-                            <Flashcard
-                                pair={currentPair}
-                                direction={languageDirection}
-                                onAnswerSubmit={handleAnswerSubmit}
-                                showFeedback={showFeedback}
-                                onGetHint={handleGetHint}
-                                hint={hintData}
-                                isHintLoading={isHintLoading}
-                                feedbackSignal={feedbackSignal}
-                                onMarkHard={handleMarkHard}
-                                isMarkedHard={isCurrentCardMarked}
-                            />
-                        );
+                        const isCurrentCardMarked = hardWordsList.some(word => word.spanish === currentPair.spanish && word.english === currentPair.english);
+                        return ( <Flashcard pair={currentPair} direction={languageDirection} onAnswerSubmit={handleAnswerSubmit} showFeedback={showFeedback} onGetHint={handleGetHint} hint={hintData} isHintLoading={isHintLoading} feedbackSignal={feedbackSignal} onMarkHard={handleMarkHard} isMarkedHard={isCurrentCardMarked} /> );
                     })()}
-                    {/* Incorrect Feedback Display */}
-                    {showFeedback && (
-                        <div className="feedback-area" style={{ marginTop: '10px' }}>
-                            <p style={{ color: '#D90429', fontWeight: 'bold' }}>Incorrect. Correct: "{lastCorrectAnswer}"</p>
-                            {/* Button removed previously */}
-                        </div>
-                    )}
+                    {showFeedback && ( <div className="feedback-area" style={{ marginTop: '10px' }}> <p style={{ color: '#D90429', fontWeight: 'bold' }}>Incorrect. Correct: "{lastCorrectAnswer}"</p> </div> )}
                 </div>
             )}
 
@@ -214,8 +259,7 @@ function App() {
             {!isLoading && !error && !currentPair && wordList.length > 0 && ( <p>No card matching criteria. Try 'New Card'.</p> )}
             {!isLoading && !error && !currentPair && wordList.length === 0 && ( <p>Word list failed or empty.</p> )}
 
-            {/* Debug State Display REMOVED as requested */}
-            {/* <details>...</details> */}
+            {/* Debug State Display - REMOVED */}
 
         </div>
     );
