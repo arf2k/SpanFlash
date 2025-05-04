@@ -29230,5 +29230,305 @@
   {
     "spanish": "quién",
     "english": "who"
+  },
+  {
+    "spanish": "dar un discurso",
+    "english": "to give a speech"
+  },
+  {
+    "spanish": "planificar",
+    "english": "to plan"
+  },
+  {
+    "spanish": "debatir",
+    "english": "to debate"
+  },
+  {
+    "spanish": "vetar",
+    "english": "to veto"
+  },
+  {
+    "spanish": "derrocar",
+    "english": "to overthrow"
+  },
+  {
+    "spanish": "gobernar",
+    "english": "to govern"
+  },
+  {
+    "spanish": "elegir",
+    "english": "to elect"
+  },
+  {
+    "spanish": "registrarse",
+    "english": "to register"
+  },
+  {
+    "spanish": "votar",
+    "english": "to vote"
+  },
+  {
+    "spanish": "el quiosco",
+    "english": "kiosk"
+  },
+  {
+    "spanish": "el cosmético",
+    "english": "beauty product"
+  },
+  {
+    "spanish": "el bono",
+    "english": "voucher"
+  },
+  {
+    "spanish": "la tarjeta de regalo",
+    "english": "gift card"
+  },
+  {
+    "spanish": "el consumismo",
+    "english": "consumerism"
+  },
+  {
+    "spanish": "la cuota",
+    "english": "fee"
+  },
+  {
+    "spanish": "el comprador",
+    "english": "shopper"
+  },
+  {
+    "spanish": "conseguir",
+    "english": "to get"
+  },
+  {
+    "spanish": "el código de barras",
+    "english": "bar code"
+  },
+  {
+    "spanish": "la caja",
+    "english": "cash register"
+  },
+  {
+    "spanish": "el carrito",
+    "english": "cart"
+  },
+  {
+    "spanish": "el cliente",
+    "english": "customer"
+  },
+  {
+    "spanish": "el vuelto",
+    "english": "change"
+  },
+  {
+    "spanish": "el valor",
+    "english": "value"
+  },
+  {
+    "spanish": "la devolución",
+    "english": "return"
+  },
+  {
+    "spanish": "la devolución",
+    "english": "refund"
+  },
+  {
+    "spanish": "reembolsar",
+    "english": "to reimburse"
+  },
+  {
+    "spanish": "la ganga",
+    "english": "bargain"
+  },
+  {
+    "spanish": "la estantería",
+    "english": "shelves"
+  },
+  {
+    "spanish": "el precio",
+    "english": "price"
+  },
+  {
+    "spanish": "la cámara",
+    "english": "camera"
+  },
+  {
+    "spanish": "el/la guardia de seguridad",
+    "english": "security guard"
+  },
+  {
+    "spanish": "robar",
+    "english": "to steal"
+  },
+  {
+    "spanish": "los grandes almacenes",
+    "english": "department store"
+  },
+  {
+    "spanish": "la bolsa de papel",
+    "english": "paper bag"
+  },
+  {
+    "spanish": "la bolsa de plástico",
+    "english": "plastic bag"
+  },
+  {
+    "spanish": "la bolsa",
+    "english": "bag"
+  },
+  {
+    "spanish": "compras online",
+    "english": "online shopping"
+  },
+  {
+    "spanish": "el centro comercial",
+    "english": "mall"
+  },
+  {
+    "spanish": "la compra",
+    "english": "purchase"
+  },
+  {
+    "spanish": "el precio",
+    "english": "worth"
+  },
+  {
+    "spanish": "vender",
+    "english": "to sell"
+  },
+  {
+    "spanish": "minorista",
+    "english": "retail"
+  },
+  {
+    "spanish": "el mercado",
+    "english": "market"
+  },
+  {
+    "spanish": "el dependiente",
+    "english": "shop assistant"
+  },
+  {
+    "spanish": "el/la gerente",
+    "english": "manager"
+  },
+  {
+    "spanish": "el artículo",
+    "english": "item"
+  },
+  {
+    "spanish": "el cheque",
+    "english": "check"
+  },
+  {
+    "spanish": "la tarjeta de crédito",
+    "english": "credit card"
+  },
+  {
+    "spanish": "el efectivo",
+    "english": "cash"
+  },
+  {
+    "spanish": "el dinero",
+    "english": "money"
+  },
+  {
+    "spanish": "la liquidación",
+    "english": "sale"
+  },
+  {
+    "spanish": "la venta",
+    "english": "sale"
+  },
+  {
+    "spanish": "el descuento",
+    "english": "discount"
+  },
+  {
+    "spanish": "ahorrar",
+    "english": "to save"
+  },
+  {
+    "spanish": "gastar",
+    "english": "to spend"
+  },
+  {
+    "spanish": "IVA",
+    "english": "VAT"
+  },
+  {
+    "spanish": "IVU",
+    "english": "sales tax"
+  },
+  {
+    "spanish": "la alcabala",
+    "english": "sales tax"
+  },
+  {
+    "spanish": "costar",
+    "english": "to cost"
+  },
+  {
+    "spanish": "el coste",
+    "english": "cost"
+  },
+  {
+    "spanish": "pagar",
+    "english": "to pay for"
+  },
+  {
+    "spanish": "comprar",
+    "english": "to buy"
+  },
+  {
+    "spanish": "fashion",
+    "english": "trendy"
+  },
+  {
+    "spanish": "el lujo",
+    "english": "luxury"
+  },
+  {
+    "spanish": "razonable",
+    "english": "reasonable"
+  },
+  {
+    "spanish": "asequible",
+    "english": "affordable"
+  },
+  {
+    "spanish": "barato",
+    "english": "cheap"
+  },
+  {
+    "spanish": "caro",
+    "english": "expensive"
+  },
+  {
+    "spanish": "el zapato",
+    "english": "shoe"
+  },
+  {
+    "spanish": "la ropa",
+    "english": "clothing"
+  },
+  {
+    "spanish": "el maquillaje",
+    "english": "makeup"
+  },
+  {
+    "spanish": "el tenderete",
+    "english": "stall"
+  },
+  {
+    "spanish": "el puesto",
+    "english": "stand"
+  },
+  {
+    "spanish": "la tienda",
+    "english": "shop"
+  },
+  {
+    "spanish": "las compras",
+    "english": "shopping"
   }
 ]
