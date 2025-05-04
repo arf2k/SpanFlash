@@ -1,14 +1,7 @@
-// src/components/HardWordsView.jsx
 import React from 'react';
 
-// This component displays the list of marked hard words.
-// Props:
-// - hardWordsList: Array of word pair objects ({ spanish: '...', english: '...' })
-// - onClose: Function to call when the close button is clicked
-const HardWordsView = ({ hardWordsList, onClose }) => {
+const HardWordsView = ({ hardWordsList, onClose, onRemoveWord }) => {
   return (
-    // Using a distinct class name for potential specific styling
-    // Adding inline style for basic layout and readability (can be moved to CSS)
     <div
       className="hard-words-view"
       style={{
@@ -16,41 +9,61 @@ const HardWordsView = ({ hardWordsList, onClose }) => {
         border: '1px solid #ccc',
         borderRadius: '8px',
         marginTop: '20px',
-        backgroundColor: '#f9f9f9', // Light background
-        color: '#333', // Explicit dark text color for readability
-        textAlign: 'left', // Align text left
+        backgroundColor: '#f9f9f9',
+        color: '#333',
+        textAlign: 'left',
       }}
     >
       <h2 style={{ marginTop: '0', marginBottom: '15px', textAlign: 'center' }}>
-        Hard Words List
+        Hard Words List ({hardWordsList.length}) {/* Added count to title */}
       </h2>
 
-      {/* Check if the list is empty */}
       {hardWordsList.length === 0 ? (
         <p style={{ fontStyle: 'italic', textAlign: 'center' }}>
           You haven't marked any words as hard yet. Use the ⭐ icon on a flashcard!
         </p>
       ) : (
-        // If not empty, display the list
-        <ul style={{ listStyle: 'none', padding: 0 }}>
+        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
           {hardWordsList.map((pair) => (
-            // Use a combination of spanish and english for a more robust key
             <li
-              key={`${pair.spanish}-${pair.english}`}
+              key={`${pair.spanish}-${pair.english}`} 
               style={{
                 borderBottom: '1px solid #eee',
-                padding: '8px 0',
-                display: 'flex', // Using flex for layout within the item
-                justifyContent: 'space-between', // Space out word and (future) button
+                padding: '10px 5px', 
+                display: 'flex',
+                justifyContent: 'space-between', 
                 alignItems: 'center',
+                gap: '10px', 
               }}
             >
-              {/* Display the word pair */}
-              <span>
+              {/* Word pair display */}
+              <span style={{ flexGrow: 1 /* Allow text to take up space */ }}>
                 <strong>{pair.spanish}</strong> - {pair.english}
               </span>
-              {/* Placeholder for future 'Remove' button */}
-              {/* <button>Remove</button> */}
+
+             
+              {/* Remove Button          */}
+       
+              <button
+                onClick={() => onRemoveWord(pair)} // Call handler from App.jsx
+                title={`Remove "${pair.spanish}"`}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#D90429', // Use vivid red
+                  cursor: 'pointer',
+                  fontSize: '1.1em', // Adjust size
+                  padding: '0 5px',
+                  lineHeight: '1',
+                }}
+              >
+                &times; {/* Simple 'X' character for remove */}
+                {/* Or use text: Remove */}
+                {/* Or an icon: 🗑️ */}
+              </button>
+              {/* ============================= */}
+              {/* END Remove Button           */}
+              {/* ============================= */}
             </li>
           ))}
         </ul>
@@ -58,10 +71,10 @@ const HardWordsView = ({ hardWordsList, onClose }) => {
 
       {/* Close Button */}
       <button
-        onClick={onClose} // Call the onClose function passed from App.jsx
+        onClick={onClose}
         style={{
-            display: 'block', // Make button block level
-            margin: '20px auto 0 auto', // Center button horizontally with margin
+            display: 'block',
+            margin: '25px auto 0 auto', 
             padding: '10px 20px',
             cursor: 'pointer'
         }}
