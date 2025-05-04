@@ -160,21 +160,7 @@ function App() {
             )}
             {/* Fallbacks */}
             {!isLoading && !error && !currentPair && wordList.length > 0 && ( <p>No card matching criteria. Try 'New Card'.</p> )} {!isLoading && !error && !currentPair && wordList.length === 0 && ( <p>Word list failed or empty.</p> )}
-            {/* Debug */}
-            <details style={{ marginTop: '20px', padding: '10px', border: '1px solid #eee', borderRadius: '4px' }}>
-                <summary style={{ cursor: 'pointer', fontWeight: 'bold' }}>Show Current State</summary>
-                {/* UPDATED Debug Output */}
-                <pre style={{ textAlign: 'left', backgroundColor: '#f8f9fa', padding: '10px', borderRadius: '4px', whiteSpace: 'pre-wrap', wordBreak: 'break-all', fontSize: '0.8em', marginTop: '10px' }}>
-                    isLoading: {String(isLoading)}
-                    {'\n'}Error: {error ? error : 'null'}
-                    {'\n'}Direction: {languageDirection}
-                    {'\n'}Current Spanish: {currentPair?.spanish || 'null'}
-                    {'\n'}Score: {JSON.stringify(score)}
-                    {'\n'}Hard Words Count: {hardWordsList.length}
-                    {'\n'}Show Feedback: {String(showFeedback)}
-                    {'\n'}Feedback Signal: {feedbackSignal || 'null'}
-                </pre>
-            </details>
+        
         </div>
     );
 }
