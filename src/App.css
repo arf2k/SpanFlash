@@ -21,7 +21,7 @@
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
-  position: relative; /* Needed if children are positioned absolutely */
+  position: relative; /* Needed for positioning mark button */
 }
 
 .flashcard-word {
@@ -118,22 +118,34 @@
   justify-content: center; /* Center the group of stacks */
   align-items: stretch; /* Make cards equal height */
   width: 100%;
-  max-width: 450px; /* Adjust as needed */
+  max-width: 450px;
   margin: 15px auto 25px auto;
-  /* Container itself is now just for layout, no background/padding */
+  /* Container is just for layout */
 }
 
 .stack {
   text-align: center;
-  flex: 1; /* Allow stacks to grow/shrink */
+  flex: 1;
   /* Card Styles */
   background-color: #ffffff;
   padding: 10px 5px;
   border-radius: 6px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border: 1px solid #e0e0e0;
-  min-width: 100px; /* Prevent becoming too narrow */
+  min-width: 100px;
+  /* ======================== */
+  /* ADDED CURSOR & TRANSITION */
+  /* ======================== */
+  cursor: pointer; /* Indicate clickability */
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 }
+
+/* Optional: Add a subtle hover effect */
+.stack:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
 
 .stack-label {
   font-size: 0.85em;
@@ -160,6 +172,7 @@
   font-size: 1.4em;
   font-weight: bold;
   line-height: 1;
+  /* Base transition for smooth return after animation */
   transition: color 0.2s ease-out, background-color 0.2s ease-out, padding 0.2s ease-out;
 }
 
@@ -185,6 +198,7 @@
 }
 /* === End INCORRECT Score Number Flash Styles === */
 
+
 /* Other general styles */
 button {
   cursor: pointer;
@@ -196,11 +210,11 @@ button:disabled {
 /* Error area styling */
 .error-area {
   margin-bottom: 10px;
-  color: #D90429; /* Use vivid red */
+  color: #D90429;
   border: 1px solid #D90429;
   padding: 10px;
   border-radius: 4px;
-  background-color: #ffcccc; /* Light red background */
+  background-color: #ffcccc;
 }
 .error-area button {
   margin-left: 10px;
@@ -212,12 +226,28 @@ button:disabled {
 .feedback-area {
   margin-top: 10px;
   padding: 8px;
-  background-color: #fff3cd; /* Light yellow feedback background */
-  border: 1px solid #ffeeba;
+  /* background-color: #fff3cd; // Removing yellow background */
+  /* border: 1px solid #ffeeba; */
   border-radius: 4px;
 }
 .feedback-area p {
-  color: #D90429; /* Use vivid red */
+  color: #D90429;
   font-weight: bold;
   margin: 0;
+}
+
+/* Style for the placeholder view */
+.hard-words-view-placeholder {
+    padding: 20px;
+    border: 1px dashed grey;
+    margin-top: 20px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+}
+.hard-words-view-placeholder h2 {
+    margin-top: 0;
+}
+.hard-words-view-placeholder button {
+    margin-top: 10px;
+    padding: 8px 15px;
 }
