@@ -1,3 +1,4 @@
+// src/App.jsx
 import { useState, useEffect, useRef } from 'react';
 import Flashcard from './components/Flashcard';
 import ScoreStack from './components/ScoreStack';
@@ -85,74 +86,56 @@ function App() {
     const switchLanguageDirection = () => { console.log('[App Render] languageDirection state is:', languageDirection); setLanguageDirection(prev => prev === 'spa-eng' ? 'eng-spa' : 'spa-eng'); setShowFeedback(false); setLastCorrectAnswer(''); setHintData(null); setFeedbackSignal(null); };
 
     // ================================================
-    // === Hint Logic (Pre-processing Added) ===
+    // === Hint Logic (Modified for forceLookup) ===
     // ================================================
-    const handleGetHint = async () => {
-        if (!currentPair || hintData || showFeedback || isHintLoading || feedbackSignal === 'incorrect') return;
+    // Added forceLookup parameter (defaults to false)
+    const handleGetHint = async (forceLookup = false) => {
+        console.log(`handleGetHint called. forceLookup: ${forceLookup}, showFeedback: ${showFeedback}, hintData exists: ${!!hintData}`);
 
-        // Determine the word to lookup (assuming Spanish for M-W Spanish dict)
-        const wordToLookup = currentPair.spanish; // Primarily use Spanish word
+        // --- Updated Guard Conditions ---
+        // Always block if no current pair or hint is currently loading
+        if (!currentPair || isHintLoading) {
+            console.log("Hint blocked: No current pair or hint already loading.");
+            return;
+        }
+        // Block if NOT forcing lookup AND hint already exists OR feedback is showing OR incorrect signal was just set
+        if (!forceLookup && (hintData || showFeedback || feedbackSignal === 'incorrect')) {
+            console.log("Hint blocked: Not forcing and hint exists or feedback showing/incorrect.");
+            return;
+        }
+        // --- End Updated Guard Conditions ---
+
+
+        const wordToLookup = currentPair.spanish; // Assuming Spanish hint lookup
         if (!wordToLookup) { console.error("Cannot get hint: Spanish word is missing."); return; }
 
         console.log(`Attempting hint for: "${wordToLookup}"`);
 
-        // --- PRE-PROCESSING STEP ---
-        // Define regex for common Spanish definite/indefinite articles
+        // Pre-processing (remove articles)
         const spanishArticleRegex = /^(el|la|los|las|un|una|unos|unas)\s+/i;
-        // Remove leading article and trim potential extra spaces
         let wordForApi = wordToLookup.replace(spanishArticleRegex, '').trim();
         console.log(`Original lookup: "${wordToLookup}", Sending to API: "${wordForApi}"`);
-        // --- END PRE-PROCESSING STEP ---
 
+        setIsHintLoading(true);
+        // Reset hintData ONLY if we are forcing a new lookup or no hint exists
+        if (forceLookup || !hintData) {
+             setHintData(null);
+             console.log("Hint data reset.");
+        }
 
-        setIsHintLoading(true); setHintData(null); // Reset hint state
         try {
-            // Call the service function with the processed word
             const apiResponse = await getMwHint(wordForApi);
             console.log("Raw Hint Data:", apiResponse);
-
-            // Process the response (same logic as before)
             let definitionData = null;
             if (Array.isArray(apiResponse) && apiResponse.length > 0) {
-                 // Check if it's suggestions (array of strings)
-                 if (typeof apiResponse[0] === 'string') {
-                     setHintData({ type: 'suggestions', suggestions: apiResponse });
-                     console.log("API returned suggestions.");
-                     // Optional: Could add logic here later to retry with suggestions[0]
-                     return; // Exit after setting suggestions
-                 }
-                 // Check if it's definition objects
-                 else if (typeof apiResponse[0] === 'object' && apiResponse[0]?.meta) {
-                     definitionData = apiResponse[0]; // Use the first definition object
-                     console.log("API returned definition object(s). Using first.");
-                 } else {
-                     // Handle unknown array content
-                     setHintData({ type: 'unknown', raw: apiResponse });
-                     console.warn("API returned array with unknown content.");
-                     return;
-                 }
-            } else if (typeof apiResponse === 'object' && !Array.isArray(apiResponse) && apiResponse !== null && apiResponse?.meta) {
-                 // Handle case where API returns a single definition object directly
-                 definitionData = apiResponse;
-                 console.log("API returned single definition object.");
-            }
-
-            // If we successfully parsed definition data
-            if (definitionData) {
-                 setHintData({ type: 'definitions', data: definitionData });
-                 console.log("Set hint data state to: definitions");
-            }
-            // If it wasn't suggestions or definitions, set error/unknown
-            else if (!hintData) { // Avoid overwriting suggestions if already set
-                console.warn("No definition or suggestion data found in response.");
-                setHintData({ type: 'error', message: "Hint data not found or in unexpected format." });
-            }
-        } catch (err) {
-            console.error("Error in handleGetHint function:", err);
-            setHintData({ type: 'error', message: "Failed to fetch hint." });
-        } finally {
-            setIsHintLoading(false);
-        }
+                 if (typeof apiResponse[0] === 'string') { setHintData({ type: 'suggestions', suggestions: apiResponse }); console.log("API returned suggestions."); return; }
+                 else if (typeof apiResponse[0] === 'object' && apiResponse[0]?.meta) { definitionData = apiResponse[0]; console.log("API returned definition object(s)."); }
+                 else { setHintData({ type: 'unknown', raw: apiResponse }); console.warn("API array: unknown content."); return; }
+            } else if (typeof apiResponse === 'object' && !Array.isArray(apiResponse) && apiResponse !== null && apiResponse?.meta) { definitionData = apiResponse; console.log("API returned single definition object."); }
+            if (definitionData) { setHintData({ type: 'definitions', data: definitionData }); console.log("Set hint data: definitions"); }
+            else if (!hintData || forceLookup) { console.warn("No definition/suggestion data found."); setHintData({ type: 'error', message: "Hint format error." }); }
+        } catch (err) { console.error("Error in handleGetHint:", err); setHintData({ type: 'error', message: "Failed fetch hint." }); }
+        finally { setIsHintLoading(false); }
     };
 
     // === Handler to Close the Hard Words View ===
@@ -166,21 +149,11 @@ function App() {
         <div className="App">
             <h1>Spanish Flashcards</h1>
             {/* Score Stacks Area */}
-            <div className="score-stacks-container">
-                <ScoreStack type="correct" label="Correct" count={score.correct} icon="✅" />
-                <ScoreStack type="incorrect" label="Incorrect" count={score.incorrect} icon="❌" flashRef={incorrectScoreRef} />
-                <ScoreStack type="hard" label="Hard Words" count={hardWordsList.length} icon="⭐" onClick={() => { console.log("Hard words stack clicked"); setShowHardWordsView(prev => !prev); }} />
-            </div>
-
+            <div className="score-stacks-container"> <ScoreStack type="correct" label="Correct" count={score.correct} icon="✅" /> <ScoreStack type="incorrect" label="Incorrect" count={score.incorrect} icon="❌" flashRef={incorrectScoreRef} /> <ScoreStack type="hard" label="Hard Words" count={hardWordsList.length} icon="⭐" onClick={() => { console.log("Hard words stack clicked"); setShowHardWordsView(prev => !prev); }} /> </div>
             {/* Controls Area */}
-            <div className="controls" style={{ marginBottom: '15px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '15px' }}>
-               <button onClick={switchLanguageDirection}>Switch Dir ({languageDirection === 'spa-eng' ? 'S->E' : 'E->S'})</button>
-               <button onClick={() => selectNewPair(undefined, true)} disabled={isLoading || !wordList.length}> {isLoading ? 'Loading...' : 'New Card'} </button>
-            </div>
-
+            <div className="controls" style={{ marginBottom: '15px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '15px' }}> <button onClick={switchLanguageDirection}>Switch Dir ({languageDirection === 'spa-eng' ? 'S->E' : 'E->S'})</button> <button onClick={() => selectNewPair(undefined, true)} disabled={isLoading || !wordList.length}> {isLoading ? 'Loading...' : 'New Card'} </button> </div>
             {/* Status Messages Area */}
-            {isLoading && <p>Loading...</p>}
-            {error && !isLoading && ( <div className="error-area"> <p>Error: {error}</p> <button onClick={() => selectNewPair(undefined, true)} disabled={isLoading || !wordList.length}> Try New Card </button> </div> )}
+            {isLoading && <p>Loading...</p>} {error && !isLoading && ( <div className="error-area"> <p>Error: {error}</p> <button onClick={() => selectNewPair(undefined, true)} disabled={isLoading || !wordList.length}> Try New Card </button> </div> )}
 
             {/* Conditional Rendering for Main Content Area */}
             {showHardWordsView ? (
@@ -189,11 +162,27 @@ function App() {
                 <>
                     {!isLoading && !error && currentPair && (
                         <div className="flashcard-area">
-                            {(() => {
-                                const isCurrentCardMarked = hardWordsList.some( word => word.spanish === currentPair.spanish && word.english === currentPair.english );
-                                return ( <Flashcard pair={currentPair} direction={languageDirection} onAnswerSubmit={handleAnswerSubmit} showFeedback={showFeedback} onGetHint={handleGetHint} hint={hintData} isHintLoading={isHintLoading} feedbackSignal={feedbackSignal} onMarkHard={handleMarkHard} isMarkedHard={isCurrentCardMarked} /> );
-                            })()}
-                            {showFeedback && ( <div className="feedback-area"> <p style={{ color: '#D90429', fontWeight: 'bold' }}>Incorrect. Correct: "{lastCorrectAnswer}"</p> </div> )}
+                            {(() => { const isCurrentCardMarked = hardWordsList.some( word => word.spanish === currentPair.spanish && word.english === currentPair.english ); return ( <Flashcard pair={currentPair} direction={languageDirection} onAnswerSubmit={handleAnswerSubmit} showFeedback={showFeedback} onGetHint={handleGetHint} hint={hintData} isHintLoading={isHintLoading} feedbackSignal={feedbackSignal} onMarkHard={handleMarkHard} isMarkedHard={isCurrentCardMarked} /> ); })()}
+                            {/* ================================================ */}
+                            {/* MODIFIED Feedback Area - Added Hint Button     */}
+                            {/* ================================================ */}
+                            {showFeedback && (
+                                <div className="feedback-area" style={{ marginTop: '10px' }}>
+                                    <p style={{ color: '#D90429', fontWeight: 'bold', marginBottom: '8px' /* Added margin */ }}>Incorrect. Correct: "{lastCorrectAnswer}"</p>
+                                    {/* Add button to trigger hint lookup */}
+                                    <button
+                                        onClick={() => handleGetHint(true)} // Call with forceLookup = true
+                                        disabled={isHintLoading || !!hintData} // Disable if loading or hint already shown
+                                        className="hint-button" // Reuse hint button styling?
+                                        style={{ /* Add specific styles if needed */ }}
+                                    >
+                                        {isHintLoading ? 'Getting Info...' : (hintData ? 'Hint/Info Loaded' : 'Show Hint / Related')}
+                                    </button>
+                                </div>
+                            )}
+                             {/* ================================================ */}
+                             {/* END MODIFIED Feedback Area                      */}
+                             {/* ================================================ */}
                         </div>
                     )}
                     {/* Fallback Messages */}
@@ -202,7 +191,6 @@ function App() {
                 </>
             )}
             {/* END Conditional Rendering */}
-
         </div>
     );
 }
