@@ -8616,20 +8616,12 @@
     "english": "satire"
   },
   {
-    "spanish": "vulgar",
-    "english": "crude"
-  },
-  {
     "spanish": "el sentido del humor",
     "english": "sense of humor"
   },
   {
     "spanish": "el humor",
     "english": "humor"
-  },
-  {
-    "spanish": "la risa",
-    "english": "laughter"
   },
   {
     "spanish": "tener gracia",
@@ -30792,10 +30784,6 @@
     "english": "to copy"
   },
   {
-    "spanish": "cortar",
-    "english": "to cut"
-  },
-  {
     "spanish": "pegar",
     "english": "to paste"
   },
@@ -30848,14 +30836,6 @@
     "english": "sense of humor"
   },
   {
-    "spanish": "el humor",
-    "english": "humor"
-  },
-  {
-    "spanish": "la risa",
-    "english": "laughter"
-  },
-  {
     "spanish": "hacer gracia",
     "english": "to be funny"
   },
@@ -30882,9 +30862,5 @@
   {
     "spanish": "el cómico",
     "english": "comic"
-  },
-  {
-    "spanish": "la risa",
-    "english": "laugh"
   }
 ]
