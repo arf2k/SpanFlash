@@ -7,7 +7,7 @@ import { registerSW } from 'virtual:pwa-register';
 // immediate: true asks it to check for updates immediately.
 // onNeedRefresh/onOfflineReady are callbacks primarily for logging in autoUpdate mode.
 const updateSW = registerSW({
-  immediate: true, // Add this line to check for SW updates immediately
+ 
   onNeedRefresh() {
     console.log('PWA: New content available, update is needed.');
     // In 'autoUpdate' mode, the SW will update automatically in the background.
