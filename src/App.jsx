@@ -1,4 +1,3 @@
-// src/App.jsx
 import { useState, useEffect, useRef } from "react";
 import Flashcard from "./components/Flashcard";
 import ScoreStack from "./components/ScoreStack";
@@ -102,7 +101,7 @@ function App() {
     }
   };
 
-  // === Combined Initial Load useEffect ===
+  // === Combined Initial Load useEffect (Refactored for IndexedDB) ===
   useEffect(() => {
     const loadInitialData = async () => {
       console.log("App mounted. Loading ALL initial data...");
@@ -112,33 +111,94 @@ function App() {
       setScore({ correct: 0, incorrect: 0 });
       setHardWordsList([]);
       setCurrentPair(null);
+
+      let loadedList = [];
+
       try {
-        console.log("Fetching word list...");
-        const response = await fetch("/scrapedSpan411.json");
-        if (!response.ok)
-          throw new Error(`Word list fetch failed: ${response.status}`);
-        const loadedList = await response.json();
-        if (!Array.isArray(loadedList))
-          throw new Error("Word list data invalid.");
-        console.log(`Loaded ${loadedList.length} pairs.`);
-        setWordList(loadedList);
+        // Check if word list exists in IndexedDB
+        const wordCount = await db.allWords.count();
+        console.log(`Found ${wordCount} words in IndexedDB 'allWords' table.`);
+
+        if (wordCount > 0) {
+          // Load Word List from DB
+          console.log("Loading word list from DB...");
+          loadedList = await db.allWords.toArray();
+          if (!Array.isArray(loadedList) || loadedList.length === 0) {
+            throw new Error("Failed to load words from DB despite count > 0.");
+          }
+          console.log(
+            `Successfully loaded ${loadedList.length} pairs from DB.`
+          );
+          setWordList(loadedList);
+        } else {
+          // Fetch JSON and Populate DB
+          console.log("Word list DB empty. Fetching JSON...");
+          const response = await fetch("/scrapedSpan411.json"); // Ensure this path is correct
+          if (!response.ok) {
+            throw new Error(`Word list fetch failed: ${response.status}`);
+          }
+          const jsonData = await response.json();
+          if (!Array.isArray(jsonData)) {
+            throw new Error("Word list data invalid.");
+          }
+          console.log(`Workspaceed ${jsonData.length} pairs from JSON.`);
+
+          console.log("Populating 'allWords' table in IndexedDB...");
+          // Validate data structure slightly before bulk putting
+          const validJsonData = jsonData.filter(
+            (item) =>
+              item &&
+              typeof item.spanish === "string" &&
+              typeof item.english === "string"
+          );
+          if (validJsonData.length !== jsonData.length) {
+            console.warn(
+              "Some items were filtered out from JSON before DB population due to missing/invalid structure."
+            );
+          }
+          if (validJsonData.length > 0) {
+            await db.allWords.bulkPut(validJsonData); // Use validated data
+            console.log(
+              `Successfully populated DB with ${validJsonData.length} words.`
+            );
+            loadedList = validJsonData;
+            setWordList(loadedList);
+          } else {
+            throw new Error(
+              "Fetched JSON data was empty or invalid after filtering."
+            );
+          }
+        }
+
+        // Load Score from DB
         console.log("Loading score from DB...");
         const savedScoreState = await db.appState.get("userScore");
         if (savedScoreState) {
           setScore({ ...savedScoreState });
         } else {
           await db.appState.put({ id: "userScore", correct: 0, incorrect: 0 });
-        }
+          setScore({ correct: 0, incorrect: 0 });
+        } // Ensure score state matches DB default
+
+        // Load Hard Words from DB
         console.log("Loading hard words from DB...");
         const loadedHardWords = await db.hardWords.toArray();
         if (loadedHardWords) {
           setHardWordsList(loadedHardWords);
           console.log(`Loaded ${loadedHardWords.length} hard words.`);
         }
-        selectNewPair(loadedList);
+
+        // Select the first pair
+        if (loadedList.length > 0) {
+          console.log("Selecting initial pair...");
+          selectNewPair(loadedList);
+        } else {
+          console.warn("No words loaded to select initial pair.");
+          setError("No words available to start.");
+        }
       } catch (err) {
-        console.error("Error initial load:", err);
-        setError(err.message || "Failed load.");
+        console.error("Error during initial data load/DB interaction:", err);
+        setError(err.message || "Failed to initialize data.");
         setWordList([]);
         setCurrentPair(null);
         setScore({ correct: 0, incorrect: 0 });
@@ -150,7 +210,7 @@ function App() {
       }
     };
     loadInitialData();
-  }, []);
+  }, []); // Empty array means run once on mount
 
   // === Saving Score useEffect ===
   useEffect(() => {
@@ -237,21 +297,15 @@ function App() {
     }
   };
 
-  // === Answer Submission Logic (FULL IMPLEMENTATION) ===
+  // === Answer Submission Logic ===
   const handleAnswerSubmit = (userAnswer) => {
-    console.log("--- App: handleAnswerSubmit CALLED with:", userAnswer); // Function entry log
-
+    console.log("--- App: handleAnswerSubmit CALLED with:", userAnswer);
     const punctuationRegex = /[.?!¡¿]+$/;
     const englishArticleRegex = /^(the|a|an)\s+/i;
     const toVerbRegex = /^to\s+/i;
-
     if (!currentPair || showFeedback) {
-      console.log(
-        `Submission blocked: currentPair=${!!currentPair}, showFeedback=${showFeedback}`
-      );
       return;
     }
-
     const correctAnswer =
       languageDirection === "spa-eng"
         ? currentPair.english
@@ -264,7 +318,6 @@ function App() {
       .toLowerCase()
       .trim()
       .replace(punctuationRegex, "");
-
     if (languageDirection === "spa-eng") {
       console.log("Normalizing English answer (articles/to)");
       normUser = normUser
@@ -274,15 +327,12 @@ function App() {
         .replace(englishArticleRegex, "")
         .replace(toVerbRegex, "");
     }
-
     console.log(`Comparing: "${normUser}" vs "${normCorrect}"`);
-
     if (normUser === normCorrect) {
       console.log("CORRECT branch executed.");
       setScore((prev) => ({ ...prev, correct: prev.correct + 1 }));
       setFeedbackSignal("correct");
       setTimeout(() => {
-        console.log("Correct answer timeout: selecting new pair.");
         selectNewPair();
       }, 50);
     } else {
@@ -402,20 +452,19 @@ function App() {
       <h1>Spanish Flashcards</h1>
       {/* Score Stacks Area */}
       <div className="score-stacks-container">
-        {" "}
         <ScoreStack
           type="correct"
           label="Correct"
           count={score.correct}
           icon="✅"
-        />{" "}
+        />
         <ScoreStack
           type="incorrect"
           label="Incorrect"
           count={score.incorrect}
           icon="❌"
           flashRef={incorrectScoreRef}
-        />{" "}
+        />
         <ScoreStack
           type="hard"
           label="Hard Words"
@@ -425,8 +474,9 @@ function App() {
             console.log("Hard words stack clicked");
             setShowHardWordsView((prev) => !prev);
           }}
-        />{" "}
+        />
       </div>
+
       {/* Controls Area */}
       <div
         className="controls"
@@ -439,7 +489,6 @@ function App() {
           gap: "15px",
         }}
       >
-        {/* --- Corrected Button Text Logic --- */}
         <button onClick={switchLanguageDirection}>
           Switch Dir ({languageDirection === "spa-eng" ? "S->E" : "E->S"})
         </button>
@@ -450,6 +499,7 @@ function App() {
           {isLoading ? "Loading..." : "New Card"}
         </button>
       </div>
+
       {/* Status Messages Area */}
       {isLoading && <p>Loading...</p>}
       {error && !isLoading && (
@@ -465,6 +515,7 @@ function App() {
           </button>{" "}
         </div>
       )}
+
       {/* Conditional Rendering for Main Content Area */}
       {showHardWordsView ? (
         <HardWordsView
@@ -474,10 +525,8 @@ function App() {
         />
       ) : (
         <>
-          {" "}
           {!isLoading && !error && currentPair && (
             <div className="flashcard-area">
-              {" "}
               {(() => {
                 const isCurrentCardMarked = hardWordsList.some(
                   (word) =>
@@ -498,10 +547,9 @@ function App() {
                     isMarkedHard={isCurrentCardMarked}
                   />
                 );
-              })()}{" "}
+              })()}
               {showFeedback && (
                 <div className="feedback-area">
-                  {" "}
                   <p
                     style={{
                       color: "#D90429",
@@ -510,32 +558,32 @@ function App() {
                     }}
                   >
                     Incorrect. Correct: "{lastCorrectAnswer}"
-                  </p>{" "}
+                  </p>
                   <button
                     onClick={() => handleGetHint(true)}
                     disabled={isHintLoading || !!hintData}
                     className="hint-button"
                   >
-                    {" "}
                     {isHintLoading
                       ? "Getting Info..."
                       : hintData
                       ? "Hint/Info Loaded"
-                      : "Show Hint / Related"}{" "}
-                  </button>{" "}
+                      : "Show Hint / Related"}
+                  </button>
                 </div>
-              )}{" "}
+              )}
             </div>
-          )}{" "}
-          {/* Fallback Messages */}{" "}
+          )}
+          {/* Fallback Messages */}
           {!isLoading && !error && !currentPair && wordList.length > 0 && (
             <p>No card matching criteria. Try 'New Card'.</p>
-          )}{" "}
+          )}
           {!isLoading && !error && !currentPair && wordList.length === 0 && (
             <p>Word list failed or empty.</p>
-          )}{" "}
+          )}
         </>
       )}
+      {/* END Conditional Rendering */}
     </div>
   );
 }
