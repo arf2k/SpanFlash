@@ -31122,6 +31122,882 @@
   {
     "spanish": "comunicación",
     "english": "communication"
+  },
+  {
+    "spanish": "descansar",
+    "english": "rest"
+  },
+  {
+    "spanish": "cocinar",
+    "english": "cook"
+  },
+  {
+    "spanish": "volver",
+    "english": "return"
+  },
+  {
+    "spanish": "bañarse",
+    "english": "bathe"
+  },
+  {
+    "spanish": "dormir",
+    "english": "sleep"
+  },
+  {
+    "spanish": "despertarse",
+    "english": "wake up"
+  },
+  {
+    "spanish": "sentir",
+    "english": "feel"
+  },
+  {
+    "spanish": "dibujar",
+    "english": "draw"
+  },
+  {
+    "spanish": "encender",
+    "english": "turn on"
+  },
+  {
+    "spanish": "responder",
+    "english": "answer"
+  },
+  {
+    "spanish": "enseñar",
+    "english": "teach"
+  },
+  {
+    "spanish": "preguntar",
+    "english": "ask"
+  },
+  {
+    "spanish": "recibir",
+    "english": "receive"
+  },
+  {
+    "spanish": "planificar",
+    "english": "plan"
+  },
+  {
+    "spanish": "explicar",
+    "english": "explain"
+  },
+  {
+    "spanish": "poder",
+    "english": "can"
+  },
+  {
+    "spanish": "cerrar",
+    "english": "close"
+  },
+  {
+    "spanish": "comprar",
+    "english": "buy"
+  },
+  {
+    "spanish": "correr",
+    "english": "run"
+  },
+  {
+    "spanish": "querer",
+    "english": "want"
+  },
+  {
+    "spanish": "leer",
+    "english": "read"
+  },
+  {
+    "spanish": "buscar",
+    "english": "search"
+  },
+  {
+    "spanish": "poner",
+    "english": "put"
+  },
+  {
+    "spanish": "usar",
+    "english": "use"
+  },
+  {
+    "spanish": "coger",
+    "english": "ride"
+  },
+  {
+    "spanish": "cancelar",
+    "english": "cancel"
+  },
+  {
+    "spanish": "hacer",
+    "english": "do"
+  },
+  {
+    "spanish": "ir",
+    "english": "go"
+  },
+  {
+    "spanish": "comer",
+    "english": "eat"
+  },
+  {
+    "spanish": "venir",
+    "english": "come"
+  },
+  {
+    "spanish": "estar de pie",
+    "english": "stand"
+  },
+  {
+    "spanish": "decir",
+    "english": "say"
+  },
+  {
+    "spanish": "caminar",
+    "english": "walk"
+  },
+  {
+    "spanish": "llamar",
+    "english": "call"
+  },
+  {
+    "spanish": "reírse",
+    "english": "laugh"
+  },
+  {
+    "spanish": "recordar",
+    "english": "remember"
+  },
+  {
+    "spanish": "hacer",
+    "english": "make"
+  },
+  {
+    "spanish": "ver",
+    "english": "see"
+  },
+  {
+    "spanish": "viajar",
+    "english": "travel"
+  },
+  {
+    "spanish": "cepillar",
+    "english": "brush"
+  },
+  {
+    "spanish": "ducharse",
+    "english": "shower"
+  },
+  {
+    "spanish": "lavar",
+    "english": "wash"
+  },
+  {
+    "spanish": "hablar",
+    "english": "talk"
+  },
+  {
+    "spanish": "abrir",
+    "english": "open"
+  },
+  {
+    "spanish": "terminar",
+    "english": "finish"
+  },
+  {
+    "spanish": "mirar",
+    "english": "watch"
+  },
+  {
+    "spanish": "estudiar",
+    "english": "study"
+  },
+  {
+    "spanish": "escuchar",
+    "english": "listen"
+  },
+  {
+    "spanish": "morir",
+    "english": "die"
+  },
+  {
+    "spanish": "esperar",
+    "english": "wait"
+  },
+  {
+    "spanish": "¡Puedes hacerlo!",
+    "english": "You can do it!"
+  },
+  {
+    "spanish": "¿Qué estás esperando?",
+    "english": "What are you waiting for?"
+  },
+  {
+    "spanish": "No estás solo.",
+    "english": "You are not alone."
+  },
+  {
+    "spanish": "¡Estoy muy orgulloso de ti!",
+    "english": "I'm so proud of you!"
+  },
+  {
+    "spanish": "Sigue con el buen trabajo.",
+    "english": "Keep up the good work."
+  },
+  {
+    "spanish": "¡No te rindas!",
+    "english": "Don't give up!"
+  },
+  {
+    "spanish": "¡Sigue luchando!",
+    "english": "Keep fighting!"
+  },
+  {
+    "spanish": "Vale la pena intentar.",
+    "english": "It's worth a shot."
+  },
+  {
+    "spanish": "¿Qué pierdes en intentar?",
+    "english": "What do you have to lose?"
+  },
+  {
+    "spanish": "¡Inténtalo!",
+    "english": "Go for it!"
+  },
+  {
+    "spanish": "Cree en ti.",
+    "english": "Believe in yourself."
+  },
+  {
+    "spanish": "Se fuerte.",
+    "english": "Stay strong."
+  },
+  {
+    "spanish": "¡Eres el número uno!",
+    "english": "You're number one!"
+  },
+  {
+    "spanish": "El cielo es el límite.",
+    "english": "The sky's the limit."
+  },
+  {
+    "spanish": "Eso es cierto.",
+    "english": "That's true."
+  },
+  {
+    "spanish": "Sí, tienes razón.",
+    "english": "Yes, you’re right."
+  },
+  {
+    "spanish": "No podría estar más de acuerdo.",
+    "english": "I couldn't agree with you more."
+  },
+  {
+    "spanish": "Eso es exactamente lo que siento.",
+    "english": "That's exactly how I feel."
+  },
+  {
+    "spanish": "Exactamente.",
+    "english": "Exactly."
+  },
+  {
+    "spanish": "No hay duda de eso.",
+    "english": "No doubt about it."
+  },
+  {
+    "spanish": "Tienes un punto.",
+    "english": "You have a point there."
+  },
+  {
+    "spanish": "Apenas iba a decir eso.",
+    "english": "I was just going to say that."
+  },
+  {
+    "spanish": "Yo supongo.",
+    "english": "I guess so."
+  },
+  {
+    "spanish": "Bueno, no estoy seguro.",
+    "english": "Well, I’m not sure."
+  },
+  {
+    "spanish": "No estoy en desacuerdo contigo.",
+    "english": "I don't disagree with you."
+  },
+  {
+    "spanish": "Si tú lo dices.",
+    "english": "If you say so."
+  },
+  {
+    "spanish": "¡Te equivocas!",
+    "english": "You’re wrong!"
+  },
+  {
+    "spanish": "No lo creo.",
+    "english": "I don't think so."
+  },
+  {
+    "spanish": "Me temo que no estoy de acuerdo.",
+    "english": "I'm afraid I disagree."
+  },
+  {
+    "spanish": "Eso no es siempre el caso.",
+    "english": "That's not always the case."
+  },
+  {
+    "spanish": "¿Tú qué piensas?",
+    "english": "What do you think?"
+  },
+  {
+    "spanish": "¿Puedo añadir algo?",
+    "english": "Can I add something here?"
+  },
+  {
+    "spanish": "Hay que continuar, ¿de acuerdo?",
+    "english": "Let's just move on, shall we?"
+  },
+  {
+    "spanish": "Creo que vamos a tener que aceptar no estar de acuerdo.",
+    "english": "I think we're going to have to agree to disagree."
+  },
+  {
+    "spanish": "Estoy de acuerdo.",
+    "english": "I agree."
+  },
+  {
+    "spanish": "Claro.",
+    "english": "Of course."
+  },
+  {
+    "spanish": "Puede ser.",
+    "english": "Maybe."
+  },
+  {
+    "spanish": "No estoy de acuerdo. No.",
+    "english": "I don't agree. No."
+  },
+  {
+    "spanish": "Absolutamente.",
+    "english": "Absolutely."
+  },
+
+  {
+    "spanish": "el rumor es",
+    "english": "rumor has it"
+  },
+  {
+    "spanish": "dicen por ahí",
+    "english": "through the grapevine"
+  },
+  {
+    "spanish": "un pajarito me dijo",
+    "english": "a little bird told me"
+  },
+  {
+    "spanish": "¿Puedes guardar un secreto?",
+    "english": "Can you keep a secret?"
+  },
+  {
+    "spanish": "¿Qué dice el chisme?",
+    "english": "What's the scoop?"
+  },
+  {
+    "spanish": "sacar los trapos sucios",
+    "english": "dig up dirt"
+  },
+  {
+    "spanish": "se dice en la calle",
+    "english": "word on the street"
+  },
+  {
+    "spanish": "bocón",
+    "english": "have a big mouth"
+  },
+  {
+    "spanish": "entrometido",
+    "english": "busybody"
+  },
+  {
+    "spanish": "Mantén los ojos abiertos.",
+    "english": "Keep your ear to the ground."
+  },
+  {
+    "spanish": "soltar la lengua",
+    "english": "spill the beans"
+  },
+  {
+    "spanish": "comisaria de policia",
+    "english": "police station"
+  },
+  {
+    "spanish": "hospital",
+    "english": "hospital"
+  },
+  {
+    "spanish": "dolor de cabeza",
+    "english": "headache"
+  },
+  {
+    "spanish": "ambulancia",
+    "english": "ambulance"
+  },
+  {
+    "spanish": "seguro",
+    "english": "insurance"
+  },
+  {
+    "spanish": "medicina",
+    "english": "medication"
+  },
+  {
+    "spanish": "Creo que comí algo malo.",
+    "english": "I think I ate something bad."
+  },
+  {
+    "spanish": "¿Tienes fiebre?",
+    "english": "Do you have a fever?"
+  },
+  {
+    "spanish": "deshidratación",
+    "english": "dehydration"
+  },
+  {
+    "spanish": "Necesito un médico.",
+    "english": "I need a doctor."
+  },
+  {
+    "spanish": "tobillo torcido",
+    "english": "sprained ankle"
+  },
+  {
+    "spanish": "¿Me puedes ayudar?",
+    "english": "Can you help me?"
+  },
+  {
+    "spanish": "prescripción",
+    "english": "prescription"
+  },
+  {
+    "spanish": "No encuentro el camino de regreso a mi hotel.",
+    "english": "I can't find the way back to my hotel."
+  },
+  {
+    "spanish": "Perdí mi pasaporte.",
+    "english": "I lost my passport."
+  },
+  {
+    "spanish": "¿Hay una farmacia cerca?",
+    "english": "Is there a pharmacy nearby?"
+  },
+  {
+    "spanish": "ataque al corazón",
+    "english": "heart attack"
+  },
+  {
+    "spanish": "insolación",
+    "english": "heatstroke"
+  },
+  {
+    "spanish": "Llama a la policía, por favor.",
+    "english": "Call the police, please."
+  },
+  {
+    "spanish": "internet",
+    "english": "Internet"
+  },
+  {
+    "spanish": "novela",
+    "english": "novel"
+  },
+  {
+    "spanish": "radio",
+    "english": "radio"
+  },
+  {
+    "spanish": "información",
+    "english": "information"
+  },
+  {
+    "spanish": "reportage",
+    "english": "report"
+  },
+  {
+    "spanish": "revista",
+    "english": "magazine"
+  },
+  {
+    "spanish": "editorial del periódico",
+    "english": "newspaper publisher"
+  },
+  {
+    "spanish": "noticias",
+    "english": "news"
+  },
+  {
+    "spanish": "folleto",
+    "english": "pamphlet"
+  },
+  {
+    "spanish": "entregar",
+    "english": "submit"
+  },
+  {
+    "spanish": "canal",
+    "english": "channel"
+  },
+  {
+    "spanish": "programa",
+    "english": "broadcast"
+  },
+  {
+    "spanish": "periódico",
+    "english": "periodical"
+  },
+  {
+    "spanish": "estación",
+    "english": "station"
+  },
+  {
+    "spanish": "fruta",
+    "english": "fruit"
+  },
+  {
+    "spanish": "verdura",
+    "english": "vegetable"
+  },
+  {
+    "spanish": "¡Desafíate!",
+    "english": "Challenge yourself!"
+  },
+  {
+    "spanish": "comida saludable, cuerpo feliz",
+    "english": "healthy food, happy body"
+  },
+  {
+    "spanish": "Necesito estar a dieta.",
+    "english": "I need to go on a diet."
+  },
+  {
+    "spanish": "comida baja en calorías",
+    "english": "low-calorie food"
+  },
+  {
+    "spanish": "carbohidrato",
+    "english": "carbohydrate"
+  },
+  {
+    "spanish": "pérdida de peso",
+    "english": "weight loss"
+  },
+  {
+    "spanish": "vitamina",
+    "english": "vitamin"
+  },
+  {
+    "spanish": "nutrición",
+    "english": "nutrition"
+  },
+  {
+    "spanish": "comida chatarra",
+    "english": "junk food"
+  },
+  {
+    "spanish": "ejercicio",
+    "english": "workout"
+  },
+  {
+    "spanish": "contar calorías",
+    "english": "count calories"
+  },
+  {
+    "spanish": "comer una dieta balanceada",
+    "english": "eat a balanced diet"
+  },
+  {
+    "spanish": "dieta saludable",
+    "english": "healthy diet"
+  },
+  {
+    "spanish": "delgadísimo",
+    "english": "paper thin"
+  },
+  {
+    "spanish": "Para cambiar tu cuerpo primero tienes que cambiar tu mentalidad.",
+    "english": "To change your body, you must first change your mind."
+  },
+  {
+    "spanish": "hablar por los codos",
+    "english": "talk quite a lot"
+  },
+  {
+    "spanish": "levantarse con el pie izquierdo",
+    "english": "be in a bad mood"
+  },
+  {
+    "spanish": "ponerse como un tomate",
+    "english": "blush"
+  },
+  {
+    "spanish": "armar un pancho",
+    "english": "have a tantrum"
+  },
+  {
+    "spanish": "andar a raíz",
+    "english": "have no money"
+  },
+  {
+    "spanish": "echar aguas",
+    "english": "warn someone"
+  },
+  {
+    "spanish": "estar chido",
+    "english": "when something is nice"
+  },
+  {
+    "spanish": "ponerse la del Puebla",
+    "english": "give the half of something"
+  },
+  {
+    "spanish": "también",
+    "english": "also"
+  },
+  {
+    "spanish": "aún",
+    "english": "still"
+  },
+  {
+    "spanish": "sin embargo",
+    "english": "however"
+  },
+  {
+    "spanish": "por lo tanto",
+    "english": "therefore"
+  },
+  {
+    "spanish": "por otro lado",
+    "english": "on the other hand"
+  },
+  {
+    "spanish": "de hecho",
+    "english": "in fact"
+  },
+  {
+    "spanish": "a pesar de eso",
+    "english": "nevertheless"
+  },
+  {
+    "spanish": "ciertamente",
+    "english": "indeed"
+  },
+  {
+    "spanish": "en lugar de",
+    "english": "instead"
+  },
+  {
+    "spanish": "así como",
+    "english": "likewise"
+  },
+  {
+    "spanish": "además",
+    "english": "moreover"
+  },
+  {
+    "spanish": "mientras tanto",
+    "english": "meanwhile"
+  },
+  {
+    "spanish": "dinero",
+    "english": "money"
+  },
+  {
+    "spanish": "calor extremo",
+    "english": "extreme heat"
+  },
+  {
+    "spanish": "medianoche",
+    "english": "midnight"
+  },
+  {
+    "spanish": "dinosaurio",
+    "english": "dinosaur"
+  },
+  {
+    "spanish": "amistad",
+    "english": "friendship"
+  },
+  {
+    "spanish": "¿Qué significa esta palabra?",
+    "english": "What does this word mean?"
+  },
+  {
+    "spanish": "Te echo de menos.",
+    "english": "I miss you."
+  },
+  {
+    "spanish": "Tenemos que hablar.",
+    "english": "We need to talk."
+  },
+  {
+    "spanish": "¿Dónde está la estación de tren?",
+    "english": "Where is the train station?"
+  },
+  {
+    "spanish": "juego de tomar",
+    "english": "drinking game"
+  },
+  {
+    "spanish": "crimen",
+    "english": "crime"
+  },
+  {
+    "spanish": "éxito",
+    "english": "success"
+  },
+  {
+    "spanish": "inflación",
+    "english": "inflation"
+  },
+  {
+    "spanish": "traje de baño",
+    "english": "swimsuit"
+  },
+  {
+    "spanish": "Tengo diarrea.",
+    "english": "I have diarrhea."
+  },
+  {
+    "spanish": "tormenta eléctrica",
+    "english": "thunderstorm"
+  },
+  {
+    "spanish": "lluvia pesada",
+    "english": "heavy rain"
+  },
+  {
+    "spanish": "atleta",
+    "english": "athlete"
+  },
+  {
+    "spanish": "protector solar",
+    "english": "sunscreen"
+  },
+  {
+    "spanish": "broncear",
+    "english": "get a tan"
+  },
+  {
+    "spanish": "bronceado",
+    "english": "tan"
+  },
+  {
+    "spanish": "lesión",
+    "english": "injury"
+  },
+  {
+    "spanish": "¿Estás libre este fin de semana?",
+    "english": "Are you free this weekend?"
+  },
+  {
+    "spanish": "¡Que te diviertas!",
+    "english": "Have fun!"
+  },
+  {
+    "spanish": "¿Viste las noticias?",
+    "english": "Did you catch the news today?"
+  },
+  {
+    "spanish": "¡Qué padre!",
+    "english": "That's great!"
+  },
+  {
+    "spanish": "Estoy bien.",
+    "english": "I'm good."
+  },
+  {
+    "spanish": "natación",
+    "english": "swimming"
+  },
+  {
+    "spanish": "verbo",
+    "english": "verb"
+  },
+  {
+    "spanish": "sustantivo",
+    "english": "noun"
+  },
+  {
+    "spanish": "adjetivo",
+    "english": "adjective"
+  },
+  {
+    "spanish": "familia",
+    "english": "family"
+  },
+  {
+    "spanish": "¡Impresionante!",
+    "english": "Awesome!"
+  },
+  {
+    "spanish": "Te ves muy bien.",
+    "english": "You look great!"
+  },
+  {
+    "spanish": "Lo que sea.",
+    "english": "Whatever."
+  },
+  {
+    "spanish": "celebridad",
+    "english": "celebrity"
+  },
+  {
+    "spanish": "padre",
+    "english": "parent"
+  },
+  {
+    "spanish": "salvavidas",
+    "english": "lifeguard"
+  },
+  {
+    "spanish": "Por favor calmate.",
+    "english": "Please calm down."
+  },
+  {
+    "spanish": "Lo siento, ya tengo planes.",
+    "english": "Sorry, I already have plans."
+  },
+  {
+    "spanish": "hoja",
+    "english": "leaf"
+  },
+  {
+    "spanish": "marchitar",
+    "english": "wilt"
+  },
+  {
+    "spanish": "rama",
+    "english": "branch"
+  },
+  {
+    "spanish": "árbol",
+    "english": "tree"
+  },
+  {
+    "spanish": "hierba",
+    "english": "grass"
+  },
+  {
+    "spanish": "flor",
+    "english": "flower"
+  },
+  {
+    "spanish": "arbusto",
+    "english": "bush"
+  },
+  {
+    "spanish": "semilla",
+    "english": "seed"
+  },
+  {
+    "spanish": "mala hierba",
+    "english": "weed"
   }
-  
 ]

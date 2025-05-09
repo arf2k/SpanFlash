@@ -156,36 +156,16 @@
     "english": "pamphlet"
   },
   {
-    "spanish": "publicar",
-    "english": "publish"
-  },
-  {
-    "spanish": "imprimir",
-    "english": "print"
-  },
-  {
     "spanish": "entregar",
     "english": "submit"
-  },
-  {
-    "spanish": "transmitir",
-    "english": "transmit"
   },
   {
     "spanish": "canal",
     "english": "channel"
   },
   {
-    "spanish": "editar",
-    "english": "edit"
-  },
-  {
     "spanish": "programa",
     "english": "broadcast"
-  },
-  {
-    "spanish": "emisora de televisión",
-    "english": "TV station"
   },
   {
     "spanish": "periódico",
@@ -264,20 +244,12 @@
     "english": "To change your body, you must first change your mind."
   },
   {
-    "spanish": "dar gato por liebre",
-    "english": "deceive or mislead someone"
-  },
-  {
     "spanish": "hablar por los codos",
     "english": "talk quite a lot"
   },
   {
     "spanish": "levantarse con el pie izquierdo",
     "english": "be in a bad mood"
-  },
-  {
-    "spanish": "no tener pelos en la lengua",
-    "english": "be honest and express what you think"
   },
   {
     "spanish": "ponerse como un tomate",
@@ -308,10 +280,6 @@
     "english": "also"
   },
   {
-    "spanish": "entonces",
-    "english": "then"
-  },
-  {
     "spanish": "aún",
     "english": "still"
   },
@@ -328,24 +296,12 @@
     "english": "on the other hand"
   },
   {
-    "spanish": "actualmente",
-    "english": "currently"
-  },
-  {
     "spanish": "de hecho",
     "english": "in fact"
   },
   {
-    "spanish": "finalmente",
-    "english": "finally"
-  },
-  {
     "spanish": "a pesar de eso",
     "english": "nevertheless"
-  },
-  {
-    "spanish": "entonces",
-    "english": "consequently"
   },
   {
     "spanish": "ciertamente",
@@ -368,28 +324,8 @@
     "english": "meanwhile"
   },
   {
-    "spanish": "finalmente",
-    "english": "eventually"
-  },
-  {
-    "spanish": "además",
-    "english": "besides"
-  },
-  {
-    "spanish": "ciertamente",
-    "english": "certainly"
-  },
-  {
-    "spanish": "además de",
-    "english": "in addition"
-  },
-  {
     "spanish": "dinero",
     "english": "money"
-  },
-  {
-    "spanish": "sudar",
-    "english": "sweat"
   },
   {
     "spanish": "calor extremo",
@@ -398,10 +334,6 @@
   {
     "spanish": "medianoche",
     "english": "midnight"
-  },
-  {
-    "spanish": "dolor de cabeza",
-    "english": "headache"
   },
   {
     "spanish": "dinosaurio",
@@ -444,10 +376,6 @@
     "english": "inflation"
   },
   {
-    "spanish": "soleado",
-    "english": "sunny"
-  },
-  {
     "spanish": "traje de baño",
     "english": "swimsuit"
   },
@@ -486,10 +414,6 @@
   {
     "spanish": "¿Estás libre este fin de semana?",
     "english": "Are you free this weekend?"
-  },
-  {
-    "spanish": "traje de baño",
-    "english": "swimming trunks"
   },
   {
     "spanish": "¡Que te diviertas!",
@@ -540,10 +464,6 @@
     "english": "Whatever."
   },
   {
-    "spanish": "¿Cuál es tu programa de televisión preferido?",
-    "english": "What's your favorite TV show?"
-  },
-  {
     "spanish": "celebridad",
     "english": "celebrity"
   },
@@ -566,10 +486,6 @@
   {
     "spanish": "hoja",
     "english": "leaf"
-  },
-  {
-    "spanish": "florecer",
-    "english": "bloom"
   },
   {
     "spanish": "marchitar",
