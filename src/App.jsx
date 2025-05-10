@@ -19,15 +19,14 @@ function App() {
     const [hintData, setHintData] = useState(null);
     const [showFeedback, setShowFeedback] = useState(false);
     const [lastCorrectAnswer, setLastCorrectAnswer] = useState("");
-    // REMOVED: const [maxWords, setMaxWords] = useState(5);
     const [isHintLoading, setIsHintLoading] = useState(false);
     const [feedbackSignal, setFeedbackSignal] = useState(null);
     const [showHardWordsView, setShowHardWordsView] = useState(false);
+    const [dataVersion, setDataVersion] = useState(null); // <-- New state for displaying version
 
     // === Refs ===
     const incorrectScoreRef = useRef(null);
     const isInitialMountScore = useRef(true);
-    // REMOVED: const isInitialMountMaxWords = useRef(true);
 
     // === Selection Logic ===
     const selectNewPair = (listToUse = wordList, manageLoadingState = false) => {
@@ -35,7 +34,6 @@ function App() {
             `FUNC_START: selectNewPair (manageLoading: ${manageLoadingState})... List size: ${listToUse?.length}`
         );
         if (manageLoadingState) {
-            console.log("LOAD_MANAGE: Setting isLoading = true");
             setIsLoading(true);
         }
         setError(null);
@@ -46,181 +44,189 @@ function App() {
         setFeedbackSignal(null);
 
         if (!listToUse || listToUse.length === 0) {
-            console.error("ERROR: selectNewPair called with empty list.");
-            setError("Word list empty.");
+            console.warn("selectNewPair called with empty or undefined listToUse.");
             setCurrentPair(null);
             if (manageLoadingState) {
-                console.log("LOAD_MANAGE: Setting isLoading = false (empty list)");
                 setIsLoading(false);
             }
             return;
         }
 
         try {
-            console.log("TRY_BLOCK: Entered try block.");
-            // REMOVED: maxWords logic was here
-            console.log("TRY_BLOCK: Starting filter...");
-            const filteredData = listToUse.filter((pair) => {
-                // Keep basic validation: Ensure spanish and english fields exist and are strings
-                if (
-                    !pair?.spanish ||
-                    !pair?.english ||
-                    typeof pair.spanish !== "string" ||
-                    typeof pair.english !== "string" ||
-                    pair.spanish.trim().length === 0 || // Also check they are not empty strings
-                    pair.english.trim().length === 0
-                ) {
-                    return false;
-                }
-                // REMOVED: Filtering based on word count (maxWords)
-                return true; // Keep the pair if it has valid spanish/english strings
-            });
-            console.log("TRY_BLOCK: Filter completed.");
-            console.log( // UPDATED Log message
-                `TRY_BLOCK: Found ${filteredData.length} valid pairs.`
+            const filteredData = listToUse.filter((pair) =>
+                pair &&
+                typeof pair.spanish === 'string' && pair.spanish.trim().length > 0 &&
+                typeof pair.english === 'string' && pair.english.trim().length > 0
             );
 
             if (filteredData.length > 0) {
                 const idx = Math.floor(Math.random() * filteredData.length);
                 const pair = filteredData[idx];
-                console.log("TRY_BLOCK: Setting current pair:", pair);
                 setCurrentPair(pair);
+                console.log("Selected new pair:", pair);
             } else {
-                 // UPDATED Error message
-                const errMsg = `No valid pairs found in the list.`;
-                console.warn("TRY_BLOCK: " + errMsg);
-                setError(errMsg);
+                console.warn("No valid pairs found in the list to select from.");
+                setError("No valid flashcards available to display.");
                 setCurrentPair(null);
             }
         } catch (err) {
-            console.error("CATCH_BLOCK: Error selecting/filtering pair:", err);
-            setError(err.message || "Failed select pair.");
+            console.error("Error selecting/filtering pair in selectNewPair:", err);
+            setError(err.message || "Failed to select a new pair.");
             setCurrentPair(null);
         } finally {
             if (manageLoadingState) {
-                console.log("LOAD_MANAGE: Setting isLoading = false (from finally)");
                 setIsLoading(false);
             }
-            console.log("FUNC_END: selectNewPair finished.");
         }
     };
 
-    // === Combined Initial Load useEffect (Refactored for IndexedDB) ===
+    // === Initial Data Load useEffect (with Version Checking) ===
     useEffect(() => {
         const loadInitialData = async () => {
-            console.log("App mounted. Loading ALL initial data...");
+            console.log("App mounted. Loading initial data with version check...");
             setIsLoading(true);
             setError(null);
-            setWordList([]);
-            setScore({ correct: 0, incorrect: 0 });
-            setHardWordsList([]);
-            setCurrentPair(null);
+            setDataVersion(null); // Reset data version display
 
-            let loadedList = [];
+            setWordList([]); // Initialize to ensure clean state if loading fails
+
+            let remoteVersion = null;
+            let remoteWordsArray = [];
 
             try {
-                // Check if word list exists in IndexedDB
-                const wordCount = await db.allWords.count();
-                console.log(`Found ${wordCount} words in IndexedDB 'allWords' table.`);
+                console.log("Fetching remote word list (/scrapedSpan411.json) for version check...");
+                const response = await fetch("/scrapedSpan411.json");
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch word list: ${response.status} ${response.statusText}`);
+                }
+                const remoteJsonData = await response.json();
 
-                if (wordCount > 0) {
-                    // Load Word List from DB
-                    console.log("Loading word list from DB...");
-                    loadedList = await db.allWords.toArray();
-                    if (!Array.isArray(loadedList) || loadedList.length === 0) {
-                        throw new Error("Failed to load words from DB despite count > 0.");
-                    }
+                if (typeof remoteJsonData.version !== 'string' || !Array.isArray(remoteJsonData.words)) {
+                    console.error("Fetched JSON data structure is invalid. Expected { version: '...', words: [...] }", remoteJsonData);
+                    throw new Error("Fetched word list data is not in the expected format.");
+                }
+                remoteVersion = remoteJsonData.version;
+                remoteWordsArray = remoteJsonData.words;
+                console.log(`Remote JSON version: '${remoteVersion}', contains ${remoteWordsArray.length} pairs.`);
+
+                const localDataVersionState = await db.appState.get('dataVersion');
+                const localVersion = localDataVersionState ? localDataVersionState.version : null;
+                setDataVersion(localVersion); // Initially set to local, will update if remote is newer
+                console.log(`Local stored data version: '${localVersion}'`);
+
+                let wordsToSetInState = [];
+
+                if (!localVersion || remoteVersion !== localVersion) {
                     console.log(
-                        `Successfully loaded ${loadedList.length} pairs from DB.`
+                        !localVersion ? 'No local data version found.' : `Remote version ('${remoteVersion}') differs from local ('${localVersion}').`
                     );
-                    setWordList(loadedList); // Trigger state update
-                } else {
-                    // Fetch JSON and Populate DB
-                    console.log("Word list DB empty. Fetching JSON...");
-                    const response = await fetch("/scrapedSpan411.json"); // Ensure this path is correct
-                    if (!response.ok) {
-                        throw new Error(`Word list fetch failed: ${response.status}`);
-                    }
-                    const jsonData = await response.json();
-                    if (!Array.isArray(jsonData)) {
-                        throw new Error("Word list data invalid.");
-                    }
-                    console.log(`Workspaceed ${jsonData.length} pairs from JSON.`);
+                    console.log('Refreshing local word database from remote source...');
 
-                    console.log("Populating 'allWords' table in IndexedDB...");
-                    // Validate data structure slightly before bulk putting
-                    const validJsonData = jsonData.filter(
+                    const validRemoteWords = remoteWordsArray.filter(
                         (item) =>
                             item &&
-                            typeof item.spanish === "string" && item.spanish.trim().length > 0 && // Added trim check
-                            typeof item.english === "string" && item.english.trim().length > 0    // Added trim check
+                            typeof item.spanish === 'string' && item.spanish.trim().length > 0 &&
+                            typeof item.english === 'string' && item.english.trim().length > 0
                     );
-                    if (validJsonData.length !== jsonData.length) {
+
+                    if (remoteWordsArray.length > 0 && validRemoteWords.length !== remoteWordsArray.length) {
                         console.warn(
-                            "Some items were filtered out from JSON before DB population due to missing/invalid/empty structure."
+                            "Some items were filtered out from remote JSON before DB population due to invalid structure or empty fields."
                         );
                     }
-                    if (validJsonData.length > 0) {
-                        await db.allWords.bulkPut(validJsonData); // Use validated data
-                        console.log(
-                            `Successfully populated DB with ${validJsonData.length} words.`
-                        );
-                        loadedList = validJsonData;
-                        setWordList(loadedList); // Trigger state update
+                    
+                    if (validRemoteWords.length > 0) {
+                        await db.allWords.clear();
+                        await db.allWords.bulkPut(validRemoteWords);
+                        await db.appState.put({ id: 'dataVersion', version: remoteVersion });
+                        setDataVersion(remoteVersion); // Update displayed version
+                        console.log(`Successfully populated IndexedDB with ${validRemoteWords.length} words. New local version: '${remoteVersion}'`);
+                        wordsToSetInState = validRemoteWords;
+                    } else if (remoteWordsArray.length > 0 && validRemoteWords.length === 0) {
+                        console.error("Remote JSON contained word pairs, but all were invalid. Clearing local data.");
+                        await db.allWords.clear();
+                        await db.appState.put({ id: 'dataVersion', version: remoteVersion });
+                        setDataVersion(remoteVersion);
+                        wordsToSetInState = [];
+                        setError("The new word list was empty or contained no valid words.");
                     } else {
-                        throw new Error(
-                            "Fetched JSON data was empty or invalid after filtering."
-                        );
+                        console.warn("Remote JSON word list is empty. Clearing local data and setting version.");
+                        await db.allWords.clear();
+                        await db.appState.put({ id: 'dataVersion', version: remoteVersion });
+                        setDataVersion(remoteVersion);
+                        wordsToSetInState = [];
+                    }
+                } else {
+                    console.log(`Data version '${localVersion}' is up to date. Loading words from local IndexedDB.`);
+                    const currentLocalWords = await db.allWords.toArray();
+                    wordsToSetInState = currentLocalWords;
+                    // Edge case: versions match but local DB is empty and remote isn't.
+                    if (wordsToSetInState.length === 0 && remoteWordsArray.length > 0) {
+                        console.warn("Local DB is empty despite matching versions and non-empty remote. Re-populating from remote.");
+                        const validRemoteWordsForRepopulate = remoteWordsArray.filter( /* same filter as above */ );
+                        if (validRemoteWordsForRepopulate.length > 0) {
+                            await db.allWords.bulkPut(validRemoteWordsForRepopulate);
+                            wordsToSetInState = validRemoteWordsForRepopulate;
+                        }
                     }
                 }
-
-                // Load Score from DB
-                console.log("Loading score from DB...");
-                const savedScoreState = await db.appState.get("userScore");
-                if (savedScoreState) {
-                    setScore({ ...savedScoreState });
-                } else {
-                    await db.appState.put({ id: "userScore", correct: 0, incorrect: 0 });
-                    setScore({ correct: 0, incorrect: 0 });
-                } // Ensure score state matches DB default
-
-                // Load Hard Words from DB
-                console.log("Loading hard words from DB...");
-                const loadedHardWords = await db.hardWords.toArray();
-                if (loadedHardWords) {
-                    setHardWordsList(loadedHardWords);
-                    console.log(`Loaded ${loadedHardWords.length} hard words.`);
-                }
-
-                // Select the first pair (Moved selection logic outside this effect)
-                // We rely on the wordList useEffect now
+                setWordList(wordsToSetInState);
 
             } catch (err) {
-                console.error("Error during initial data load/DB interaction:", err);
-                setError(err.message || "Failed to initialize data.");
-                setWordList([]);
-                setCurrentPair(null);
-                setScore({ correct: 0, incorrect: 0 });
-                setHardWordsList([]);
+                console.error("MAJOR ERROR during initial data load or version check:", err);
+                setError(`Failed to load word data: ${err.message}. Local data (if any) will be used.`);
+                try {
+                    console.warn("Attempting to load words from local DB as a fallback...");
+                    const fallbackWords = await db.allWords.toArray();
+                    setWordList(fallbackWords);
+                    const localDataVersionState = await db.appState.get('dataVersion'); // Try to get local version for display
+                    if (localDataVersionState) setDataVersion(localDataVersionState.version);
+
+                    if (fallbackWords.length === 0) console.warn("Fallback: Local DB is also empty.");
+                    else console.log(`Fallback: Loaded ${fallbackWords.length} words from local DB.`);
+                } catch (dbError) {
+                    console.error("Fallback failed: Error loading words from local DB:", dbError);
+                }
             } finally {
-                console.log("Setting isLoading false after initial sequence.");
+                try {
+                    const savedScoreState = await db.appState.get("userScore");
+                    if (savedScoreState) {
+                        setScore({ correct: savedScoreState.correct, incorrect: savedScoreState.incorrect });
+                    } else {
+                        await db.appState.put({ id: "userScore", correct: 0, incorrect: 0 });
+                        setScore({ correct: 0, incorrect: 0 });
+                    }
+                } catch (scoreError) {
+                    console.error("Failed to load/initialize score:", scoreError);
+                }
+                
+                try {
+                    const loadedHardWords = await db.hardWords.toArray();
+                    setHardWordsList(loadedHardWords || []);
+                } catch (hardWordsError) {
+                    console.error("Failed to load hard words:", hardWordsError);
+                }
+
                 setIsLoading(false);
                 isInitialMountScore.current = false;
+                console.log("Initial data load sequence finished.");
             }
         };
-        loadInitialData();
-    }, []); // Empty array means run once on mount
 
-    // === useEffect to Select Initial/New Pair When Word List Changes ===
-    // This now handles selecting the first pair after initial load,
-    // and potentially re-selecting if the wordList were to change dynamically later.
+        loadInitialData();
+    }, []); // Runs once on mount
+
+    // === useEffect to Select Initial/New Pair When Word List is Ready ===
     useEffect(() => {
-        console.log("Effect: wordList changed (or initial load finished). Length:", wordList.length);
-        if (wordList.length > 0 && !currentPair && !error) { // Only select if list is ready, no current pair, and no error
-             console.log("Effect: wordList ready, selecting initial pair.");
-             selectNewPair(wordList);
+        console.log(`Effect: wordList state updated. Length: ${wordList.length}. isLoading: ${isLoading}. currentPair: ${!!currentPair}. Error: ${!!error}`);
+        if (!isLoading && wordList.length > 0 && !currentPair && !error) {
+            console.log("wordList ready, no current pair, no error. Selecting initial pair.");
+            selectNewPair(wordList);
+        } else if (!isLoading && wordList.length === 0 && !error) {
+            console.log("Word list is confirmed empty, not loading, and no error. No pair to select.");
+            setCurrentPair(null); 
         }
-    }, [wordList]); // Dependency: only wordList
+    }, [wordList, isLoading, error]); // Rerun if wordList, isLoading, or error changes
 
     // === Saving Score useEffect ===
     useEffect(() => {
@@ -228,9 +234,9 @@ function App() {
         const saveScoreToDB = async () => {
             try {
                 await db.appState.put({ id: "userScore", ...score });
-                console.log("Score saved.");
+                console.log("Score saved to DB:", score);
             } catch (err) {
-                console.error("Failed save score:", err);
+                console.error("Failed to save score to DB:", err);
             }
         };
         saveScoreToDB();
@@ -242,411 +248,219 @@ function App() {
         if (score.incorrect > 0 && incorrectScoreRef.current) {
             const element = incorrectScoreRef.current;
             if (!element.classList.contains("score-flash-incorrect")) {
-                console.log("ADDING flash INCORRECT score:", element);
                 element.classList.add("score-flash-incorrect");
-                const dur = 1000;
                 setTimeout(() => {
-                    if (element) {
-                        console.log("REMOVING flash INCORRECT score:", element);
-                        element.classList.remove("score-flash-incorrect");
+                    if (incorrectScoreRef.current) {
+                        incorrectScoreRef.current.classList.remove("score-flash-incorrect");
                     }
-                }, dur);
+                }, 1000);
             }
         }
-    }, [score.incorrect]); // Depends only on score.incorrect now
+    }, [score.incorrect]);
 
     // === Mark Hard Word Handler ===
     const handleMarkHard = async (pairToMark) => {
         if (!pairToMark?.spanish || !pairToMark?.english) return;
-        console.log("Marking hard:", pairToMark);
+        const hardWordEntry = { spanish: pairToMark.spanish, english: pairToMark.english };
         try {
-            // Use the compound key directly for put (more robust for Dexie)
-            await db.hardWords.put({
-                spanish: pairToMark.spanish,
-                english: pairToMark.english,
-            }); // put handles both add and update
-
-            // Update state only if it wasn't already marked (prevents duplicates in state)
+            await db.hardWords.put(hardWordEntry);
             if (!hardWordsList.some(w => w.spanish === pairToMark.spanish && w.english === pairToMark.english)) {
-                 setHardWordsList((prev) => [
-                     ...prev,
-                     { spanish: pairToMark.spanish, english: pairToMark.english },
-                 ]);
-                 console.log("Updated hardWordsList state (added).");
-            } else {
-                 console.log("Word already marked, state not changed.");
+                setHardWordsList((prev) => [...prev, hardWordEntry]);
             }
-
         } catch (error) {
-            console.error("Failed save hard word:", error);
+            console.error("Failed to save hard word:", error);
         }
     };
 
-
     // === Remove Hard Word Handler ===
     const handleRemoveHardWord = async (pairToRemove) => {
-        if (!pairToRemove?.spanish || !pairToRemove?.english) {
-            console.error("Invalid pair to remove");
-            return;
-        }
-        console.log("Attempting remove hard word:", pairToRemove);
-        // Use the compound key for deletion
+        if (!pairToRemove?.spanish || !pairToRemove?.english) return;
         const compoundKey = [pairToRemove.spanish, pairToRemove.english];
         try {
             await db.hardWords.delete(compoundKey);
-            console.log("Removed word DB.");
             setHardWordsList((prev) =>
-                prev.filter(
-                    (p) =>
-                        !(
-                            p.spanish === pairToRemove.spanish &&
-                            p.english === pairToRemove.english
-                        )
-                )
+                prev.filter(p => !(p.spanish === pairToRemove.spanish && p.english === pairToRemove.english))
             );
-            console.log("Updated hardWordsList state removal.");
         } catch (error) {
-            console.error("Failed remove hard word:", error);
+            console.error("Failed to remove hard word:", error);
         }
     };
 
     // === Answer Submission Logic ===
     const handleAnswerSubmit = (userAnswer) => {
-        console.log("--- App: handleAnswerSubmit CALLED with:", userAnswer);
+        if (!currentPair || showFeedback) return;
         const punctuationRegex = /[.?!¡¿]+$/;
         const englishArticleRegex = /^(the|a|an)\s+/i;
         const toVerbRegex = /^to\s+/i;
 
-        if (!currentPair || showFeedback) {
-            return;
-        }
+        const correctAnswer = languageDirection === "spa-eng" ? currentPair.english : currentPair.spanish;
+        let normUser = userAnswer.toLowerCase().trim().replace(punctuationRegex, "");
+        let normCorrect = correctAnswer.toLowerCase().trim().replace(punctuationRegex, "");
 
-        const correctAnswer =
-            languageDirection === "spa-eng"
-                ? currentPair.english
-                : currentPair.spanish;
-
-        // Normalize user answer
-        let normUser = userAnswer
-            .toLowerCase()
-            .trim()
-            .replace(punctuationRegex, "");
-
-        // Normalize correct answer
-        let normCorrect = correctAnswer
-            .toLowerCase()
-            .trim()
-            .replace(punctuationRegex, "");
-
-        // Apply specific English normalization only when translating Spa->Eng
         if (languageDirection === "spa-eng") {
-            console.log("Normalizing English answer (articles/to)");
-            normUser = normUser
-                .replace(englishArticleRegex, "")
-                .replace(toVerbRegex, "");
-            normCorrect = normCorrect
-                .replace(englishArticleRegex, "")
-                .replace(toVerbRegex, "");
+            normUser = normUser.replace(englishArticleRegex, "").replace(toVerbRegex, "");
+            normCorrect = normCorrect.replace(englishArticleRegex, "").replace(toVerbRegex, "");
         }
-
-        console.log(`Comparing: "${normUser}" vs "${normCorrect}"`);
 
         if (normUser === normCorrect) {
-            console.log("CORRECT branch executed.");
             setScore((prev) => ({ ...prev, correct: prev.correct + 1 }));
             setFeedbackSignal("correct");
-            // Slight delay before selecting next pair allows feedback animation to start
-            setTimeout(() => {
-                selectNewPair(); // Select next pair using the current full wordList
-            }, 50); // Reduced delay slightly, adjust as needed
+            setTimeout(() => selectNewPair(), 600); // Animation time
         } else {
-            console.log("INCORRECT branch executed.");
             setScore((prev) => ({ ...prev, incorrect: prev.incorrect + 1 }));
-            setLastCorrectAnswer(correctAnswer); // Store the original correct answer for display
+            setLastCorrectAnswer(correctAnswer);
             setShowFeedback(true);
             setFeedbackSignal("incorrect");
         }
     };
 
-
-    // REMOVED: handleMaxWordsChange function
-
-    // REMOVED: useEffect hook that depended on maxWords
-
     // === Language Switch ===
     const switchLanguageDirection = () => {
-        console.log("[App Render] languageDirection state is:", languageDirection);
-        setLanguageDirection((prev) =>
-            prev === "spa-eng" ? "eng-spa" : "spa-eng"
-        );
-        // Reset state related to the current card/answer
+        setLanguageDirection((prev) => (prev === "spa-eng" ? "eng-spa" : "spa-eng"));
         setShowFeedback(false);
         setLastCorrectAnswer("");
         setHintData(null);
         setFeedbackSignal(null);
-        // Optionally select a new pair immediately upon switching direction
-        // selectNewPair(); // Uncomment if you want a new card instantly on switch
+        selectNewPair(); // Get a new card for the new direction
     };
 
     // === Hint Logic ===
     const handleGetHint = async (forceLookup = false) => {
-        console.log(
-            `handleGetHint called. forceLookup: ${forceLookup}, showFeedback: ${showFeedback}, hintData exists: ${!!hintData}`
-        );
-
-        if (!currentPair || isHintLoading) {
-            console.log("Hint blocked: No pair or loading.");
+        if (!currentPair || isHintLoading) return;
+        if (!forceLookup && ((hintData && hintData.type !== 'error') || (showFeedback && feedbackSignal === 'incorrect'))) {
             return;
         }
-
-        // Block hint if already showing feedback (incorrect answer) unless forceLookup is true (like clicking hint button in feedback)
-        // Also block if hint button itself should be disabled (e.g., already have hint) unless forceLookup is true.
-        if (!forceLookup && (showFeedback || (hintData && hintData.type !== 'error'))) {
-            console.log("Hint blocked: Not forcing & blocked by existing state (feedback or loaded hint).");
-            return;
-        }
-
-
-        const wordToLookup = currentPair.spanish; // Always look up Spanish word based on user feedback
+        const wordToLookup = currentPair.spanish;
         if (!wordToLookup) {
-            console.error("Hint Error: Spanish word is missing in the current pair.");
-            setHintData({ type: "error", message: "Internal error: Word missing." });
+            setHintData({ type: "error", message: "Internal error: Word missing for hint." });
             return;
         }
-
-        console.log(`Attempting hint for: "${wordToLookup}"`);
         const spanishArticleRegex = /^(el|la|los|las|un|una|unos|unas)\s+/i;
         let wordForApi = wordToLookup.replace(spanishArticleRegex, "").trim();
-
-        // Prevent API call for empty strings after removing article
         if (!wordForApi) {
-            console.warn(`Hint: Word for API became empty after removing article from "${wordToLookup}".`);
-             setHintData({ type: "error", message: "Cannot look up article alone." });
+            setHintData({ type: "error", message: "Cannot look up article alone as hint." });
             return;
         }
-
-        console.log(`Sending to API: "${wordForApi}"`);
         setIsHintLoading(true);
-        // Reset hint data only if forcing or no hint exists yet, otherwise keep existing hint while loading update
-        if (forceLookup || !hintData) {
-             setHintData(null);
-             console.log("Hint data reset before fetch.");
-        }
+        if (forceLookup || !hintData) setHintData(null);
 
         try {
             const apiResponse = await getMwHint(wordForApi);
-            console.log("Raw Hint Data:", apiResponse);
             let definitionData = null;
             let suggestions = null;
 
             if (Array.isArray(apiResponse) && apiResponse.length > 0) {
-                if (typeof apiResponse[0] === "string") {
-                    // It's a list of suggestions
-                    suggestions = apiResponse;
-                    console.log("API returned suggestions.");
-                } else if (typeof apiResponse[0] === 'object' && apiResponse[0]?.meta?.id) {
-                    // It's an array of definition objects, use the first one
-                    definitionData = apiResponse[0];
-                    console.log("API returned definitions array, using first entry.");
-                } else {
-                     // Unknown array content
-                    console.warn("API returned array with unknown content structure:", apiResponse);
-                    setHintData({ type: "unknown", raw: apiResponse });
-                    return; // Exit early after setting unknown state
-                }
-            } else if (typeof apiResponse === 'object' && !Array.isArray(apiResponse) && apiResponse !== null && apiResponse?.meta?.id) {
-                 // It's a single definition object (less common but possible)
+                if (typeof apiResponse[0] === "string") suggestions = apiResponse;
+                else if (typeof apiResponse[0] === 'object' && apiResponse[0]?.meta?.id) definitionData = apiResponse[0];
+                else setHintData({ type: "unknown", raw: apiResponse });
+            } else if (typeof apiResponse === 'object' && !Array.isArray(apiResponse) && apiResponse?.meta?.id) {
                 definitionData = apiResponse;
-                console.log("API returned single definition object.");
             } else if (Array.isArray(apiResponse) && apiResponse.length === 0) {
-                 // Empty array - word likely not found directly
-                 console.log("API returned empty array, word not found?");
-                 setHintData({ type: "error", message: `No definition found for "${wordForApi}".` });
-                 return;
+                setHintData({ type: "error", message: `No definition found for "${wordForApi}".` });
             } else {
-                 // Completely unexpected format or null/undefined response
-                 console.warn("API returned unexpected data format:", apiResponse);
                  setHintData({ type: "unknown", raw: apiResponse });
-                 return; // Exit early
             }
 
-
-            // Process the found data (prioritize definitions over suggestions if both somehow appear)
-            if (definitionData) {
-                setHintData({ type: "definitions", data: definitionData });
-                console.log("Set hint data: definitions");
-            } else if (suggestions) {
-                setHintData({ type: "suggestions", suggestions: suggestions });
-                console.log("Set hint data: suggestions");
-            } else {
-                // This case should ideally be covered above, but as a fallback
-                console.warn("No definition or suggestion data could be processed.");
-                setHintData({ type: "error", message: "Hint format error or not found." });
-            }
-
+            if (definitionData) setHintData({ type: "definitions", data: definitionData });
+            else if (suggestions) setHintData({ type: "suggestions", suggestions: suggestions });
+            
         } catch (err) {
             console.error("Error in handleGetHint fetching/processing:", err);
-            // Ensure hintData is set to an error state if fetch fails
             setHintData({ type: "error", message: "Failed to fetch hint." });
         } finally {
             setIsHintLoading(false);
-             console.log("Finished handleGetHint.");
         }
     };
 
-
     // === Handler to Close the Hard Words View ===
-    const handleCloseHardWordsView = () => {
-        console.log("Closing Hard Words View");
-        setShowHardWordsView(false);
-    };
-
-    // Log language direction before rendering return statement
-    console.log("[App Render] languageDirection state is:", languageDirection);
-
-    // === Component Return ===
+    const handleCloseHardWordsView = () => setShowHardWordsView(false);
+    
     return (
         <div className="App">
-            <h1>Spanish Flashcards</h1>
-            {/* Score Stacks Area */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', maxWidth: '700px', marginBottom: '10px' }}>
+                <h1>Spanish Flashcards</h1>
+                {/* Data Version Display */}
+                {dataVersion && (
+                    <p style={{ fontSize: '0.8rem', color: '#6c757d', margin: '0' }}>
+                        Data v: {dataVersion}
+                    </p>
+                )}
+            </div>
+            
             <div className="score-stacks-container">
-                <ScoreStack
-                    type="correct"
-                    label="Correct"
-                    count={score.correct}
-                    icon="✅"
-                />
-                <ScoreStack
-                    type="incorrect"
-                    label="Incorrect"
-                    count={score.incorrect}
-                    icon="❌"
-                    flashRef={incorrectScoreRef}
-                />
+                <ScoreStack type="correct" label="Correct" count={score.correct} icon="✅" />
+                <ScoreStack type="incorrect" label="Incorrect" count={score.incorrect} icon="❌" flashRef={incorrectScoreRef} />
                 <ScoreStack
                     type="hard"
                     label="Hard Words"
                     count={hardWordsList.length}
                     icon="⭐"
-                    onClick={() => {
-                        console.log("Hard words stack clicked");
-                        setShowHardWordsView((prev) => !prev); // Toggle the view
-                        // Ensure flashcard view is hidden when hard words view is shown
-                        if (!showHardWordsView) {
-                            setShowFeedback(false); // Hide feedback if switching view
-                            setHintData(null);    // Clear hint if switching view
-                        }
-                    }}
+                    onClick={() => setShowHardWordsView((prev) => !prev)}
                 />
             </div>
 
-            {/* Controls Area - No changes needed here for maxWords removal */}
-             <div className="controls">
-                 <button onClick={switchLanguageDirection}>
-                     Switch Dir ({languageDirection === "spa-eng" ? "S->E" : "E->S"})
-                 </button>
-                 <button
-                     onClick={() => selectNewPair(wordList, true)} // Pass wordList explicitly
-                     disabled={isLoading || !wordList.length || showHardWordsView} // Disable if showing hard words
-                 >
-                     {isLoading ? "Loading..." : "New Card"}
-                 </button>
-             </div>
+            <div className="controls">
+                <button onClick={switchLanguageDirection}>
+                    Switch Dir ({languageDirection === "spa-eng" ? "S->E" : "E->S"})
+                </button>
+                <button
+                    onClick={() => selectNewPair(wordList, true)}
+                    disabled={isLoading || !wordList.length || showHardWordsView}
+                >
+                    {isLoading && !currentPair ? "Loading..." : "New Card"}
+                </button>
+            </div>
+
+            {isLoading && !currentPair && <p>Loading word list and preparing first card...</p>}
+            {error && <div className="error-area"><p>{error}</p> <button onClick={() => { setError(null); loadInitialData(); }}>Try Reload</button></div>}
 
 
-            {/* Status Messages Area */}
-            {isLoading && <p>Loading...</p>}
-            {error && !isLoading && (
-                <div className="error-area">
-                    <p>Error: {error}</p>
-                    <button
-                        onClick={() => {
-                            setError(null); // Clear error first
-                            selectNewPair(wordList, true); // Try selecting again
-                          }
-                        }
-                        disabled={isLoading || !wordList.length || showHardWordsView}
-                    >
-                        Try New Card
-                    </button>
-                </div>
-            )}
-
-             {/* Conditional Rendering for Main Content Area */}
-             {showHardWordsView ? (
-                 // === Hard Words View ===
-                 <HardWordsView
-                     hardWordsList={hardWordsList}
-                     onClose={handleCloseHardWordsView}
-                     onRemoveWord={handleRemoveHardWord} // Pass the remove handler
-                 />
-             ) : (
-                  // === Flashcard / Feedback View ===
-                 <>
-                    {/* Show flashcard only if not loading, no error, and a pair is ready */}
-                     {!isLoading && !error && currentPair && (
-                         <div className="flashcard-area">
-                             {(() => {
-                                 // Determine if the current card is marked as hard
-                                 const isCurrentCardMarked = hardWordsList.some(
-                                     (word) =>
-                                         word.spanish === currentPair.spanish &&
-                                         word.english === currentPair.english
-                                 );
-                                 // Memoize or compute derived state if performance becomes an issue
-                                 return (
-                                     <Flashcard
-                                         pair={currentPair}
-                                         direction={languageDirection}
-                                         onAnswerSubmit={handleAnswerSubmit}
-                                         showFeedback={showFeedback} // Used to hide input form
-                                         onGetHint={handleGetHint}
-                                         hint={hintData}
-                                         isHintLoading={isHintLoading}
-                                         feedbackSignal={feedbackSignal} // For correct/incorrect animation
-                                         onMarkHard={handleMarkHard} // Pass handler down
-                                         isMarkedHard={isCurrentCardMarked} // Pass derived state down
-                                     />
-                                 );
-                             })()}
-
-                             {/* Show Feedback Area only when showFeedback is true */}
-                             {showFeedback && (
-                                 <div className="feedback-area">
-                                     <p>
-                                         Incorrect. The correct answer is: "{lastCorrectAnswer}"
-                                     </p>
-                                     {/* Button to get hint/info AFTER seeing the correct answer */}
-                                     <button
-                                        onClick={() => handleGetHint(true)} // Force lookup even if hint exists
-                                        disabled={isHintLoading} // Only disable while loading
-                                        className="hint-button" // Reuse styles maybe?
-                                        style={{marginRight: '10px'}} // Add space
-                                    >
+            {showHardWordsView ? (
+                <HardWordsView
+                    hardWordsList={hardWordsList}
+                    onClose={handleCloseHardWordsView}
+                    onRemoveWord={handleRemoveHardWord}
+                />
+            ) : (
+                <>
+                    {!isLoading && !error && currentPair && (
+                        <div className="flashcard-area">
+                            <Flashcard
+                                pair={currentPair}
+                                direction={languageDirection}
+                                onAnswerSubmit={handleAnswerSubmit}
+                                showFeedback={showFeedback}
+                                onGetHint={handleGetHint}
+                                hint={hintData}
+                                isHintLoading={isHintLoading}
+                                feedbackSignal={feedbackSignal}
+                                onMarkHard={handleMarkHard}
+                                isMarkedHard={currentPair && hardWordsList.some(
+                                    (word) => word.spanish === currentPair.spanish && word.english === currentPair.english
+                                )}
+                            />
+                            {showFeedback && feedbackSignal === 'incorrect' && (
+                                <div className="feedback-area">
+                                    <p>Incorrect. The correct answer is: "{lastCorrectAnswer}"</p>
+                                    <button onClick={() => handleGetHint(true)} disabled={isHintLoading} style={{marginRight: '10px'}}>
                                         {isHintLoading ? "Getting Info..." : "Show Hint / Related"}
                                     </button>
-                                    {/* Button to move to the next card from feedback */}
-                                     <button
-                                        onClick={() => selectNewPair(wordList)} // Just select the next one
-                                        className="submit-button" // Reuse styles maybe?
-                                    >
+                                    <button onClick={() => selectNewPair()} >
                                         Next Card
                                     </button>
-                                 </div>
-                             )}
-                         </div>
-                     )}
-
-                    {/* Fallback Messages when no card is displayed */}
+                                </div>
+                            )}
+                        </div>
+                    )}
+                    {/* Fallback Messages for no card */}
                     {!isLoading && !error && !currentPair && wordList.length > 0 && (
-                        <p>No valid card available. Try 'New Card' or check filters if added later.</p>
+                        <p>No card available. Try "New Card" or ensure list has content.</p>
                     )}
-                    {!isLoading && !error && !currentPair && wordList.length === 0 && !isLoading && ( // Ensure not loading
-                        <p>Word list is empty or failed to load. Cannot display cards.</p>
+                     {!isLoading && !error && !currentPair && wordList.length === 0 && (
+                        <p>Word list is empty. Please check the data source.</p>
                     )}
-                 </>
-             )}
-             {/* END Conditional Rendering */}
+                </>
+            )}
         </div>
     );
 }
