@@ -1,6 +1,5 @@
-// src/hooks/useWordData.js
 import { useState, useEffect } from 'react';
-import { db } from '../db'; // Assuming db.js is in src/
+import { db } from '../db'; 
 
 export function useWordData() {
     const [wordList, setWordList] = useState([]);
