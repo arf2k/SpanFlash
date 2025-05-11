@@ -105,18 +105,20 @@
    }
    
    .search-result-item {
-     padding: 10px 5px;
-     border-bottom: 1px solid var(--color-border-light, #eee);
-     cursor: default; /* For V1, not clickable action */
-     /* Add hover effect if desired for future clickability */
-   }
-   .search-result-item:last-child {
-     border-bottom: none;
-   }
-   /* .search-result-item:hover {
-     background-color: var(--bg-hint, #e9ecef);
-   } */
-   
+    padding: 10px 5px;
+    border-bottom: 1px solid var(--color-border-light, #eee);
+    cursor: pointer; /* <-- Changed from default to pointer */
+    /* transition for hover effect */
+    transition: background-color 0.2s ease-in-out;
+}
+.search-result-item:last-child {
+    border-bottom: none;
+}
+.search-result-item:hover,
+.search-result-item:focus { /* Added focus style for keyboard navigation */
+    background-color: var(--bg-hint, #e9ecef);
+    outline: none; /* Remove default focus outline if you style it well on hover/focus */
+}
    
    .search-no-results, .search-prompt {
      color: var(--text-muted);
