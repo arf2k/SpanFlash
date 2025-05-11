@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { db } from '../db'; 
+import { db } from '../db';
 
 export function useWordData() {
     const [wordList, setWordList] = useState([]);
-    const [isLoadingData, setIsLoadingData] = useState(true); 
-    const [dataError, setDataError] = useState(null);       
+    const [isLoadingData, setIsLoadingData] = useState(true);
+    const [dataError, setDataError] = useState(null);
     const [currentDataVersion, setCurrentDataVersion] = useState(null);
 
     useEffect(() => {
@@ -12,7 +12,7 @@ export function useWordData() {
             console.log("useWordData: Starting to load word data with version check...");
             setIsLoadingData(true);
             setDataError(null);
-            setCurrentDataVersion(null); 
+            setCurrentDataVersion(null);
             setWordList([]); 
 
             let remoteVersion = null;
@@ -36,7 +36,7 @@ export function useWordData() {
 
                 const localDataVersionState = await db.appState.get('dataVersion');
                 const localVersion = localDataVersionState ? localDataVersionState.version : null;
-                setCurrentDataVersion(localVersion); // Show local version initially
+                setCurrentDataVersion(localVersion);
                 console.log(`useWordData: Local stored data version: '${localVersion}'`);
 
                 let wordsToSetInState = [];
@@ -62,11 +62,16 @@ export function useWordData() {
                     
                     if (validRemoteWords.length > 0) {
                         await db.allWords.clear();
-                        await db.allWords.bulkPut(validRemoteWords);
+                        await db.allWords.bulkPut(validRemoteWords); 
                         await db.appState.put({ id: 'dataVersion', version: remoteVersion });
-                        setCurrentDataVersion(remoteVersion); // Update displayed version
-                        console.log(`useWordData: Successfully populated IndexedDB. New local version: '${remoteVersion}'`);
-                        wordsToSetInState = validRemoteWords;
+                        setCurrentDataVersion(remoteVersion);
+                        console.log(`useWordData: Successfully populated IndexedDB from remote. New local version: '${remoteVersion}'`);
+                        
+                    
+                        wordsToSetInState = await db.allWords.toArray();
+                        console.log(`useWordData: Fetched ${wordsToSetInState.length} words from DB to update state with IDs.`);
+                     
+
                     } else if (remoteWordsArray.length > 0 && validRemoteWords.length === 0) {
                         console.error("useWordData: Remote JSON had words, but all were invalid. Clearing local data.");
                         await db.allWords.clear();
@@ -78,13 +83,14 @@ export function useWordData() {
                         console.warn("useWordData: Remote JSON word list is empty. Clearing local data.");
                         await db.allWords.clear();
                         await db.appState.put({ id: 'dataVersion', version: remoteVersion });
-                        setCurrentDataVersion(remoteVersion);
+setCurrentDataVersion(remoteVersion);
                         wordsToSetInState = [];
                     }
                 } else {
                     console.log(`useWordData: Data version '${localVersion}' is up to date. Loading from local DB.`);
                     const currentLocalWords = await db.allWords.toArray();
                     wordsToSetInState = currentLocalWords;
+                 
                     if (wordsToSetInState.length === 0 && remoteWordsArray.length > 0) {
                         console.warn("useWordData: Local DB empty despite matching versions. Re-populating from remote.");
                          const validRemoteWordsForRepopulate = remoteWordsArray.filter(
@@ -94,8 +100,12 @@ export function useWordData() {
                                 typeof item.english === 'string' && item.english.trim().length > 0
                         );
                         if (validRemoteWordsForRepopulate.length > 0) {
+                            await db.allWords.clear(); 
                             await db.allWords.bulkPut(validRemoteWordsForRepopulate);
-                            wordsToSetInState = validRemoteWordsForRepopulate;
+                          
+                            wordsToSetInState = await db.allWords.toArray();
+                            console.log(`useWordData: Re-populated local DB with ${wordsToSetInState.length} words with IDs.`);
+                            // *** END MODIFICATION ***
                         }
                     }
                 }
@@ -104,16 +114,15 @@ export function useWordData() {
             } catch (err) {
                 console.error("useWordData: MAJOR ERROR during word data load or version check:", err);
                 setDataError(`Failed to load word data: ${err.message}.`);
-                // Attempt to load from local DB as a fallback
                 try {
                     console.warn("useWordData: Attempting fallback to local DB for word list...");
-                    const fallbackWords = await db.allWords.toArray();
+                    const fallbackWords = await db.allWords.toArray(); // These will have IDs
                     setWordList(fallbackWords);
                     const localDataVersionState = await db.appState.get('dataVersion');
                     if (localDataVersionState) setCurrentDataVersion(localDataVersionState.version);
                     if (fallbackWords.length > 0) {
                         console.log(`useWordData: Fallback successful. Loaded ${fallbackWords.length} words from local DB.`);
-                        setDataError(null); // Clear error if fallback worked
+                        setDataError(null); 
                     } else {
                          console.warn("useWordData: Fallback failed, local DB also empty.");
                     }
@@ -129,5 +138,6 @@ export function useWordData() {
         loadWordDataAsync();
     }, []); 
 
-    return { wordList, isLoadingData, dataError, currentDataVersion, setWordList }; 
+    // Remember to return setWordList if App.jsx needs to modify wordList directly (e.g., after adding a new word)
+    return { wordList, isLoadingData, dataError, currentDataVersion, setWordList };
 }
