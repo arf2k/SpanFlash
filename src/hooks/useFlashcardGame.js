@@ -1,22 +1,21 @@
 import { useState, useCallback } from 'react';
 
-export function useFlashcardGame(wordList = []) { 
+export function useFlashcardGame(wordList = []) { // Accept wordList as an argument
     const [currentPair, setCurrentPair] = useState(null);
     const [languageDirection, setLanguageDirection] = useState("spa-eng");
     const [score, setScore] = useState({ correct: 0, incorrect: 0 });
     const [showFeedback, setShowFeedback] = useState(false);
     const [lastCorrectAnswer, setLastCorrectAnswer] = useState("");
     const [feedbackSignal, setFeedbackSignal] = useState(null);
-    const [gameError, setGameError] = useState(null); // For errors specific to game logic, e.g., no cards found
+    const [gameError, setGameError] = useState(null); 
 
     const selectNewPairCard = useCallback(() => {
         console.log("useFlashcardGame: selectNewPairCard called...");
-        setGameError(null); 
-        setCurrentPair(null); 
+        setGameError(null); // Clear previous game errors
+        setCurrentPair(null); // Important to set currentPair to null first to trigger useEffect in App.jsx for hint reset
         setShowFeedback(false);
         setFeedbackSignal(null);
         setLastCorrectAnswer("");
-
 
         if (!wordList || wordList.length === 0) {
             console.warn("useFlashcardGame: wordList is empty or undefined in selectNewPairCard.");
@@ -35,10 +34,10 @@ export function useFlashcardGame(wordList = []) {
             if (filteredData.length > 0) {
                 const idx = Math.floor(Math.random() * filteredData.length);
                 const pair = filteredData[idx];
-                setCurrentPair(pair); 
+                setCurrentPair(pair); // This will trigger UI update and potential effects in App.jsx
                 console.log("useFlashcardGame: Selected new pair:", pair);
             } else {
-                console.warn("useFlashcardGame: No valid pairs found in the wordList to select from.");
+                console.warn("useFlashcardGame: No valid pairs found in the wordList to select from after filtering.");
                 setGameError("No valid flashcards available to display from the current list.");
                 setCurrentPair(null);
             }
@@ -47,7 +46,21 @@ export function useFlashcardGame(wordList = []) {
             setGameError("Failed to select a new card due to an internal error.");
             setCurrentPair(null);
         }
-    }, [wordList]); 
+    }, [wordList]); // Dependency on wordList
+
+    const loadSpecificCard = useCallback((pairToLoad) => {
+        console.log("useFlashcardGame: loadSpecificCard called with:", pairToLoad);
+        if (pairToLoad && typeof pairToLoad.spanish === 'string' && typeof pairToLoad.english === 'string') {
+            setCurrentPair(pairToLoad);
+            setShowFeedback(false); // Reset feedback states
+            setFeedbackSignal(null);
+            setLastCorrectAnswer("");
+            setGameError(null); // Clear any previous game errors
+        } else {
+            console.error("useFlashcardGame: loadSpecificCard called with invalid pair.", pairToLoad);
+            setGameError("Could not load the selected card.");
+        }
+    }, []);
 
     const submitAnswer = useCallback((userAnswer) => {
         if (!currentPair || showFeedback) return; 
@@ -70,9 +83,7 @@ export function useFlashcardGame(wordList = []) {
         if (normalizedUserAnswer === normalizedCorrectAnswer) {
             setScore((prevScore) => ({ ...prevScore, correct: prevScore.correct + 1 }));
             setFeedbackSignal("correct");
-            
-            setShowFeedback(true); // Show feedback, even if correct, for consistency
-                                 
+            setShowFeedback(true); 
         } else {
             setScore((prevScore) => ({ ...prevScore, incorrect: prevScore.incorrect + 1 }));
             setLastCorrectAnswer(correctAnswerExpected);
@@ -85,14 +96,12 @@ export function useFlashcardGame(wordList = []) {
         selectNewPairCard();
     }, [selectNewPairCard]);
 
-
     const switchDirection = useCallback(() => {
         setLanguageDirection((prevDirection) => (prevDirection === "spa-eng" ? "eng-spa" : "spa-eng"));
-       
         setShowFeedback(false);
         setLastCorrectAnswer("");
         setFeedbackSignal(null);
-         selectNewPairCard(); 
+        selectNewPairCard(); 
     }, [selectNewPairCard]);
 
     return {
@@ -102,12 +111,13 @@ export function useFlashcardGame(wordList = []) {
         showFeedback,
         lastCorrectAnswer,
         feedbackSignal,
-        gameError, 
+        gameError,
         selectNewPairCard,
         submitAnswer,
         switchDirection,
-        switchToNextCard, 
+        switchToNextCard,
         setScore, 
         setShowFeedback, 
+        loadSpecificCard,
     };
 }
