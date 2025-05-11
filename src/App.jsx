@@ -213,10 +213,19 @@ function App() {
 
     const handleAddWord = async (newWordObject) => {
         try {
-            const newId = await db.allWords.add(newWordObject);
-            const wordWithId = { ...newWordObject, id: newId };
-            setWordList(prevWordList => [...prevWordList, wordWithId]);
-            console.log("New word added successfully to IndexedDB and local state:", wordWithId);
+            const newId = await db.allWords.add(newWordObject); 
+
+            const wordWithId = await db.allWords.get(newId); 
+            
+            if (wordWithId) {
+                setWordList(prevWordList => [...prevWordList, wordWithId]);
+                console.log("New word added successfully to IndexedDB and local state:", wordWithId);
+            } else {
+                console.error("Failed to retrieve the newly added word from DB, newId was:", newId);
+                // Fallback: add the original object, but it will lack the ID in the immediate state update for wordList.
+                // This shouldn't happen if add() was successful.
+                // setWordList(prevWordList => [...prevWordList, {...newWordObject, id: newId}]); 
+            }
         } catch (error) {
             console.error("Failed to add new word:", error);
         }
