@@ -1,10 +1,11 @@
+// src/App.jsx
 import { useState, useEffect, useRef } from "react";
 import Flashcard from "./components/Flashcard";
 import ScoreStack from "./components/ScoreStack";
 import HardWordsView from "./components/HardWordsView";
 import SearchModal from "./components/SearchModal";
 import AddWordModal from "./components/AddWordModal";
-import WordEditModal from "./components/WordEditModal"; 
+import WordEditModal from "./components/WordEditModal";
 import { getMwHint } from "./services/dictionaryServices.js";
 import { db } from "./db";
 import { useWordData } from "./hooks/useWordData";
@@ -28,6 +29,7 @@ function App() {
         switchToNextCard,
         setScore,
         setShowFeedback: setGameShowFeedback,
+        loadSpecificCard, // <-- Get loadSpecificCard from useFlashcardGame
     } = useFlashcardGame(wordList);
 
     // === App-specific State Variables ===
@@ -37,7 +39,7 @@ function App() {
     const [showHardWordsView, setShowHardWordsView] = useState(false);
     const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
     const [isAddWordModalOpen, setIsAddWordModalOpen] = useState(false);
-    const [isEditModalOpen, setIsEditModalOpen] = useState(false); 
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [wordCurrentlyBeingEdited, setWordCurrentlyBeingEdited] = useState(null);
 
     // === Refs ===
@@ -53,7 +55,10 @@ function App() {
                 if (savedScoreState) {
                     setScore(savedScoreState);
                 } else {
-                    await db.appState.put({ id: "userScore", correct: 0, incorrect: 0 });
+                    // Initialize score if not found, then set it
+                    const initialScore = { correct: 0, incorrect: 0 };
+                    await db.appState.put({ id: "userScore", ...initialScore });
+                    setScore(initialScore); // Ensure state reflects the DB default
                 }
             } catch (err) { console.error("Failed to load/initialize score:", err); }
 
@@ -66,7 +71,7 @@ function App() {
             console.log("App.jsx: App-specific data loading finished.");
         };
         loadAppSpecificData();
-    }, [setScore]);
+    }, [setScore]); // setScore from useFlashcardGame is stable
 
     useEffect(() => {
         console.log(`App.jsx Effect: wordList (len ${wordList.length}), isLoadingData (${isLoadingData}), currentPair (${!!currentPair}), dataError (${!!dataError}), gameError (${!!gameError})`);
@@ -100,7 +105,9 @@ function App() {
                 console.error("Failed to save score to DB:", err);
             }
         };
-        if (score.correct > 0 || score.incorrect > 0 || !isInitialMountApp.current) {
+        // Only save if score is not the initial {0,0} unless it's no longer the initial mount
+        // and a score change has actually occurred.
+        if ((score.correct > 0 || score.incorrect > 0) || !isInitialMountApp.current) {
             saveScoreToDB();
         }
     }, [score, isInitialMountApp]);
@@ -214,14 +221,10 @@ function App() {
             console.error("Failed to add new word:", error);
         }
     };
-
-   
+    
     const openEditModal = (wordToEdit) => {
-        console.log("App.jsx: Opening edit modal for:", wordToEdit);
         if (!wordToEdit || wordToEdit.id == null) {
             console.error("App.jsx: Attempted to edit a word without a valid ID.", wordToEdit);
-            // Optionally show an error to the user that the word can't be edited.
-            // For now, just don't open the modal or clear any potentially stale wordCurrentlyBeingEdited
             setWordCurrentlyBeingEdited(null);
             setIsEditModalOpen(false);
             return;
@@ -232,7 +235,7 @@ function App() {
 
     const closeEditModal = () => {
         setIsEditModalOpen(false);
-        setWordCurrentlyBeingEdited(null); 
+        setWordCurrentlyBeingEdited(null);
     };
 
     const handleUpdateWord = async (updatedWordData) => {
@@ -241,26 +244,34 @@ function App() {
             return;
         }
         try {
-            await db.allWords.put(updatedWordData); // '.put()' will update based on the primary key (id)
-
+            await db.allWords.put(updatedWordData);
             setWordList(prevWordList =>
                 prevWordList.map(word =>
                     word.id === updatedWordData.id ? updatedWordData : word
                 )
             );
-
             if (currentPair && currentPair.id === updatedWordData.id) {
                 console.log("App.jsx: Current pair was edited. Selecting a new card to reflect changes.");
-                selectNewPairCard(); 
+                selectNewPairCard();
             }
-
             console.log("App.jsx: Word updated successfully in IndexedDB and state:", updatedWordData);
             closeEditModal();
         } catch (error) {
             console.error("App.jsx: Failed to update word:", error);
         }
     };
-   
+
+    // --- New handler for selecting a word from search results ---
+    const handleSelectWordFromSearch = (selectedPair) => {
+        if (selectedPair && loadSpecificCard) { 
+            console.log("App.jsx: Word selected from search, loading to practice:", selectedPair);
+            loadSpecificCard(selectedPair); 
+            setIsSearchModalOpen(false);    
+        } else {
+            console.warn("App.jsx: handleSelectWordFromSearch called but pair or loadSpecificCard is invalid.");
+        }
+    };
+    // --- End new handler ---
 
     return (
         <div className="App">
@@ -273,7 +284,7 @@ function App() {
                     </p>
                 )}
             </div>
-            
+
             {/* ScoreStacks */}
             <div className="score-stacks-container">
                 <ScoreStack type="correct" label="Correct" count={score.correct} icon="✅" />
@@ -283,10 +294,10 @@ function App() {
 
             {/* Controls */}
             <div className="controls">
-                <button onClick={() => setIsAddWordModalOpen(true)} title="Add New Word" style={{padding: '0.6rem 0.8rem'}}>
+                <button onClick={() => setIsAddWordModalOpen(true)} title="Add New Word" style={{ padding: '0.6rem 0.8rem' }}>
                     <span role="img" aria-label="add icon">➕</span> Add Word
                 </button>
-                <button onClick={() => setIsSearchModalOpen(true)} title="Search Words" style={{padding: '0.6rem 0.8rem'}}>
+                <button onClick={() => setIsSearchModalOpen(true)} title="Search Words" style={{ padding: '0.6rem 0.8rem' }}>
                     <span role="img" aria-label="search icon">🔍</span> Search
                 </button>
                 <button onClick={switchDirection}>
@@ -322,39 +333,46 @@ function App() {
                                 isMarkedHard={currentPair && hardWordsList.some(
                                     (word) => word.spanish === currentPair.spanish && word.english === currentPair.english
                                 )}
-                                onEdit={() => openEditModal(currentPair)} // Pass onEdit handler
+                                onEdit={() => openEditModal(currentPair)}
                             />
-                            {/* Feedback areas */}
                             {showFeedback && feedbackSignal === 'incorrect' && (
                                 <div className="feedback-area">
                                     <p>Incorrect. The correct answer is: "{lastCorrectAnswer}"</p>
-                                    <button onClick={() => handleGetHint(true)} disabled={isHintLoading} style={{marginRight: '10px'}}>
+                                    <button onClick={() => handleGetHint(true)} disabled={isHintLoading} style={{ marginRight: '10px' }}>
                                         {isHintLoading ? "Getting Info..." : "Show Hint / Related"}
                                     </button>
                                     <button onClick={switchToNextCard}>Next Card</button>
                                 </div>
                             )}
-                             {showFeedback && feedbackSignal === 'correct' && (
-                                <div className="feedback-area" style={{borderColor: 'var(--color-success)', backgroundColor: 'var(--bg-feedback-correct, #d4edda)'}}>
-                                    <p style={{color: 'var(--color-success-darker, #155724)'}}>Correct!</p>
+                            {showFeedback && feedbackSignal === 'correct' && (
+                                <div className="feedback-area" style={{ borderColor: 'var(--color-success)', backgroundColor: 'var(--bg-feedback-correct, #d4edda)' }}>
+                                    <p style={{ color: 'var(--color-success-darker, #155724)' }}>Correct!</p>
                                     <button onClick={switchToNextCard}>Next Card</button>
                                 </div>
                             )}
                         </div>
                     )}
-                    {/* Fallback messages */}
                     {!isLoadingData && !dataError && !gameError && !currentPair && wordList.length > 0 && (
                         <p>No card available. Try "New Card".</p>
                     )}
-                     {!isLoadingData && !dataError && !gameError && !currentPair && wordList.length === 0 && (
+                    {!isLoadingData && !dataError && !gameError && !currentPair && wordList.length === 0 && (
                         <p>Word list is empty or failed to load.</p>
                     )}
                 </>
             )}
 
             {/* Modals */}
-            <SearchModal isOpen={isSearchModalOpen} onClose={() => setIsSearchModalOpen(false)} wordList={wordList} />
-            <AddWordModal isOpen={isAddWordModalOpen} onClose={() => setIsAddWordModalOpen(false)} onAddWord={handleAddWord} />
+            <SearchModal
+                isOpen={isSearchModalOpen}
+                onClose={() => setIsSearchModalOpen(false)}
+                wordList={wordList}
+                onSelectResult={handleSelectWordFromSearch} // <-- Pass the new handler
+            />
+            <AddWordModal
+                isOpen={isAddWordModalOpen}
+                onClose={() => setIsAddWordModalOpen(false)}
+                onAddWord={handleAddWord}
+            />
             <WordEditModal
                 isOpen={isEditModalOpen}
                 onClose={closeEditModal}
