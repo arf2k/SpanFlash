@@ -3,8 +3,8 @@ import { db } from '../db';
 
 export function useWordData() {
     const [wordList, setWordList] = useState([]);
-    const [isLoadingData, setIsLoadingData] = useState(true); // Specific to word data loading
-    const [dataError, setDataError] = useState(null);        // Specific to word data errors
+    const [isLoadingData, setIsLoadingData] = useState(true); 
+    const [dataError, setDataError] = useState(null);       
     const [currentDataVersion, setCurrentDataVersion] = useState(null);
 
     useEffect(() => {
@@ -12,8 +12,8 @@ export function useWordData() {
             console.log("useWordData: Starting to load word data with version check...");
             setIsLoadingData(true);
             setDataError(null);
-            setCurrentDataVersion(null); // Reset for display
-            setWordList([]); // Clear previous list while loading new one
+            setCurrentDataVersion(null); 
+            setWordList([]); 
 
             let remoteVersion = null;
             let remoteWordsArray = [];
@@ -127,7 +127,7 @@ export function useWordData() {
         };
 
         loadWordDataAsync();
-    }, []); // Empty dependency array: run once on mount
+    }, []); 
 
-    return { wordList, isLoadingData, dataError, currentDataVersion };
+    return { wordList, isLoadingData, dataError, currentDataVersion, setWordList }; 
 }

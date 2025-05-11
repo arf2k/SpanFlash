@@ -3,6 +3,7 @@ import Flashcard from "./components/Flashcard";
 import ScoreStack from "./components/ScoreStack";
 import HardWordsView from "./components/HardWordsView";
 import SearchModal from "./components/SearchModal"; 
+import AddWordModal from "./components/AddWordModal"; // <-- Import 
 import { getMwHint } from "./services/dictionaryServices.js";
 import { db } from "./db";
 import { useWordData } from "./hooks/useWordData";
@@ -11,7 +12,7 @@ import "./App.css";
 
 function App() {
     // === Custom Hooks ===
-    const { wordList, isLoadingData, dataError, currentDataVersion } = useWordData();
+    const { wordList, isLoadingData, dataError, currentDataVersion, setWordList } = useWordData(); // <-- Get setWordList
     const {
         currentPair,
         languageDirection,
@@ -33,7 +34,8 @@ function App() {
     const [hintData, setHintData] = useState(null);
     const [isHintLoading, setIsHintLoading] = useState(false);
     const [showHardWordsView, setShowHardWordsView] = useState(false);
-    const [isSearchModalOpen, setIsSearchModalOpen] = useState(false); // <-- New state for search modal visibility
+    const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+    const [isAddWordModalOpen, setIsAddWordModalOpen] = useState(false); // <-- New state for AddWordModal
 
     // === Refs ===
     const incorrectScoreRef = useRef(null);
@@ -51,7 +53,6 @@ function App() {
                     setScore(savedScoreState); 
                 } else {
                     await db.appState.put({ id: "userScore", correct: 0, incorrect: 0 });
-                    // setScore({ correct: 0, incorrect: 0 }); // Default is already set in useFlashcardGame
                 }
             } catch (err) { console.error("Failed to load/initialize score:", err); }
 
@@ -84,7 +85,7 @@ function App() {
             setHintData(null);
             setIsHintLoading(false);
         }
-        if (!currentPair) { // Also clear if no card is shown
+        if (!currentPair) { 
             setHintData(null);
             setIsHintLoading(false);
         }
@@ -121,7 +122,6 @@ function App() {
             }
         }
     }, [score.incorrect, isInitialMountApp]);
-
 
     // === Event Handlers ===
     const handleMarkHard = async (pairToMark) => { 
@@ -203,6 +203,27 @@ function App() {
         });
     };
 
+    // New handler for adding a word
+    const handleAddWord = async (newWordObject) => {
+        try {
+            // Dexie's add() method returns the id of the newly added item.
+            const newId = await db.allWords.add(newWordObject);
+            const wordWithId = { ...newWordObject, id: newId }; 
+            
+            // Update the wordList state (from useWordData hook) to include the new word
+            // for immediate UI update, without needing a full data reload from useWordData.
+            setWordList(prevWordList => [...prevWordList, wordWithId]);
+            
+            console.log("New word added successfully to IndexedDB and local state:", wordWithId);
+            // Note: This new word is currently only in the user's local IndexedDB and React state.
+            // It won't be in scrapedSpan411.json unless the user later exports and updates the master file.
+        } catch (error) {
+            console.error("Failed to add new word:", error);
+            // Optionally set an app-level error state here if you want to display it prominently
+            // For now, AddWordModal handles its own internal simple error display.
+        }
+    };
+
     return (
         <div className="App">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', maxWidth: '700px', marginBottom: '10px' }}>
@@ -227,7 +248,10 @@ function App() {
             </div>
 
             <div className="controls">
-                {/* Search Button/Icon added here */}
+                {/* Add New Word Button */}
+                <button onClick={() => setIsAddWordModalOpen(true)} title="Add New Word" style={{padding: '0.6rem 0.8rem'}}>
+                    <span role="img" aria-label="add icon">➕</span> Add Word
+                </button>
                 <button onClick={() => setIsSearchModalOpen(true)} title="Search Words" style={{padding: '0.6rem 0.8rem'}}>
                     <span role="img" aria-label="search icon">🔍</span> Search 
                 </button>
@@ -300,15 +324,16 @@ function App() {
                 </>
             )}
 
-           
             <SearchModal
                 isOpen={isSearchModalOpen}
                 onClose={() => setIsSearchModalOpen(false)}
-                wordList={wordList} // Pass the full wordList from useWordData
-                // onSelectWord={(pair) => { // For future V2 functionality
-                //     console.log("Word selected from search:", pair);
-                //     setIsSearchModalOpen(false); 
-                // }}
+                wordList={wordList}
+            />
+
+            <AddWordModal
+                isOpen={isAddWordModalOpen}
+                onClose={() => setIsAddWordModalOpen(false)}
+                onAddWord={handleAddWord}
             />
         </div>
     );

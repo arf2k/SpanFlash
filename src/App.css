@@ -187,6 +187,3 @@ button:focus-visible { outline: 0; box-shadow: 0 0 0 0.25rem rgba(108, 117, 125,
   outline: none;
 }
 
-/* Ensure .submit-button styles are defined if not already generic */
-/* .submit-button { ... } */
-/* button { ... basic styles ... } */
