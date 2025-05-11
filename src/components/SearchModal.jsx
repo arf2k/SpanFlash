@@ -1,6 +1,5 @@
-// src/components/SearchModal.jsx
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import './SearchModal.css'; // We'll create this for styling
+import './SearchModal.css'; 
 
 const SearchModal = ({ isOpen, onClose, wordList, onSelectWord }) => {
     const [searchTerm, setSearchTerm] = useState('');
