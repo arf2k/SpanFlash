@@ -1,36 +1,58 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-
 import './SearchModal.css'; 
 
-const WordEditModal = ({ isOpen, onClose, onAddWord }) => {
+const WordEditModal = ({ isOpen, onClose, onSaveWord, wordToEdit }) => {
+    const [currentId, setCurrentId] = useState(null);
     const [spanish, setSpanish] = useState('');
     const [english, setEnglish] = useState('');
     const [notes, setNotes] = useState('');
-    const [synonymsSpanishInput, setSynonymsSpanishInput] = useState(''); // Comma-separated
-    const [synonymsEnglishInput, setSynonymsEnglishInput] = useState(''); // Comma-separated
+    const [synonymsSpanishInput, setSynonymsSpanishInput] = useState('');
+    const [synonymsEnglishInput, setSynonymsEnglishInput] = useState('');
     const [category, setCategory] = useState('');
     const [error, setError] = useState('');
 
     const modalContentRef = useRef(null);
-    const spanishInputRef = useRef(null); // To focus on the first input
+    const spanishInputRef = useRef(null); 
 
-  
+    // Effect to populate/reset form when modal opens or wordToEdit changes
     useEffect(() => {
         if (isOpen) {
-            setSpanish('');
-            setEnglish('');
-            setNotes('');
-            setSynonymsSpanishInput('');
-            setSynonymsEnglishInput('');
-            setCategory('');
-            setError('');
+            if (wordToEdit && wordToEdit.id != null) { // Check for id as well
+                setCurrentId(wordToEdit.id);
+                setSpanish(wordToEdit.spanish || '');
+                setEnglish(wordToEdit.english || '');
+                setNotes(wordToEdit.notes || '');
+                // Convert arrays to comma-separated strings for input fields
+                setSynonymsSpanishInput((wordToEdit.synonyms_spanish || []).join(', '));
+                setSynonymsEnglishInput((wordToEdit.synonyms_english || []).join(', '));
+                setCategory(wordToEdit.category || '');
+                setError('');
+                console.log("WordEditModal: Populating form with word to edit:", wordToEdit);
+            } else {
+                // If opened without a wordToEdit (or invalid wordToEdit), reset to a clean state
+                // This case ideally shouldn't happen if it's strictly an "edit" modal.
+                // For an "add" modal, wordToEdit would be null/undefined.
+                console.log("WordEditModal: Opened without valid wordToEdit, resetting form.");
+                setCurrentId(null);
+                setSpanish('');
+                setEnglish('');
+                setNotes('');
+                setSynonymsSpanishInput('');
+                setSynonymsEnglishInput('');
+                setCategory('');
+                setError('');
+            }
+            // Focus the first input field when modal opens
             setTimeout(() => {
                 if (spanishInputRef.current) {
                     spanishInputRef.current.focus();
                 }
             }, 100);
+        } else {
+            // Optional: Reset form on close if desired, though opening with new/no data also resets
+            // setCurrentId(null); setSpanish(''); setEnglish(''); etc.
         }
-    }, [isOpen]);
+    }, [isOpen, wordToEdit]); // Rerun when isOpen or wordToEdit changes
 
     const handleEscapeKey = useCallback((event) => {
         if (event.key === 'Escape') {
@@ -61,19 +83,34 @@ const WordEditModal = ({ isOpen, onClose, onAddWord }) => {
             setError('Spanish and English fields are required.');
             return;
         }
+        if (currentId === null && wordToEdit && wordToEdit.id != null) {
+            // This ensures we capture the ID if it wasn't set due to quick opening
+            // or if the effect didn't run with the latest wordToEdit.id yet
+            // However, the useEffect should handle setting currentId correctly.
+            // This is more of a safeguard, can be removed if useEffect is reliable.
+            console.warn("WordEditModal: currentId was null during submit, attempting to use wordToEdit.id");
+            if (!wordToEdit.id) {
+                 setError('Cannot save changes: Word ID is missing.');
+                 return;
+            }
+        } else if (currentId === null && (!wordToEdit || wordToEdit.id == null)) {
+            // This case implies it's being used to "add" or wordToEdit was bad, which shouldn't happen for an edit modal
+            setError('Cannot save changes: Word ID is missing. This modal is for editing existing words.');
+            return;
+        }
         setError('');
 
-        const newWord = {
+        const updatedWordData = {
+            id: currentId || wordToEdit.id, // Ensure ID is included for the update
             spanish: spanish.trim(),
             english: english.trim(),
             notes: notes.trim(),
-            // Split comma-separated synonyms into arrays, trimming whitespace
             synonyms_spanish: synonymsSpanishInput.split(',').map(s => s.trim()).filter(s => s),
             synonyms_english: synonymsEnglishInput.split(',').map(s => s.trim()).filter(s => s),
             category: category.trim(),
         };
-        onAddWord(newWord);
-        onClose(); // Close modal after submission
+        onSaveWord(updatedWordData); // Pass the complete object with its ID
+        onClose(); 
     };
 
     if (!isOpen) {
@@ -81,18 +118,18 @@ const WordEditModal = ({ isOpen, onClose, onAddWord }) => {
     }
 
     return (
-        <div className="search-modal-overlay" onClick={handleClickOutside}> {/* Reusing overlay style */}
-            <div className="search-modal-content" ref={modalContentRef} onClick={(e) => e.stopPropagation()}> {/* Reusing content style */}
-                <div className="search-modal-header"> {/* Reusing header style */}
+        <div className="search-modal-overlay" onClick={handleClickOutside}>
+            <div className="search-modal-content" ref={modalContentRef} onClick={(e) => e.stopPropagation()}>
+                <div className="search-modal-header">
                     <h2>Edit Word Pair</h2>
                     <button onClick={onClose} className="search-modal-close-btn">&times;</button>
                 </div>
-                <form onSubmit={handleSubmit} className="add-word-form">
+                <form onSubmit={handleSubmit} className="add-word-form"> {/* You might want a different class e.g., "word-edit-form" */}
                     {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
                     <div className="form-group">
-                        <label htmlFor="spanishWord">Spanish Word/Phrase*:</label>
+                        <label htmlFor="editSpanishWord">Spanish Word/Phrase*:</label>
                         <input
-                            id="spanishWord"
+                            id="editSpanishWord"
                             ref={spanishInputRef}
                             type="text"
                             value={spanish}
@@ -101,9 +138,9 @@ const WordEditModal = ({ isOpen, onClose, onAddWord }) => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="englishWord">English Translation*:</label>
+                        <label htmlFor="editEnglishWord">English Translation*:</label>
                         <input
-                            id="englishWord"
+                            id="editEnglishWord"
                             type="text"
                             value={english}
                             onChange={(e) => setEnglish(e.target.value)}
@@ -111,36 +148,36 @@ const WordEditModal = ({ isOpen, onClose, onAddWord }) => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="notes">Notes:</label>
+                        <label htmlFor="editNotes">Notes:</label>
                         <textarea
-                            id="notes"
+                            id="editNotes"
                             value={notes}
                             onChange={(e) => setNotes(e.target.value)}
                             rows="3"
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="synonymsSpanish">Spanish Synonyms (comma-separated):</label>
+                        <label htmlFor="editSynonymsSpanish">Spanish Synonyms (comma-separated):</label>
                         <input
-                            id="synonymsSpanish"
+                            id="editSynonymsSpanish"
                             type="text"
                             value={synonymsSpanishInput}
                             onChange={(e) => setSynonymsSpanishInput(e.target.value)}
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="synonymsEnglish">English Synonyms (comma-separated):</label>
+                        <label htmlFor="editSynonymsEnglish">English Synonyms (comma-separated):</label>
                         <input
-                            id="synonymsEnglish"
+                            id="editSynonymsEnglish"
                             type="text"
                             value={synonymsEnglishInput}
                             onChange={(e) => setSynonymsEnglishInput(e.target.value)}
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="category">Category:</label>
+                        <label htmlFor="editCategory">Category:</label>
                         <input
-                            id="category"
+                            id="editCategory"
                             type="text"
                             value={category}
                             onChange={(e) => setCategory(e.target.value)}
