@@ -1,9 +1,8 @@
-// src/db.js
 import Dexie from 'dexie';
 
 export const db = new Dexie('flashcardAppDB');
 
-// Version 1: Your original schema
+
 db.version(1).stores({
   appState: 'id',
   hardWords: '[spanish+english]',
