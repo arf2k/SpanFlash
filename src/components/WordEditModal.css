@@ -1,0 +1,141 @@
+/* src/components/WordEditModalForm.css */
+
+.word-edit-modal-content { /* Targets the main content box of this modal */
+     display: flex;
+     flex-direction: column;
+     max-height: 85vh; /* Allow modal to use more screen height */
+     overflow: hidden; /* Prevent entire modal from scrolling if content is too big */
+ }
+ 
+ .word-edit-form {
+     display: flex;
+     flex-direction: column;
+     flex-grow: 1; /* Allows form to fill space between header and actions */
+     min-height: 0; /* Important for flex children to shrink properly and allow scrolling */
+ }
+ 
+ .word-form-scrollable-area {
+     overflow-y: auto; /* This is where the form fields will scroll */
+     flex-grow: 1;
+     padding: 5px 15px 15px 15px; /* Add some padding around form groups */
+ }
+ 
+ .form-error-message {
+     color: var(--color-danger, red);
+     text-align: center;
+     margin-bottom: 10px;
+     font-size: 0.9rem;
+ }
+ 
+ /* Styles for form groups and labels (can be shared with AddWordModal if you consolidate) */
+ .word-edit-form .form-group {
+     margin-bottom: 15px;
+ }
+ 
+ .word-edit-form label {
+     display: block;
+     margin-bottom: 5px;
+     font-weight: 600; /* Slightly bolder */
+     font-size: 0.9rem;
+     color: var(--text-muted);
+ }
+ 
+ .word-edit-form input[type="text"],
+ .word-edit-form textarea {
+     width: 100%;
+     padding: 10px 12px; /* Slightly more padding */
+     border: 1px solid var(--color-border, #ced4da);
+     border-radius: 4px;
+     box-sizing: border-box;
+     font-size: 1rem;
+     background-color: var(--bg-card); /* Ensure inputs match background */
+     color: var(--text-body);
+ }
+ 
+ .word-edit-form textarea {
+     resize: vertical;
+     min-height: 60px;
+ }
+ 
+ .word-edit-form input[type="text"]:focus,
+ .word-edit-form textarea:focus {
+     border-color: var(--color-primary, #0d6efd);
+     box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+     outline: none;
+ }
+ 
+ /* Action buttons area at the bottom of the modal */
+ .word-form-actions {
+     display: flex;
+     justify-content: space-between; /* Puts delete on left, save/cancel group on right */
+     align-items: center;
+     padding: 15px; /* Padding for the action bar */
+     border-top: 1px solid var(--color-border-light, #eee);
+     flex-shrink: 0; /* Prevent this bar from shrinking */
+     background-color: var(--bg-container); /* Match modal background */
+ }
+ 
+ .word-form-actions .form-actions-right {
+     display: flex;
+     gap: 10px; /* Space between cancel and save */
+ }
+ 
+ /* Base styles for buttons in this modal - can be more generic */
+ .word-form-actions button {
+     padding: 0.5rem 1rem;
+     font-size: 0.95rem;
+     border-radius: 0.25rem;
+     cursor: pointer;
+     border: 1px solid transparent;
+     font-weight: 600;
+ }
+ 
+ .button-delete {
+     background-color: var(--color-danger, #dc3545);
+     color: white;
+     border-color: var(--color-danger-darker, #c82333);
+ }
+ .button-delete:hover:not(:disabled) {
+     background-color: var(--color-danger-darker, #c82333);
+     border-color: var(--color-danger-darker, #c82333);
+ }
+ 
+ .button-cancel {
+     background-color: var(--color-secondary, #6c757d);
+     color: white;
+     border-color: var(--color-secondary-darker, #5a6268);
+ }
+ .button-cancel:hover:not(:disabled) {
+     background-color: var(--color-secondary-darker, #5a6268);
+     border-color: var(--color-secondary-darker, #5a6268);
+ }
+ 
+ .button-save { /* .submit-button is already styled in App.css but we can be more specific */
+     background-color: var(--color-primary, #0d6efd);
+     color: white;
+     border-color: var(--color-primary-darker, #0b5ed7);
+ }
+ .button-save:hover:not(:disabled) {
+     background-color: var(--color-primary-darker, #0b5ed7);
+     border-color: var(--color-primary-darker, #0b5ed7);
+ }
+ 
+ /* Media query for smaller screens to make buttons stack or behave better */
+ @media (max-width: 480px) {
+     .word-form-actions {
+         flex-direction: column-reverse; /* Stack delete below cancel/save */
+         gap: 10px;
+     }
+     .word-form-actions .form-actions-right {
+         display: flex;
+         width: 100%; /* Make cancel/save group take full width */
+         justify-content: flex-end; /* Keep them to the right */
+     }
+     .word-form-actions .form-actions-right button {
+        flex-grow: 1; /* Allow cancel/save to share space */
+        max-width: calc(50% - 5px); /* roughly half width with gap */
+     }
+      .word-form-actions .button-delete {
+         width: 100%; /* Make delete button full width when stacked */
+     }
+ }
