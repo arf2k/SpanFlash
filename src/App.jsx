@@ -140,7 +140,7 @@ function App() {
 
     const handleRemoveHardWord = async (pairToRemove) => {
         if (!pairToRemove?.spanish || !pairToRemove?.english) return;
-        const compoundKey = [pairToRemove.spanish, pairToRemove.english]; // Assuming hardWords uses this key
+        const compoundKey = [pairToRemove.spanish, pairToRemove.english]; 
         try {
             await db.hardWords.delete(compoundKey);
             setHardWordsList((prev) =>
@@ -152,7 +152,6 @@ function App() {
     };
 
     const handleGetHint = async (forceLookup = false) => {
-        // ... (implementation as before)
         if (!currentPair || isHintLoading) return;
         if (!forceLookup && ((hintData && hintData.type !== 'error') || (showFeedback && feedbackSignal === 'incorrect'))) {
             return;
@@ -201,8 +200,8 @@ function App() {
 
     const handleToggleHardWordsView = () => {
         setShowHardWordsView(prev => {
-            if (!prev) {
-                setGameShowFeedback(false);
+            if (!prev) { 
+                setGameShowFeedback(false); 
             }
             return !prev;
         });
@@ -211,7 +210,7 @@ function App() {
     const handleAddWord = async (newWordObject) => {
         try {
             const newId = await db.allWords.add(newWordObject);
-            const wordWithId = await db.allWords.get(newId);
+            const wordWithId = await db.allWords.get(newId); // Fetch with ID
             if (wordWithId) {
                 setWordList(prevWordList => [...prevWordList, wordWithId]);
                 console.log("New word added successfully to IndexedDB and local state:", wordWithId);
@@ -222,7 +221,7 @@ function App() {
             console.error("Failed to add new word:", error);
         }
     };
-
+    
     const openEditModal = (wordToEdit) => {
         if (!wordToEdit || wordToEdit.id == null) {
             console.error("App.jsx: Attempted to edit a word without a valid ID.", wordToEdit);
@@ -236,7 +235,7 @@ function App() {
 
     const closeEditModal = () => {
         setIsEditModalOpen(false);
-        setWordCurrentlyBeingEdited(null);
+        setWordCurrentlyBeingEdited(null); 
     };
 
     const handleUpdateWord = async (updatedWordData) => {
@@ -245,19 +244,17 @@ function App() {
             return;
         }
         try {
-            await db.allWords.put(updatedWordData);
+            await db.allWords.put(updatedWordData); 
             setWordList(prevWordList =>
                 prevWordList.map(word =>
                     word.id === updatedWordData.id ? updatedWordData : word
                 )
             );
-            console.log("App.jsx: Word updated successfully in IndexedDB and state:", updatedWordData);
-            
-            
             if (currentPair && currentPair.id === updatedWordData.id) {
-                console.log("App.jsx: Current pair was edited. Selecting a new card.");
-                selectNewPairCard();
+                console.log("App.jsx: Current pair was edited. Selecting a new card to reflect changes.");
+                selectNewPairCard(); 
             }
+            console.log("App.jsx: Word updated successfully in IndexedDB and state:", updatedWordData);
             closeEditModal();
         } catch (error) {
             console.error("App.jsx: Failed to update word:", error);
@@ -273,27 +270,56 @@ function App() {
             await db.allWords.delete(idToDelete);
             setWordList(prevWordList => prevWordList.filter(word => word.id !== idToDelete));
             console.log(`App.jsx: Word with ID ${idToDelete} deleted successfully.`);
-
-            
             if (currentPair && currentPair.id === idToDelete) {
                 console.log("App.jsx: Current pair was deleted. Selecting a new card.");
                 selectNewPairCard();
             } else if (wordList.length -1 === 0) { 
-                setCurrentPair(null); 
+                if(wordList.length === 1) selectNewPairCard(); 
             }
         } catch (error) {
             console.error(`App.jsx: Failed to delete word with ID ${idToDelete}:`, error);
         }
     };
-   
 
     const handleSelectWordFromSearch = (selectedPair) => {
-        if (selectedPair && loadSpecificCard) {
+        if (selectedPair && loadSpecificCard) { 
             console.log("App.jsx: Word selected from search, loading to practice:", selectedPair);
-            loadSpecificCard(selectedPair);
-            setIsSearchModalOpen(false);
+            loadSpecificCard(selectedPair); 
+            setIsSearchModalOpen(false);    
         } else {
             console.warn("App.jsx: handleSelectWordFromSearch called but pair or loadSpecificCard is invalid.");
+        }
+    };
+
+    const handleExportWordList = async () => {
+        console.log("App.jsx: Exporting word list...");
+        try {
+            const allWordsFromDB = await db.allWords.toArray();
+            const wordsForExport = allWordsFromDB.map(({ id, ...restOfWord }) => restOfWord);
+
+            const exportObject = {
+                version: currentDataVersion || "1.0.0", 
+                words: wordsForExport
+            };
+
+            const jsonString = JSON.stringify(exportObject, null, 2); 
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            const date = new Date();
+            const dateString = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+            a.download = `flashcard_export_${dateString}.json`;
+            
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            console.log("App.jsx: Word list exported successfully.");
+
+        } catch (error) {
+            console.error("App.jsx: Failed to export word list:", error);
         }
     };
 
@@ -308,7 +334,7 @@ function App() {
                     </p>
                 )}
             </div>
-
+            
             {/* ScoreStacks */}
             <div className="score-stacks-container">
                 <ScoreStack type="correct" label="Correct" count={score.correct} icon="✅" />
@@ -318,11 +344,14 @@ function App() {
 
             {/* Controls */}
             <div className="controls">
-                <button onClick={() => setIsAddWordModalOpen(true)} title="Add New Word" style={{ padding: '0.6rem 0.8rem' }}>
+                <button onClick={() => setIsAddWordModalOpen(true)} title="Add New Word" style={{padding: '0.6rem 0.8rem'}}>
                     <span role="img" aria-label="add icon">➕</span> Add Word
                 </button>
-                <button onClick={() => setIsSearchModalOpen(true)} title="Search Words" style={{ padding: '0.6rem 0.8rem' }}>
+                <button onClick={() => setIsSearchModalOpen(true)} title="Search Words" style={{padding: '0.6rem 0.8rem'}}>
                     <span role="img" aria-label="search icon">🔍</span> Search
+                </button>
+                <button onClick={handleExportWordList} title="Export Word List" style={{padding: '0.6rem 0.8rem'}}>
+                    <span role="img" aria-label="export icon">📤</span> Export Words
                 </button>
                 <button onClick={switchDirection}>
                     Switch Dir ({languageDirection === "spa-eng" ? "S->E" : "E->S"})
@@ -368,7 +397,7 @@ function App() {
                                     <button onClick={switchToNextCard}>Next Card</button>
                                 </div>
                             )}
-                            {showFeedback && feedbackSignal === 'correct' && (
+                             {showFeedback && feedbackSignal === 'correct' && (
                                 <div className="feedback-area" style={{ borderColor: 'var(--color-success)', backgroundColor: 'var(--bg-feedback-correct, #d4edda)' }}>
                                     <p style={{ color: 'var(--color-success-darker, #155724)' }}>Correct!</p>
                                     <button onClick={switchToNextCard}>Next Card</button>
@@ -379,30 +408,21 @@ function App() {
                     {!isLoadingData && !dataError && !gameError && !currentPair && wordList.length > 0 && (
                         <p>No card available. Try "New Card".</p>
                     )}
-                    {!isLoadingData && !dataError && !gameError && !currentPair && wordList.length === 0 && (
+                     {!isLoadingData && !dataError && !gameError && !currentPair && wordList.length === 0 && (
                         <p>Word list is empty or failed to load.</p>
                     )}
                 </>
             )}
 
             {/* Modals */}
-            <SearchModal
-                isOpen={isSearchModalOpen}
-                onClose={() => setIsSearchModalOpen(false)}
-                wordList={wordList}
-                onSelectResult={handleSelectWordFromSearch}
-            />
-            <AddWordModal
-                isOpen={isAddWordModalOpen}
-                onClose={() => setIsAddWordModalOpen(false)}
-                onAddWord={handleAddWord}
-            />
+            <SearchModal isOpen={isSearchModalOpen} onClose={() => setIsSearchModalOpen(false)} wordList={wordList} onSelectResult={handleSelectWordFromSearch} />
+            <AddWordModal isOpen={isAddWordModalOpen} onClose={() => setIsAddWordModalOpen(false)} onAddWord={handleAddWord} />
             <WordEditModal
                 isOpen={isEditModalOpen}
                 onClose={closeEditModal}
                 wordToEdit={wordCurrentlyBeingEdited}
                 onSaveWord={handleUpdateWord}
-                onDeleteWord={handleDeleteWord} 
+                onDeleteWord={handleDeleteWord}
             />
         </div>
     );
