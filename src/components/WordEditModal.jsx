@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import './SearchModal.css'; 
-import './WordEditModalForm.css'; 
+import './WordEditModal.css'; 
 
 const WordEditModal = ({ isOpen, onClose, onSaveWord, wordToEdit, onDeleteWord }) => {
     const [currentId, setCurrentId] = useState(null);
@@ -12,7 +12,7 @@ const WordEditModal = ({ isOpen, onClose, onSaveWord, wordToEdit, onDeleteWord }
     const [category, setCategory] = useState('');
     const [error, setError] = useState('');
 
-    const modalDialogRef = useRef(null); // Ref for the entire dialog content for click outside
+    const modalDialogRef = useRef(null); 
     const spanishInputRef = useRef(null);
 
     useEffect(() => {
