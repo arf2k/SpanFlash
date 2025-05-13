@@ -1,4 +1,3 @@
-// src/App.jsx
 import { useState, useEffect, useRef } from "react";
 import Flashcard from "./components/Flashcard";
 import ScoreStack from "./components/ScoreStack";
@@ -29,7 +28,7 @@ function App() {
         switchToNextCard,
         setScore,
         setShowFeedback: setGameShowFeedback,
-        loadSpecificCard, // <-- Get loadSpecificCard from useFlashcardGame
+        loadSpecificCard,
     } = useFlashcardGame(wordList);
 
     // === App-specific State Variables ===
@@ -55,10 +54,9 @@ function App() {
                 if (savedScoreState) {
                     setScore(savedScoreState);
                 } else {
-                    // Initialize score if not found, then set it
                     const initialScore = { correct: 0, incorrect: 0 };
                     await db.appState.put({ id: "userScore", ...initialScore });
-                    setScore(initialScore); // Ensure state reflects the DB default
+                    setScore(initialScore);
                 }
             } catch (err) { console.error("Failed to load/initialize score:", err); }
 
@@ -71,7 +69,7 @@ function App() {
             console.log("App.jsx: App-specific data loading finished.");
         };
         loadAppSpecificData();
-    }, [setScore]); // setScore from useFlashcardGame is stable
+    }, [setScore]);
 
     useEffect(() => {
         console.log(`App.jsx Effect: wordList (len ${wordList.length}), isLoadingData (${isLoadingData}), currentPair (${!!currentPair}), dataError (${!!dataError}), gameError (${!!gameError})`);
@@ -105,8 +103,6 @@ function App() {
                 console.error("Failed to save score to DB:", err);
             }
         };
-        // Only save if score is not the initial {0,0} unless it's no longer the initial mount
-        // and a score change has actually occurred.
         if ((score.correct > 0 || score.incorrect > 0) || !isInitialMountApp.current) {
             saveScoreToDB();
         }
@@ -144,7 +140,7 @@ function App() {
 
     const handleRemoveHardWord = async (pairToRemove) => {
         if (!pairToRemove?.spanish || !pairToRemove?.english) return;
-        const compoundKey = [pairToRemove.spanish, pairToRemove.english];
+        const compoundKey = [pairToRemove.spanish, pairToRemove.english]; // Assuming hardWords uses this key
         try {
             await db.hardWords.delete(compoundKey);
             setHardWordsList((prev) =>
@@ -156,6 +152,7 @@ function App() {
     };
 
     const handleGetHint = async (forceLookup = false) => {
+        // ... (implementation as before)
         if (!currentPair || isHintLoading) return;
         if (!forceLookup && ((hintData && hintData.type !== 'error') || (showFeedback && feedbackSignal === 'incorrect'))) {
             return;
@@ -213,24 +210,19 @@ function App() {
 
     const handleAddWord = async (newWordObject) => {
         try {
-            const newId = await db.allWords.add(newWordObject); 
-
-            const wordWithId = await db.allWords.get(newId); 
-            
+            const newId = await db.allWords.add(newWordObject);
+            const wordWithId = await db.allWords.get(newId);
             if (wordWithId) {
                 setWordList(prevWordList => [...prevWordList, wordWithId]);
                 console.log("New word added successfully to IndexedDB and local state:", wordWithId);
             } else {
                 console.error("Failed to retrieve the newly added word from DB, newId was:", newId);
-                // Fallback: add the original object, but it will lack the ID in the immediate state update for wordList.
-                // This shouldn't happen if add() was successful.
-                // setWordList(prevWordList => [...prevWordList, {...newWordObject, id: newId}]); 
             }
         } catch (error) {
             console.error("Failed to add new word:", error);
         }
     };
-    
+
     const openEditModal = (wordToEdit) => {
         if (!wordToEdit || wordToEdit.id == null) {
             console.error("App.jsx: Attempted to edit a word without a valid ID.", wordToEdit);
@@ -259,28 +251,51 @@ function App() {
                     word.id === updatedWordData.id ? updatedWordData : word
                 )
             );
+            console.log("App.jsx: Word updated successfully in IndexedDB and state:", updatedWordData);
+            
+            
             if (currentPair && currentPair.id === updatedWordData.id) {
-                console.log("App.jsx: Current pair was edited. Selecting a new card to reflect changes.");
+                console.log("App.jsx: Current pair was edited. Selecting a new card.");
                 selectNewPairCard();
             }
-            console.log("App.jsx: Word updated successfully in IndexedDB and state:", updatedWordData);
             closeEditModal();
         } catch (error) {
             console.error("App.jsx: Failed to update word:", error);
         }
     };
 
-    // --- New handler for selecting a word from search results ---
+    const handleDeleteWord = async (idToDelete) => {
+        if (idToDelete == null) {
+            console.error("App.jsx: handleDeleteWord called with null or undefined ID.");
+            return;
+        }
+        try {
+            await db.allWords.delete(idToDelete);
+            setWordList(prevWordList => prevWordList.filter(word => word.id !== idToDelete));
+            console.log(`App.jsx: Word with ID ${idToDelete} deleted successfully.`);
+
+            
+            if (currentPair && currentPair.id === idToDelete) {
+                console.log("App.jsx: Current pair was deleted. Selecting a new card.");
+                selectNewPairCard();
+            } else if (wordList.length -1 === 0) { 
+                setCurrentPair(null); 
+            }
+        } catch (error) {
+            console.error(`App.jsx: Failed to delete word with ID ${idToDelete}:`, error);
+        }
+    };
+   
+
     const handleSelectWordFromSearch = (selectedPair) => {
-        if (selectedPair && loadSpecificCard) { 
+        if (selectedPair && loadSpecificCard) {
             console.log("App.jsx: Word selected from search, loading to practice:", selectedPair);
-            loadSpecificCard(selectedPair); 
-            setIsSearchModalOpen(false);    
+            loadSpecificCard(selectedPair);
+            setIsSearchModalOpen(false);
         } else {
             console.warn("App.jsx: handleSelectWordFromSearch called but pair or loadSpecificCard is invalid.");
         }
     };
-    // --- End new handler ---
 
     return (
         <div className="App">
@@ -375,7 +390,7 @@ function App() {
                 isOpen={isSearchModalOpen}
                 onClose={() => setIsSearchModalOpen(false)}
                 wordList={wordList}
-                onSelectResult={handleSelectWordFromSearch} // <-- Pass the new handler
+                onSelectResult={handleSelectWordFromSearch}
             />
             <AddWordModal
                 isOpen={isAddWordModalOpen}
@@ -387,6 +402,7 @@ function App() {
                 onClose={closeEditModal}
                 wordToEdit={wordCurrentlyBeingEdited}
                 onSaveWord={handleUpdateWord}
+                onDeleteWord={handleDeleteWord} 
             />
         </div>
     );
