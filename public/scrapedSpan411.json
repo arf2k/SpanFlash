@@ -1,5 +1,5 @@
 {
-  "version": "1.0.8",
+  "version": "1.0.9",
   "words": [
     {
       "spanish": "cargar",
@@ -58170,10 +58170,6 @@
       "english": "tuna"
     },
     {
-      "spanish": "el bonito",
-      "english": "tuna"
-    },
-    {
       "spanish": "la tuna",
       "english": "tuna"
     },
@@ -64008,6 +64004,38 @@
     {
       "spanish": "mala hierba",
       "english": "weed"
+    },
+    {
+      "spanish": "rápido",
+      "english": "fast",
+      "notes": "General term for speed. Adjective.",
+      "synonyms_spanish": ["veloz", "ligero", "ágil"],
+      "synonyms_english": ["quick", "swift", "rapid", "speedy"],
+      "category": "adjective"
+    },
+    {
+      "spanish": "feliz",
+      "english": "happy",
+      "notes": "A common positive emotion.",
+      "synonyms_spanish": ["contento", "alegre", "dichoso"],
+      "synonyms_english": ["glad", "joyful", "pleased", "content", "cheerful"],
+      "category": "adjective"
+    },
+    {
+      "spanish": "mirar",
+      "english": "to look at",
+      "notes": "Often implies paying attention.",
+      "synonyms_spanish": ["observar", "ver"],
+      "synonyms_english": ["to watch", "to see", "to observe", "to view", "to glance at"],
+      "category": "verb"
+    },
+    {
+      "spanish": "coche",
+      "english": "car",
+      "notes": "Common term for an automobile, especially in Spain.",
+      "synonyms_spanish": ["auto", "automóvil", "vehículo"],
+      "synonyms_english": ["automobile", "vehicle", "auto", "a motorcar"],
+      "category": "noun"
     }
   ]
 }
