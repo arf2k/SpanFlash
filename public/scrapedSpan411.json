@@ -1,5 +1,5 @@
 {
-  "version": "1.0.5",
+  "version": "1.0.6",
   "words": [
     {
       "spanish": "cargar",
@@ -628,10 +628,6 @@
     {
       "spanish": "montar en bici",
       "english": "to ride a bike"
-    },
-    {
-      "spanish": "montar a caballo",
-      "english": "to ride a horse"
     },
     {
       "spanish": "peinarse",
@@ -2068,10 +2064,6 @@
     {
       "spanish": "el dibujo",
       "english": "drawing"
-    },
-    {
-      "spanish": "el mono",
-      "english": "monkey"
     },
     {
       "spanish": "la marca",
@@ -6586,10 +6578,6 @@
       "english": "to play sports"
     },
     {
-      "spanish": "montar en bicicleta",
-      "english": "to ride a bicycle"
-    },
-    {
       "spanish": "correr",
       "english": "to run"
     },
@@ -7911,7 +7899,16 @@
     },
     {
       "spanish": "la vuelta",
-      "english": "bend"
+      "english": "bend",
+      "notes": "",
+      "synonyms_spanish": [
+        "Giro"
+      ],
+      "synonyms_english": [
+        "Turn",
+        "circle"
+      ],
+      "category": ""
     },
     {
       "spanish": "el bus escolar",
@@ -22366,10 +22363,6 @@
       "english": "to feed the dog"
     },
     {
-      "spanish": "dar de comer al gato",
-      "english": "to feed the cat"
-    },
-    {
       "spanish": "lavar la ropa",
       "english": "to do the laundry"
     },
@@ -25103,7 +25096,11 @@
     },
     {
       "spanish": "la nécora",
-      "english": "crab"
+      "english": "crab",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": ""
     },
     {
       "spanish": "las papas fritas",
