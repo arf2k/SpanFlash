@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.1.1",
   "words": [
     {
       "spanish": "cargar",
@@ -27455,6 +27455,710 @@
     {
       "english": "Costume",
       "spanish": "Vestuario"
+    },
+    {
+      "english": "Euphoric",
+      "spanish": "Eufórico / Eufórica"
+    },
+    {
+      "english": "Melancholic",
+      "spanish": "Melancólico / Melancólica"
+    },
+    {
+      "english": "Yearning",
+      "spanish": "Anhelante"
+    },
+    {
+      "english": "Dejected",
+      "spanish": "Abatido / Abatida"
+    },
+    {
+      "english": "Perplexed",
+      "spanish": "Perplejo / Perpleja"
+    },
+    {
+      "english": "Exasperated",
+      "spanish": "Exasperado / Exasperada"
+    },
+    {
+      "english": "Irritated",
+      "spanish": "Irritado / Irritada"
+    },
+    {
+      "english": "Horrified",
+      "spanish": "Horrorizado / Horrorizada"
+    },
+    {
+      "english": "Tormented",
+      "spanish": "Atormentado / Atormentada"
+    },
+    {
+      "english": "Revulsed",
+      "spanish": "Repugnado / Repugnada"
+    },
+    {
+      "english": "Annoyed",
+      "spanish": "Molesto / Molesta"
+    },
+    {
+      "english": "Agitated",
+      "spanish": "Agitado / Agitada"
+    },
+    {
+      "english": "Bitter",
+      "spanish": "Amargado / Amargada"
+    },
+    {
+      "english": "Mortified",
+      "spanish": "Mortificado / Mortificada"
+    },
+    {
+      "english": "Resentful",
+      "spanish": "Resentido / Resentida"
+    },
+    {
+      "english": "Vengeful",
+      "spanish": "Vengativo / Vengativa"
+    },
+    {
+      "english": "Enthralled",
+      "spanish": "Cautivado / Cautivada"
+    },
+    {
+      "english": "Disappointed",
+      "spanish": "Decepcionado / Decepcionada"
+    },
+    {
+      "english": "Anxious",
+      "spanish": "Ansioso / Ansiosa"
+    },
+    {
+      "english": "Exhilarated",
+      "spanish": "Regocijado / Regocijada"
+    },
+    {
+      "english": "Empathic",
+      "spanish": "Empático / Empática"
+    },
+    {
+      "english": "Humiliated",
+      "spanish": "Humillado / Humillada"
+    },
+    {
+      "english": "Miserable",
+      "spanish": "Miserable"
+    },
+    {
+      "english": "Outstanding",
+      "spanish": "Sobresaliente"
+    },
+    {
+      "english": "Erudite",
+      "spanish": "Erudito / Erudita"
+    },
+    {
+      "english": "Empirical",
+      "spanish": "Empírico / Empírica"
+    },
+    {
+      "english": "Underlying",
+      "spanish": "Subyacente"
+    },
+    {
+      "english": "Coherence",
+      "spanish": "La coherencia"
+    },
+    {
+      "english": "Academic",
+      "spanish": "Académico"
+    },
+    {
+      "english": "Ambiguous",
+      "spanish": "Ambiguo"
+    },
+    {
+      "english": "Apparent",
+      "spanish": "Aparente"
+    },
+    {
+      "english": "Thesis",
+      "spanish": "La tesis"
+    },
+    {
+      "english": "Reluctant",
+      "spanish": "Renuente"
+    },
+    {
+      "english": "Rational",
+      "spanish": "Racional"
+    },
+    {
+      "english": "Qualitative",
+      "spanish": "Cualitativo / Cualitativa"
+    },
+    {
+      "english": "Quantitative",
+      "spanish": "Cuantitativo / Cuantitativa"
+    },
+    {
+      "english": "Academic journal",
+      "spanish": "La revista académica"
+    },
+    {
+      "english": "Objective",
+      "spanish": "Objetivo"
+    },
+    {
+      "english": "To research",
+      "spanish": "Investigar"
+    },
+    {
+      "english": "Intelligence",
+      "spanish": "La inteligencia"
+    },
+    {
+      "english": "Furthermore",
+      "spanish": "Además"
+    },
+    {
+      "english": "Splendid",
+      "spanish": "Espléndido / Espléndida"
+    },
+    {
+      "english": "Intricate",
+      "spanish": "Intricado / Intricada"
+    },
+    {
+      "english": "Impeccable",
+      "spanish": "Impecable"
+    },
+    {
+      "english": "Perceptive",
+      "spanish": "Perspicaz"
+    },
+    {
+      "english": "Versatile",
+      "spanish": "Versátil"
+    },
+    {
+      "english": "Disgusting",
+      "spanish": "Repugnante"
+    },
+    {
+      "english": "Concerned",
+      "spanish": "Preocupado / Preocupada"
+    },
+    {
+      "english": "Incorrect",
+      "spanish": "Equivocado / Equivocada"
+    },
+    {
+      "english": "Calm",
+      "spanish": "Tranquilo / Tranquila"
+    },
+    {
+      "english": "Foreign",
+      "spanish": "Extranjero / Extranjera"
+    },
+    {
+      "english": "Ambitious",
+      "spanish": "Ambicioso / Ambiciosa"
+    },
+    {
+      "english": "Unfriendly",
+      "spanish": "Antipático / Antipática"
+    },
+    {
+      "english": "Unpleasant",
+      "spanish": "Desagradable"
+    },
+    {
+      "english": "Liar",
+      "spanish": "Mentiroso / Mentirosa"
+    },
+    {
+      "english": "Absent-minded",
+      "spanish": "Despistado / Despistada"
+    },
+    {
+      "english": "Extroverted",
+      "spanish": "Extrovertido / Extrovertida"
+    },
+    {
+      "english": "Impatient",
+      "spanish": "Impaciente"
+    },
+    {
+      "english": "Indifferent",
+      "spanish": "Indiferente"
+    },
+    {
+      "english": "Profitability",
+      "spanish": "La rentabilidad"
+    },
+    {
+      "english": "Synergy",
+      "spanish": "La sinergía"
+    },
+    {
+      "english": "Entrepreneuership",
+      "spanish": "El emprendimiento"
+    },
+    {
+      "english": "Negotiation",
+      "spanish": "La negociación"
+    },
+    {
+      "english": "Stapler",
+      "spanish": "La engrapadora"
+    },
+    {
+      "english": "Consulting",
+      "spanish": "Asesoría"
+    },
+    {
+      "english": "Conference",
+      "spanish": "La conferencia"
+    },
+    {
+      "english": "Offer",
+      "spanish": "La oferta"
+    },
+    {
+      "english": "Counteroffer",
+      "spanish": "La contraoferta"
+    },
+    {
+      "english": "Salaried",
+      "spanish": "Asalariado"
+    },
+    {
+      "english": "Work unions",
+      "spanish": "Los sindicatos"
+    },
+    {
+      "english": "Supply and demand",
+      "spanish": "La oferta y la demanda"
+    },
+    {
+      "english": "Profit",
+      "spanish": "Las ganancias"
+    },
+    {
+      "english": "Losses",
+      "spanish": "Las pérdidas"
+    },
+    {
+      "english": "Audit",
+      "spanish": "Auditoría"
+    },
+    {
+      "english": "The job market",
+      "spanish": "El mercado laboral"
+    },
+    {
+      "english": "Avant-garde",
+      "spanish": "Vanguardista"
+    },
+    {
+      "english": "Era",
+      "spanish": "La época"
+    },
+    {
+      "english": "Exhibit",
+      "spanish": "La exposición"
+    },
+    {
+      "english": "Art movement",
+      "spanish": "El movimiento artístico"
+    },
+    {
+      "english": "Illustrator",
+      "spanish": "El ilustrador / La ilustradora"
+    },
+    {
+      "english": "Brushes",
+      "spanish": "Los pinceles"
+    },
+    {
+      "english": "Acrylic paint",
+      "spanish": "La pintura acrílica"
+    },
+    {
+      "english": "Oil paint",
+      "spanish": "El óleo"
+    },
+    {
+      "english": "Watercolors",
+      "spanish": "Las acuarelas"
+    },
+    {
+      "english": "Sketch",
+      "spanish": "El boceto"
+    },
+    {
+      "english": "Abstract",
+      "spanish": "El abstracto"
+    },
+    {
+      "english": "Dadaism",
+      "spanish": "El dadaísmo"
+    },
+    {
+      "english": "Modernism",
+      "spanish": "El modernismo"
+    },
+    {
+      "english": "Muralism",
+      "spanish": "El muralismo"
+    },
+    {
+      "english": "Neoclassical",
+      "spanish": "El neoclásico / Neoclásica"
+    },
+    {
+      "english": "Realism",
+      "spanish": "El realismo"
+    },
+    {
+      "english": "Romanticism",
+      "spanish": "El romanticismo"
+    },
+    {
+      "english": "Genome",
+      "spanish": "El genoma"
+    },
+    {
+      "english": "Biotechnology",
+      "spanish": "La biotecnología"
+    },
+    {
+      "english": "Artificial intelligence",
+      "spanish": "La inteligencia artificial"
+    },
+    {
+      "english": "Nanotechnology",
+      "spanish": "La nanotecnología"
+    },
+    {
+      "english": "Cloning",
+      "spanish": "La clonación"
+    },
+    {
+      "english": "Biopsy",
+      "spanish": "La biopsia"
+    },
+    {
+      "english": "Sonogram",
+      "spanish": "La ecografía"
+    },
+    {
+      "english": "Scientific community",
+      "spanish": "La comunidad científica"
+    },
+    {
+      "english": "Flash memory",
+      "spanish": "La memoria flash"
+    },
+    {
+      "english": "High resolution",
+      "spanish": "De alta definición"
+    },
+    {
+      "english": "Oceanography",
+      "spanish": "La oceanografía"
+    },
+    {
+      "english": "Astronomy",
+      "spanish": "La astronomía"
+    },
+    {
+      "english": "Geology",
+      "spanish": "La geología"
+    },
+    {
+      "english": "Microscope",
+      "spanish": "El microscopio"
+    },
+    {
+      "english": "Telescope",
+      "spanish": "El telescopio"
+    },
+    {
+      "english": "Dependent variable",
+      "spanish": "La variable dependiente"
+    },
+    {
+      "english": "Independent variable",
+      "spanish": "La variable independiente"
+    },
+    {
+      "english": "Hypothesis",
+      "spanish": "La hipótesis"
+    },
+    {
+      "english": "Observations",
+      "spanish": "Las observaciones"
+    },
+    {
+      "english": "Scientific method",
+      "spanish": "El método científico"
+    },
+    {
+      "english": "Research question",
+      "spanish": "La pregunta de investigación"
+    },
+    {
+      "english": "Equity",
+      "spanish": "Equidad"
+    },
+    {
+      "english": "Populism",
+      "spanish": "El populismo"
+    },
+    {
+      "english": "Anarchy",
+      "spanish": "El anarquismo"
+    },
+    {
+      "english": "Fascism",
+      "spanish": "El fascismo"
+    },
+    {
+      "english": "Capitalism",
+      "spanish": "El capitalismo"
+    },
+    {
+      "english": "Socialism",
+      "spanish": "El socialismo"
+    },
+    {
+      "english": "Communism",
+      "spanish": "El comunismo"
+    },
+    {
+      "english": "Liberalism",
+      "spanish": "El liberalismo"
+    },
+    {
+      "english": "Centrism",
+      "spanish": "El centrismo"
+    },
+    {
+      "english": "Conservatism",
+      "spanish": "El conservadurismo"
+    },
+    {
+      "english": "Left-wing",
+      "spanish": "La izquierda"
+    },
+    {
+      "english": "Right-wing",
+      "spanish": "La derecha"
+    },
+    {
+      "english": "Elections",
+      "spanish": "Las elecciones"
+    },
+    {
+      "english": "Candidate",
+      "spanish": "Candidato / Candidata"
+    },
+    {
+      "english": "Prime minister",
+      "spanish": "Primer ministro / Primera ministra"
+    },
+    {
+      "english": "Congressperson",
+      "spanish": "El diputado"
+    },
+    {
+      "english": "Senator",
+      "spanish": "El senador"
+    },
+    {
+      "english": "Chancellor",
+      "spanish": "Canciller"
+    },
+    {
+      "english": "President",
+      "spanish": "Presidente / Presidenta"
+    },
+    {
+      "english": "Governor",
+      "spanish": "Gobernador / Gobernadora"
+    },
+    {
+      "english": "Candidacy",
+      "spanish": "Candidatura"
+    },
+    {
+      "english": "Electoral fraud",
+      "spanish": "Fraude electoral"
+    },
+    {
+      "english": "Corruption",
+      "spanish": "La corrupción"
+    },
+    {
+      "english": "Congress",
+      "spanish": "El congreso"
+    },
+    {
+      "english": "Senate",
+      "spanish": "El senado"
+    },
+    {
+      "english": "Synecdoche",
+      "spanish": "La sinécdoque"
+    },
+    {
+      "english": "Aliteration",
+      "spanish": "La aliteración"
+    },
+    {
+      "english": "Irony",
+      "spanish": "La ironía"
+    },
+    {
+      "english": "Simile",
+      "spanish": "El símil"
+    },
+    {
+      "english": "Personification",
+      "spanish": "La personificación"
+    },
+    {
+      "english": "Onomatopoeia",
+      "spanish": "La onomatopeya"
+    },
+    {
+      "english": "Anaphora",
+      "spanish": "La anáfora"
+    },
+    {
+      "english": "Anthropomorphism",
+      "spanish": "El antropomorfismo"
+    },
+    {
+      "english": "Archetype",
+      "spanish": "El arquetipo"
+    },
+    {
+      "english": "Colloquialism",
+      "spanish": "Los coloquialismos"
+    },
+    {
+      "english": "Euphemism",
+      "spanish": "El eufemismo"
+    },
+    {
+      "english": "Juxtaposition",
+      "spanish": "La yuxtaposición"
+    },
+    {
+      "english": "Metonymy",
+      "spanish": "La metonimia"
+    },
+    {
+      "english": "Oxymoron",
+      "spanish": "El oxímoron"
+    },
+    {
+      "english": "Paradoxical",
+      "spanish": "Paradójico"
+    },
+    {
+      "english": "Soliloquy",
+      "spanish": "El soliloquio"
+    },
+    {
+      "english": "Symbolism",
+      "spanish": "El simbolismo"
+    },
+    {
+      "english": "Tone",
+      "spanish": "El tono"
+    },
+    {
+      "english": "Zoomorphic",
+      "spanish": "Zoomorfo"
+    },
+    {
+      "english": "Environmental",
+      "spanish": "Medioambiental"
+    },
+    {
+      "english": "Sustainability",
+      "spanish": "La sostenibilidad"
+    },
+    {
+      "english": "Nuclear energy",
+      "spanish": "La energía nuclear"
+    },
+    {
+      "english": "Hydraulic energy",
+      "spanish": "La energía hidráulica"
+    },
+    {
+      "english": "Wind energy",
+      "spanish": "La energía eólica"
+    },
+    {
+      "english": "Solar panels",
+      "spanish": "Los paneles solares"
+    },
+    {
+      "english": "Chemicals",
+      "spanish": "Las sustancias químicas"
+    },
+    {
+      "english": "Greenhouse gasses",
+      "spanish": "Los gases de efecto invernadero"
+    },
+    {
+      "english": "Radioactive waste",
+      "spanish": "Residuos radioactivos"
+    },
+    {
+      "english": "Flora",
+      "spanish": "La flora"
+    },
+    {
+      "english": "Fauna",
+      "spanish": "La fauna"
+    },
+    {
+      "english": "Biofuels",
+      "spanish": "Los biocombustibles"
+    },
+    {
+      "english": "Pilgrimage",
+      "spanish": "La peregrinación"
+    },
+    {
+      "english": "Expedition",
+      "spanish": "La expedición"
+    },
+    {
+      "english": "Travel insurance",
+      "spanish": "El seguro de viaje"
+    },
+    {
+      "english": "Immigration",
+      "spanish": "La migración"
+    },
+    {
+      "english": "To tour",
+      "spanish": "Turistear"
+    },
+    {
+      "english": "To move",
+      "spanish": "Trasladarse"
+    },
+    {
+      "english": "Journey",
+      "spanish": "El trayecto"
     }
   ]
 }
