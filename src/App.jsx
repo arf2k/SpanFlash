@@ -1,3 +1,4 @@
+// src/App.jsx
 import { useState, useEffect, useRef } from "react";
 import Flashcard from "./components/Flashcard";
 import ScoreStack from "./components/ScoreStack";
@@ -14,28 +15,12 @@ import "./App.css";
 function App() {
   // === Custom Hooks ===
   const {
-    wordList,
+    wordList: mainWordList, // Renamed to avoid conflict with listForGame
     isLoadingData,
     dataError,
     currentDataVersion,
     setWordList,
   } = useWordData();
-  const {
-    currentPair,
-    languageDirection,
-    score,
-    showFeedback,
-    lastCorrectAnswer,
-    feedbackSignal,
-    gameError,
-    selectNewPairCard,
-    submitAnswer,
-    switchDirection,
-    switchToNextCard,
-    setScore, // We get setScore from the hook
-    setShowFeedback: setGameShowFeedback,
-    loadSpecificCard,
-  } = useFlashcardGame(wordList);
 
   // === App-specific State Variables ===
   const [hardWordsList, setHardWordsList] = useState([]);
@@ -47,11 +32,33 @@ function App() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [wordCurrentlyBeingEdited, setWordCurrentlyBeingEdited] =
     useState(null);
+  const [isInHardWordsMode, setIsInHardWordsMode] = useState(false); // <-- New state for hard words mode
+  const [modeChangeMessage, setModeChangeMessage] = useState(""); // <-- For messages like "Hard words list is empty"
+
+  // Determine which list to use for the game
+  const listForGame = isInHardWordsMode ? hardWordsList : mainWordList;
+
+  const {
+    currentPair,
+    languageDirection,
+    score,
+    showFeedback,
+    lastCorrectAnswer,
+    feedbackSignal,
+    gameError, // This error will now reflect issues from listForGame
+    selectNewPairCard,
+    submitAnswer,
+    switchDirection,
+    switchToNextCard,
+    setScore,
+    setShowFeedback: setGameShowFeedback,
+    loadSpecificCard,
+  } = useFlashcardGame(listForGame); // <-- Pass the dynamically chosen list
 
   // === Refs ===
   const incorrectScoreRef = useRef(null);
-  const isInitialMountApp = useRef(true); // Tracks if the initial load of app-specific data (score, hard_words) is done
-  const previousDataVersionRef = useRef(null); // To track changes in data version for score reset
+  const isInitialMountApp = useRef(true);
+  const previousDataVersionRef = useRef(null);
 
   // === Effects ===
 
@@ -67,7 +74,7 @@ function App() {
         } else {
           const initialScore = { correct: 0, incorrect: 0 };
           await db.appState.put({ id: "userScore", ...initialScore });
-          setScore(initialScore); // Set to default if nothing in DB
+          setScore(initialScore);
           console.log("App.jsx: Initialized score in DB.");
         }
       } catch (err) {
@@ -88,73 +95,50 @@ function App() {
       );
     };
     loadAppSpecificData();
-  }, [setScore]); // setScore is from useFlashcardGame, should be stable
+  }, [setScore]);
 
-  // Effect to Select Initial/New Pair
+  // Effect to Select Initial/New Pair, or when listForGame changes due to mode switch
   useEffect(() => {
-    if (
-      !isLoadingData &&
-      wordList.length > 0 &&
-      !currentPair &&
-      !dataError &&
-      !gameError
-    ) {
-      console.log("App.jsx: wordList ready, selecting initial pair via hook.");
-      selectNewPairCard();
-    } else if (
-      !isLoadingData &&
-      (wordList.length === 0 || gameError) &&
-      !dataError
-    ) {
+    console.log(`App.jsx Effect: listForGame (len ${listForGame.length}), isLoadingData (${isLoadingData}), currentPair (${!!currentPair}), dataError (${!!dataError}), gameError (${!!gameError})`);
+    if (!isLoadingData && listForGame.length > 0 && !currentPair && !dataError && !gameError) {
+      console.log("App.jsx: listForGame ready, selecting initial/new pair via hook.");
+      selectNewPairCard(); // selectNewPairCard in useFlashcardGame will use the current listForGame
+    } else if (!isLoadingData && (listForGame.length === 0 || gameError) && !dataError) {
       console.log(
-        "App.jsx: Word list is empty or game error. No pair to select."
+        "App.jsx: listForGame is empty or game error. No pair to select."
       );
+      // currentPair should be set to null by selectNewPairCard if list is empty
     }
-  }, [
-    wordList,
-    isLoadingData,
-    dataError,
-    gameError,
-    currentPair,
-    selectNewPairCard,
-  ]);
+  }, [listForGame, isLoadingData, dataError, gameError, currentPair, selectNewPairCard]);
+
 
   // Effect to reset hints when currentPair changes
   useEffect(() => {
     if (currentPair) {
-      // console.log("App.jsx: New currentPair detected, resetting hint data.");
       setHintData(null);
       setIsHintLoading(false);
     }
     if (!currentPair) {
-      // Also clear if no card is shown
       setHintData(null);
       setIsHintLoading(false);
     }
   }, [currentPair]);
 
-  // --- New useEffect to Reset Score on Data Version Change ---
+  // Effect to Reset Score on Data Version Change
   useEffect(() => {
-    // Only proceed if currentDataVersion has a value (meaning useWordData has loaded something)
     if (currentDataVersion !== null) {
-      // If previousDataVersionRef.current is null, it's the first time we're seeing a version
-      // from useWordData in this session/lifecycle. Store it but don't act yet.
       if (previousDataVersionRef.current === null) {
         console.log(
           `App.jsx: Initial data version detected: ${currentDataVersion}. Storing as previous version.`
         );
         previousDataVersionRef.current = currentDataVersion;
       } else if (currentDataVersion !== previousDataVersionRef.current) {
-        // Version has actually changed from a previously known version.
-        // We also check isInitialMountApp.current is false to ensure we don't reset
-        // a score that was just loaded from DB if the version changed on the very first complex load.
         if (isInitialMountApp.current === false) {
           console.log(
             `App.jsx: Data version changed from ${previousDataVersionRef.current} to ${currentDataVersion}. Resetting score.`
           );
           const newScore = { correct: 0, incorrect: 0 };
-          setScore(newScore); // Update score state via the hook's setter
-          // Persist this reset score to IndexedDB immediately
+          setScore(newScore);
           db.appState
             .put({ id: "userScore", ...newScore })
             .then(() => console.log("App.jsx: Reset score saved to DB."))
@@ -163,27 +147,21 @@ function App() {
             );
         } else {
           console.log(
-            "App.jsx: Data version changed, but initial app data load (including score) not yet complete. Score will not be reset at this point."
+            "App.jsx: Data version changed, but initial app data load not yet complete. Score will not be reset now."
           );
         }
-        previousDataVersionRef.current = currentDataVersion; // Update the ref to the new current version
+        previousDataVersionRef.current = currentDataVersion;
       }
-      // If currentDataVersion is the same as previousDataVersionRef.current, do nothing.
     }
-  }, [currentDataVersion, setScore, isInitialMountApp]); // isInitialMountApp (the ref object) won't trigger re-run for its .current change.
-  // This effect primarily reacts to currentDataVersion. The check for
-  // isInitialMountApp.current ensures we act appropriately.
+  }, [currentDataVersion, setScore]);
 
-  // Effect for Saving Score to DB (persists score changes from gameplay)
+  // Effect for Saving Score to DB
   useEffect(() => {
     if (isInitialMountApp.current) {
-      // Don't save during the initial score load phase
       return;
     }
-    // This will save the score whenever it changes (including when it's reset by the version change effect)
     const saveScoreToDB = async () => {
       try {
-        // Ensure score isn't undefined if something went wrong, though setScore({0,0}) handles it
         const scoreToSave = score || { correct: 0, incorrect: 0 };
         await db.appState.put({ id: "userScore", ...scoreToSave });
         console.log("Score saved/updated in DB:", scoreToSave);
@@ -192,7 +170,7 @@ function App() {
       }
     };
     saveScoreToDB();
-  }, [score]); // Runs whenever the score object changes
+  }, [score]);
 
   // Effect for Incorrect Score Flash Animation
   useEffect(() => {
@@ -208,410 +186,289 @@ function App() {
         }, 1000);
       }
     }
-  }, [score.incorrect, isInitialMountApp]);
+  }, [score.incorrect]);
 
-  // === Event Handlers (ensure these are all complete from your working version) ===
+
+  // === Event Handlers ===
+  const handleToggleHardWordsMode = () => {
+    setModeChangeMessage(""); // Clear previous messages
+    if (!isInHardWordsMode) { // If trying to enter hard words mode
+      if (!hardWordsList || hardWordsList.length === 0) {
+        setModeChangeMessage("Your hard words list is empty. Add some words as hard first!");
+        // Optionally, briefly show this message using a timed state or an alert
+        // For now, just log it and don't switch mode
+        console.warn("Attempted to enter hard words mode, but the list is empty.");
+        setTimeout(() => setModeChangeMessage(""), 3000); // Clear message after 3s
+        return;
+      }
+    }
+    setIsInHardWordsMode(prevMode => !prevMode);
+    // Selecting a new pair will be handled by the useEffect watching listForGame/currentPair
+    // but we can also explicitly call it to ensure immediate change if needed,
+    // though it might lead to double selection if listForGame change also triggers it.
+    // For now, rely on the useEffect watching listForGame.
+    console.log("Toggled hard words mode. New state:", !isInHardWordsMode);
+  };
+
   const handleMarkHard = async (pairToMark) => {
+    // ... (implementation as before, but ensure hardWordsList state is updated) ...
     if (!pairToMark?.spanish || !pairToMark?.english) return;
     const hardWordEntry = {
       spanish: pairToMark.spanish,
       english: pairToMark.english,
     };
+    // Also include other fields if you want them in hardWordsList objects
+    // For now, hardWordsList schema is just spanish/english from db.js
+    // If word is already hard, this will effectively do nothing or update it (if other fields were there)
     try {
-      await db.hardWords.put(hardWordEntry);
-      if (
-        !hardWordsList.some(
-          (w) =>
-            w.spanish === pairToMark.spanish && w.english === pairToMark.english
-        )
-      ) {
-        setHardWordsList((prev) => [...prev, hardWordEntry]);
-      }
+        await db.hardWords.put(hardWordEntry); // Dexie's put adds or updates
+        // Refresh hardWordsList from DB to ensure consistency
+        const updatedHardWords = await db.hardWords.toArray();
+        setHardWordsList(updatedHardWords);
+        console.log("Updated hard words list from DB after mark/unmark action.");
     } catch (error) {
-      console.error("Failed to save hard word:", error);
+        console.error("Failed to save/update hard word:", error);
     }
   };
 
   const handleRemoveHardWord = async (pairToRemove) => {
+    // ... (implementation as before, but ensure hardWordsList state is updated) ...
     if (!pairToRemove?.spanish || !pairToRemove?.english) return;
     const compoundKey = [pairToRemove.spanish, pairToRemove.english];
     try {
       await db.hardWords.delete(compoundKey);
-      setHardWordsList((prev) =>
-        prev.filter(
-          (p) =>
-            !(
-              p.spanish === pairToRemove.spanish &&
-              p.english === pairToRemove.english
-            )
-        )
-      );
+      // Refresh hardWordsList from DB
+      const updatedHardWords = await db.hardWords.toArray();
+      setHardWordsList(updatedHardWords);
+      console.log("Updated hard words list from DB after removal.");
     } catch (error) {
       console.error("Failed to remove hard word:", error);
     }
   };
 
-  const handleGetHint = async (forceLookup = false) => {
-    if (!currentPair || isHintLoading) return;
-    if (
-      !forceLookup &&
-      ((hintData && hintData.type !== "error") ||
-        (showFeedback && feedbackSignal === "incorrect"))
-    )
-      return;
-    const wordToLookup = currentPair.spanish;
-    if (!wordToLookup) {
-      setHintData({
-        type: "error",
-        message: "Internal error: Word missing for hint.",
-      });
-      return;
-    }
-    const spanishArticleRegex = /^(el|la|los|las|un|una|unos|unas)\s+/i;
-    let wordForApi = wordToLookup.replace(spanishArticleRegex, "").trim();
-    if (!wordForApi) {
-      setHintData({
-        type: "error",
-        message: "Cannot look up article alone as hint.",
-      });
-      return;
-    }
-    setIsHintLoading(true);
-    if (forceLookup) setHintData(null);
-    try {
-      const apiResponse = await getMwHint(wordForApi);
-      let definitionData = null,
-        suggestions = null;
-      if (Array.isArray(apiResponse) && apiResponse.length > 0) {
-        if (typeof apiResponse[0] === "string") suggestions = apiResponse;
-        else if (typeof apiResponse[0] === "object" && apiResponse[0]?.meta?.id)
-          definitionData = apiResponse[0];
-        else setHintData({ type: "unknown", raw: apiResponse });
-      } else if (
-        typeof apiResponse === "object" &&
-        !Array.isArray(apiResponse) &&
-        apiResponse?.meta?.id
-      )
-        definitionData = apiResponse;
-      else if (Array.isArray(apiResponse) && apiResponse.length === 0)
-        setHintData({
-          type: "error",
-          message: `No definition found for "${wordForApi}".`,
-        });
-      else setHintData({ type: "unknown", raw: apiResponse });
-      if (definitionData)
-        setHintData({ type: "definitions", data: definitionData });
-      else if (suggestions)
-        setHintData({ type: "suggestions", suggestions: suggestions });
-    } catch (err) {
-      console.error("Error in handleGetHint:", err);
-      setHintData({ type: "error", message: "Failed to fetch hint." });
-    } finally {
-      setIsHintLoading(false);
-    }
-  };
+  // ... (handleGetHint, handleToggleHardWordsView (for opening the list view), handleAddWord, openEditModal, closeEditModal, handleUpdateWord, handleDeleteWord, handleSelectWordFromSearch, handleExportWordList as before)
+  // Make sure these are the full versions from your working App.jsx
+    const handleGetHint = async (forceLookup = false) => { /* ... full implementation ... */ 
+        if (!currentPair || isHintLoading) return;
+        if (!forceLookup && ((hintData && hintData.type !== "error") || (showFeedback && feedbackSignal === "incorrect"))) return;
+        const wordToLookup = currentPair.spanish;
+        if (!wordToLookup) { setHintData({ type: "error", message: "Internal error: Word missing for hint." }); return; }
+        const spanishArticleRegex = /^(el|la|los|las|un|una|unos|unas)\s+/i;
+        let wordForApi = wordToLookup.replace(spanishArticleRegex, "").trim();
+        if (!wordForApi) { setHintData({ type: "error", message: "Cannot look up article alone as hint." }); return; }
+        setIsHintLoading(true);
+        if (forceLookup) setHintData(null);
+        try {
+            const apiResponse = await getMwHint(wordForApi);
+            let definitionData = null, suggestions = null;
+            if (Array.isArray(apiResponse) && apiResponse.length > 0) {
+                if (typeof apiResponse[0] === "string") suggestions = apiResponse;
+                else if (typeof apiResponse[0] === 'object' && apiResponse[0]?.meta?.id) definitionData = apiResponse[0];
+                else setHintData({ type: "unknown", raw: apiResponse });
+            } else if (typeof apiResponse === 'object' && !Array.isArray(apiResponse) && apiResponse?.meta?.id) definitionData = apiResponse;
+            else if (Array.isArray(apiResponse) && apiResponse.length === 0) setHintData({ type: "error", message: `No definition found for "${wordForApi}".` });
+            else setHintData({ type: "unknown", raw: apiResponse });
+            if (definitionData) setHintData({ type: "definitions", data: definitionData });
+            else if (suggestions) setHintData({ type: "suggestions", suggestions: suggestions });
+        } catch (err) { console.error("Error in handleGetHint:", err); setHintData({ type: "error", message: "Failed to fetch hint." });
+        } finally { setIsHintLoading(false); }
+    };
+    const handleToggleHardWordsView = () => setShowHardWordsView(prev => { if (!prev) setGameShowFeedback(false); return !prev; });
+    const handleAddWord = async (newWordObject) => { /* ... full implementation ... */ 
+        try {
+            const newId = await db.allWords.add(newWordObject);
+            const wordWithId = await db.allWords.get(newId);
+            if (wordWithId) setWordList(prevWordList => [...prevWordList, wordWithId]);
+            else console.error("Failed to retrieve new word from DB:", newId);
+            console.log("New word added:", wordWithId);
+        } catch (error) { console.error("Failed to add new word:", error); }
+    };
+    const openEditModal = (wordToEdit) => { /* ... full implementation ... */ 
+        if (!wordToEdit || wordToEdit.id == null) { console.error("Edit attempt on invalid word:", wordToEdit); return; }
+        setWordCurrentlyBeingEdited(wordToEdit);
+        setIsEditModalOpen(true);
+    };
+    const closeEditModal = () => { /* ... full implementation ... */ setIsEditModalOpen(false); setWordCurrentlyBeingEdited(null); };
+    const handleUpdateWord = async (updatedWordData) => { /* ... full implementation ... */ 
+        if (!updatedWordData || updatedWordData.id == null) { console.error("Update attempt with invalid data:", updatedWordData); return; }
+        try {
+            await db.allWords.put(updatedWordData);
+            setWordList(prevWordList => prevWordList.map(w => w.id === updatedWordData.id ? updatedWordData : w));
+            if (currentPair && currentPair.id === updatedWordData.id) selectNewPairCard();
+            console.log("Word updated:", updatedWordData);
+            closeEditModal();
+        } catch (error) { console.error("Failed to update word:", error); }
+    };
+    const handleDeleteWord = async (idToDelete) => { /* ... full implementation ... */ 
+        if (idToDelete == null) { console.error("Delete attempt with invalid ID."); return; }
+        try {
+            await db.allWords.delete(idToDelete);
+            setWordList(prevWordList => prevWordList.filter(word => word.id !== idToDelete));
+            console.log(`Word ID ${idToDelete} deleted.`);
+            if (currentPair && currentPair.id === idToDelete) selectNewPairCard();
+            else if (listForGame.filter(w => w.id !== idToDelete).length === 0) { // Check the list that was active
+                 selectNewPairCard(); // This will handle setting currentPair to null if the list is empty
+            }
+        } catch (error) { console.error(`Failed to delete word ID ${idToDelete}:`, error); }
+    };
+    const handleSelectWordFromSearch = (selectedPair) => { /* ... full implementation ... */ 
+        if (selectedPair && loadSpecificCard) {
+            loadSpecificCard(selectedPair); 
+            setIsSearchModalOpen(false);    
+        } else console.warn("handleSelectWordFromSearch: invalid pair or loadSpecificCard.");
+    };
+    const handleExportWordList = async () => { /* ... full implementation ... */ 
+        console.log("App.jsx: Exporting word list...");
+        try {
+            const allWordsFromDB = await db.allWords.toArray();
+            const wordsForExport = allWordsFromDB.map(({ id, ...restOfWord }) => restOfWord);
+            const exportObject = { version: currentDataVersion || "1.0.0", words: wordsForExport };
+            const jsonString = JSON.stringify(exportObject, null, 2); 
+            const blob = new Blob([jsonString], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            const date = new Date();
+            const dateString = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+            a.download = `flashcard_export_${dateString}.json`;
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            console.log("App.jsx: Word list exported successfully.");
+        } catch (error) { console.error("App.jsx: Failed to export word list:", error); }
+    };
 
-  const handleToggleHardWordsView = () =>
-    setShowHardWordsView((prev) => {
-      if (!prev) setGameShowFeedback(false);
-      return !prev;
-    });
-
-  const handleAddWord = async (newWordObject) => {
-    try {
-      const newId = await db.allWords.add(newWordObject);
-      const wordWithId = await db.allWords.get(newId);
-      if (wordWithId)
-        setWordList((prevWordList) => [...prevWordList, wordWithId]);
-      else console.error("Failed to retrieve new word from DB:", newId);
-      console.log("New word added:", wordWithId);
-    } catch (error) {
-      console.error("Failed to add new word:", error);
-    }
-  };
-
-  const openEditModal = (wordToEdit) => {
-    if (!wordToEdit || wordToEdit.id == null) {
-      console.error("Edit attempt on invalid word:", wordToEdit);
-      return;
-    }
-    setWordCurrentlyBeingEdited(wordToEdit);
-    setIsEditModalOpen(true);
-  };
-
-  const closeEditModal = () => {
-    setIsEditModalOpen(false);
-    setWordCurrentlyBeingEdited(null);
-  };
-
-  const handleUpdateWord = async (updatedWordData) => {
-    if (!updatedWordData || updatedWordData.id == null) {
-      console.error("Update attempt with invalid data:", updatedWordData);
-      return;
-    }
-    try {
-      await db.allWords.put(updatedWordData);
-      setWordList((prevWordList) =>
-        prevWordList.map((w) =>
-          w.id === updatedWordData.id ? updatedWordData : w
-        )
-      );
-      if (currentPair && currentPair.id === updatedWordData.id)
-        selectNewPairCard();
-      console.log("Word updated:", updatedWordData);
-      closeEditModal();
-    } catch (error) {
-      console.error("Failed to update word:", error);
-    }
-  };
-
-  const handleDeleteWord = async (idToDelete) => {
-    if (idToDelete == null) {
-      console.error("Delete attempt with invalid ID.");
-      return;
-    }
-    try {
-      await db.allWords.delete(idToDelete);
-      setWordList((prevWordList) =>
-        prevWordList.filter((word) => word.id !== idToDelete)
-      );
-      console.log(`Word ID ${idToDelete} deleted.`);
-      if (currentPair && currentPair.id === idToDelete) selectNewPairCard();
-      else if (wordList.length - 1 === 0)
-        if (wordList.length === 1) selectNewPairCard();
-    } catch (error) {
-      console.error(`Failed to delete word ID ${idToDelete}:`, error);
-    }
-  };
-
-  const handleSelectWordFromSearch = (selectedPair) => {
-    if (selectedPair && loadSpecificCard) {
-      loadSpecificCard(selectedPair);
-      setIsSearchModalOpen(false);
-    } else
-      console.warn(
-        "handleSelectWordFromSearch: invalid pair or loadSpecificCard."
-      );
-  };
-
-  const handleExportWordList = async () => {
-    console.log("App.jsx: Exporting word list...");
-    try {
-      const allWordsFromDB = await db.allWords.toArray();
-      const wordsForExport = allWordsFromDB.map(
-        ({ id, ...restOfWord }) => restOfWord
-      );
-      const exportObject = {
-        version: currentDataVersion || "1.0.0",
-        words: wordsForExport,
-      };
-      const jsonString = JSON.stringify(exportObject, null, 2);
-      const blob = new Blob([jsonString], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      const date = new Date();
-      const dateString = `${date.getFullYear()}-${String(
-        date.getMonth() + 1
-      ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
-      a.download = `flashcard_export_${dateString}.json`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      console.log("App.jsx: Word list exported successfully.");
-    } catch (error) {
-      console.error("App.jsx: Failed to export word list:", error);
-    }
-  };
 
   // --- JSX Structure ---
   return (
     <div className="App">
-      {/* Header and Version Display */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          width: "100%",
-          maxWidth: "700px",
-          marginBottom: "10px",
-        }}
-      >
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", maxWidth: "700px", marginBottom: "10px" }}>
         <h1>Spanish Flashcards</h1>
         {currentDataVersion && (
           <p style={{ fontSize: "0.8rem", color: "#6c757d", margin: "0" }}>
-            Data v: {currentDataVersion}
+            Data v: {currentDataVersion} {isInHardWordsMode && "(Hard Mode)"} {/* Indicate Hard Mode */}
           </p>
         )}
       </div>
 
-      {/* ScoreStacks */}
       <div className="score-stacks-container">
-        <ScoreStack
-          type="correct"
-          label="Correct"
-          count={score.correct}
-          icon="✅"
-        />
-        <ScoreStack
-          type="incorrect"
-          label="Incorrect"
-          count={score.incorrect}
-          icon="❌"
-          flashRef={incorrectScoreRef}
-        />
+        <ScoreStack type="correct" label="Correct" count={score.correct} icon="✅" />
+        <ScoreStack type="incorrect" label="Incorrect" count={score.incorrect} icon="❌" flashRef={incorrectScoreRef} />
         <ScoreStack
           type="hard"
           label="Hard Words"
           count={hardWordsList.length}
           icon="⭐"
-          onClick={handleToggleHardWordsView}
+          onClick={handleToggleHardWordsView} // This opens the hard words list view
         />
       </div>
 
-      {/* Controls */}
       <div className="controls">
-        <button
-          onClick={() => setIsAddWordModalOpen(true)}
-          title="Add New Word"
-          style={{ padding: "0.6rem 0.8rem" }}
-        >
-          <span role="img" aria-label="add icon">
-            ➕
-          </span>{" "}
-          Add Word
+        <button onClick={() => setIsAddWordModalOpen(true)} title="Add New Word" style={{ padding: "0.6rem 0.8rem" }}>
+          <span role="img" aria-label="add icon">➕</span> Add Word
         </button>
-        <button
-          onClick={() => setIsSearchModalOpen(true)}
-          title="Search Words"
-          style={{ padding: "0.6rem 0.8rem" }}
-        >
-          <span role="img" aria-label="search icon">
-            🔍
-          </span>{" "}
-          Search
+        <button onClick={() => setIsSearchModalOpen(true)} title="Search Words" style={{ padding: "0.6rem 0.8rem" }}>
+          <span role="img" aria-label="search icon">🔍</span> Search
         </button>
-        <button
-          onClick={handleExportWordList}
-          title="Export Word List"
-          style={{ padding: "0.6rem 0.8rem" }}
-        >
-          <span role="img" aria-label="export icon">
-            📤
-          </span>{" "}
-          Export Words
+        <button onClick={handleExportWordList} title="Export Word List" style={{ padding: "0.6rem 0.8rem" }}>
+          <span role="img" aria-label="export icon">📤</span> Export Words
+        </button>
+        {/* New Button to Toggle Hard Words Study Mode */}
+        <button onClick={handleToggleHardWordsMode} title={isInHardWordsMode ? "Practice All Words" : "Practice Hard Words"} style={{padding: '0.6rem 0.8rem'}}>
+            <span role="img" aria-label={isInHardWordsMode ? "list icon" : "brain icon"}>{isInHardWordsMode ? "📋" : "🧠"}</span> 
+            {isInHardWordsMode ? "All Words" : "Hard Mode"}
         </button>
         <button onClick={switchDirection}>
           Switch Dir ({languageDirection === "spa-eng" ? "S->E" : "E->S"})
         </button>
         <button
           onClick={selectNewPairCard}
-          disabled={isLoadingData || !wordList.length || showHardWordsView}
+          disabled={isLoadingData || !listForGame.length || showHardWordsView} // Use listForGame for disabled check
         >
-          {isLoadingData && !currentPair ? "Loading Words..." : "New Card"}
+          {isLoadingData && !currentPair ? "Loading..." : "New Card"}
         </button>
       </div>
+      
+      {modeChangeMessage && <p style={{ color: 'orange', textAlign: 'center', fontStyle: 'italic' }}>{modeChangeMessage}</p>}
 
-      {/* Status Messages */}
-      {isLoadingData && !currentPair && (
-        <p>Loading word list and preparing first card...</p>
-      )}
-      {dataError && (
-        <div className="error-area">
-          <p>Word List Error: {dataError}</p>
-          {/* Add a retry button? <button onClick={() => window.location.reload()}>Retry</button> */}
-        </div>
-      )}
-      {gameError && !dataError && (
-        <div className="error-area">
-          <p>Game Error: {gameError}</p>
-        </div>
-      )}
+      {/* ... (Status Messages, Main Content Area, Modals as before, ensure logic uses isLoadingData, dataError, gameError, currentPair etc. correctly) ... */}
+      {isLoadingData && !currentPair && <p>Loading word list and preparing first card...</p>}
+      {dataError && <div className="error-area"><p>Word List Error: {dataError}</p></div>}
+      {gameError && !dataError && !isLoadingData && <div className="error-area"><p>Game Error: {gameError}</p></div>}
 
-      {/* Main Content Area */}
-      {showHardWordsView ? (
-        <HardWordsView
-          hardWordsList={hardWordsList}
-          onClose={handleToggleHardWordsView}
-          onRemoveWord={handleRemoveHardWord}
-        />
-      ) : (
-        <>
-          {!isLoadingData && !dataError && !gameError && currentPair && (
-            <div className="flashcard-area">
-              <Flashcard
-                pair={currentPair}
-                direction={languageDirection}
-                onAnswerSubmit={submitAnswer}
-                showFeedback={showFeedback}
-                onGetHint={handleGetHint}
-                hint={hintData}
-                isHintLoading={isHintLoading}
-                feedbackSignal={feedbackSignal}
-                onMarkHard={handleMarkHard}
-                isMarkedHard={
-                  currentPair &&
-                  hardWordsList.some(
-                    (word) =>
-                      word.spanish === currentPair.spanish &&
-                      word.english === currentPair.english
-                  )
-                }
-                onEdit={() => openEditModal(currentPair)}
-              />
-              {showFeedback && feedbackSignal === "incorrect" && (
-                <div className="feedback-area">
-                  <p>Incorrect. The correct answer is: "{lastCorrectAnswer}"</p>
-                  <button
-                    onClick={() => handleGetHint(true)}
-                    disabled={isHintLoading}
-                    style={{ marginRight: "10px" }}
-                  >
-                    {isHintLoading ? "Getting Info..." : "Show Hint / Related"}
-                  </button>
-                  <button onClick={switchToNextCard}>Next Card</button>
-                </div>
-              )}
-              {showFeedback && feedbackSignal === "correct" && (
-                <div
-                  className="feedback-area"
-                  style={{
-                    borderColor: "var(--color-success)",
-                    backgroundColor: "var(--bg-feedback-correct, #d4edda)",
-                  }}
-                >
-                  <p style={{ color: "var(--color-success-darker, #155724)" }}>
-                    Correct!
-                  </p>
-                  <button onClick={switchToNextCard}>Next Card</button>
-                </div>
-              )}
-            </div>
-          )}
-          {!isLoadingData &&
-            !dataError &&
-            !gameError &&
-            !currentPair &&
-            wordList.length > 0 && (
-              <p>No card available. Try "New Card" or check the word list.</p>
-            )}
-          {!isLoadingData &&
-            !dataError &&
-            !gameError &&
-            !currentPair &&
-            wordList.length === 0 && (
-              <p>Word list is empty. Add words or check data source.</p>
-            )}
-        </>
-      )}
+
+        {showHardWordsView ? (
+            <HardWordsView
+                hardWordsList={hardWordsList}
+                onClose={handleToggleHardWordsView}
+                onRemoveWord={handleRemoveHardWord}
+            />
+        ) : (
+            <>
+                {!isLoadingData && !dataError && !gameError && currentPair && (
+                    <div className="flashcard-area">
+                        <Flashcard
+                            pair={currentPair}
+                            direction={languageDirection}
+                            onAnswerSubmit={submitAnswer}
+                            showFeedback={showFeedback}
+                            onGetHint={handleGetHint}
+                            hint={hintData}
+                            isHintLoading={isHintLoading}
+                            feedbackSignal={feedbackSignal}
+                            onMarkHard={handleMarkHard}
+                            isMarkedHard={
+                            currentPair &&
+                            hardWordsList.some(
+                                (word) =>
+                                word.spanish === currentPair.spanish &&
+                                word.english === currentPair.english
+                            )
+                            }
+                            onEdit={() => openEditModal(currentPair)}
+                        />
+                        {showFeedback && feedbackSignal === "incorrect" && (
+                            <div className="feedback-area">
+                            <p>Incorrect. The correct answer is: "{lastCorrectAnswer}"</p>
+                            <button
+                                onClick={() => handleGetHint(true)}
+                                disabled={isHintLoading}
+                                style={{ marginRight: "10px" }}
+                            >
+                                {isHintLoading ? "Getting Info..." : "Show Hint / Related"}
+                            </button>
+                            <button onClick={switchToNextCard}>Next Card</button>
+                            </div>
+                        )}
+                        {showFeedback && feedbackSignal === "correct" && (
+                            <div
+                            className="feedback-area"
+                            style={{
+                                borderColor: "var(--color-success)",
+                                backgroundColor: "var(--bg-feedback-correct, #d4edda)",
+                            }}
+                            >
+                            <p style={{ color: "var(--color-success-darker, #155724)" }}>
+                                Correct!
+                            </p>
+                            <button onClick={switchToNextCard}>Next Card</button>
+                            </div>
+                        )}
+                    </div>
+                )}
+                {!isLoadingData && !dataError && !gameError && !currentPair && listForGame.length > 0 && (
+                    <p>No card available in the current list. Try "New Card" or change modes.</p>
+                )}
+                {!isLoadingData && !dataError && !gameError && !currentPair && listForGame.length === 0 && (
+                     <p>The current word list is empty. {isInHardWordsMode ? "Add some hard words or switch to 'All Words' mode." : "Add words or check data source."}</p>
+                )}
+            </>
+        )}
 
       {/* Modals */}
       <SearchModal
         isOpen={isSearchModalOpen}
         onClose={() => setIsSearchModalOpen(false)}
-        wordList={wordList}
+        wordList={mainWordList} // Search always uses the main list
         onSelectResult={handleSelectWordFromSearch}
       />
       <AddWordModal
