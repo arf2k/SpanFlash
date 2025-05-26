@@ -1,15 +1,13 @@
 const path = require('path');
-const { getTatoebaExamples } = require(path.join(__dirname, '..', 'src', 'services', 'tatoebaService.js'));
+
+const tatoebaServicePath = path.join(__dirname, '..', 'src', 'services', 'tatoebaServices.js');
 
 async function runTests() {
+    const { getTatoebaExamples } = await import(tatoebaServicePath); // Use await import()
+
     const testWords = [
-        "casa",        // Simple noun
-        "correr",      // Common verb
-        "feliz",       // Common adjective
-        "echar de menos", // Phrase
-        "manzana",
-        "trabajar",
-        "interesante"
+        "casa", "correr", "feliz", "echar de menos", 
+        "manzana", "trabajar", "interesante"
     ];
 
     console.log("--- Testing getTatoebaExamples ---");
@@ -30,10 +28,11 @@ async function runTests() {
         } catch (error) {
             console.error(`  Error fetching examples for "${word}":`, error.message);
         }
-        // Brief pause to avoid hitting API too rapidly if there's an implicit rate limit
         await new Promise(resolve => setTimeout(resolve, 500)); 
     }
     console.log("\n--- Tests Finished ---");
 }
 
-runTests();
+runTests().catch(error => {
+    console.error("Error in runTests:", error);
+});

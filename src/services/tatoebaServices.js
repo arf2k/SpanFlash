@@ -1,4 +1,3 @@
-// src/services/tatoebaService.js
 import axios from 'axios';
 
 const TATOEBA_API_BASE_URL = 'https://tatoeba.org/api_v0';

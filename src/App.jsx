@@ -5,14 +5,14 @@ import HardWordsView from "./components/HardWordsView";
 import SearchModal from "./components/SearchModal";
 import AddWordModal from "./components/AddWordModal";
 import WordEditModal from "./components/WordEditModal";
-import { getMwHint } from "./services/dictionaryServices.js";
+import { getMwHint } from "./services/dictionaryServices.js"; 
+import { getTatoebaExamples } from "./services/tatoebaServices.js"; 
 import { db } from "./db";
 import { useWordData } from "./hooks/useWordData";
 import { useFlashcardGame } from "./hooks/useFlashcardGame";
 import "./App.css";
 
 function App() {
-  // === Custom Hooks ===
   const {
     wordList: mainWordList,
     isLoadingData,
@@ -23,8 +23,8 @@ function App() {
 
   // === App-specific State Variables ===
   const [hardWordsList, setHardWordsList] = useState([]);
-  const [hintData, setHintData] = useState(null);
-  const [isHintLoading, setIsHintLoading] = useState(false);
+  const [hintData, setHintData] = useState(null); 
+  const [isHintLoading, setIsHintLoading] = useState(false); 
   const [showHardWordsView, setShowHardWordsView] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [isAddWordModalOpen, setIsAddWordModalOpen] = useState(false);
@@ -33,7 +33,14 @@ function App() {
     useState(null);
   const [isInHardWordsMode, setIsInHardWordsMode] = useState(false);
   const [modeChangeMessage, setModeChangeMessage] = useState("");
-  const [apiSuggestions, setApiSuggestions] = useState(null);
+  
+  const [apiSuggestions, setApiSuggestions] = useState(null); 
+
+
+  const [tatoebaExamples, setTatoebaExamples] = useState([]);
+  const [isLoadingTatoebaExamples, setIsLoadingTatoebaExamples] = useState(false);
+  const [tatoebaError, setTatoebaError] = useState(null);
+
 
   const listForGame = isInHardWordsMode ? hardWordsList : mainWordList;
 
@@ -69,7 +76,7 @@ function App() {
         const savedScoreState = await db.appState.get("userScore");
         if (savedScoreState) {
           setScore(savedScoreState);
-          console.log("App.jsx: Loaded score from DB:", savedScoreState);
+          // console.log("App.jsx: Loaded score from DB:", savedScoreState);
         } else {
           const initialScore = { correct: 0, incorrect: 0 };
           await db.appState.put({ id: "userScore", ...initialScore });
@@ -83,15 +90,15 @@ function App() {
       try {
         const loadedHardWords = await db.hardWords.toArray();
         setHardWordsList(loadedHardWords || []);
-        console.log("App.jsx: Loaded hard words from DB.");
+        // console.log("App.jsx: Loaded hard words from DB.");
       } catch (err) {
         console.error("Failed to load hard words:", err);
       }
 
       isInitialMountApp.current = false;
-      console.log(
-        "App.jsx: App-specific data loading finished, isInitialMountApp is now false."
-      );
+      // console.log(
+      //   "App.jsx: App-specific data loading finished, isInitialMountApp is now false."
+      // );
     };
     loadAppSpecificData();
   }, [setScore]);
@@ -128,25 +135,34 @@ function App() {
     selectNewPairCard,
   ]);
 
+  // Effect to reset hints, API suggestions, and Tatoeba examples when currentPair changes
   useEffect(() => {
     if (currentPair) {
+      // console.log("App.jsx: New currentPair detected, resetting hints, API suggestions, and Tatoeba examples.");
       setHintData(null);
       setIsHintLoading(false);
-      setApiSuggestions(null);
+      setApiSuggestions(null); // Clear suggestions for the new card
+      setTatoebaExamples([]); 
+      setTatoebaError(null);  
+      setIsLoadingTatoebaExamples(false); 
     }
-    if (!currentPair) {
+    if (!currentPair) { // Also clear if no card is shown
       setHintData(null);
       setIsHintLoading(false);
       setApiSuggestions(null);
+      setTatoebaExamples([]);
+      setTatoebaError(null);
+      setIsLoadingTatoebaExamples(false);
     }
   }, [currentPair]);
 
+  // Effect to Reset Score on Data Version Change
   useEffect(() => {
     if (currentDataVersion !== null) {
       if (previousDataVersionRef.current === null) {
-        console.log(
-          `App.jsx: Initial data version detected: ${currentDataVersion}. Storing as previous version.`
-        );
+        // console.log(
+        //   `App.jsx: Initial data version detected: ${currentDataVersion}. Storing as previous version.`
+        // );
         previousDataVersionRef.current = currentDataVersion;
       } else if (currentDataVersion !== previousDataVersionRef.current) {
         if (isInitialMountApp.current === false) {
@@ -162,9 +178,9 @@ function App() {
               console.error("App.jsx: Failed to save reset score to DB", err)
             );
         } else {
-          console.log(
-            "App.jsx: Data version changed, but initial app data load (including score) not yet complete. Score will not be reset now."
-          );
+          // console.log(
+          //   "App.jsx: Data version changed, but initial app data load (including score) not yet complete. Score will not be reset now."
+          // );
         }
         previousDataVersionRef.current = currentDataVersion;
       }
@@ -180,7 +196,7 @@ function App() {
       try {
         const scoreToSave = score || { correct: 0, incorrect: 0 };
         await db.appState.put({ id: "userScore", ...scoreToSave });
-        console.log("Score saved/updated in DB:", scoreToSave);
+        // console.log("Score saved/updated in DB:", scoreToSave);
       } catch (err) {
         console.error("Failed to save score to DB:", err);
       }
@@ -204,23 +220,20 @@ function App() {
     }
   }, [score.incorrect]);
 
+
   // === Event Handlers ===
   const handleToggleHardWordsMode = () => {
-    setModeChangeMessage("");
-    if (!isInHardWordsMode) {
+    setModeChangeMessage(""); 
+    if (!isInHardWordsMode) { 
       if (!hardWordsList || hardWordsList.length === 0) {
-        setModeChangeMessage(
-          "Your hard words list is empty. Add some words as hard first!"
-        );
-        console.warn(
-          "Attempted to enter hard words mode, but the list is empty."
-        );
-        setTimeout(() => setModeChangeMessage(""), 3000);
+        setModeChangeMessage("Your hard words list is empty. Add some words as hard first!");
+        console.warn("Attempted to enter hard words mode, but the list is empty.");
+        setTimeout(() => setModeChangeMessage(""), 3000); 
         return;
       }
     }
-    setIsInHardWordsMode((prevMode) => !prevMode);
-    console.log("Toggled hard words mode. New state:", !isInHardWordsMode);
+    setIsInHardWordsMode(prevMode => !prevMode);
+    // console.log("Toggled hard words mode. New state:", !isInHardWordsMode);
   };
 
   const handleMarkHard = async (pairToMark) => {
@@ -230,12 +243,12 @@ function App() {
       english: pairToMark.english,
     };
     try {
-      await db.hardWords.put(hardWordEntry);
-      const updatedHardWords = await db.hardWords.toArray();
-      setHardWordsList(updatedHardWords);
-      console.log("Updated hard words list from DB after mark/unmark action.");
+        await db.hardWords.put(hardWordEntry); 
+        const updatedHardWords = await db.hardWords.toArray();
+        setHardWordsList(updatedHardWords);
+        // console.log("Updated hard words list from DB after mark/unmark action.");
     } catch (error) {
-      console.error("Failed to save/update hard word:", error);
+        console.error("Failed to save/update hard word:", error);
     }
   };
 
@@ -246,172 +259,118 @@ function App() {
       await db.hardWords.delete(compoundKey);
       const updatedHardWords = await db.hardWords.toArray();
       setHardWordsList(updatedHardWords);
-      console.log("Updated hard words list from DB after removal.");
+      // console.log("Updated hard words list from DB after removal.");
     } catch (error) {
       console.error("Failed to remove hard word:", error);
     }
   };
 
+  // Modified handleGetHint to parse and store synonyms
   const handleGetHint = async (forceLookup = false) => {
     if (!currentPair || isHintLoading) {
-      console.log("Hint blocked: No currentPair or hint is already loading.");
-      return;
+        // console.log("Hint blocked: No currentPair or hint is already loading.");
+        return;
     }
-    // showFeedback and feedbackSignal come from useFlashcardGame hook
-    if (
-      !forceLookup &&
-      ((hintData && hintData.type !== "error") ||
-        (showFeedback && feedbackSignal === "incorrect"))
-    ) {
-      console.log(
-        "Hint blocked: Not forcing lookup and hint already exists or feedback is shown for incorrect answer."
-      );
-      return;
+    if (!forceLookup && ((hintData && hintData.type !== 'error') || (showFeedback && feedbackSignal === 'incorrect'))) {
+        // console.log("Hint blocked: Not forcing lookup and hint already exists or feedback is shown for incorrect answer.");
+        return;
     }
-
+    
     const wordToLookup = currentPair.spanish;
-    if (!wordToLookup) {
-      setHintData({
-        type: "error",
-        message: "Internal error: Word missing for hint.",
-      });
-      return;
+    if (!wordToLookup) { 
+        setHintData({ type: "error", message: "Internal error: Word missing for hint." }); 
+        return; 
     }
     const spanishArticleRegex = /^(el|la|los|las|un|una|unos|unas)\s+/i;
     let wordForApi = wordToLookup.replace(spanishArticleRegex, "").trim();
-    if (!wordForApi) {
-      setHintData({
-        type: "error",
-        message: "Cannot look up article alone as hint.",
-      });
-      return;
+    if (!wordForApi) { 
+        setHintData({ type: "error", message: "Cannot look up article alone as hint." }); 
+        return; 
     }
 
     setIsHintLoading(true);
     setApiSuggestions(null); // Clear previous API-sourced suggestions
-    if (forceLookup || !hintData) {
-      // Reset main hintData if forcing or if it doesn't exist
-      setHintData(null);
+    if (forceLookup || !hintData) { 
+         setHintData(null);
     }
 
     try {
-      const apiResponse = await getMwHint(wordForApi);
-      console.log("Raw Hint Data from MW:", apiResponse);
+        const apiResponse = await getMwHint(wordForApi);
+        console.log("Raw Hint Data from MW:", apiResponse); 
+        
+        let parsedEngSynonyms = []; 
+        if (apiResponse && Array.isArray(apiResponse) && apiResponse.length > 0) {
+            const firstResult = apiResponse[0]; 
+            if (firstResult && typeof firstResult === 'object') {
+                if (firstResult.shortdef && Array.isArray(firstResult.shortdef) && firstResult.shortdef.length > 0) {
+                    const shortDefString = firstResult.shortdef[0]; 
+                    parsedEngSynonyms = shortDefString
+                        .split(/,| or /) 
+                        .map(s => {
+                            let cleaned = s.replace(/\(.*?\)/g, '').trim();
+                            if (cleaned.toLowerCase().startsWith('especially ')) {
+                                cleaned = cleaned.substring(11).trim();
+                            }
+                            return cleaned;
+                        })
+                        .filter(s => s && s.length > 1); 
 
-      // --- Updated Synonym Parsing Logic ---
-      let parsedEngSynonyms = [];
-      if (apiResponse && Array.isArray(apiResponse) && apiResponse.length > 0) {
-        const firstResult = apiResponse[0];
-        if (firstResult && typeof firstResult === "object") {
-          if (
-            firstResult.shortdef &&
-            Array.isArray(firstResult.shortdef) &&
-            firstResult.shortdef.length > 0
-          ) {
-            const shortDefString = firstResult.shortdef[0];
-            parsedEngSynonyms = shortDefString
-              .split(/,| or /)
-              .map((s) => {
-                let cleaned = s.replace(/\(.*?\)/g, "").trim();
-                if (cleaned.toLowerCase().startsWith("especially ")) {
-                  cleaned = cleaned.substring(11).trim();
+                    if (parsedEngSynonyms.length > 0) {
+                        // console.log("App.jsx: Extracted from shortdef before primary check:", parsedEngSynonyms);
+                        if (currentPair && currentPair.english) {
+                            const primaryEnglishLower = currentPair.english.toLowerCase().trim();
+                            parsedEngSynonyms = parsedEngSynonyms.filter(s => s.toLowerCase().trim() !== primaryEnglishLower);
+                        }
+                        // console.log("App.jsx: Extracted and filtered from shortdef:", parsedEngSynonyms);
+                    }
                 }
-                return cleaned;
-              })
-              .filter((s) => s && s.length > 1);
-
-            if (parsedEngSynonyms.length > 0) {
-              console.log(
-                "App.jsx: Extracted from shortdef before primary check:",
-                parsedEngSynonyms
-              );
-              if (currentPair && currentPair.english) {
-                const primaryEnglishLower = currentPair.english
-                  .toLowerCase()
-                  .trim();
-                parsedEngSynonyms = parsedEngSynonyms.filter(
-                  (s) => s.toLowerCase().trim() !== primaryEnglishLower
-                );
-              }
-              console.log(
-                "App.jsx: Extracted and filtered from shortdef:",
-                parsedEngSynonyms
-              );
             }
-          }
-          // Future: Add parsing for 'uros' if needed
         }
-      }
 
-      if (parsedEngSynonyms.length > 0) {
-        parsedEngSynonyms = [...new Set(parsedEngSynonyms)]; // Ensure unique
-        setApiSuggestions({
-          wordId: currentPair.id,
-          type: "englishSynonyms",
-          values: parsedEngSynonyms,
-        });
-        console.log(
-          "App.jsx: API Suggested English Synonyms:",
-          parsedEngSynonyms,
-          "for ID:",
-          currentPair.id
-        );
-      }
+        if (parsedEngSynonyms.length > 0) {
+            parsedEngSynonyms = [...new Set(parsedEngSynonyms)]; 
+            setApiSuggestions({
+                wordId: currentPair.id, 
+                type: 'englishSynonyms',
+                values: parsedEngSynonyms 
+            });
+            console.log("App.jsx: API Suggested English Synonyms:", parsedEngSynonyms, "for ID:", currentPair.id);
+        }
+        
+        let definitionData = null;
+        let suggestionsFromApi = null; 
 
-      let definitionData = null;
-      let suggestionsFromApi = null;
-
-      if (Array.isArray(apiResponse) && apiResponse.length > 0) {
-        if (typeof apiResponse[0] === "string") {
-          suggestionsFromApi = apiResponse; // Usually for "Did you mean?" type suggestions
-        } else if (
-          typeof apiResponse[0] === "object" &&
-          apiResponse[0]?.meta?.id
-        ) {
-          definitionData = apiResponse[0]; // Main definition object
+        if (Array.isArray(apiResponse) && apiResponse.length > 0) {
+            if (typeof apiResponse[0] === "string") {
+                suggestionsFromApi = apiResponse; 
+            } else if (typeof apiResponse[0] === 'object' && apiResponse[0]?.meta?.id) {
+                definitionData = apiResponse[0]; 
+            } else {
+                setHintData({ type: "unknown", raw: apiResponse });
+            }
+        } else if (typeof apiResponse === 'object' && !Array.isArray(apiResponse) && apiResponse !== null && apiResponse?.meta?.id) {
+            definitionData = apiResponse;
+        } else if (Array.isArray(apiResponse) && apiResponse.length === 0) {
+            setHintData({ type: "error", message: `No definition or suggestions found for "${wordForApi}".` });
         } else {
-          setHintData({ type: "unknown", raw: apiResponse });
+             setHintData({ type: "unknown", raw: apiResponse });
         }
-      } else if (
-        typeof apiResponse === "object" &&
-        !Array.isArray(apiResponse) &&
-        apiResponse !== null &&
-        apiResponse?.meta?.id
-      ) {
-        // Single definition object
-        definitionData = apiResponse;
-      } else if (Array.isArray(apiResponse) && apiResponse.length === 0) {
-        // API returned empty array, meaning word not found or no suggestions
-        setHintData({
-          type: "error",
-          message: `No definition or suggestions found for "${wordForApi}".`,
-        });
-      } else {
-        // Any other unexpected format
-        setHintData({ type: "unknown", raw: apiResponse });
-      }
 
-      // Set the main hintData state based on what was found
-      if (definitionData) {
-        setHintData({ type: "definitions", data: definitionData });
-      } else if (suggestionsFromApi) {
-        setHintData({ type: "suggestions", suggestions: suggestionsFromApi });
-      }
-      // If only parsedEngSynonyms were found, apiSuggestions state is set, but hintData might remain null
-      // or show "unknown" or "error" if no main definition/suggestion was processed.
-      // This is okay, as apiSuggestions is handled separately for the edit modal.
+        if (definitionData) {
+            setHintData({ type: "definitions", data: definitionData });
+        } else if (suggestionsFromApi) {
+            setHintData({ type: "suggestions", suggestions: suggestionsFromApi });
+        }
+
     } catch (err) {
-      console.error("Error in handleGetHint fetching/processing MW data:", err);
-      setHintData({ type: "error", message: "Failed to fetch hint." });
+        console.error("Error in handleGetHint fetching/processing MW data:", err);
+        setHintData({ type: "error", message: "Failed to fetch hint." });
     } finally {
-      setIsHintLoading(false);
+        setIsHintLoading(false);
     }
-  };
-  const handleToggleHardWordsView = () =>
-    setShowHardWordsView((prev) => {
-      if (!prev) setGameShowFeedback(false);
-      return !prev;
-    });
+};
+
+  const handleToggleHardWordsView = () => setShowHardWordsView(prev => { if (!prev) setGameShowFeedback(false); return !prev; });
 
   const handleAddWord = async (newWordObject) => {
     try {
@@ -419,7 +378,7 @@ function App() {
       const wordWithId = await db.allWords.get(newId);
       if (wordWithId) {
         setWordList((prevWordList) => [...prevWordList, wordWithId]);
-        console.log("New word added:", wordWithId);
+         console.log("New word added:", wordWithId);
       } else {
         console.error("Failed to retrieve new word from DB:", newId);
       }
@@ -434,15 +393,13 @@ function App() {
       return;
     }
     setWordCurrentlyBeingEdited(wordToEdit);
-    // apiSuggestions state is already managed and will be passed to WordEditModal
     setIsEditModalOpen(true);
   };
 
   const closeEditModal = () => {
     setIsEditModalOpen(false);
     setWordCurrentlyBeingEdited(null);
-    // Consider clearing apiSuggestions here if you want them to be single-use for an edit session
-    // setApiSuggestions(null);
+    // setApiSuggestions(null); // Decide if suggestions should clear when edit modal closes or only on new card
   };
 
   const handleUpdateWord = async (updatedWordData) => {
@@ -480,8 +437,8 @@ function App() {
       console.log(`Word ID ${idToDelete} deleted.`);
       if (currentPair && currentPair.id === idToDelete) {
         selectNewPairCard();
-      } else if (listForGame.filter((w) => w.id !== idToDelete).length === 0) {
-        selectNewPairCard();
+      } else if (listForGame.filter(w => w.id !== idToDelete).length === 0) {
+        selectNewPairCard(); 
       }
     } catch (error) {
       console.error(`Failed to delete word ID ${idToDelete}:`, error);
@@ -530,6 +487,32 @@ function App() {
     }
   };
 
+  // --- New Handler to Fetch Tatoeba Examples ---
+  const handleFetchTatoebaExamples = async () => {
+    if (!currentPair || !currentPair.spanish) {
+      setTatoebaError("No current Spanish word to fetch examples for.");
+      return;
+    }
+    setIsLoadingTatoebaExamples(true);
+    setTatoebaError(null);
+    setTatoebaExamples([]); // Clear previous examples
+
+    console.log(`App.jsx: Fetching Tatoeba examples for "${currentPair.spanish}"`);
+    try {
+      const examples = await getTatoebaExamples(currentPair.spanish); // From tatoebaService.js
+      if (examples.length === 0) {
+        setTatoebaError(`No example sentences found for "${currentPair.spanish}" on Tatoeba.`);
+      }
+      setTatoebaExamples(examples);
+    } catch (error) {
+      console.error("App.jsx: Error in handleFetchTatoebaExamples:", error);
+      setTatoebaError(`Failed to fetch examples: ${error.message}`);
+      setTatoebaExamples([]);
+    } finally {
+      setIsLoadingTatoebaExamples(false);
+    }
+  };
+
   // --- JSX Structure ---
   return (
     <div className="App">
@@ -552,19 +535,8 @@ function App() {
       </div>
 
       <div className="score-stacks-container">
-        <ScoreStack
-          type="correct"
-          label="Correct"
-          count={score.correct}
-          icon="✅"
-        />
-        <ScoreStack
-          type="incorrect"
-          label="Incorrect"
-          count={score.incorrect}
-          icon="❌"
-          flashRef={incorrectScoreRef}
-        />
+        <ScoreStack type="correct" label="Correct" count={score.correct} icon="✅"/>
+        <ScoreStack type="incorrect" label="Incorrect" count={score.incorrect} icon="❌" flashRef={incorrectScoreRef}/>
         <ScoreStack
           type="hard"
           label="Hard Words"
@@ -575,50 +547,18 @@ function App() {
       </div>
 
       <div className="controls">
-        <button
-          onClick={() => setIsAddWordModalOpen(true)}
-          title="Add New Word"
-          style={{ padding: "0.6rem 0.8rem" }}
-        >
-          <span role="img" aria-label="add icon">
-            ➕
-          </span>{" "}
-          Add Word
+        <button onClick={() => setIsAddWordModalOpen(true)} title="Add New Word" style={{ padding: "0.6rem 0.8rem" }} >
+          <span role="img" aria-label="add icon">➕</span> Add Word
         </button>
-        <button
-          onClick={() => setIsSearchModalOpen(true)}
-          title="Search Words"
-          style={{ padding: "0.6rem 0.8rem" }}
-        >
-          <span role="img" aria-label="search icon">
-            🔍
-          </span>{" "}
-          Search
+        <button onClick={() => setIsSearchModalOpen(true)} title="Search Words" style={{ padding: "0.6rem 0.8rem" }} >
+          <span role="img" aria-label="search icon">🔍</span> Search
         </button>
-        <button
-          onClick={handleExportWordList}
-          title="Export Word List"
-          style={{ padding: "0.6rem 0.8rem" }}
-        >
-          <span role="img" aria-label="export icon">
-            📤
-          </span>{" "}
-          Export Words
+        <button onClick={handleExportWordList} title="Export Word List" style={{ padding: "0.6rem 0.8rem" }} >
+          <span role="img" aria-label="export icon">📤</span> Export Words
         </button>
-        <button
-          onClick={handleToggleHardWordsMode}
-          title={
-            isInHardWordsMode ? "Practice All Words" : "Practice Hard Words"
-          }
-          style={{ padding: "0.6rem 0.8rem" }}
-        >
-          <span
-            role="img"
-            aria-label={isInHardWordsMode ? "list icon" : "brain icon"}
-          >
-            {isInHardWordsMode ? "📋" : "🧠"}
-          </span>
-          {isInHardWordsMode ? "All Words" : "Hard Mode"}
+        <button onClick={handleToggleHardWordsMode} title={ isInHardWordsMode ? "Practice All Words" : "Practice Hard Words" } style={{padding: '0.6rem 0.8rem'}}>
+            <span role="img" aria-label={isInHardWordsMode ? "list icon" : "brain icon"}>{isInHardWordsMode ? "📋" : "🧠"}</span> 
+            {isInHardWordsMode ? "All Words" : "Hard Mode"}
         </button>
         <button onClick={switchDirection}>
           Switch Dir ({languageDirection === "spa-eng" ? "S->E" : "E->S"})
@@ -630,27 +570,11 @@ function App() {
           {isLoadingData && !currentPair ? "Loading..." : "New Card"}
         </button>
       </div>
-
-      {modeChangeMessage && (
-        <p
-          style={{ color: "orange", textAlign: "center", fontStyle: "italic" }}
-        >
-          {modeChangeMessage}
-        </p>
-      )}
-      {isLoadingData && !currentPair && (
-        <p>Loading word list and preparing first card...</p>
-      )}
-      {dataError && (
-        <div className="error-area">
-          <p>Word List Error: {dataError}</p>
-        </div>
-      )}
-      {gameError && !dataError && !isLoadingData && (
-        <div className="error-area">
-          <p>Game Error: {gameError}</p>
-        </div>
-      )}
+      
+      {modeChangeMessage && <p style={{ color: 'orange', textAlign: 'center', fontStyle: 'italic' }}>{modeChangeMessage}</p>}
+      {isLoadingData && !currentPair && (<p>Loading word list and preparing first card...</p>)}
+      {dataError && <div className="error-area"><p>Word List Error: {dataError}</p></div>}
+      {gameError && !dataError && !isLoadingData && (<div className="error-area"><p>Game Error: {gameError}</p></div>)}
 
       {showHardWordsView ? (
         <HardWordsView
@@ -667,9 +591,9 @@ function App() {
                 direction={languageDirection}
                 onAnswerSubmit={submitAnswer}
                 showFeedback={showFeedback}
-                onGetHint={handleGetHint}
-                hint={hintData}
-                isHintLoading={isHintLoading}
+                onGetHint={handleGetHint} // For MW hints
+                hint={hintData}           // For MW hints
+                isHintLoading={isHintLoading} // For MW hints
                 feedbackSignal={feedbackSignal}
                 onMarkHard={handleMarkHard}
                 isMarkedHard={
@@ -681,15 +605,16 @@ function App() {
                   )
                 }
                 onEdit={() => openEditModal(currentPair)}
+                // Props for Tatoeba Examples
+                onFetchExamples={handleFetchTatoebaExamples}
+                examples={tatoebaExamples}
+                isLoadingExamples={isLoadingTatoebaExamples}
+                examplesError={tatoebaError}
               />
               {showFeedback && feedbackSignal === "incorrect" && (
                 <div className="feedback-area">
                   <p>Incorrect. The correct answer is: "{lastCorrectAnswer}"</p>
-                  <button
-                    onClick={() => handleGetHint(true)}
-                    disabled={isHintLoading}
-                    style={{ marginRight: "10px" }}
-                  >
+                  <button onClick={() => handleGetHint(true)} disabled={isHintLoading} style={{ marginRight: "10px" }} >
                     {isHintLoading ? "Getting Info..." : "Show Hint / Related"}
                   </button>
                   <button onClick={switchToNextCard}>Next Card</button>
@@ -711,27 +636,11 @@ function App() {
               )}
             </div>
           )}
-          {!isLoadingData &&
-            !dataError &&
-            !gameError &&
-            !currentPair &&
-            listForGame.length > 0 && (
-              <p>
-                No card available in the current list. Try "New Card" or change
-                modes.
-              </p>
+          {!isLoadingData && !dataError && !gameError && !currentPair && listForGame.length > 0 && (
+              <p> No card available in the current list. Try "New Card" or change modes. </p>
             )}
-          {!isLoadingData &&
-            !dataError &&
-            !gameError &&
-            !currentPair &&
-            listForGame.length === 0 && (
-              <p>
-                The current word list is empty.{" "}
-                {isInHardWordsMode
-                  ? "Add some hard words or switch to 'All Words' mode."
-                  : "Add words or check data source."}
-              </p>
+          {!isLoadingData && !dataError && !gameError && !currentPair && listForGame.length === 0 && (
+              <p> The current word list is empty.{" "} {isInHardWordsMode ? "Add some hard words or switch to 'All Words' mode." : "Add words or check data source."} </p>
             )}
         </>
       )}
