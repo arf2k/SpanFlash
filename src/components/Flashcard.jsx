@@ -1,4 +1,3 @@
-// src/components/Flashcard.jsx
 import React, { useState, useEffect } from 'react';
 
 const Flashcard = ({
@@ -13,9 +12,7 @@ const Flashcard = ({
     onMarkHard,
     isMarkedHard,
     onEdit,
-    onShowDetails, // <-- New prop to trigger showing the details modal
-    // Props for Tatoeba examples are no longer directly used by Flashcard display
-    // They will be used by WordDetailsModal, triggered via App.jsx
+    onShowDetails, 
 }) => {
     const [answer, setAnswer] = useState('');
 
