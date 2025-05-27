@@ -1,0 +1,116 @@
+
+
+.word-details-modal-content {
+    max-height: 90vh; 
+    width: 100%;
+    max-width: 600px; 
+}
+
+.word-details-title {
+    font-weight: 700;
+    color: var(--color-primary, #0d6efd); 
+}
+
+.word-details-scrollable-area {
+    overflow-y: auto;
+    flex-grow: 1;
+    padding: 0px 5px 15px 5px; 
+    line-height: 1.5;
+}
+
+.detail-section {
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px dotted var(--color-border-light, #eee);
+}
+.detail-section:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.detail-label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 3px;
+    text-transform: uppercase;
+}
+
+.detail-value {
+    margin: 0;
+    padding-left: 5px; 
+    font-size: 0.95rem;
+    color: var(--text-body);
+}
+
+.detail-value.notes-value {
+    white-space: pre-wrap; 
+    background-color: var(--bg-app, #f8f9fa); 
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.detail-value.category-value {
+    font-style: italic;
+}
+
+.tatoeba-examples-container .examples-button-modal {
+    background-color: var(--color-success, #198754);  */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 5px; 
+}
+.tatoeba-examples-container .examples-button-modal:hover {
+    background-color: var(--color-success-darker, #157347);
+}
+
+.tatoeba-examples-container .loading-text,
+.tatoeba-examples-container .examples-error-text {
+    font-style: italic;
+    margin-top: 10px;
+}
+.tatoeba-examples-container .examples-error-text {
+    color: var(--color-danger, red);
+}
+
+
+.example-sentences-list-modal {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 10px;
+}
+
+.example-sentences-list-modal li {
+    margin-bottom: 12px;
+    padding: 8px;
+    background-color: var(--bg-app, #f8f9fa);
+    border-left: 3px solid var(--color-primary-lighter, #cfe2ff); 
+    border-radius: 0 4px 4px 0;
+}
+
+.example-sentences-list-modal .example-spa-modal {
+    margin: 0 0 4px 0;
+    font-weight: 500;
+    color: var(--text-body);
+    font-size: 0.95rem;
+}
+
+.example-sentences-list-modal .example-eng-modal {
+    margin: 0;
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* Optional: Actions area at the very bottom of the modal, if needed */
+/* .word-details-actions {
+    padding-top: 15px;
+    margin-top: auto; 
+    border-top: 1px solid var(--color-border, #dee2e6);
+    text-align: right;
+} */
