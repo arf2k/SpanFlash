@@ -56,7 +56,7 @@
 }
 
 .tatoeba-examples-container .examples-button-modal {
-    background-color: var(--color-success, #198754);  */
+    background-color: var(--color-success, #198754);  
     color: white;
     border: none;
     padding: 8px 12px;

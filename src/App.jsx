@@ -1,3 +1,4 @@
+// src/App.jsx
 import { useState, useEffect, useRef } from "react";
 import Flashcard from "./components/Flashcard";
 import ScoreStack from "./components/ScoreStack";
@@ -5,14 +6,16 @@ import HardWordsView from "./components/HardWordsView";
 import SearchModal from "./components/SearchModal";
 import AddWordModal from "./components/AddWordModal";
 import WordEditModal from "./components/WordEditModal";
-import { getMwHint } from "./services/dictionaryServices.js"; 
-import { getTatoebaExamples } from "./services/tatoebaServices.js"; 
+import WordDetailsModal from "./components/WordDetailsModal"; // <-- Import WordDetailsModal
+import { getMwHint } from "./services/dictionaryServices.js";
+import { getTatoebaExamples } from "./services/tatoebaService.js"; // Assuming this is correct
 import { db } from "./db";
 import { useWordData } from "./hooks/useWordData";
 import { useFlashcardGame } from "./hooks/useFlashcardGame";
 import "./App.css";
 
 function App() {
+  // === Custom Hooks ===
   const {
     wordList: mainWordList,
     isLoadingData,
@@ -23,8 +26,8 @@ function App() {
 
   // === App-specific State Variables ===
   const [hardWordsList, setHardWordsList] = useState([]);
-  const [hintData, setHintData] = useState(null); 
-  const [isHintLoading, setIsHintLoading] = useState(false); 
+  const [hintData, setHintData] = useState(null); // For MW hints
+  const [isHintLoading, setIsHintLoading] = useState(false); // For MW hints
   const [showHardWordsView, setShowHardWordsView] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [isAddWordModalOpen, setIsAddWordModalOpen] = useState(false);
@@ -33,15 +36,18 @@ function App() {
     useState(null);
   const [isInHardWordsMode, setIsInHardWordsMode] = useState(false);
   const [modeChangeMessage, setModeChangeMessage] = useState("");
-  
-  const [apiSuggestions, setApiSuggestions] = useState(null); 
+  const [apiSuggestions, setApiSuggestions] = useState(null); // For MW API parsed synonyms
 
-
+  // State for Tatoeba Examples
   const [tatoebaExamples, setTatoebaExamples] = useState([]);
   const [isLoadingTatoebaExamples, setIsLoadingTatoebaExamples] = useState(false);
   const [tatoebaError, setTatoebaError] = useState(null);
 
+  // --- New State for WordDetailsModal visibility ---
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  // ---
 
+  // Determine which list to use for the game
   const listForGame = isInHardWordsMode ? hardWordsList : mainWordList;
 
   const {
@@ -81,7 +87,7 @@ function App() {
           const initialScore = { correct: 0, incorrect: 0 };
           await db.appState.put({ id: "userScore", ...initialScore });
           setScore(initialScore);
-          console.log("App.jsx: Initialized score in DB.");
+          // console.log("App.jsx: Initialized score in DB.");
         }
       } catch (err) {
         console.error("Failed to load/initialize score:", err);
@@ -103,7 +109,7 @@ function App() {
     loadAppSpecificData();
   }, [setScore]);
 
-  // Effect to Select Initial/New Pair, or when listForGame changes due to mode switch
+  // Effect to Select Initial/New Pair, or when listForGame changes
   useEffect(() => {
     // console.log(`App.jsx Effect: listForGame (len ${listForGame.length}), isLoadingData (${isLoadingData}), currentPair (${!!currentPair}), dataError (${!!dataError}), gameError (${!!gameError})`);
     if (
@@ -113,18 +119,18 @@ function App() {
       !dataError &&
       !gameError
     ) {
-      console.log(
-        "App.jsx: listForGame ready, selecting initial/new pair via hook."
-      );
+      // console.log(
+      //   "App.jsx: listForGame ready, selecting initial/new pair via hook."
+      // );
       selectNewPairCard();
     } else if (
       !isLoadingData &&
       (listForGame.length === 0 || gameError) &&
       !dataError
     ) {
-      console.log(
-        "App.jsx: listForGame is empty or game error. No pair to select."
-      );
+      // console.log(
+      //   "App.jsx: listForGame is empty or game error. No pair to select."
+      // );
     }
   }, [
     listForGame,
@@ -141,12 +147,12 @@ function App() {
       // console.log("App.jsx: New currentPair detected, resetting hints, API suggestions, and Tatoeba examples.");
       setHintData(null);
       setIsHintLoading(false);
-      setApiSuggestions(null); // Clear suggestions for the new card
-      setTatoebaExamples([]); 
-      setTatoebaError(null);  
-      setIsLoadingTatoebaExamples(false); 
+      setApiSuggestions(null);
+      setTatoebaExamples([]);
+      setTatoebaError(null);
+      setIsLoadingTatoebaExamples(false);
     }
-    if (!currentPair) { // Also clear if no card is shown
+    if (!currentPair) { 
       setHintData(null);
       setIsHintLoading(false);
       setApiSuggestions(null);
@@ -223,16 +229,20 @@ function App() {
 
   // === Event Handlers ===
   const handleToggleHardWordsMode = () => {
-    setModeChangeMessage(""); 
-    if (!isInHardWordsMode) { 
+    setModeChangeMessage("");
+    if (!isInHardWordsMode) {
       if (!hardWordsList || hardWordsList.length === 0) {
-        setModeChangeMessage("Your hard words list is empty. Add some words as hard first!");
-        console.warn("Attempted to enter hard words mode, but the list is empty.");
-        setTimeout(() => setModeChangeMessage(""), 3000); 
+        setModeChangeMessage(
+          "Your hard words list is empty. Add some words as hard first!"
+        );
+        console.warn(
+          "Attempted to enter hard words mode, but the list is empty."
+        );
+        setTimeout(() => setModeChangeMessage(""), 3000);
         return;
       }
     }
-    setIsInHardWordsMode(prevMode => !prevMode);
+    setIsInHardWordsMode((prevMode) => !prevMode);
     // console.log("Toggled hard words mode. New state:", !isInHardWordsMode);
   };
 
@@ -243,12 +253,12 @@ function App() {
       english: pairToMark.english,
     };
     try {
-        await db.hardWords.put(hardWordEntry); 
-        const updatedHardWords = await db.hardWords.toArray();
-        setHardWordsList(updatedHardWords);
-        // console.log("Updated hard words list from DB after mark/unmark action.");
+      await db.hardWords.put(hardWordEntry);
+      const updatedHardWords = await db.hardWords.toArray();
+      setHardWordsList(updatedHardWords);
+      // console.log("Updated hard words list from DB after mark/unmark action.");
     } catch (error) {
-        console.error("Failed to save/update hard word:", error);
+      console.error("Failed to save/update hard word:", error);
     }
   };
 
@@ -265,7 +275,6 @@ function App() {
     }
   };
 
-  // Modified handleGetHint to parse and store synonyms
   const handleGetHint = async (forceLookup = false) => {
     if (!currentPair || isHintLoading) {
         // console.log("Hint blocked: No currentPair or hint is already loading.");
@@ -289,7 +298,7 @@ function App() {
     }
 
     setIsHintLoading(true);
-    setApiSuggestions(null); // Clear previous API-sourced suggestions
+    setApiSuggestions(null); 
     if (forceLookup || !hintData) { 
          setHintData(null);
     }
@@ -301,14 +310,14 @@ function App() {
         let parsedEngSynonyms = []; 
         if (apiResponse && Array.isArray(apiResponse) && apiResponse.length > 0) {
             const firstResult = apiResponse[0]; 
-            if (firstResult && typeof firstResult === 'object') {
+            if (firstResult && typeof firstResult === "object") {
                 if (firstResult.shortdef && Array.isArray(firstResult.shortdef) && firstResult.shortdef.length > 0) {
                     const shortDefString = firstResult.shortdef[0]; 
                     parsedEngSynonyms = shortDefString
                         .split(/,| or /) 
                         .map(s => {
-                            let cleaned = s.replace(/\(.*?\)/g, '').trim();
-                            if (cleaned.toLowerCase().startsWith('especially ')) {
+                            let cleaned = s.replace(/\(.*?\)/g, "").trim();
+                            if (cleaned.toLowerCase().startsWith("especially ")) {
                                 cleaned = cleaned.substring(11).trim();
                             }
                             return cleaned;
@@ -319,7 +328,7 @@ function App() {
                         // console.log("App.jsx: Extracted from shortdef before primary check:", parsedEngSynonyms);
                         if (currentPair && currentPair.english) {
                             const primaryEnglishLower = currentPair.english.toLowerCase().trim();
-                            parsedEngSynonyms = parsedEngSynonyms.filter(s => s.toLowerCase().trim() !== primaryEnglishLower);
+                            parsedEngSynonyms = parsedEngSynonyms.filter(s => s.toLowerCase().trim() !== primaryEnglishLower );
                         }
                         // console.log("App.jsx: Extracted and filtered from shortdef:", parsedEngSynonyms);
                     }
@@ -368,7 +377,7 @@ function App() {
     } finally {
         setIsHintLoading(false);
     }
-};
+  };
 
   const handleToggleHardWordsView = () => setShowHardWordsView(prev => { if (!prev) setGameShowFeedback(false); return !prev; });
 
@@ -399,7 +408,7 @@ function App() {
   const closeEditModal = () => {
     setIsEditModalOpen(false);
     setWordCurrentlyBeingEdited(null);
-    // setApiSuggestions(null); // Decide if suggestions should clear when edit modal closes or only on new card
+    // setApiSuggestions(null); // Decide on this behavior
   };
 
   const handleUpdateWord = async (updatedWordData) => {
@@ -487,21 +496,21 @@ function App() {
     }
   };
 
-  // --- New Handler to Fetch Tatoeba Examples ---
-  const handleFetchTatoebaExamples = async () => {
-    if (!currentPair || !currentPair.spanish) {
-      setTatoebaError("No current Spanish word to fetch examples for.");
+  // Handler to fetch Tatoeba Examples (passed to WordDetailsModal via Flashcard)
+  const handleFetchTatoebaExamples = async (wordToFetch) => { // Changed to accept word
+    if (!wordToFetch) { // Use wordToFetch instead of currentPair.spanish directly
+      setTatoebaError("No Spanish word provided to fetch examples for.");
       return;
     }
     setIsLoadingTatoebaExamples(true);
     setTatoebaError(null);
-    setTatoebaExamples([]); // Clear previous examples
+    setTatoebaExamples([]); 
 
-    console.log(`App.jsx: Fetching Tatoeba examples for "${currentPair.spanish}"`);
+    console.log(`App.jsx: Fetching Tatoeba examples for "${wordToFetch}"`);
     try {
-      const examples = await getTatoebaExamples(currentPair.spanish); // From tatoebaService.js
+      const examples = await getTatoebaExamples(wordToFetch); 
       if (examples.length === 0) {
-        setTatoebaError(`No example sentences found for "${currentPair.spanish}" on Tatoeba.`);
+        setTatoebaError(`No example sentences found for "${wordToFetch}" on Tatoeba.`);
       }
       setTatoebaExamples(examples);
     } catch (error) {
@@ -513,7 +522,31 @@ function App() {
     }
   };
 
-  // --- JSX Structure ---
+  // --- New handlers for WordDetailsModal ---
+  const handleShowDetailsModal = () => {
+      if (currentPair) {
+          console.log("App.jsx: Opening WordDetailsModal for:", currentPair);
+          // Examples for this currentPair might already be fetched if hint was clicked,
+          // or they will be fetched when user clicks button in WordDetailsModal.
+          // Ensure Tatoeba states are reset for *this specific card* if modal is for currentPair
+          setTatoebaExamples([]); // Clear examples from potentially different previous card
+          setTatoebaError(null);
+          setIsLoadingTatoebaExamples(false);
+          setIsDetailsModalOpen(true);
+      } else {
+          console.warn("App.jsx: Tried to show details but no currentPair is set.");
+      }
+  };
+
+  const handleCloseDetailsModal = () => {
+      setIsDetailsModalOpen(false);
+      // Optionally clear tatoebaExamples here if you don't want them to persist
+      // after closing the modal, even if the card doesn't change.
+      // setTatoebaExamples([]);
+      // setTatoebaError(null);
+  };
+  // ---
+
   return (
     <div className="App">
       <div
@@ -537,13 +570,7 @@ function App() {
       <div className="score-stacks-container">
         <ScoreStack type="correct" label="Correct" count={score.correct} icon="✅"/>
         <ScoreStack type="incorrect" label="Incorrect" count={score.incorrect} icon="❌" flashRef={incorrectScoreRef}/>
-        <ScoreStack
-          type="hard"
-          label="Hard Words"
-          count={hardWordsList.length}
-          icon="⭐"
-          onClick={handleToggleHardWordsView}
-        />
+        <ScoreStack type="hard" label="Hard Words" count={hardWordsList.length} icon="⭐" onClick={handleToggleHardWordsView} />
       </div>
 
       <div className="controls">
@@ -605,32 +632,20 @@ function App() {
                   )
                 }
                 onEdit={() => openEditModal(currentPair)}
-                // Props for Tatoeba Examples
-                onFetchExamples={handleFetchTatoebaExamples}
-                examples={tatoebaExamples}
-                isLoadingExamples={isLoadingTatoebaExamples}
-                examplesError={tatoebaError}
+                onShowDetails={handleShowDetailsModal} // <-- Pass handler to Flashcard
               />
               {showFeedback && feedbackSignal === "incorrect" && (
-                <div className="feedback-area">
-                  <p>Incorrect. The correct answer is: "{lastCorrectAnswer}"</p>
-                  <button onClick={() => handleGetHint(true)} disabled={isHintLoading} style={{ marginRight: "10px" }} >
-                    {isHintLoading ? "Getting Info..." : "Show Hint / Related"}
-                  </button>
-                  <button onClick={switchToNextCard}>Next Card</button>
-                </div>
+                 <div className="feedback-area">
+                 <p>Incorrect. The correct answer is: "{lastCorrectAnswer}"</p>
+                 <button onClick={() => handleGetHint(true)} disabled={isHintLoading} style={{ marginRight: "10px" }} >
+                   {isHintLoading ? "Getting Info..." : "Show Hint / Related"}
+                 </button>
+                 <button onClick={switchToNextCard}>Next Card</button>
+               </div>
               )}
               {showFeedback && feedbackSignal === "correct" && (
-                <div
-                  className="feedback-area"
-                  style={{
-                    borderColor: "var(--color-success)",
-                    backgroundColor: "var(--bg-feedback-correct, #d4edda)",
-                  }}
-                >
-                  <p style={{ color: "var(--color-success-darker, #155724)" }}>
-                    Correct!
-                  </p>
+                <div className="feedback-area" style={{ borderColor: "var(--color-success)", backgroundColor: "var(--bg-feedback-correct, #d4edda)"}}>
+                  <p style={{ color: "var(--color-success-darker, #155724)" }}>Correct!</p>
                   <button onClick={switchToNextCard}>Next Card</button>
                 </div>
               )}
@@ -670,6 +685,16 @@ function App() {
             ? apiSuggestions
             : null
         }
+      />
+      {/* Render WordDetailsModal */}
+      <WordDetailsModal
+        isOpen={isDetailsModalOpen}
+        onClose={handleCloseDetailsModal}
+        pair={currentPair} // Pass the current flashcard pair
+        onFetchExamples={handleFetchTatoebaExamples} // Pass the existing handler
+        examples={tatoebaExamples}
+        isLoadingExamples={isLoadingTatoebaExamples}
+        examplesError={tatoebaError}
       />
     </div>
   );
