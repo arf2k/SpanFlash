@@ -12,7 +12,7 @@ const Flashcard = ({
     onMarkHard,
     isMarkedHard,
     onEdit,
-    onShowDetails, 
+    onShowDetails 
 }) => {
     const [answer, setAnswer] = useState('');
 
@@ -50,7 +50,7 @@ const Flashcard = ({
                 <div style={{ marginBottom: '10px' }}>
                     <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <p className="flashcard-word" style={{ marginRight: '60px' }}>{wordToShow}</p>
-                        <div style={{ position: 'absolute', top: '0px', right: '0px', display: 'flex', flexDirection: 'column', gap: '8px' /* Increased gap slightly */ }}>
+                        <div style={{ position: 'absolute', top: '0px', right: '0px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                             <button onClick={() => onMarkHard(pair)} title={markTitle} style={{ background: 'none', border: 'none', fontSize: '1.8em', lineHeight: '1', padding: '0 5px', cursor: 'pointer', color: markColor }}>
                                 {markIcon}
                             </button>
@@ -59,15 +59,16 @@ const Flashcard = ({
                                     ✏️
                                 </button>
                             )}
-                            {/* New "Show Details" Button - visible when card is flipped */}
-                            {showFeedback && onShowDetails && (
+                            {/* MODIFIED: "Show Details" Button - now visible if 'pair' and 'onShowDetails' exist, regardless of 'showFeedback' */}
+                            {pair && onShowDetails && (
                                 <button
                                     onClick={onShowDetails}
                                     title="Show more details & examples"
                                     style={{
                                         background: 'none', border: 'none', fontSize: '1.3em',
                                         lineHeight: '1', padding: '0 5px', cursor: 'pointer',
-                                        color: 'var(--text-muted)', marginTop: '0px' // Aligned with edit
+                                        color: 'var(--text-muted)', 
+                                        // Removed marginTop: '0px' as gap is now on parent div
                                     }}
                                 >
                                     📖 {/* Book Icon */}
@@ -80,7 +81,7 @@ const Flashcard = ({
                 <p>No card data.</p>
             )}
 
-            {/* Answer Form: Only show if not showing feedback */}
+            {/* Answer Form: Only show if not showing feedback AND a pair exists */}
             {pair && !showFeedback && (
                 <form onSubmit={handleSubmit} className="answer-form" style={{ marginTop: '10px' }}>
                     <input
@@ -98,7 +99,9 @@ const Flashcard = ({
                         type="button"
                         onClick={onGetHint}
                         className="hint-button"
-                        disabled={isHintLoading || (hint && hint.type !== 'error') || showFeedback || feedbackSignal === 'incorrect'}
+                        // Hint button can be active before answering if desired,
+                        // but disabled if feedback is shown for an incorrect answer (unless you want it active then too)
+                        disabled={isHintLoading || (hint && hint.type !== 'error') || (showFeedback && feedbackSignal === 'incorrect')}
                         style={{ marginLeft: '10px' }}
                     >
                         {isHintLoading ? 'Getting Hint...' : 'Hint (MW)'}
@@ -106,8 +109,8 @@ const Flashcard = ({
                 </form>
             )}
 
-            {/* MW Hint Display Area (still shown here when feedback is true or hint is loading) */}
-            {(isHintLoading || hint) && ( // This can be shown alongside feedback or independently
+            {/* MW Hint Display Area */}
+            {(isHintLoading || hint) && ( 
                 <div className="hint-display">
                      {isHintLoading && !hint && <span>Loading hint...</span>}
                      {hint && (
@@ -128,11 +131,9 @@ const Flashcard = ({
                      )}
                 </div>
             )}
-
-            {/* REMOVED direct display of notes, synonyms, category from here.
-              This will now be handled by WordDetailsModal.
-              The "Show Examples (Tatoeba)" button is also removed from here;
-              it will be inside WordDetailsModal.
+            
+            {/* Removed the direct display of notes, synonyms, category, and Tatoeba examples from here.
+                That information is now shown in WordDetailsModal. 
             */}
         </div>
     );
