@@ -38,4 +38,24 @@ export default defineConfig({
 
     }) // End VitePWA
   ], // End plugins
+
+  // --- Add this server configuration block for the proxy ---
+  server: {
+    proxy: {
+      // Proxy requests from /api (made by your PWA running on localhost)
+      // to your deployed Cloudflare Pages Function URL
+      '/api': {
+        target: 'https://spanflash.pages.dev', // Your Cloudflare Pages domain
+        changeOrigin: true, // Important for virtual hosted sites & proper proxying
+        secure: false,      // Set to false if your target (spanflash.pages.dev) uses HTTPS and you sometimes have issues with local SSL certs.
+                            // Cloudflare Pages uses valid HTTPS, so true or omitting secure (defaults to true for https targets) is usually fine.
+                            // If you encounter proxy errors locally, toggling this can sometimes help.
+        // rewrite: (path) => path.replace(/^\/api/, '/api') // Usually not needed if the path on the target is the same
+                                                            // e.g., /api/tatoeba-proxy on localhost becomes 
+                                                            // https://spanflash.pages.dev/api/tatoeba-proxy
+      }
+    }
+  }
+  // --- End server configuration block ---
+
 }); // End defineConfig
