@@ -58,7 +58,7 @@ registerRoute(
 
 // Rule 4: Basic Navigation Route for SPAs (Optional but Recommended)
 // Uncomment if needed
-// registerRoute(new NavigationRoute(createHandlerBoundToURL('index.html')));
+registerRoute(new NavigationRoute(createHandlerBoundToURL('index.html')));
 
 // --- Activation Log ---
 // Add a listener just to log activation
