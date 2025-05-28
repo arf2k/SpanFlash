@@ -1,0 +1,101 @@
+/* src/components/SettingsModal.css */
+
+/* Styles for the main content box of the Settings Modal */
+.settings-modal-shell {
+    /* .search-modal-content provides base, here we can override if needed */
+    max-width: 500px; /* Slightly narrower than details modal perhaps */
+    max-height: 75vh; /* Or your preferred height */
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-modal-scrollable-area {
+    overflow-y: auto;
+    flex-grow: 1;
+    padding: 15px 20px; /* Padding for content within scroll area */
+    line-height: 1.6;
+}
+
+.settings-section {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px dotted var(--color-border-light, #eee);
+}
+.settings-section:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.settings-section-title {
+    display: block;
+    font-weight: 700;
+    color: var(--color-primary); /* Use primary color for section titles */
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+}
+
+.setting-item {
+    margin-bottom: 10px;
+}
+
+.admin-toggle-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--text-body);
+}
+
+.admin-toggle-checkbox {
+    margin-right: 10px;
+    transform: scale(1.3); /* Make checkbox slightly larger */
+    accent-color: var(--color-primary); /* Style checkbox color */
+}
+
+.setting-description {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 5px;
+    margin-left: 0; /* No indent if checkbox is not there or aligned */
+    line-height: 1.4;
+}
+
+.button-export-settings {
+    background-color: var(--color-success); /* Green for export */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: inline-flex; /* For icon and text alignment */
+    align-items: center;
+    gap: 8px;
+}
+.button-export-settings:hover {
+    background-color: var(--color-success-darker);
+}
+
+.settings-modal-actions {
+    display: flex;
+    justify-content: flex-end; /* Align close button to the right */
+    padding: 15px 20px;
+    border-top: 1px solid var(--color-border-light, #eee);
+    flex-shrink: 0;
+}
+
+.button-close-settings {
+    background-color: var(--color-secondary, #6c757d);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+.button-close-settings:hover {
+    background-color: var(--color-secondary-darker, #5a6268);
+}
