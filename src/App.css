@@ -1,55 +1,123 @@
-/* src/App.css */
-
 /* ================================== */
-/* Color Variables Definition */
+/* Color Variables Definition         */
 /* ================================== */
 :root {
-  --color-primary: #0d6efd; /* Blue */
-  --color-secondary: #6c757d; /* Grey */
-  --color-success: #198754; /* Green */
-  --color-danger: #D90429;  /* Vivid Red */
-  --color-warning: #ffc107; /* Yellow / Orange */
-  --color-light: #f8f9fa;
-  --color-white: #ffffff;
-  --color-dark: #212529;
+  --color-primary: #0d6efd; 
+  --color-secondary: #6c757d; 
+  --color-success: #198754; 
+  --color-danger: #D90429; 
+  --color-warning: #ffc107; 
+  --color-light: #f8f9fa;      
+  --color-white: #ffffff;     
+  --color-dark: #212529;       
   --color-muted: #6c757d;
   --color-border: #dee2e6;
-  --color-border-light: #f1f1f1;
+  --color-border-light: #f1f1f1; 
   --color-primary-darker: #0b5ed7;
   --color-secondary-darker: #5a6268;
   --color-danger-darker: #a0041e;
+  --color-success-darker: #157347; 
+
   --color-disabled-bg: #cccccc;
   --color-disabled-text: #6c757d;
+
+  /* Light Theme Semantic Variables */
   --bg-app: var(--color-light);
   --bg-container: var(--color-white);
   --bg-card: var(--color-white);
   --bg-hint: #e9ecef;
-  --bg-error: #ffcccc;
+  --bg-error: #f8d7da; 
   --bg-feedback-incorrect: #f8d7da;
+  --bg-feedback-correct: #d4edda; 
+  
   --text-body: var(--color-dark);
   --text-heading: var(--color-dark);
   --text-muted: var(--color-muted);
-  --text-error: #842029;
+  --text-error: #842029; 
   --text-feedback-incorrect: #842029;
-  --text-button: var(--color-white);
+  --text-feedback-correct: #155724; 
+  --text-button: var(--color-white); 
+
   --font-family-sans-serif: 'Lato', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+
+/* --- DARK THEME Variable Overrides --- */
+body[data-theme="dark"] {
+  --color-primary: #3b82f6;         
+  --color-primary-darker: #2563eb;
+  --color-secondary: #808B96;       
+  --color-secondary-darker: #566573;
+  --color-success: #22c55e;         
+  --color-success-darker: #16a34a;
+  --color-danger: #ef4444;          
+  --color-danger-darker: #dc2626;
+  --color-warning: #f59e0b;         
+  
+  /* Re-think these base names for clarity if reused often */
+  --color-light: #4A5568;  /* This was --color-light in :root, now a dark theme utility gray */
+  --color-white: #CBD5E0;  /* This was --color-white in :root, now text color */
+  --color-dark:  #1A202C;   /* This was --color-dark in :root, now a dark background */
+  
+  --color-muted: #A0AEC0;           
+  --color-border: #4A5568;          
+  --color-border-light: #3f4a59;
+
+  --color-disabled-bg: #3f4a59;     
+  --color-disabled-text: #718096;   
+
+  /* Dark Theme Semantic Variables */
+  --bg-app: #171923;       
+  --bg-container: #1A202C;                        
+  --bg-card: #2D3748;                             
+  --bg-hint: #27303F;                             
+  --bg-error: #5f2120;                             
+  --bg-feedback-incorrect: #5f2120; 
+  --bg-feedback-correct: #1c4532;                 
+
+  --text-body: #CBD5E0;       
+  --text-heading: #E2E8F0;                        
+ 
+  --text-error: #fecaca;                          
+  --text-feedback-incorrect: #fecaca;
+  --text-feedback-correct: #a7f3d0;               
+  --text-button: #FFFFFF;                         
+}
+
+
 
 /* ================================== */
 /* Base HTML & Body Styles */
 /* ================================== */
 html { font-size: 100%; box-sizing: border-box; }
 *, *:before, *:after { box-sizing: inherit; }
-body { margin: 0; font-family: var(--font-family-sans-serif); line-height: 1.5; color: var(--text-body); background-color: var(--bg-app); }
-button, input, textarea, select { font-family: inherit; }
+
+body { 
+  margin: 0; 
+  font-family: var(--font-family-sans-serif); 
+  line-height: 1.5; 
+  color: var(--text-body); 
+  background-color: var(--bg-app); 
+  transition: background-color 0.3s ease, color 0.3s ease; 
+}
+button, input, textarea, select { 
+  font-family: inherit;
+  color: var(--text-body); /* Ensure form elements inherit text color */
+  /* Basic transition for form elements if their bg/border changes with theme */
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+input::placeholder, textarea::placeholder {
+    color: var(--text-muted);
+    opacity: 0.7;
+    transition: color 0.3s ease;
+}
+
 
 /* ================================== */
 /* App Container Styles */
 /* ================================== */
 .App {
   max-width: 700px;
-  /* --- UPDATED margin: Increased top/bottom margin --- */
-  margin: 8rem auto; /* Was 30px auto. 4rem ~ 64px */
+  margin: 8rem auto; 
   padding: 25px;
   display: flex;
   flex-direction: column;
@@ -57,167 +125,292 @@ button, input, textarea, select { font-family: inherit; }
   gap: 25px;
   background-color: var(--bg-container);
   border-radius: 8px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1); 
+  transition: background-color 0.3s ease;
 }
 
-h1 { font-size: 2.25rem; font-weight: 700; margin: 0 0 10px 0; color: var(--text-heading); }
+h1 { 
+  font-size: 2.25rem; 
+  font-weight: 700; 
+  margin: 0 0 10px 0; 
+  color: var(--text-heading); 
+  transition: color 0.3s ease;
+}
 
 /* === Score Stacks Styles === */
 .score-stacks-container { display: flex; gap: 15px; justify-content: center; align-items: stretch; width: 100%; max-width: 450px; margin: 0; }
-.stack { text-align: center; flex: 1; background-color: var(--bg-card); padding: 12px 8px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); border: 1px solid var(--color-border); min-width: 100px; cursor: pointer; transition: transform 0.2s ease-out, box-shadow 0.2s ease-out; }
+.stack { 
+  text-align: center; 
+  flex: 1; 
+  background-color: var(--bg-card); 
+  padding: 12px 8px; 
+  border-radius: 6px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); 
+  border: 1px solid var(--color-border); 
+  min-width: 100px; 
+  cursor: pointer; 
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, background-color 0.3s ease, border-color 0.3s ease;
+}
 .stack:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12); }
-.stack-label { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stack-label { 
+  font-size: 0.8rem; 
+  font-weight: 700; 
+  color: var(--text-muted); 
+  margin-bottom: 8px; 
+  text-transform: uppercase; 
+  letter-spacing: 0.5px; 
+  transition: color 0.3s ease;
+}
 .cards { display: flex; align-items: center; justify-content: center; min-height: 40px; }
 .card-icon { font-size: 1.5rem; margin-right: 6px; line-height: 1; }
-.stack-count { font-size: 1.5rem; font-weight: 700; line-height: 1; transition: color 0.2s ease-out, background-color 0.2s ease-out, padding 0.2s ease-out; }
+.stack-count { font-size: 1.5rem; font-weight: 700; line-height: 1; transition: color 0.3s ease; } 
 .correct-stack .stack-count { color: var(--color-success); }
 .incorrect-stack .stack-count { color: var(--color-danger); }
 .hard-words-stack .stack-count { color: var(--color-warning); }
-/* === End Score Stacks Styles === */
+
 
 /* === Controls Styling === */
 .controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 15px; width: 100%; max-width: 550px; margin: 0; }
 
 /* === Base Button Styles === */
-button { display: inline-block; font-weight: 700; line-height: 1.5; color: var(--text-button); text-align: center; text-decoration: none; vertical-align: middle; cursor: pointer; user-select: none; background-color: var(--color-secondary); border: 1px solid transparent; padding: 0.6rem 1.1rem; font-size: 0.95rem; border-radius: 0.25rem; transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; appearance: none; }
-button:disabled { background-color: var(--color-disabled-bg); color: var(--color-disabled-text); border-color: var(--color-disabled-bg); cursor: not-allowed; opacity: 0.65; }
-button:not(:disabled):hover { background-color: var(--color-secondary-darker); border-color: var(--color-secondary-darker); }
-button:focus-visible { outline: 0; box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.5); }
+button { 
+  display: inline-block; font-weight: 700; line-height: 1.5; 
+  color: var(--text-button); 
+  text-align: center; text-decoration: none; vertical-align: middle; 
+  cursor: pointer; user-select: none; 
+  background-color: var(--color-secondary); 
+  border: 1px solid transparent; padding: 0.6rem 1.1rem; 
+  font-size: 0.95rem; border-radius: 0.25rem; 
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; 
+  appearance: none; 
+}
+button:disabled { 
+  background-color: var(--color-disabled-bg); 
+  color: var(--color-disabled-text); 
+  border-color: var(--color-disabled-bg); 
+  cursor: not-allowed; opacity: 0.65; 
+}
+button:not(:disabled):hover { 
+  background-color: var(--color-secondary-darker); 
+  border-color: var(--color-secondary-darker); 
+}
+button:focus-visible { outline: 0; box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.5); } /* This focus shadow might need a dark theme version */
 
 /* Button Type Variations */
-.controls button:first-of-type, .hint-button, .error-area button, .feedback-area button, .hard-words-view > button { background-color: var(--color-secondary); border-color: var(--color-secondary); }
-.controls button:first-of-type:hover:not(:disabled), .hint-button:hover:not(:disabled), .error-area button:hover:not(:disabled), .feedback-area button:hover:not(:disabled), .hard-words-view > button:hover { background-color: var(--color-secondary-darker); border-color: var(--color-secondary-darker); }
-.controls button:first-of-type:focus-visible, .hint-button:focus-visible, .error-area button:focus-visible, .feedback-area button:focus-visible, .hard-words-view > button:focus-visible { box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.5); }
+.controls button:first-of-type, .hint-button, .error-area button, .feedback-area button, .hard-words-view > button { 
+  background-color: var(--color-secondary); 
+  border-color: var(--color-secondary); 
+}
+.controls button:first-of-type:hover:not(:disabled), .hint-button:hover:not(:disabled), .error-area button:hover:not(:disabled), .feedback-area button:hover:not(:disabled), .hard-words-view > button:hover { 
+  background-color: var(--color-secondary-darker); 
+  border-color: var(--color-secondary-darker); 
+}
+.controls button:first-of-type:focus-visible, .hint-button:focus-visible, .error-area button:focus-visible, .feedback-area button:focus-visible, .hard-words-view > button:focus-visible { 
+  box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.5); 
+}
 
-.controls button:last-of-type, .submit-button { background-color: var(--color-primary); border-color: var(--color-primary); }
-.controls button:last-of-type:hover:not(:disabled), .submit-button:hover:not(:disabled) { background-color: var(--color-primary-darker); border-color: var(--color-primary-darker); }
-.controls button:last-of-type:focus-visible, .submit-button:focus-visible { box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.5); }
+.controls button:last-of-type, .submit-button { 
+  background-color: var(--color-primary); 
+  border-color: var(--color-primary); 
+}
+.controls button:last-of-type:hover:not(:disabled), .submit-button:hover:not(:disabled) { 
+  background-color: var(--color-primary-darker); 
+  border-color: var(--color-primary-darker); 
+}
+.controls button:last-of-type:focus-visible, .submit-button:focus-visible { 
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.5); 
+}
 
 /* Remove Button in Hard Words List */
-.hard-words-view li button { display: inline-block; background: none; border: none; color: var(--color-danger); cursor: pointer; font-size: 1.2rem; padding: 0 5px; line-height: 1; margin: 0; font-weight: bold; border-radius: 50%; transition: color 0.15s ease-in-out; appearance: none; }
+.hard-words-view li button { 
+  display: inline-block; background: none; border: none; 
+  color: var(--color-danger); 
+  cursor: pointer; font-size: 1.2rem; padding: 0 5px; 
+  line-height: 1; margin: 0; font-weight: bold; 
+  border-radius: 50%; transition: color 0.15s ease-in-out; appearance: none; 
+}
 .hard-words-view li button:hover { color: var(--color-danger-darker); background-color: transparent; }
 .hard-words-view li button:focus-visible { outline: 0; box-shadow: 0 0 0 0.25rem rgba(217, 4, 41, 0.5); }
 
 /* === Input Styling === */
-.answer-input { display: block; width: 100%; padding: 0.6rem 0.75rem; font-size: 1rem; font-weight: 400; line-height: 1.5; color: var(--text-body); background-color: var(--bg-card); background-clip: padding-box; border: 1px solid var(--color-border); appearance: none; border-radius: 0.25rem; transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; flex-grow: 1; min-width: 150px; }
-.answer-input:focus { color: var(--text-body); background-color: var(--bg-card); border-color: var(--color-primary); outline: 0; box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.5); }
-.answer-input::placeholder { color: var(--text-muted); opacity: 0.7; }
+.answer-input { 
+  display: block; width: 100%; padding: 0.6rem 0.75rem; 
+  font-size: 1rem; font-weight: 400; line-height: 1.5; 
+  color: var(--text-body); 
+  background-color: var(--bg-card); 
+  background-clip: padding-box; border: 1px solid var(--color-border); 
+  appearance: none; border-radius: 0.25rem; 
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, background-color 0.3s ease, color 0.3s ease;
+  flex-grow: 1; min-width: 150px; 
+}
+.answer-input:focus { 
+  color: var(--text-body); 
+  background-color: var(--bg-card); 
+  border-color: var(--color-primary); 
+  outline: 0; box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.5); 
+}
+.answer-input::placeholder { color: var(--text-muted); opacity: 0.7; transition: color 0.3s ease; }
 
 /* === Status Message Styling === */
-.App > p { font-style: italic; color: var(--text-muted); font-size: 1rem; }
-.error-area { margin: 0; color: var(--text-error); border: 1px solid var(--color-danger); padding: 12px 15px; border-radius: 4px; background-color: var(--bg-error); width: 100%; max-width: 500px; box-sizing: border-box; text-align: center; font-size: 0.95rem; }
+.App > p { 
+  font-style: italic; 
+  color: var(--text-muted); 
+  font-size: 1rem; 
+  transition: color 0.3s ease;
+}
+.error-area { 
+  margin: 0; 
+  color: var(--text-error); 
+  border: 1px solid var(--color-danger); 
+  padding: 12px 15px; border-radius: 4px; 
+  background-color: var(--bg-error); 
+  width: 100%; max-width: 500px; box-sizing: border-box; 
+  text-align: center; font-size: 0.95rem; 
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
 .error-area p { margin: 0 0 10px 0; font-weight: bold; }
 
 /* === Flashcard Area Styling === */
 .flashcard-area { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 15px; }
 
-/* Flashcard Base Styles */
-.flashcard { border: 1px solid var(--color-border); padding: 25px 30px; background-color: var(--bg-card); border-radius: 8px; box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1); margin: 0; text-align: center; transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out; width: 100%; max-width: 500px; position: relative; box-sizing: border-box; }
-.flashcard-word { font-size: 2.1rem; font-weight: 700; margin: 15px 0 20px 0; color: var(--text-heading); min-height: 1.3em; }
+.flashcard { 
+  border: 1px solid var(--color-border); 
+  padding: 25px 30px; 
+  background-color: var(--bg-card); 
+  border-radius: 8px; box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1); 
+  margin: 0; text-align: center; 
+  transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out; 
+  width: 100%; max-width: 500px; position: relative; box-sizing: border-box; 
+}
+.flashcard-word { 
+  font-size: 2.1rem; font-weight: 700; margin: 15px 0 20px 0; 
+  color: var(--text-heading); 
+  min-height: 1.3em; 
+  transition: color 0.3s ease;
+}
 
-/* Form within flashcard */
 .answer-form { margin-top: 15px; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; width: 100%; }
 
-/* Hint Display Styles */
-.hint-display { margin-top: 20px; padding: 12px 15px; background-color: var(--bg-hint); border-radius: 4px; font-size: 0.9rem; color: var(--text-muted); text-align: left; min-height: 1.5em; border-top: 1px solid var(--color-border); font-style: normal; }
-.hint-display strong { font-weight: 700; }
-.hint-display em { color: var(--text-muted); margin: 0 3px; font-style: italic; }
-.hint-display span[style*="color:orange"] { color: var(--color-warning); font-weight: bold; }
+.hint-display { 
+  margin-top: 20px; padding: 12px 15px; 
+  background-color: var(--bg-hint); 
+  border-radius: 4px; font-size: 0.9rem; 
+  color: var(--text-muted); 
+  text-align: left; min-height: 1.5em; 
+  border-top: 1px solid var(--color-border); 
+  font-style: normal; 
+  transition: background-color 0.3s ease, color 0.3s ease, border-top-color 0.3s ease;
+}
+.hint-display strong { font-weight: 700; color: var(--text-body); transition: color 0.3s ease; } /* Ensure strong text is themed */
+.hint-display em { color: var(--text-muted); margin: 0 3px; font-style: italic; transition: color 0.3s ease; }
+.hint-display span[style*="color:orange"] { color: var(--color-warning); font-weight: bold; } /* This specific inline style will override a theme change for this element */
 
-/* Feedback Area Styling */
-.feedback-area { margin-top: 0; padding: 10px 15px; border-radius: 4px; width: 100%; max-width: 500px; box-sizing: border-box; text-align: center; background-color: var(--bg-feedback-incorrect); border: 1px solid var(--color-danger); }
-.feedback-area p { color: var(--text-feedback-incorrect); font-weight: 700; margin: 0 0 8px 0; font-size: 0.95rem; }
-.feedback-area button { margin-top: 0; }
+.feedback-area { 
+  margin-top: 0; padding: 10px 15px; border-radius: 4px; 
+  width: 100%; max-width: 500px; box-sizing: border-box; 
+  text-align: center; 
+  background-color: var(--bg-feedback-incorrect); /* This is for incorrect, correct uses inline style with vars */
+  border: 1px solid var(--color-danger); 
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.feedback-area p { 
+  /* This selector applies to both incorrect and correct p tags in feedback */
+  /* color is set by --text-feedback-incorrect or inline style for correct */
+  font-weight: 700; margin: 0 0 8px 0; font-size: 0.95rem; 
+  transition: color 0.3s ease;
+}
+.feedback-area button { margin-top: 0; } 
 
 /* === Visual Feedback Styles (Flashcard Animation) === */
-.flashcard--correct { animation: flash-correct-vivid 0.6s ease-out; border-color: var(--color-success); }
-.flashcard--incorrect { animation: flash-incorrect 0.6s ease-out; border-color: var(--color-danger); }
-@keyframes flash-correct-vivid { 0%, 100% { background-color: var(--bg-card); border-color: var(--color-success); color: var(--text-body); } 50% { background-color: var(--color-success); color: var(--text-button); border-color: var(--color-success); } }
+/* Keyframes use variables like --bg-card, --color-success, --text-body, --text-button.
+   These should adapt correctly when the theme changes the variable values. */
+.flashcard--correct { animation: flash-correct-vivid 0.6s ease-out; border-color: var(--color-success); } 
+.flashcard--incorrect { animation: flash-incorrect 0.6s ease-out; border-color: var(--color-danger); } 
+@keyframes flash-correct-vivid { 0%, 100% { background-color: var(--bg-card); border-color: var(--color-success); color: var(--text-body); } 50% { background-color: var(--color-success); color: var(--text-button); border-color: var(--color-success); } } 
 @keyframes flash-incorrect { 0%, 100% { background-color: var(--bg-card); border-color: var(--color-danger); } 50% { background-color: var(--bg-feedback-incorrect); border-color: var(--color-danger); } }
 
+
+/* flashcard-details-revealed styles (from your provided CSS) */
 .flashcard-details-revealed {
   margin-top: 20px;
   padding-top: 15px;
-  border-top: 1px solid var(--color-border-light, #eee);
-  text-align: left; /* Or center, depending on your preference */
+  border-top: 1px solid var(--color-border-light);
+  text-align: left; 
   font-size: 0.9rem;
   color: var(--text-muted);
+  transition: color 0.3s ease, border-top-color 0.3s ease;
 }
-
-.flashcard-details-revealed .detail-item {
-  margin-bottom: 10px;
-}
-
+.flashcard-details-revealed .detail-item { margin-bottom: 10px; }
 .flashcard-details-revealed .detail-item strong {
-  color: var(--text-body); /* Make labels a bit darker */
+  color: var(--text-body); 
   margin-right: 5px;
+  transition: color 0.3s ease;
 }
-
 .flashcard-details-revealed .notes-detail p {
-  margin-top: 2px; /* Small space between "Notes:" label and the note itself */
+  margin-top: 2px; 
   margin-bottom: 0;
-  white-space: pre-wrap; /* Respects newlines and multiple spaces in notes */
+  white-space: pre-wrap; 
   line-height: 1.4;
-  background-color: var(--bg-hint, #f8f9fa); /* Slight background for notes block */
+  background-color: var(--bg-hint); 
   padding: 8px;
   border-radius: 4px;
+  transition: background-color 0.3s ease;
 }
-
-.flashcard-details-revealed .category-detail {
-  font-style: italic;
-}
-
+.flashcard-details-revealed .category-detail { font-style: italic; }
 
 
 /* === Hard Words View Styling === */
-.hard-words-view { padding: 20px; border: 1px solid var(--color-border); margin-top: 0; background-color: var(--bg-card); border-radius: 8px; width: 100%; max-width: 550px; box-sizing: border-box; color: var(--text-body); text-align: left; box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1); }
-.hard-words-view h2 { margin-top: 0; margin-bottom: 20px; text-align: center; font-size: 1.5rem; color: var(--text-muted); }
+.hard-words-view { 
+  padding: 20px; border: 1px solid var(--color-border); 
+  margin-top: 0; background-color: var(--bg-card); 
+  border-radius: 8px; width: 100%; max-width: 550px; 
+  box-sizing: border-box; color: var(--text-body); 
+  text-align: left; box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1); 
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.hard-words-view h2 { 
+  margin-top: 0; margin-bottom: 20px; text-align: center; 
+  font-size: 1.5rem; color: var(--text-muted); 
+  transition: color 0.3s ease;
+}
 .hard-words-view ul { list-style: none; padding: 0; margin: 0 0 20px 0; }
-.hard-words-view li { border-bottom: 1px solid var(--color-border-light); padding: 12px 5px; display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 1rem; }
+.hard-words-view li { 
+  border-bottom: 1px solid var(--color-border-light); 
+  padding: 12px 5px; display: flex; justify-content: space-between; 
+  align-items: center; gap: 10px; font-size: 1rem; 
+  transition: border-bottom-color 0.3s ease;
+}
 .hard-words-view li span { flex-grow: 1; }
-.hard-words-view li span strong { font-weight: 700; }
-.hard-words-view li button { display: inline-block; background: none; border: none; color: var(--color-danger); cursor: pointer; font-size: 1.2rem; padding: 0 5px; line-height: 1; margin: 0; font-weight: bold; border-radius: 50%; transition: color 0.15s ease-in-out; appearance: none; }
-.hard-words-view li button:hover { color: var(--color-danger-darker); background-color: transparent; }
-.hard-words-view li button:focus-visible { outline: 0; box-shadow: 0 0 0 0.25rem rgba(217, 4, 41, 0.5); }
-/* Close button inherits base styles */
+.hard-words-view li span strong { font-weight: 700; } /* Will inherit themed text color */
+/* Remove button in HWV already uses --color-danger which is themed */
+
 
 /* === INCORRECT Score Number Flash Styles === */
-.score-flash-incorrect { animation: flash-red-score 1.0s ease-out; display: inline-block; vertical-align: middle; border-radius: 4px; padding: 1px 4px; margin: -1px -4px; }
+/* Keyframes use variables, should adapt */
+.score-flash-incorrect { animation: flash-red-score 1.0s ease-out; display: inline-block; vertical-align: middle; border-radius: 4px; padding: 1px 4px; margin: -1px -4px; } 
 @keyframes flash-red-score { 0%, 100% { color: var(--color-danger); background-color: transparent; transform: scale(1); box-shadow: none; padding: 1px 4px; margin: -1px -4px; } 50% { color: var(--text-button); background-color: var(--color-danger); transform: scale(1.15); box-shadow: 0 0 10px rgba(217, 4, 41, 0.8); padding: 1px 4px; margin: -1px -4px; } }
-/* === End INCORRECT Score Number Flash Styles === */
 
-/* Add to App.css or a new forms.css */
-.add-word-form .form-group {
-  margin-bottom: 15px;
+
+/* Form styles for AddWordModal (from your provided CSS) */
+.add-word-form .form-group { margin-bottom: 15px; }
+.add-word-form label { 
+  display: block; margin-bottom: 5px; font-weight: bold; 
+  font-size: 0.9rem; color: var(--text-muted); 
+  transition: color 0.3s ease;
 }
-
-.add-word-form label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-}
-
 .add-word-form input[type="text"],
 .add-word-form textarea {
-  width: 100%;
-  padding: 8px 10px;
-  border: 1px solid var(--color-border, #ced4da);
-  border-radius: 4px;
-  box-sizing: border-box;
-  font-size: 1rem;
+  width: 100%; padding: 8px 10px;
+  border: 1px solid var(--color-border); 
+  border-radius: 4px; box-sizing: border-box; font-size: 1rem;
+  background-color: var(--bg-card); 
+  color: var(--text-body); 
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, background-color 0.3s ease, color 0.3s ease;
 }
-
-.add-word-form textarea {
-  resize: vertical;
-}
-
+.add-word-form textarea { resize: vertical; min-height: 60px; }
 .add-word-form input[type="text"]:focus,
 .add-word-form textarea:focus {
-  border-color: var(--color-primary, #0d6efd);
-  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+  border-color: var(--color-primary); 
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25); 
   outline: none;
 }
-
-
