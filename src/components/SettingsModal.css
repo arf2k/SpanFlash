@@ -106,3 +106,21 @@
 .button-close-settings:hover {
   background-color: var(--color-secondary-darker);
 }
+.button-theme-toggle {
+    padding: 10px 15px;
+    font-size: 0.95rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    background-color: var(--color-secondary); 
+    color: var(--text-button, white);
+    border: 1px solid var(--color-secondary-darker);
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.button-theme-toggle:hover {
+    background-color: var(--color-secondary-darker);
+}
