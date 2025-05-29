@@ -1,14 +1,15 @@
 
-
-.word-details-modal-content {
+.word-details-modal-content { 
     max-height: 90vh; 
     width: 100%;
     max-width: 600px; 
+    transition: background-color 0.3s ease, color 0.3s ease; 
 }
 
 .word-details-title {
     font-weight: 700;
-    color: var(--color-primary, #0d6efd); 
+    color: var(--color-primary); 
+    transition: color 0.3s ease; 
 }
 
 .word-details-scrollable-area {
@@ -16,12 +17,14 @@
     flex-grow: 1;
     padding: 0px 5px 15px 5px; 
     line-height: 1.5;
+     color: var(--text-body);
 }
 
 .detail-section {
     margin-bottom: 18px;
     padding-bottom: 12px;
-    border-bottom: 1px dotted var(--color-border-light, #eee);
+    border-bottom: 1px dotted var(--color-border-light); 
+    transition: border-bottom-color 0.3s ease; 
 }
 .detail-section:last-child {
     margin-bottom: 0;
@@ -31,53 +34,58 @@
 .detail-label {
     display: block;
     font-weight: 600;
-    color: var(--text-muted);
+    color: var(--text-muted); 
     font-size: 0.85rem;
     margin-bottom: 3px;
     text-transform: uppercase;
+    transition: color 0.3s ease; 
 }
 
 .detail-value {
     margin: 0;
     padding-left: 5px; 
     font-size: 0.95rem;
-    color: var(--text-body);
+    color: var(--text-body); 
+    transition: color 0.3s ease; 
 }
 
 .detail-value.notes-value {
     white-space: pre-wrap; 
-    background-color: var(--bg-app, #f8f9fa); 
+    background-color: var(--bg-hint); 
     padding: 8px;
     border-radius: 4px;
+    transition: background-color 0.3s ease; 
 }
 
 .detail-value.category-value {
-    font-style: italic;
+    font-style: italic; 
 }
 
 .tatoeba-examples-container .examples-button-modal {
-    background-color: var(--color-success, #198754);  
-    color: white;
+    background-color: var(--color-success);  
+    color: var(--text-button, white); 
     border: none;
     padding: 8px 12px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.9rem;
     margin-top: 5px; 
+    transition: background-color 0.15s ease-in-out; 
 }
 .tatoeba-examples-container .examples-button-modal:hover {
-    background-color: var(--color-success-darker, #157347);
+    background-color: var(--color-success-darker); 
 }
 
 .tatoeba-examples-container .loading-text,
 .tatoeba-examples-container .examples-error-text {
     font-style: italic;
     margin-top: 10px;
+    color: var(--text-muted); 
+    transition: color 0.3s ease; 
 }
 .tatoeba-examples-container .examples-error-text {
-    color: var(--color-danger, red);
+    color: var(--color-danger); 
 }
-
 
 .example-sentences-list-modal {
     list-style: none;
@@ -88,29 +96,24 @@
 .example-sentences-list-modal li {
     margin-bottom: 12px;
     padding: 8px;
-    background-color: var(--bg-app, #f8f9fa);
-    border-left: 3px solid var(--color-primary-lighter, #cfe2ff); 
+    background-color: var(--bg-hint); 
+    border-left: 3px solid var(--color-primary); 
     border-radius: 0 4px 4px 0;
+    transition: background-color 0.3s ease, border-left-color 0.3s ease;
 }
 
 .example-sentences-list-modal .example-spa-modal {
     margin: 0 0 4px 0;
     font-weight: 500;
-    color: var(--text-body);
+    color: var(--text-body); 
     font-size: 0.95rem;
+    transition: color 0.3s ease; 
 }
 
 .example-sentences-list-modal .example-eng-modal {
     margin: 0;
     font-style: italic;
-    color: var(--text-muted);
+    color: var(--text-muted); 
     font-size: 0.85rem;
+    transition: color 0.3s ease; 
 }
-
-/* Optional: Actions area at the very bottom of the modal, if needed */
-/* .word-details-actions {
-    padding-top: 15px;
-    margin-top: auto; 
-    border-top: 1px solid var(--color-border, #dee2e6);
-    text-align: right;
-} */
