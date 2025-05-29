@@ -1,4 +1,3 @@
-// src/App.jsx
 import { useState, useEffect, useRef } from "react";
 import Flashcard from "./components/Flashcard";
 import ScoreStack from "./components/ScoreStack";
@@ -7,9 +6,9 @@ import SearchModal from "./components/SearchModal";
 import AddWordModal from "./components/AddWordModal";
 import WordEditModal from "./components/WordEditModal";
 import WordDetailsModal from "./components/WordDetailsModal";
-import SettingsModal from "./components/SettingsModal"; // <-- Import SettingsModal
+import SettingsModal from "./components/SettingsModal"; 
 import { getMwHint } from "./services/dictionaryServices.js";
-import { getTatoebaExamples } from "./services/tatoebaService.js";
+import { getTatoebaExamples } from "./services/tatoebaServices.js";
 import { db } from "./db";
 import { useWordData } from "./hooks/useWordData";
 import { useFlashcardGame } from "./hooks/useFlashcardGame";
