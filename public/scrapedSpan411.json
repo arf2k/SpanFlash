@@ -1,5 +1,5 @@
 {
-  "version": "1.2.2",
+  "version": "1.2.3",
   "words": [
     {
       "spanish": "cargar",
@@ -963,7 +963,13 @@
     },
     {
       "spanish": "el puzzle",
-      "english": "jigsaw puzzle"
+      "english": "jigsaw puzzle",
+      "notes": "",
+      "synonyms_spanish": [
+        "rompecabezas"
+      ],
+      "synonyms_english": [],
+      "category": ""
     },
     {
       "spanish": "el pasatiempo",
@@ -3047,7 +3053,13 @@
     },
     {
       "spanish": "ambicioso",
-      "english": "greedy"
+      "english": "greedy",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [
+        "ambitious"
+      ],
+      "category": ""
     },
     {
       "spanish": "quitar la mesa",
@@ -3423,7 +3435,15 @@
     },
     {
       "spanish": "batir",
-      "english": "to beat"
+      "english": "to beat",
+      "notes": "",
+      "synonyms_spanish": [
+        "Golpear"
+      ],
+      "synonyms_english": [
+        "to hit"
+      ],
+      "category": ""
     },
     {
       "spanish": "el microondas",
@@ -3730,7 +3750,14 @@
     },
     {
       "spanish": "quitarse",
-      "english": "to take off"
+      "english": "to take off",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [
+        "to remove",
+        "to take away/off/out"
+      ],
+      "category": ""
     },
     {
       "spanish": "el mueble",
@@ -4034,7 +4061,13 @@
     },
     {
       "spanish": "el lavaplatos",
-      "english": "dishwasher"
+      "english": "dishwasher",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [
+        "sink"
+      ],
+      "category": ""
     },
     {
       "spanish": "eficaz",
@@ -4130,7 +4163,13 @@
     },
     {
       "spanish": "la harina",
-      "english": "flour"
+      "english": "flour",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [
+        "cornmeal"
+      ],
+      "category": ""
     },
     {
       "spanish": "componer",
@@ -8337,7 +8376,17 @@
     },
     {
       "spanish": "el alojamiento",
-      "english": "accommodations"
+      "english": "accommodations",
+      "notes": "",
+      "synonyms_spanish": [
+        "hospedaje",
+        "aposento"
+      ],
+      "synonyms_english": [
+        "Housing",
+        "lodging"
+      ],
+      "category": ""
     },
     {
       "spanish": "partir",
@@ -8701,7 +8750,13 @@
     },
     {
       "spanish": "el parlante",
-      "english": "loudspeaker"
+      "english": "loudspeaker",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [
+        "speaker"
+      ],
+      "category": ""
     },
     {
       "spanish": "el reclamo de equipaje",
@@ -9048,7 +9103,14 @@
     },
     {
       "spanish": "el juego",
-      "english": "ride"
+      "english": "ride",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [
+        "play",
+        "set"
+      ],
+      "category": ""
     },
     {
       "spanish": "el algodón de azúcar",
@@ -9668,7 +9730,13 @@
     },
     {
       "spanish": "la caminata",
-      "english": "long walk"
+      "english": "long walk",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [
+        "hike"
+      ],
+      "category": ""
     },
     {
       "spanish": "la caminata",
@@ -9870,7 +9938,13 @@
     },
     {
       "spanish": "marcar",
-      "english": "to score"
+      "english": "to score",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [
+        "to mark"
+      ],
+      "category": ""
     },
     {
       "spanish": "el banquillo",
@@ -10315,7 +10389,13 @@
     },
     {
       "spanish": "el techo",
-      "english": "roof"
+      "english": "roof",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [
+        "cieling"
+      ],
+      "category": ""
     },
     {
       "spanish": "aquella",
@@ -11503,7 +11583,13 @@
     },
     {
       "spanish": "el amanecer",
-      "english": "dawn"
+      "english": "dawn",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [
+        "sunrise"
+      ],
+      "category": ""
     },
     {
       "spanish": "la pregunta",
@@ -12028,7 +12114,14 @@
     },
     {
       "spanish": "el padrino",
-      "english": "godfather"
+      "english": "godfather",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [
+        "sponsor",
+        "patron"
+      ],
+      "category": ""
     },
     {
       "spanish": "la ternura",
@@ -12067,7 +12160,14 @@
     },
     {
       "spanish": "la redacción",
-      "english": "essay"
+      "english": "essay",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [
+        "writing",
+        "composition"
+      ],
+      "category": ""
     },
     {
       "spanish": "el rascacielos",
@@ -12814,7 +12914,14 @@
     },
     {
       "spanish": "imitar",
-      "english": "to imitate"
+      "english": "to imitate",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [
+        "to copy",
+        "to mimic"
+      ],
+      "category": ""
     },
     {
       "spanish": "el carnaval",
@@ -17009,7 +17116,15 @@
     },
     {
       "spanish": "el vertedero",
-      "english": "dump"
+      "english": "dump",
+      "notes": "",
+      "synonyms_spanish": [
+        "desagüe"
+      ],
+      "synonyms_english": [
+        "garbage dump"
+      ],
+      "category": ""
     },
     {
       "spanish": "el país en desarrollo",
@@ -19740,7 +19855,13 @@
     },
     {
       "spanish": "compartir",
-      "english": "to split"
+      "english": "to split",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [
+        "to share"
+      ],
+      "category": ""
     },
     {
       "spanish": "por ciento",
@@ -21167,7 +21288,10 @@
       "english": "jar",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [],
+      "synonyms_english": [
+        "pot",
+        "tin"
+      ],
       "category": "Kitchen"
     },
     {
@@ -21753,7 +21877,13 @@
     },
     {
       "spanish": "el sabor",
-      "english": "taste"
+      "english": "taste",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [
+        "flavor"
+      ],
+      "category": ""
     },
     {
       "spanish": "la prueba",
@@ -23014,7 +23144,14 @@
     },
     {
       "spanish": "las funciones",
-      "english": "skills"
+      "english": "skills",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [
+        "functions",
+        "duties"
+      ],
+      "category": ""
     },
     {
       "spanish": "el empleo",
@@ -27294,10 +27431,6 @@
       "spanish": "to prescribe a medicine"
     },
     {
-      "english": "Tomar la temperatura",
-      "spanish": "to take the temperature"
-    },
-    {
       "english": "Tomar la tensión",
       "spanish": "check out the blood pressure"
     },
@@ -27907,8 +28040,16 @@
       "spanish": "Repeler"
     },
     {
+      "spanish": "Asfixiar",
       "english": "to choke",
-      "spanish": "Asfixiar"
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [
+        "to asphyxiate",
+        "to suffocate",
+        "to smother"
+      ],
+      "category": ""
     },
     {
       "english": "To hiss",
@@ -29337,8 +29478,12 @@
       "spanish": "a hijacker\na hijacker (of planes)"
     },
     {
-      "english": "un secuestro",
-      "spanish": "a hijacking"
+      "spanish": "un secuestro",
+      "english": "a hijacking",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": ""
     },
     {
       "english": "represalia",
@@ -29359,10 +29504,6 @@
     {
       "english": "frustrar un atentado terrorista",
       "spanish": "to foil a terrorist attack"
-    },
-    {
-      "english": "violacion a los derechos humanos",
-      "spanish": "violation of human rights"
     },
     {
       "english": "daño colateral",
@@ -29611,10 +29752,6 @@
     {
       "english": "una gira",
       "spanish": "a tour"
-    },
-    {
-      "english": "un papel de figurante / comparsa",
-      "spanish": "a walk on part"
     },
     {
       "english": "un actor",
@@ -29915,10 +30052,6 @@
     {
       "english": "un / una acomodador/a",
       "spanish": "an usher"
-    },
-    {
-      "english": "la pantalla",
-      "spanish": "the screen"
     },
     {
       "english": "argumento, trama",
@@ -30635,7 +30768,14 @@
     },
     {
       "spanish": "el folleto",
-      "english": "leaflet"
+      "english": "leaflet",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [
+        "pamphlet",
+        "circular"
+      ],
+      "category": ""
     },
     {
       "spanish": "el prójimo",
@@ -31034,7 +31174,15 @@
     },
     {
       "spanish": "la destreza",
-      "english": "skill"
+      "english": "skill",
+      "notes": "",
+      "synonyms_spanish": [
+        "habilidad"
+      ],
+      "synonyms_english": [
+        "dexterity"
+      ],
+      "category": ""
     },
     {
       "spanish": "el peregrino",
@@ -31364,7 +31512,16 @@
     },
     {
       "spanish": "el amparo",
-      "english": "refuge"
+      "english": "refuge",
+      "notes": "",
+      "synonyms_spanish": [
+        "acogida",
+        "refugio"
+      ],
+      "synonyms_english": [
+        "protection"
+      ],
+      "category": ""
     },
     {
       "spanish": "despeinado",
@@ -32486,7 +32643,14 @@
     },
     {
       "spanish": "apuntar",
-      "english": "to aim"
+      "english": "to aim",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [
+        "to point (a finger",
+        "etc.)"
+      ],
+      "category": ""
     },
     {
       "spanish": "reñir",
@@ -32815,6 +32979,203 @@
     {
       "spanish": "restregar",
       "english": "to scrub"
+    },
+    {
+      "spanish": "De todas maneras",
+      "english": "Anyway",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": ""
+    },
+    {
+      "spanish": "Tal como",
+      "english": "Such as",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": ""
+    },
+    {
+      "spanish": "el cajon",
+      "english": "Drawer",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": ""
+    },
+    {
+      "spanish": "gabinete",
+      "english": "cabinet",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": ""
+    },
+    {
+      "spanish": "escoger",
+      "english": "Choose",
+      "notes": "",
+      "synonyms_spanish": [
+        "Eligir"
+      ],
+      "synonyms_english": [],
+      "category": ""
+    },
+    {
+      "spanish": "Trozo",
+      "english": "piece",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": ""
+    },
+    {
+      "spanish": "Devolver",
+      "english": "To return",
+      "notes": "",
+      "synonyms_spanish": [
+        "Regresar"
+      ],
+      "synonyms_english": [],
+      "category": ""
+    },
+    {
+      "spanish": "Agregar",
+      "english": "To add",
+      "notes": "",
+      "synonyms_spanish": [
+        "Añadir"
+      ],
+      "synonyms_english": [],
+      "category": ""
+    },
+    {
+      "spanish": "afeitarse",
+      "english": "To shave",
+      "notes": "",
+      "synonyms_spanish": [
+        "rasurar"
+      ],
+      "synonyms_english": [],
+      "category": ""
+    },
+    {
+      "spanish": "apellidarse",
+      "english": "to have for a last name",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": ""
+    },
+    {
+      "spanish": "maletín",
+      "english": "briefcase",
+      "notes": "",
+      "synonyms_spanish": [
+        "portafolio"
+      ],
+      "synonyms_english": [
+        "Overnight bag",
+        "satchel"
+      ],
+      "category": ""
+    },
+    {
+      "spanish": "ginebra",
+      "english": "gin",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": ""
+    },
+    {
+      "spanish": "mesa de despacho",
+      "english": "office table",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": ""
+    },
+    {
+      "spanish": "guión bajo",
+      "english": "underscore",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": ""
+    },
+    {
+      "spanish": "chale",
+      "english": "clown",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [
+        "Comedian",
+        "comic"
+      ],
+      "category": ""
+    },
+    {
+      "spanish": "amueblado",
+      "english": "furnished",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": ""
+    },
+    {
+      "spanish": "panadero",
+      "english": "baker",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": ""
+    },
+    {
+      "spanish": "cazadora",
+      "english": "windbreaker",
+      "notes": "",
+      "synonyms_spanish": [
+        "chaqueta cazadora",
+        "quebrador de viento"
+      ],
+      "synonyms_english": [],
+      "category": ""
+    },
+    {
+      "spanish": "calzoncillos",
+      "english": "underpants",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": ""
+    },
+    {
+      "spanish": "probador",
+      "english": "fitting room",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": ""
+    },
+    {
+      "spanish": "mercadotecnia",
+      "english": "marketing",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": ""
+    },
+    {
+      "spanish": "pino",
+      "english": "Pine tree",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [
+        "pine wood"
+      ],
+      "category": ""
     }
   ]
 }
