@@ -11,7 +11,7 @@ const MatchingGameView = ({ fullWordList, numPairsToDisplay = 6, onExitGame }) =
         gameScore,
         handleSpanishSelection,
         handleEnglishSelection,
-        initializeRound, 
+        initializeNewRound, 
         activePairCount,
         allWordsCount
     } = useMatchingGame(fullWordList, numPairsToDisplay);
@@ -30,19 +30,14 @@ const MatchingGameView = ({ fullWordList, numPairsToDisplay = 6, onExitGame }) =
     }
     
     if (activePairCount < numPairsToDisplay && activePairCount > 0) {
-         // This might happen if we run out of unique words during continuous play
-         // Or if the initial pickNewWords couldn't find enough.
-         // The hook's initializeRound already tries to handle this.
-         // We can show a message or allow re-initialization.
+       
     }
     if (activePairCount === 0 && allWordsCount >= numPairsToDisplay) {
-        // This state implies initializeRound might not have run or found words,
-        // possibly due to all words being in matchedPairIdsInSession.
-        // Offering a way to reset the session or just re-initialize.
+
         return (
             <div className="matching-game-container matching-game-message">
                 <p>Preparing new words...</p>
-                <button onClick={initializeRound} className="matching-game-button">Start / New Round</button>
+                <button onClick={initializeNewRound} className="matching-game-button">Start / New Round</button>
                 <button onClick={onExitGame} className="matching-game-button">Back to Flashcards</button>
             </div>
         );
@@ -94,7 +89,7 @@ const MatchingGameView = ({ fullWordList, numPairsToDisplay = 6, onExitGame }) =
                 </div>
             </div>
             <div className="matching-game-controls">
-                <button onClick={initializeRound} className="matching-game-button">
+                <button onClick={initializeNewRound} className="matching-game-button">
                     New Round / Reshuffle
                 </button>
                 <button onClick={onExitGame} className="matching-game-button matching-game-exit-button">

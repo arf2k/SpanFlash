@@ -34,15 +34,15 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
         for (const word of shuffledPool) {
             if (newWords.length >= count) break;
             newWords.push(word);
+            console.log("test most updated version")
         }
         
         if (newWords.length < count && sourceList.length >= count) {
              console.warn(`useMatchingGame: pickNewWords found only ${newWords.length} words after exclusions (needed ${count}). Pool size: ${availablePool.length}. Exclusions: ${excludeIds.size}`);
         }
         return newWords;
-    }, [fullWordList]); // Depends on fullWordList, so pickNewWords reference changes if fullWordList changes
+    }, [fullWordList]); 
 
-    // initializeNewRound is called by UI or the initial effect
     const initializeNewRound = useCallback((isNewSessionStart = false) => {
         console.log("useMatchingGame: initializeNewRound called. isNewSessionStart:", isNewSessionStart);
         setSelectedSpanish(null);
@@ -57,7 +57,6 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
             console.log("useMatchingGame: New game session started. Score and sessionUsedWordIds reset.");
         }
         
-        // Corrected call to pickNewWords
         let newPairs = pickNewWords(numPairsToDisplay, exclusionsForPicking); 
         
         if (newPairs.length < numPairsToDisplay && fullWordList.length >= numPairsToDisplay) {
@@ -93,8 +92,8 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
             // (due to the effect below). Or on first mount it's false.
             if (!initializedForCurrentListRef.current) {
                 console.log("useMatchingGame: fullWordList ready and not yet initialized for this list instance. Initializing new game session.");
-                initializeNewRound(true); // Start a brand new game session
-                initializedForCurrentListRef.current = true; // Mark as initialized for *this* fullWordList instance
+                initializeNewRound(true); 
+                initializedForCurrentListRef.current = true; 
             }
         } else {
             console.log("useMatchingGame: fullWordList not sufficient or empty for game. Clearing board.");
@@ -105,10 +104,7 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
             setSessionUsedWordIds(new Set());
             initializedForCurrentListRef.current = false; // Reset if list becomes too small
         }
-    // `initializeNewRound` is NOT in this dependency array to prevent loops.
-    // This effect relies on `fullWordList` changing its reference to trigger a full reset and re-initialization.
-    // The `initializeNewRound` function is called using its latest available reference from the hook's scope.
-    // eslint-disable-next-line react-hooks/exhaustive-deps 
+
     }, [fullWordList, numPairsToDisplay]); 
 
     // Effect to reset initialization flag when fullWordList reference itself changes
@@ -139,8 +135,8 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
 
                 // Check if all active pairs on the board are now matched
                 const allCurrentlyActiveAreMatched = activeWordPairs.every(ap => 
-                    sessionUsedWordIds.has(ap.id) || // Check against updated sessionUsedWordIds
-                    (ap.id === originalPairForSpanish.id) // Include the one just matched
+                    sessionUsedWordIds.has(ap.id) || 
+                    (ap.id === originalPairForSpanish.id) 
                 );
 
                 if (allCurrentlyActiveAreMatched) {
