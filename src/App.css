@@ -17,6 +17,7 @@
   --color-secondary-darker: #5a6268;
   --color-danger-darker: #a0041e;
   --color-success-darker: #157347; 
+   --color-primary-lighter: #e0eif9;
 
   --color-disabled-bg: #cccccc;
   --color-disabled-text: #6c757d;
@@ -51,7 +52,8 @@ body[data-theme="dark"] {
   --color-success-darker: #16a34a;
   --color-danger: #ef4444;          
   --color-danger-darker: #dc2626;
-  --color-warning: #f59e0b;         
+  --color-warning: #f59e0b;
+   --color-primary-lighter: #2c3e50         
   
   /* Re-think these base names for clarity if reused often */
   --color-light: #4A5568;  /* This was --color-light in :root, now a dark theme utility gray */
