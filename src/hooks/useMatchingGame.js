@@ -1,7 +1,5 @@
-// src/hooks/useMatchingGame.js
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-// Helper function to shuffle an array (Fisher-Yates shuffle)
 function shuffleArray(array) {
     const newArray = [...array];
     for (let i = newArray.length - 1; i > 0; i--) {
@@ -20,64 +18,56 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
     const [selectedEnglish, setSelectedEnglish] = useState(null);
     
     const [gameScore, setGameScore] = useState(0);
-    // Tracks words correctly matched in the current "super-session"
-    // This set is reset when the "New Round" button is pressed (via initializeNewRound(true))
-    // or when fullWordList changes.
     const [sessionUsedWordIds, setSessionUsedWordIds] = useState(new Set());
     
-    const gameInitializedForCurrentList = useRef(false);
+    // This ref will track if we have initialized for the current fullWordList instance
+    const initializedForCurrentListRef = useRef(false);
 
-    // pickNewWords: Fetches 'count' words from 'sourceList', excluding any IDs in 'excludeIdsSet'.
-    const pickNewWords = useCallback((sourceList, count, excludeIdsSet = new Set()) => {
+    // pickNewWords uses fullWordList from closure, takes count and exclusions
+    const pickNewWords = useCallback((count, excludeIds = new Set()) => {
         const newWords = [];
-        const validSourceList = Array.isArray(sourceList) ? sourceList : [];
+        const sourceList = Array.isArray(fullWordList) ? fullWordList : [];
         
-        // Filter out already excluded words from the source list
-        const availablePool = validSourceList.filter(word => !excludeIdsSet.has(word.id));
-        const shuffledPool = shuffleArray(availablePool); // Shuffle the filtered pool
+        const availablePool = sourceList.filter(word => !excludeIds.has(word.id));
+        const shuffledPool = shuffleArray(availablePool);
 
         for (const word of shuffledPool) {
             if (newWords.length >= count) break;
             newWords.push(word);
         }
         
-        if (newWords.length < count && validSourceList.length >= count) {
-             console.warn(`useMatchingGame: pickNewWords could only find ${newWords.length} words to pick from ${availablePool.length} available (needed ${count}). Source list: ${validSourceList.length}. Exclusions: ${excludeIdsSet.size}`);
+        if (newWords.length < count && sourceList.length >= count) {
+             console.warn(`useMatchingGame: pickNewWords found only ${newWords.length} words after exclusions (needed ${count}). Pool size: ${availablePool.length}. Exclusions: ${excludeIds.size}`);
         }
         return newWords;
-    }, []); // This hook is stable and only depends on its arguments directly
+    }, [fullWordList]); // Depends on fullWordList, so pickNewWords reference changes if fullWordList changes
 
-    // Function to setup/reset a round. Called by UI button or initial effect.
-    const initializeNewRound = useCallback((isNewGameSession = false) => {
-        console.log("useMatchingGame: initializeNewRound called. isNewGameSession:", isNewGameSession);
+    // initializeNewRound is called by UI or the initial effect
+    const initializeNewRound = useCallback((isNewSessionStart = false) => {
+        console.log("useMatchingGame: initializeNewRound called. isNewSessionStart:", isNewSessionStart);
         setSelectedSpanish(null);
         setSelectedEnglish(null);
 
-        let exclusionsForPicking;
-        if (isNewGameSession) { // Typically when "New Round" button is pressed or fullWordList changes
+        let exclusionsForPicking = sessionUsedWordIds;
+        if (isNewSessionStart) {
             setGameScore(0);
             const newSessionIdSet = new Set();
-            setSessionUsedWordIds(newSessionIdSet); // Reset session used words
-            exclusionsForPicking = newSessionIdSet; // Pick from anything in fullWordList
+            setSessionUsedWordIds(newSessionIdSet); 
+            exclusionsForPicking = newSessionIdSet; 
             console.log("useMatchingGame: New game session started. Score and sessionUsedWordIds reset.");
-        } else {
-            // This case would be if we wanted to initialize without resetting session (e.g. just filling board)
-            // For current design, "New Round" button implies isNewGameSession = true.
-            exclusionsForPicking = sessionUsedWordIds;
         }
         
-        let newPairs = pickNewWords(fullWordList, numPairsToDisplay, exclusionsForPicking);
+        // Corrected call to pickNewWords
+        let newPairs = pickNewWords(numPairsToDisplay, exclusionsForPicking); 
         
-        // If after trying to pick from "unused in session", we still don't have enough,
-        // it means we might have exhausted the truly unique words for this session.
-        // For a "New Round" button, we expect it to always try to provide a full board if possible,
-        // even if it means reusing words from the overall fullWordList that might have been in previous rounds of this session.
-        // The logic in pickNewWords with sessionUsedWordIds handles trying fresh ones first.
-        // If newPairs is still too short, it means the overall fullWordList itself is small.
-        if (newPairs.length < numPairsToDisplay && fullWordList.length >= numPairsToDisplay && isNewGameSession) {
-             console.warn(`useMatchingGame: Still couldn't get ${numPairsToDisplay} unique pairs after session reset for new round. The overall list might be small or mostly used. Picking from full list again.`);
-             // The pickNewWords already tries to get from fullWordList if initial pool is small based on exclusions.
-             // This condition might indicate very few words overall compared to numPairsToDisplay.
+        if (newPairs.length < numPairsToDisplay && fullWordList.length >= numPairsToDisplay) {
+            console.warn(`useMatchingGame: Not enough unique words for round. Trying to pick again, allowing reuse from session.`);
+            // If truly starting a new round and can't find enough, allow reuse by clearing session exclusions for this pick
+            const completelyFreshExclusions = new Set(); 
+            newPairs = pickNewWords(numPairsToDisplay, completelyFreshExclusions);
+            if (isNewSessionStart) { // If this was a new session start, reflect the reset sessionUsedWordIds
+                 setSessionUsedWordIds(completelyFreshExclusions);
+            }
         }
         
         if (newPairs.length === 0 && fullWordList.length > 0) {
@@ -93,16 +83,18 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
         setSpanishOptions(shuffleArray(newPairs.map(p => ({ id: p.id, text: p.spanish, type: 'spanish', matched: false }))));
         setEnglishOptions(shuffleArray(newPairs.map(p => ({ id: p.id, text: p.english, type: 'english', matched: false }))));
         console.log("useMatchingGame: New round initialized with pairs:", newPairs);
-    }, [fullWordList, numPairsToDisplay, pickNewWords, sessionUsedWordIds]); // Added sessionUsedWordIds back
+    }, [fullWordList, numPairsToDisplay, pickNewWords, sessionUsedWordIds]); // sessionUsedWordIds is a dep
 
-    // Effect to initialize game when fullWordList is first available or changes
+    // Effect to initialize game when fullWordList is first available or changes.
     useEffect(() => {
-        console.log("useMatchingGame: Effect for fullWordList change or initial mount running.");
+        console.log("useMatchingGame: Effect for fullWordList change or initial mount.");
         if (fullWordList && fullWordList.length > 0 && fullWordList.length >= numPairsToDisplay) {
-            if (!gameInitializedForCurrentList.current) {
-                console.log("useMatchingGame: fullWordList is sufficient and game not yet initialized for this list. Initializing new game session.");
+            // If fullWordList identity has changed, the initializedForCurrentListRef.current will be false
+            // (due to the effect below). Or on first mount it's false.
+            if (!initializedForCurrentListRef.current) {
+                console.log("useMatchingGame: fullWordList ready and not yet initialized for this list instance. Initializing new game session.");
                 initializeNewRound(true); // Start a brand new game session
-                gameInitializedForCurrentList.current = true;
+                initializedForCurrentListRef.current = true; // Mark as initialized for *this* fullWordList instance
             }
         } else {
             console.log("useMatchingGame: fullWordList not sufficient or empty for game. Clearing board.");
@@ -111,18 +103,20 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
             setEnglishOptions([]);
             setGameScore(0);
             setSessionUsedWordIds(new Set());
-            gameInitializedForCurrentList.current = false;
+            initializedForCurrentListRef.current = false; // Reset if list becomes too small
         }
-    }, [fullWordList, numPairsToDisplay, initializeNewRound]);
+    // `initializeNewRound` is NOT in this dependency array to prevent loops.
+    // This effect relies on `fullWordList` changing its reference to trigger a full reset and re-initialization.
+    // The `initializeNewRound` function is called using its latest available reference from the hook's scope.
+    // eslint-disable-next-line react-hooks/exhaustive-deps 
+    }, [fullWordList, numPairsToDisplay]); 
 
-
-    // Effect to reset initialization flag if fullWordList reference changes
+    // Effect to reset initialization flag when fullWordList reference itself changes
     useEffect(() => {
-        // This ensures that if App.jsx provides a new mainWordList array,
-        // we treat it as a trigger to re-initialize the game session.
-        gameInitializedForCurrentList.current = false;
-        console.log("useMatchingGame: fullWordList reference changed, reset initialization flag.");
+        console.log("useMatchingGame: fullWordList reference changed, resetting initialization flag.");
+        initializedForCurrentListRef.current = false;
     }, [fullWordList]);
+
 
     const attemptMatch = useCallback(() => {
         if (selectedSpanish && selectedEnglish) {
@@ -136,42 +130,30 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
             if (isCorrectMatch) {
                 console.log("useMatchingGame: Correct Match!", originalPairForSpanish);
                 setGameScore(prev => prev + 1);
-                
-                // Add to sessionUsedWordIds: This set tracks words correctly matched in the current "super-session"
-                // to try and avoid them when initializeNewRound is called for a fresh board.
                 setSessionUsedWordIds(prev => new Set(prev).add(originalPairForSpanish.id));
 
-                // Mark as matched in UI options
                 setSpanishOptions(prevOpts => prevOpts.map(opt => opt.id === selectedSpanish.id ? {...opt, matched: true} : opt));
                 setEnglishOptions(prevOpts => prevOpts.map(opt => opt.id === selectedEnglish.id ? {...opt, matched: true} : opt));
                 
-                console.log("useMatchingGame: Pair matched. Items will remain visually matched. Click 'New Round' when done with current board.");
+                console.log("useMatchingGame: Pair matched. Items will remain visually matched. Click 'New Round' for new set.");
 
-                // Check if all currently displayed active pairs are now visually matched
-                // This requires checking the *options* arrays, not activeWordPairs against sessionUsedWordIds
-                const allOptionsNowMatched = spanishOptions.every(opt => opt.matched || !activeWordPairs.find(ap => ap.id === opt.id)) &&
-                                           englishOptions.every(opt => opt.matched || !activeWordPairs.find(ap => ap.id === opt.id));
+                // Check if all active pairs on the board are now matched
+                const allCurrentlyActiveAreMatched = activeWordPairs.every(ap => 
+                    sessionUsedWordIds.has(ap.id) || // Check against updated sessionUsedWordIds
+                    (ap.id === originalPairForSpanish.id) // Include the one just matched
+                );
 
-                // A simpler check might be if the number of non-matched items is zero,
-                // or if activeWordPairs count becomes zero after we implement removal below.
-                // For now, let's focus on the user clicking "New Round".
-
-                // If we want to remove the items from active display to shrink the board:
-                // This makes the "continuous flow" be "shrinking board"
-                // setActiveWordPairs(prevActive => prevActive.filter(p => p.id !== originalPairForSpanish.id));
-                // The above line would remove them from being "active truth".
-                // The spanishOptions/englishOptions are already marked "matched".
-                // If we don't remove from activeWordPairs, they stay as part of the "current board".
-                // Let's keep them in activeWordPairs for now, relying on the 'matched' flag for UI.
+                if (allCurrentlyActiveAreMatched) {
+                    console.log("useMatchingGame: All pairs on current board appear to be matched! User can click 'New Round'.");
+                }
 
             } else {
                 console.log("useMatchingGame: Incorrect Match.");
-                // Visual feedback for incorrect match (e.g. temporary red highlight) would be good here.
             }
             setSelectedSpanish(null);
             setSelectedEnglish(null);
         }
-    }, [selectedSpanish, selectedEnglish, activeWordPairs, sessionUsedWordIds]); // Removed pickNewWords, fullWordList, numPairsToDisplay
+    }, [selectedSpanish, selectedEnglish, activeWordPairs, sessionUsedWordIds]);
 
     const handleSpanishSelection = useCallback((spanishItem) => {
         if (spanishItem.matched) return; 
@@ -197,7 +179,7 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
         gameScore,
         handleSpanishSelection,
         handleEnglishSelection,
-        initializeNewRound, // This is for the "New Round / Reshuffle" button
+        initializeNewRound, 
         activePairCount: activeWordPairs.length,
         allWordsCount: fullWordList.length,
     };
