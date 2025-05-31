@@ -128,6 +128,10 @@
     background-color: var(--color-secondary-darker);
 }
 
-/* You might need to define --color-primary-lighter in your App.css for both themes */
-/* :root { --color-primary-lighter: #cfe2ff; } */
-/* body[data-theme="dark"] { --color-primary-lighter: #2a4b7d; } /* Example dark shade */
+.match-item.incorrect-selection {
+    background-color: rgb(234, 136, 144) !important; /* Very obvious */
+    border: 3px solid red !important;    /* Very obvious */
+    color: black !important;             /* Very obvious */
+    transform: scale(1.1);             /* Make it jump */
+    animation: shake-incorrect 0.5s ease-in-out; 
+}

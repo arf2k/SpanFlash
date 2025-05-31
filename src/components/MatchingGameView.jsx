@@ -17,7 +17,8 @@ const MatchingGameView = ({ fullWordList, numPairsToDisplay = 6, onExitGame }) =
         incorrectAttempt 
     } = useMatchingGame(fullWordList, numPairsToDisplay);
 
- 
+     console.log("MatchingGameView: incorrectAttempt prop received:", incorrectAttempt); // Check this log
+
 
     if (allWordsCount < numPairsToDisplay) {
         return (

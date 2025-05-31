@@ -177,12 +177,12 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
                 );
           
             } else {
-                console.log("useMatchingGame: Incorrect Match.");
-                // --- Set state for incorrect feedback ---
-                setIncorrectAttempt({ spanishId: selectedSpanish.id, englishId: selectedEnglish.id });
-                setTimeout(() => {
-                    setIncorrectAttempt({ spanishId: null, englishId: null }); 
-                }, 1000); 
+              const feedback = { spanishId: selectedSpanish.id, englishId: selectedEnglish.id };
+setIncorrectAttempt(feedback);
+console.log("useMatchingGame: incorrectAttempt SET TO:", feedback); // Check this log
+setTimeout(() => {
+    setIncorrectAttempt({ spanishId: null, englishId: null });
+}, 1000);
             }
             setSelectedSpanish(null);
             setSelectedEnglish(null);
