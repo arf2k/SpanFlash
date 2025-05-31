@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react'; 
 import { useMatchingGame } from '../hooks/useMatchingGame'; 
 import './MatchingGameView.css'; 
 
@@ -13,12 +13,11 @@ const MatchingGameView = ({ fullWordList, numPairsToDisplay = 6, onExitGame }) =
         handleEnglishSelection,
         initializeNewRound, 
         activePairCount,
-        allWordsCount
+        allWordsCount,
+        incorrectAttempt 
     } = useMatchingGame(fullWordList, numPairsToDisplay);
 
-    useEffect(() => {
-      
-    }, [fullWordList]);
+ 
 
     if (allWordsCount < numPairsToDisplay) {
         return (
@@ -29,20 +28,20 @@ const MatchingGameView = ({ fullWordList, numPairsToDisplay = 6, onExitGame }) =
         );
     }
     
-    if (activePairCount < numPairsToDisplay && activePairCount > 0) {
-       
-    }
-    if (activePairCount === 0 && allWordsCount >= numPairsToDisplay) {
 
+
+    if (activePairCount === 0 && allWordsCount >= numPairsToDisplay && spanishOptions.length === 0 && englishOptions.length === 0) {
+        // Show "Preparing" only if options are truly empty and we expect them.
+        // This might indicate the initial initializeNewRound is still pending or failed to populate.
         return (
             <div className="matching-game-container matching-game-message">
-                <p>Preparing new words...</p>
-                <button onClick={initializeNewRound} className="matching-game-button">Start / New Round</button>
+                <p>Preparing new words... or click "Start / New Round".</p>
+                {/* Ensure initializeNewRound(true) is called for a full reset by the button */}
+                <button onClick={() => initializeNewRound(true)} className="matching-game-button">Start / New Round</button>
                 <button onClick={onExitGame} className="matching-game-button">Back to Flashcards</button>
             </div>
         );
     }
-
 
     return (
         <div className="matching-game-container">
@@ -57,9 +56,12 @@ const MatchingGameView = ({ fullWordList, numPairsToDisplay = 6, onExitGame }) =
                         {spanishOptions.map((item) => (
                             <li
                                 key={`spa-${item.id}`}
-                                className={`match-item spanish-item 
-                                            ${selectedSpanish?.id === item.id ? 'selected' : ''}
-                                            ${item.matched ? 'matched' : ''}`}
+                                className={
+                                    `match-item spanish-item 
+                                    ${selectedSpanish?.id === item.id ? 'selected' : ''}
+                                    ${item.matched ? 'matched' : ''}
+                                    ${incorrectAttempt?.spanishId === item.id ? 'incorrect-selection' : ''}` 
+                                }
                                 onClick={() => !item.matched && handleSpanishSelection(item)}
                                 tabIndex={item.matched ? -1 : 0} 
                                 onKeyDown={(e) => { if(!item.matched && (e.key === 'Enter' || e.key === ' ')) handleSpanishSelection(item);}}
@@ -75,9 +77,12 @@ const MatchingGameView = ({ fullWordList, numPairsToDisplay = 6, onExitGame }) =
                         {englishOptions.map((item) => (
                             <li
                                 key={`eng-${item.id}`}
-                                className={`match-item english-item 
-                                            ${selectedEnglish?.id === item.id ? 'selected' : ''}
-                                            ${item.matched ? 'matched' : ''}`}
+                                className={
+                                    `match-item english-item 
+                                    ${selectedEnglish?.id === item.id ? 'selected' : ''}
+                                    ${item.matched ? 'matched' : ''}
+                                    ${incorrectAttempt?.englishId === item.id ? 'incorrect-selection' : ''}` 
+                                }
                                 onClick={() => !item.matched && handleEnglishSelection(item)}
                                 tabIndex={item.matched ? -1 : 0}
                                 onKeyDown={(e) => { if(!item.matched && (e.key === 'Enter' || e.key === ' ')) handleEnglishSelection(item);}}
@@ -89,7 +94,8 @@ const MatchingGameView = ({ fullWordList, numPairsToDisplay = 6, onExitGame }) =
                 </div>
             </div>
             <div className="matching-game-controls">
-                <button onClick={initializeNewRound} className="matching-game-button">
+                 {/* Ensure this calls initializeNewRound with true for a full reset */}
+                <button onClick={() => initializeNewRound(true)} className="matching-game-button">
                     New Round / Reshuffle
                 </button>
                 <button onClick={onExitGame} className="matching-game-button matching-game-exit-button">
