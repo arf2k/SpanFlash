@@ -612,6 +612,7 @@ function App() {
               color: "var(--text-muted)",
               padding: "0",
             }}
+            disabled={isMatchingGameModeActive}
           >
             <span role="img" aria-label="settings icon">
               ⚙️
@@ -662,6 +663,7 @@ function App() {
           onClick={() => setIsAddWordModalOpen(true)}
           title="Add New Word"
           style={{ padding: "0.6rem 0.8rem" }}
+          disabled={isMatchingGameModeActive}
         >
           <span role="img" aria-label="add icon">
             ➕
@@ -672,6 +674,7 @@ function App() {
           onClick={() => setIsSearchModalOpen(true)}
           title="Search Words"
           style={{ padding: "0.6rem 0.8rem" }}
+          disabled={isMatchingGameModeActive}
         >
           <span role="img" aria-label="search icon">
             🔍
@@ -685,6 +688,7 @@ function App() {
             isInHardWordsMode ? "Practice All Words" : "Practice Hard Words"
           }
           style={{ padding: "0.6rem 0.8rem" }}
+          disabled={isMatchingGameModeActive}
         >
           <span
             role="img"
@@ -694,7 +698,7 @@ function App() {
           </span>
           {isInHardWordsMode ? "All Words" : "Hard Mode"}
         </button>
-        <button onClick={switchDirection}>
+        <button onClick={switchDirection} disabled={isMatchingGameModeActive} >
           Switch Dir ({languageDirection === "spa-eng" ? "S->E" : "E->S"})
         </button>
         <button
