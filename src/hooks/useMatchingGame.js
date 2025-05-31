@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-// Helper function to shuffle an array (Fisher-Yates shuffle)
 function shuffleArray(array) {
     const newArray = [...array];
     for (let i = newArray.length - 1; i > 0; i--) {
@@ -11,23 +10,36 @@ function shuffleArray(array) {
 }
 
 export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
-    const [activeWordPairs, setActiveWordPairs] = useState([]); 
-    const [spanishOptions, setSpanishOptions] = useState([]); 
-    const [englishOptions, setEnglishOptions] = useState([]); 
-
-    const [selectedSpanish, setSelectedSpanish] = useState(null); 
+    const [activeWordPairs, setActiveWordPairs] = useState([]);
+    const [spanishOptions, setSpanishOptions] = useState([]);
+    const [englishOptions, setEnglishOptions] = useState([]);
+    const [selectedSpanish, setSelectedSpanish] = useState(null);
     const [selectedEnglish, setSelectedEnglish] = useState(null);
-    
     const [gameScore, setGameScore] = useState(0);
     const [sessionUsedWordIds, setSessionUsedWordIds] = useState(new Set());
     
-    // Ref to track if the game has been initialized for the current fullWordList
-    const gameInitializedForCurrentListRef = useRef(false);
+    // Ref to track if we've tried to initialize for the current fullWordList
+    const initialLoadAttemptedForCurrentList = useRef(false);
 
-    const pickNewWords = useCallback((sourceList, count, excludeIdsSet = new Set()) => {
+
+    // Stable pickNewWords using useCallback, depends only on fullWordList for its pool
+    const pickNewWords = useCallback((count, currentExclusions = new Set()) => {
         const newWords = [];
-        const validSourceList = Array.isArray(sourceList) ? sourceList : [];
-        const availablePool = validSourceList.filter(word => !excludeIdsSet.has(word.id));
+        const validSourceList = Array.isArray(fullWordList) ? fullWordList : [];
+        
+        // Primary pool: words not in currentExclusions
+        let availablePool = validSourceList.filter(word => !currentExclusions.has(word.id));
+        
+        // If primary pool is smaller than needed count, and we allow repeats (by not adding to sessionUsedWordIds here)
+        // we might need a strategy if sessionUsedWordIds has exhausted almost everything.
+        // For now, this just picks from what's left if we strictly avoid currentExclusions.
+        if (availablePool.length < count && validSourceList.length >= count) {
+            console.warn(`useMatchingGame: pickNewWords found only ${availablePool.length} words after exclusions. Total list: ${validSourceList.length}. Exclusions: ${currentExclusions.size}`);
+            // If we want to allow repeats from the whole list if fresh ones are exhausted (excluding only active ones for a given board fill)
+            // this logic would need to be more sophisticated, perhaps by also passing activeWordIds to exclude.
+            // For now, it will return fewer than 'count' if pool is small.
+        }
+
         const shuffledPool = shuffleArray(availablePool);
 
         for (const word of shuffledPool) {
@@ -35,41 +47,24 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
             newWords.push(word);
         }
         return newWords;
-    }, []); 
+    }, [fullWordList]); 
 
-    // Function to setup or reset a round.
-    // isNewGameSession = true will reset score and used words history for a brand new game.
-    const initializeNewRound = useCallback((isNewGameSession = false) => {
-        console.log("useMatchingGame: initializeNewRound called. isNewGameSession:", isNewGameSession);
+    // This function is primarily for the "New Round" button and initial setup.
+    // It always starts a "fresh session" in terms of words used for picking.
+    const initializeNewRound = useCallback(() => {
+        console.log("useMatchingGame: initializeNewRound called (resets session used words & score).");
         setSelectedSpanish(null);
         setSelectedEnglish(null);
-
-        let currentExclusions = sessionUsedWordIds;
-        if (isNewGameSession) {
-            setGameScore(0);
-            const newSessionIdSet = new Set();
-            setSessionUsedWordIds(newSessionIdSet);
-            currentExclusions = newSessionIdSet; 
-        }
+        setGameScore(0);
         
-        let newPairs = pickNewWords(fullWordList, numPairsToDisplay, currentExclusions);
+        const newSessionExclusions = new Set(); 
+        setSessionUsedWordIds(newSessionExclusions); 
 
-        // If not enough words that haven't been used in this session,
-        // reset sessionUsedWordIds and try picking again (allows words to repeat).
-        if (newPairs.length < numPairsToDisplay && fullWordList.length >= numPairsToDisplay) {
-            console.warn(`useMatchingGame: Not enough fresh words for a round (${newPairs.length}/${numPairsToDisplay}). Resetting session history and trying again.`);
-            const freshSessionIdSet = new Set();
-            setSessionUsedWordIds(freshSessionIdSet); 
-            currentExclusions = freshSessionIdSet;    
-            newPairs = pickNewWords(fullWordList, numPairsToDisplay, currentExclusions);
-        }
-        
+        const newPairs = pickNewWords(numPairsToDisplay, fullWordList, newSessionExclusions); 
         if (newPairs.length === 0 && fullWordList.length > 0) {
-            console.warn("useMatchingGame: Could not pick any pairs. Word list might be too small or exhausted even after session reset.");
-            setActiveWordPairs([]); 
-            setSpanishOptions([]); 
-            setEnglishOptions([]);
-            return; 
+            console.warn("useMatchingGame: Could not pick any pairs for new round even after session reset.");
+            setActiveWordPairs([]); setSpanishOptions([]); setEnglishOptions([]);
+            return;
         }
         if (newPairs.length > 0 && newPairs.length < numPairsToDisplay) {
             console.warn(`useMatchingGame: Round will have ${newPairs.length} pairs (less than ${numPairsToDisplay} requested).`);
@@ -79,36 +74,34 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
         setSpanishOptions(shuffleArray(newPairs.map(p => ({ id: p.id, text: p.spanish, type: 'spanish', matched: false }))));
         setEnglishOptions(shuffleArray(newPairs.map(p => ({ id: p.id, text: p.english, type: 'english', matched: false }))));
         console.log("useMatchingGame: New round initialized with pairs:", newPairs);
-    }, [fullWordList, numPairsToDisplay, pickNewWords, sessionUsedWordIds]); // 
+    }, [fullWordList, numPairsToDisplay, pickNewWords]); 
 
- 
+    // Effect to initialize game ONCE when component mounts with a valid list,
+    // OR when fullWordList itself changes identity (signifying a new master list from App.jsx).
     useEffect(() => {
-        console.log("useMatchingGame: Effect for initial load / fullWordList change triggered.");
+        console.log("useMatchingGame: Initial Mount / fullWordList change effect running.");
         if (fullWordList && fullWordList.length >= numPairsToDisplay) {
-            console.log("useMatchingGame: fullWordList is sufficient. Initializing new game session.");
-            initializeNewRound(true); 
-            gameInitializedForCurrentListRef.current = true;
+            console.log("useMatchingGame: fullWordList is sufficient. Initializing new game session via effect.");
+            initializeNewRound(); 
         } else {
-            // Not enough words, or fullWordList is empty
             console.log("useMatchingGame: fullWordList not sufficient or empty. Clearing board.");
             setActiveWordPairs([]);
             setSpanishOptions([]);
             setEnglishOptions([]);
             setGameScore(0);
             setSessionUsedWordIds(new Set());
-            gameInitializedForCurrentListRef.current = false;
         }
-    }, [fullWordList, numPairsToDisplay, initializeNewRound]); // initializeNewRound is now a dependency
+        // This effect should run when fullWordList changes, or numPairsToDisplay changes.
+        // The initializeNewRound reference changes only when fullWordList or numPairsToDisplay change (because pickNewWords depends on fullWordList).
+    }, [fullWordList, numPairsToDisplay, initializeNewRound]);
+
 
     const attemptMatch = useCallback(() => {
         if (selectedSpanish && selectedEnglish) {
             const originalPairForSpanish = activeWordPairs.find(p => p.id === selectedSpanish.id);
             let isCorrectMatch = false;
 
-            // Ensure both selections refer to the same original word pair for a match
             if (originalPairForSpanish && originalPairForSpanish.id === selectedEnglish.id) {
-                // Additional check if needed: verify if selectedEnglish.text actually matches originalPairForSpanish.english
-                // For now, if IDs match, it means they selected the two parts of the same pair from the shuffled options.
                 isCorrectMatch = true; 
             }
 
@@ -116,18 +109,20 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
                 console.log("useMatchingGame: Correct Match!", originalPairForSpanish);
                 setGameScore(prev => prev + 1);
                 
-                const newMatchedIds = new Set(sessionUsedWordIds).add(originalPairForSpanish.id);
-                setSessionUsedWordIds(newMatchedIds);
+                // Add to sessionUsedWordIds to avoid re-picking immediately in *this continuous session*
+                // before "New Round" is hit.
+                const newSessionUsed = new Set(sessionUsedWordIds).add(originalPairForSpanish.id);
+                setSessionUsedWordIds(newSessionUsed);
 
-                // Mark as matched in UI options
                 setSpanishOptions(prevOpts => prevOpts.map(opt => opt.id === selectedSpanish.id ? {...opt, matched: true} : opt));
                 setEnglishOptions(prevOpts => prevOpts.map(opt => opt.id === selectedEnglish.id ? {...opt, matched: true} : opt));
                 
                 // Continuous Flow: Replace matched pair
-                const currentActiveAndNotYetMatchedInSessionIds = new Set(activeWordPairs.map(p => p.id));
-                newMatchedIds.forEach(id => currentActiveAndNotYetMatchedInSessionIds.delete(id)); // Remove already session-matched
-
-                const replacementCandidates = pickNewWords(fullWordList, 1, newMatchedIds); // Pick 1 new word, excluding all session-matched
+                // We need to pick a new word that isn't currently active AND isn't in newSessionUsed yet
+                const activeIds = new Set(activeWordPairs.map(p => p.id));
+                const exclusionsForReplacement = new Set([...newSessionUsed, ...activeIds].filter(id => id !== originalPairForSpanish.id));
+                
+                const replacementCandidates = pickNewWords(fullWordList, 1, exclusionsForReplacement);
                 
                 if (replacementCandidates.length > 0) {
                     const newWordToDisplay = replacementCandidates[0];
@@ -146,7 +141,6 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
                     ]));
                 } else {
                     console.log("useMatchingGame: No new words available to replace. Matched pair removed from active display.");
-                   
                      setActiveWordPairs(prevActive => prevActive.filter(p => p.id !== originalPairForSpanish.id));
                      setSpanishOptions(prevOpts => prevOpts.filter(opt => opt.id !== selectedSpanish.id));
                      setEnglishOptions(prevOpts => prevOpts.filter(opt => opt.id !== selectedEnglish.id));
@@ -157,7 +151,6 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
                 }
             } else {
                 console.log("useMatchingGame: Incorrect Match.");
-                // Add brief visual feedback for incorrect match if desired (e.g. state for feedback)
             }
             setSelectedSpanish(null);
             setSelectedEnglish(null);
@@ -165,16 +158,15 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
     }, [selectedSpanish, selectedEnglish, activeWordPairs, pickNewWords, sessionUsedWordIds, fullWordList, numPairsToDisplay]);
 
     const handleSpanishSelection = useCallback((spanishItem) => {
-        if (spanishItem.matched) return; // Don't select already matched items
+        if (spanishItem.matched) return;
         setSelectedSpanish(spanishItem);
     }, []);
 
     const handleEnglishSelection = useCallback((englishItem) => {
-        if (englishItem.matched) return; // Don't select already matched items
+        if (englishItem.matched) return;
         setSelectedEnglish(englishItem);
     }, []);
 
-    // Effect to attempt match when both a Spanish and an English item are selected
     useEffect(() => {
         if (selectedSpanish && selectedEnglish) {
             attemptMatch();
@@ -189,7 +181,7 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
         gameScore,
         handleSpanishSelection,
         handleEnglishSelection,
-        initializeNewRound, 
+        initializeNewRound,
         activePairCount: activeWordPairs.length,
         allWordsCount: fullWordList.length,
     };
