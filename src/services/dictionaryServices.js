@@ -1,50 +1,55 @@
 import axios from 'axios';
 
-const apiKey = import.meta.env.VITE_MW_API_KEY;
 
-const baseUrl = 'https://www.dictionaryapi.com/api/v3/references/spanish/json/';
+const MW_PROXY_PATH = '/api/mw-dictionary-proxy'; 
 
 /**
  * Fetches definition and usage examples for a Spanish word/phrase
- * from the Merriam-Webster Spanish-English Dictionary API.
+ * by calling your Cloudflare Pages Function proxy for the Merriam-Webster API.
  * @param {string} spanishWord - The word or phrase to look up.
- * @returns {Promise<object|null>} A promise that resolves to the API response data (usually an array) or null if an error occurs or key is missing.
+ * @returns {Promise<object|null>} A promise that resolves to the API response data 
+ * (as returned by Merriam-Webster, usually an array) 
+ * or null if an error occurs.
  */
 export const getMwHint = async (spanishWord) => {
-    if (!apiKey) {
-        console.error("Error: Merriam-Webster API key is missing. Make sure VITE_MW_API_KEY is set in your .env file.");
-        return null; // Indicate failure due to missing key
+    if (!spanishWord || typeof spanishWord !== 'string' || spanishWord.trim() === '') {
+        console.error("getMwHint: Spanish word is empty or invalid.");
+        return null; // Or return an error object: { error: true, message: "Invalid word" }
     }
 
-    // Ensure the word is properly encoded for the URL, especially if it contains spaces or special chars
-    const encodedWord = encodeURIComponent(spanishWord);
-    // Construct the correct API URL using template literals
-    const apiUrl = `${baseUrl}${encodedWord}?key=${apiKey}`;
+    const wordToLookup = spanishWord.trim();
+    
+  
+    const proxyUrl = `${MW_PROXY_PATH}?word=${encodeURIComponent(wordToLookup)}`;
 
-    console.log(`Calling MW API: ${apiUrl}`); // For debugging
+    console.log(`Calling MW Proxy for hint: ${proxyUrl}`);
 
     try {
-        const response = await axios.get(apiUrl);
-        console.log("MW API Response:", response.data); // Log raw response for debugging structure
+        const response = await axios.get(proxyUrl);
+        console.log("Response from MW Proxy:", response.data);
 
-        // Return the data received from the API
-        // The caller (App.jsx) will handle parsing this structure
+   
+        if (response.data && response.data.error) {
+            console.error(`Error from MW Proxy Function: ${response.data.details || response.data.error}`);
+ 
+            return null; 
+        }
+
+        // If proxy call was successful and returned data from MW (usually an array)
         return response.data;
 
     } catch (error) {
-        // Log detailed error information
+      
+        console.error(`Error fetching hint via proxy for "${wordToLookup}":`, error.message);
         if (error.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-            console.error(`Error fetching hint for "${spanishWord}" from MW API: Status ${error.response.status}`, error.response.data);
+          
+            console.error("MW Proxy Error Response Data:", error.response.data);
+            console.error("MW Proxy Error Response Status:", error.response.status);
         } else if (error.request) {
-            // The request was made but no response was received
-            console.error(`Error fetching hint for "${spanishWord}" from MW API: No response received`, error.request);
+            console.error("MW Proxy: No response received for the request.", error.request);
         } else {
-            // Something happened in setting up the request that triggered an Error
-            console.error(`Error fetching hint for "${spanishWord}" from MW API:`, error.message);
+            console.error("MW Proxy: Error setting up the request:", error.message);
         }
         return null; // Indicate failure
     }
 };
-
