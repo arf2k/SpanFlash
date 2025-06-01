@@ -80,6 +80,7 @@ function App() {
   const incorrectScoreRef = useRef(null);
   const isInitialMountApp = useRef(true);
   const previousDataVersionRef = useRef(null);
+  const matchingGameContainerRef = useRef(null);
 
   // === Effects ===
   useEffect(() => {
@@ -221,6 +222,15 @@ function App() {
       }
     }
   }, [score.incorrect]);
+
+  useEffect(() => {
+    if (isMatchingGameModeActive && matchingGameContainerRef.current) {
+      matchingGameContainerRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [isMatchingGameModeActive]);
 
   // === Event Handlers ===
   const handleToggleTheme = () => {
@@ -575,10 +585,9 @@ function App() {
   const handleCloseDetailsModal = () => setIsDetailsModalOpen(false);
 
   const handleOpenAddWordModalFromSettings = () => {
-    setIsAddWordModalOpen(true);    
-    setIsSettingsModalOpen(false); 
-  
-};
+    setIsAddWordModalOpen(true);
+    setIsSettingsModalOpen(false);
+  };
 
   const handleToggleMatchingGameMode = () => {
     setModeChangeMessage("");
@@ -743,13 +752,17 @@ function App() {
         </p>
       )}
 
-      {/* Main Content Area: Matching Game OR Flashcard/HardWords View */}
       {isMatchingGameModeActive ? (
-        <MatchingGameView
-          fullWordList={mainWordList}
-          numPairsToDisplay={6}
-          onExitGame={handleToggleMatchingGameMode}
-        />
+        <div
+          ref={matchingGameContainerRef}
+          className="matching-game-view-wrapper"
+        >
+          <MatchingGameView
+            fullWordList={mainWordList}
+            numPairsToDisplay={6}
+            onExitGame={handleToggleMatchingGameMode}
+          />
+        </div>
       ) : (
         <>
           {isLoadingData && !currentPair && (
@@ -912,7 +925,6 @@ function App() {
             currentTheme={currentTheme}
             onToggleTheme={handleToggleTheme}
             onTriggerAddWordModal={handleOpenAddWordModalFromSettings}
-            
           />
         </>
       )}
