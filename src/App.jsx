@@ -8,6 +8,7 @@ import WordEditModal from "./components/WordEditModal";
 import WordDetailsModal from "./components/WordDetailsModal";
 import SettingsModal from "./components/SettingsModal";
 import MatchingGameView from "./components/MatchingGameView";
+import FillInTheBlankGameView from "./components/FillInTheBlankGameView.jsx";
 import { getMwHint } from "./services/dictionaryServices.js";
 import { getTatoebaExamples } from "./services/tatoebaServices.js";
 import { db } from "./db";
@@ -46,6 +47,8 @@ function App() {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isMatchingGameModeActive, setIsMatchingGameModeActive] =
     useState(false);
+      const [isFillInTheBlankModeActive, setIsFillInTheBlankModeActive] = useState(false); 
+
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isAdminMode, setIsAdminMode] = useState(false);
   const [currentTheme, setCurrentTheme] = useState(() => {
@@ -81,6 +84,8 @@ function App() {
   const isInitialMountApp = useRef(true);
   const previousDataVersionRef = useRef(null);
   const matchingGameContainerRef = useRef(null);
+  const fillInTheBlankGameContainerRef = useRef(null);
+
 
   // === Effects ===
   useEffect(() => {
@@ -143,7 +148,8 @@ function App() {
       !currentPair &&
       !dataError &&
       !gameError &&
-      !isMatchingGameModeActive
+      !isMatchingGameModeActive &&
+      !isFillInTheBlankModeActive 
     ) {
       selectNewPairCard();
     }
@@ -155,10 +161,15 @@ function App() {
     currentPair,
     selectNewPairCard,
     isMatchingGameModeActive,
+    isFillInTheBlankModeActive
   ]);
 
+
   useEffect(() => {
-    if (currentPair || isMatchingGameModeActive) {
+    if (!currentPair || isMatchingGameModeActive || isFillInTheBlankModeActive) { 
+   
+      
+  
       setHintData(null);
       setIsHintLoading(false);
       setApiSuggestions(null);
@@ -166,15 +177,8 @@ function App() {
       setTatoebaError(null);
       setIsLoadingTatoebaExamples(false);
     }
-    if (!currentPair) {
-      setHintData(null);
-      setIsHintLoading(false);
-      setApiSuggestions(null);
-      setTatoebaExamples([]);
-      setTatoebaError(null);
-      setIsLoadingTatoebaExamples(false);
-    }
-  }, [currentPair, isMatchingGameModeActive]);
+  
+  }, [currentPair, isMatchingGameModeActive, isFillInTheBlankModeActive]);
 
   useEffect(() => {
     if (currentDataVersion !== null) {
@@ -235,6 +239,16 @@ function App() {
       }, 50);
     }
   }, [isMatchingGameModeActive]);
+
+  useEffect(() => {
+  if (isFillInTheBlankModeActive && fillInTheBlankGameContainerRef.current) {
+    setTimeout(() => {
+      if (fillInTheBlankGameContainerRef.current) {
+        fillInTheBlankGameContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 50);
+  }
+}, [isFillInTheBlankModeActive]);
 
   // === Event Handlers ===
   const handleToggleTheme = () => {
@@ -615,6 +629,32 @@ function App() {
 
     !isMatchingGameModeActive;
   };
+
+
+
+const handleToggleFillInTheBlankMode = () => {
+    setModeChangeMessage(""); 
+    if (!isFillInTheBlankModeActive) { 
+        const candidateWordListForFillInBlank = mainWordList.filter(pair => 
+            pair.spanish && 
+            pair.spanish.trim().split(' ').length <= 3 
+        );
+        if (!mainWordList || mainWordList.length < 4 || candidateWordListForFillInBlank.length < 1) { 
+            setModeChangeMessage("Not enough words for Fill-in-the-Blank game.");
+            setTimeout(() => setModeChangeMessage(""), 3000);
+            return;
+        }
+        setShowHardWordsView(false);
+        setIsSearchModalOpen(false);
+        setIsAddWordModalOpen(false);
+        setIsEditModalOpen(false);
+        setIsDetailsModalOpen(false);
+        setIsSettingsModalOpen(false);
+        setIsMatchingGameModeActive(false); 
+        if (setGameShowFeedback) setGameShowFeedback(false); 
+    }
+    setIsFillInTheBlankModeActive(prev => !prev);
+};
 
   return (
     <div className="App">
