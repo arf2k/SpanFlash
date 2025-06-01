@@ -1,0 +1,148 @@
+.fill-blank-game-container {
+  width: 100%;
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: var(--bg-container);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--text-body);
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.fill-blank-game-container.game-message-container p {
+  margin-bottom: 15px;
+}
+.fill-blank-game-container.game-message-container button {
+  margin: 5px;
+}
+
+.fill-blank-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.fill-blank-header h2 {
+  margin: 0;
+  color: var(--text-heading);
+  font-size: 1.8rem;
+}
+
+.fill-blank-score {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+.question-area {
+  margin-bottom: 20px;
+}
+
+.sentence-display {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+.sentence-display strong {
+  color: var(--text-body);
+}
+
+.sentence-with-blank {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+  padding: 15px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: 6px;
+  line-height: 1.6;
+  min-height: 3em;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.blank-placeholder {
+  font-weight: bold;
+  color: var(--color-primary);
+  letter-spacing: 1px;
+}
+
+.choices-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.choice-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: var(--color-secondary);
+  color: var(--text-button);
+  border: 1px solid var(--color-secondary-darker);
+  border-radius: 6px;
+  cursor: pointer;
+  min-width: 100px;
+  transition: background-color 0.15s ease-in-out, opacity 0.2s ease;
+}
+
+.choice-button:hover:not(:disabled) {
+  background-color: var(--color-secondary-darker);
+}
+
+.choice-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.feedback-message {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.feedback-message.correct {
+  background-color: var(--bg-feedback-correct);
+  color: var(--text-feedback-correct);
+  border: 1px solid var(--color-success-darker);
+}
+
+.feedback-message.incorrect {
+  background-color: var(--bg-feedback-incorrect);
+  color: var(--text-feedback-incorrect);
+  border: 1px solid var(--color-danger-darker);
+}
+.feedback-message.incorrect em {
+  display: block;
+  font-weight: normal;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+
+.fill-blank-controls {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 25px;
+  padding-top: 15px;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.exit-button {
+  background-color: var(--color-secondary);
+}
+.exit-button:hover {
+  background-color: var(--color-secondary-darker);
+}
+
+.loading-text {
+  font-style: italic;
+  color: var(--text-muted);
+}

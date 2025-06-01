@@ -15,7 +15,6 @@ export const getTatoebaExamples = async (spanishQuery) => {
         return []; 
     }
 
-    // Query parameters remain the same as Tatoeba expects them
     const params = new URLSearchParams({
         query: spanishQuery.trim(), 
         from: 'spa',            
@@ -33,21 +32,18 @@ export const getTatoebaExamples = async (spanishQuery) => {
     console.log(`Calling PWA's Tatoeba Proxy: ${apiUrl}`);
 
     try {
-        // Axios will automatically use the correct base URL (localhost or your deployed domain)
+      
         const response = await axios.get(apiUrl); 
         
-        // The proxy already returns the .results part or an error structure
-        // So, response.data should directly be what Tatoeba's results array was, or your proxy's error object.
+
         console.log("Response from PWA's Tatoeba Proxy:", response.data);
 
-        // Check if the proxy returned an error object that we defined
         if (response.data && response.data.error) {
             console.error("Error from Tatoeba proxy function:", response.data.details || response.data.error);
-            throw new Error(response.data.details || response.data.error); // Propagate error
+            throw new Error(response.data.details || response.data.error); 
         }
         
-        // If proxy was successful, response.data should be the original Tatoeba response structure
-        // { paging: {...}, results: [...] }
+       
         if (response.data && Array.isArray(response.data.results)) {
             const sentencePairs = response.data.results.map(result => {
                 if (result.text && result.translations && result.translations[0] && result.translations[0][0]) {
@@ -74,10 +70,9 @@ export const getTatoebaExamples = async (spanishQuery) => {
             return [];
         }
     } catch (error) {
-        // This catch block will now catch errors from the axios call to your proxy
-        // OR errors propagated from the proxy's own error handling (like the one thrown above)
+   
         console.error(`Error fetching examples via PWA's Tatoeba Proxy for "${spanishQuery}":`, error.message);
-        if (error.response) { // Axios-specific error structure for network errors to the proxy
+        if (error.response) { 
             console.error("Proxy API Error Response Data:", error.response.data);
             console.error("Proxy API Error Response Status:", error.response.status);
         }
