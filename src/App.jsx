@@ -590,7 +590,7 @@ function App() {
       setIsEditModalOpen(false);
       setIsDetailsModalOpen(false);
       setIsSettingsModalOpen(false);
-      if (setGameShowFeedback) setGameShowFeedback(false); 
+      if (setGameShowFeedback) setGameShowFeedback(false);
     }
     setIsMatchingGameModeActive((prev) => !prev);
     console.log(
@@ -685,17 +685,7 @@ function App() {
           </span>{" "}
           Matching Game
         </button>
-        <button
-          onClick={() => setIsAddWordModalOpen(true)}
-          title="Add New Word"
-          style={{ padding: "0.6rem 0.8rem" }}
-          disabled={isMatchingGameModeActive}
-        >
-          <span role="img" aria-label="add icon">
-            ➕
-          </span>{" "}
-          Add Word
-        </button>
+
         <button
           onClick={() => setIsSearchModalOpen(true)}
           title="Search Words"
@@ -707,7 +697,6 @@ function App() {
           </span>{" "}
           Search
         </button>
-        {/* Export button is removed from here, now in SettingsModal */}
         <button
           onClick={handleToggleHardWordsMode}
           title={
@@ -916,6 +905,7 @@ function App() {
             onToggleAdminMode={handleToggleAdminMode}
             currentTheme={currentTheme}
             onToggleTheme={handleToggleTheme}
+            onTriggerAddWordModal={() => setIsAddWordModalOpen(true)}
           />
         </>
       )}

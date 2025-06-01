@@ -124,3 +124,20 @@
 .button-theme-toggle:hover {
     background-color: var(--color-secondary-darker);
 }
+.button-add-word-settings {
+    background-color: var(--color-primary); /* Example: Use primary color */
+    color: var(--text-button, white);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+.button-add-word-settings:hover {
+    background-color: var(--color-primary-darker);
+}
