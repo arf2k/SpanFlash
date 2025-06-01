@@ -574,6 +574,12 @@ function App() {
 
   const handleCloseDetailsModal = () => setIsDetailsModalOpen(false);
 
+  const handleOpenAddWordModalFromSettings = () => {
+    setIsAddWordModalOpen(true);    
+    setIsSettingsModalOpen(false); 
+  
+};
+
   const handleToggleMatchingGameMode = () => {
     setModeChangeMessage("");
     if (!isMatchingGameModeActive) {
@@ -905,7 +911,8 @@ function App() {
             onToggleAdminMode={handleToggleAdminMode}
             currentTheme={currentTheme}
             onToggleTheme={handleToggleTheme}
-            onTriggerAddWordModal={() => setIsAddWordModalOpen(true)}
+            onTriggerAddWordModal={handleOpenAddWordModalFromSettings}
+            
           />
         </>
       )}
