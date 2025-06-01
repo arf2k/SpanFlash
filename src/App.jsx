@@ -225,10 +225,14 @@ function App() {
 
   useEffect(() => {
     if (isMatchingGameModeActive && matchingGameContainerRef.current) {
-      matchingGameContainerRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+      setTimeout(() => {
+        if (matchingGameContainerRef.current) {
+          matchingGameContainerRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      }, 50);
     }
   }, [isMatchingGameModeActive]);
 
@@ -608,10 +612,8 @@ function App() {
       if (setGameShowFeedback) setGameShowFeedback(false);
     }
     setIsMatchingGameModeActive((prev) => !prev);
-    console.log(
-      "Toggled Matching Game mode. New state:",
-      !isMatchingGameModeActive
-    );
+
+    !isMatchingGameModeActive;
   };
 
   return (
