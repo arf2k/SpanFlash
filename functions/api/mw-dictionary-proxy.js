@@ -1,73 +1,119 @@
-// The Merriam-Webster Spanish-English Dictionary API base URL
-const MW_API_BASE_URL = 'https://www.dictionaryapi.com/api/v3/references/spanish/json/';
 
-export async function onRequestGet(context) {
-  // context.env contains your environment variables (including secrets)
-  // context.request.url contains the URL the PWA called on this function
+const MW_API_BASE_URL_CONST = 'https://www.dictionaryapi.com/api/v3/references/spanish/json/';
 
-  const requestUrl = new URL(context.request.url);
-  const wordToLookup = requestUrl.searchParams.get('word'); // PWA will send e.g., /api/mw-dictionary-proxy?word=hola
-
-  if (!wordToLookup) {
-    const errorResponse = { error: 'Bad Request', details: 'Missing "word" query parameter.' };
-    return new Response(JSON.stringify(errorResponse), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-    });
-  }
-
-  // Retrieve the API key from Cloudflare's environment secrets
-  const apiKey = context.env.MW_API_KEY; 
-
-  if (!apiKey) {
-    console.error("Pages Function: MW_API_KEY secret is not defined in Cloudflare environment.");
-    const errorResponse = { error: 'Configuration Error', details: 'API key for Merriam-Webster is not set up on the server.' };
-    return new Response(JSON.stringify(errorResponse), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-    });
-  }
-
-  const encodedWord = encodeURIComponent(wordToLookup.trim());
-  const targetMwUrl = `<span class="math-inline">\{MW\_API\_BASE\_URL\}</span>{encodedWord}?key=${apiKey}`;
-
-  console.log(`Pages Function (MW Proxy): Received request for word: "${wordToLookup}"`);
-  console.log(`Pages Function (MW Proxy): Forwarding to MW API: <span class="math-inline">\{MW\_API\_BASE\_URL\}</span>{encodedWord}?key=YOUR_API_KEY_HIDDEN`);
-
-  try {
-    const mwResponse = await fetch(targetMwUrl, {
-      method: 'GET',
+// Helper function to handle CORS preflight requests
+function handleOptions(request) {
+  const headers = request.headers;
+  if (
+    headers.get('Origin') !== null &&
+    headers.get('Access-Control-Request-Method') !== null &&
+    headers.get('Access-Control-Request-Headers') !== null
+  ) {
+    // Handle CORS preflight requests.
+    return new Response(null, {
       headers: {
-        'User-Agent': 'Cloudflare-Pages-Function-Flashcard-App-MW-Proxy/1.0',
+        'Access-Control-Allow-Origin': '*', // Or your specific PWA domain
+        'Access-Control-Allow-Methods': 'GET, OPTIONS',
+        'Access-Control-Allow-Headers': headers.get('Access-Control-Request-Headers'), // Reflect requested headers
+        'Access-Control-Max-Age': '86400', // Cache preflight for 1 day
       },
     });
-
-    const data = await mwResponse.json();
-
-    const responseHeaders = {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*', // Or your specific PWA domain for production
-      'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Cache-Control': 's-maxage=86400, stale-while-revalidate=43200' // Cache for 1 day, SWR for 12h
-    };
-
-    return new Response(JSON.stringify(data), {
-      status: mwResponse.status,
-      headers: responseHeaders,
-    });
-
-  } catch (error) {
-    console.error('Pages Function (MW Proxy): Error fetching or processing from MW API:', error);
-    const errorResponse = { 
-        error: 'Proxy failed to fetch from Merriam-Webster API', 
-        details: error.message 
-    };
-    return new Response(JSON.stringify(errorResponse), {
-      status: 502, // Bad Gateway
+  } else {
+    // Handle standard OPTIONS request.
+    return new Response(null, {
       headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
+        Allow: 'GET, OPTIONS',
       },
     });
   }
 }
+
+export async function onRequestGet(context) {
+  // Define CORS headers for actual responses
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': '*', // Or your specific PWA domain
+    'Access-Control-Allow-Methods': 'GET, OPTIONS', // Only GET is primarily used by this proxy
+    'Access-Control-Allow-Headers': 'Content-Type', // Allow common headers
+    'Content-Type': 'application/json',
+  };
+  
+  // Handle OPTIONS preflight requests for CORS
+  if (context.request.method === 'OPTIONS') {
+    return handleOptions(context.request);
+  }
+
+  const requestUrl = new URL(context.request.url);
+  const wordToLookup = requestUrl.searchParams.get('word');
+
+  if (!wordToLookup) {
+    const errorResponse = { error: 'Bad Request', details: 'Missing "word" query parameter.' };
+    return new Response(JSON.stringify(errorResponse), { status: 400, headers: corsHeaders });
+  }
+
+  const apiKey = context.env.MW_API_KEY; // Retrieve from Cloudflare environment secrets
+  if (!apiKey) {
+    console.error("Pages Function (MW Proxy): MW_API_KEY secret is NOT DEFINED in Cloudflare environment.");
+    const errorResponse = { error: 'Configuration Error', details: 'API key for Merriam-Webster is not configured on the server.' };
+    return new Response(JSON.stringify(errorResponse), { status: 500, headers: corsHeaders });
+  }
+
+  const encodedWord = encodeURIComponent(wordToLookup.trim());
+  
+  let targetMwUrlString;
+  try {
+    const urlObject = new URL(`${MW_API_BASE_URL_CONST}${encodedWord}`); // Path construction
+    urlObject.searchParams.append('key', apiKey);                 // Append key as query param
+    targetMwUrlString = urlObject.toString();
+  } catch (e) {
+    console.error("Pages Function (MW Proxy): Error constructing MW API URL object:", e);
+    const errorResponse = { error: 'Proxy Internal Error', details: 'Failed to construct target URL for MW API.' };
+    return new Response(JSON.stringify(errorResponse), { status: 500, headers: corsHeaders });
+  }
+
+  console.log(`Pages Function (MW Proxy): Requesting word: "${wordToLookup}"`);
+  // Avoid logging the full URL with the key for better security in logs, even server-side.
+  console.log(`Pages Function (MW Proxy): Target MW Base: ${MW_API_BASE_URL_CONST}${encodedWord}?key=YOUR_API_KEY_IS_USED_HERE`);
+
+  try {
+    const mwResponse = await fetch(targetMwUrlString, {
+      method: 'GET',
+      headers: {
+        // MW API doesn't strictly require a User-Agent, but it can be good practice
+        'User-Agent': 'Cloudflare-Pages-Function-Flashcard-App-MW-Proxy/1.0 (https://spanflash.pages.dev)',
+      },
+    });
+
+    if (!mwResponse.ok) {
+        let errorDetails = `MW API responded with status ${mwResponse.status}`;
+        try {
+            const errorText = await mwResponse.text();
+            errorDetails += `: ${errorText.substring(0, 200)}`; // Get first 200 chars of error
+        } catch (e) { /* ignore if can't get text */ }
+        console.error(`Pages Function (MW Proxy): ${errorDetails}`);
+        const errorResponse = { error: 'Merriam-Webster API Error', status: mwResponse.status, details: errorDetails };
+        return new Response(JSON.stringify(errorResponse), { status: mwResponse.status, headers: corsHeaders });
+    }
+
+    const data = await mwResponse.json(); // Assume MW always returns JSON on success
+    
+    const responseHeadersWithCache = { 
+        ...corsHeaders, 
+      'Cache-Control': 's-maxage=86400, stale-while-revalidate=43200' // Cache at edge for 1 day
+    };
+    
+    return new Response(JSON.stringify(data), {
+      status: 200,
+      headers: responseHeadersWithCache,
+    });
+
+  } catch (error) {
+    console.error('Pages Function (MW Proxy): Error fetching from or processing MW API response:', error);
+    const errorResponse = { 
+        error: 'Proxy failed during MW API interaction', 
+        details: error.message,
+        attemptedUrl: `${MW_API_BASE_URL_CONST}${encodedWord}?key=YOUR_API_KEY_WAS_USED_HERE` // Log problematic part without key
+    };
+    return new Response(JSON.stringify(errorResponse), { status: 502, headers: corsHeaders });
+  }
+}
+
