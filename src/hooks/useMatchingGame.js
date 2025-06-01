@@ -253,13 +253,21 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
 
   const handleSpanishSelection = useCallback((spanishItem) => {
     if (spanishItem.matched) return;
+        if (selectedSpanish && selectedSpanish.id === spanishItem.id) {
+            setSelectedSpanish(null);
+         } else {
     setSelectedSpanish(spanishItem);
-  }, []);
+         }
+  }, [selectedSpanish]);
 
   const handleEnglishSelection = useCallback((englishItem) => {
     if (englishItem.matched) return;
+     if (selectedEnglish && selectedEnglish.id === englishItem.id) {
+       setSelectedEnglish(null);
+     } else {
     setSelectedEnglish(englishItem);
-  }, []);
+     }
+  }, [selectedEnglish]);
 
   useEffect(() => {
     if (selectedSpanish && selectedEnglish) {
