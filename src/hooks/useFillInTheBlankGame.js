@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { getTatoebaExamples } from '../services/tatoebaService.js';
+import { getTatoebaExamples } from '../services/tatoebaServices.js';
 
 function shuffleArray(array) {
     const newArray = [...array];

@@ -47,7 +47,8 @@ function App() {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isMatchingGameModeActive, setIsMatchingGameModeActive] =
     useState(false);
-      const [isFillInTheBlankModeActive, setIsFillInTheBlankModeActive] = useState(false); 
+  const [isFillInTheBlankModeActive, setIsFillInTheBlankModeActive] =
+    useState(false);
 
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isAdminMode, setIsAdminMode] = useState(false);
@@ -85,7 +86,6 @@ function App() {
   const previousDataVersionRef = useRef(null);
   const matchingGameContainerRef = useRef(null);
   const fillInTheBlankGameContainerRef = useRef(null);
-
 
   // === Effects ===
   useEffect(() => {
@@ -149,7 +149,7 @@ function App() {
       !dataError &&
       !gameError &&
       !isMatchingGameModeActive &&
-      !isFillInTheBlankModeActive 
+      !isFillInTheBlankModeActive
     ) {
       selectNewPairCard();
     }
@@ -161,15 +161,15 @@ function App() {
     currentPair,
     selectNewPairCard,
     isMatchingGameModeActive,
-    isFillInTheBlankModeActive
+    isFillInTheBlankModeActive,
   ]);
 
-
   useEffect(() => {
-    if (!currentPair || isMatchingGameModeActive || isFillInTheBlankModeActive) { 
-   
-      
-  
+    if (
+      !currentPair ||
+      isMatchingGameModeActive ||
+      isFillInTheBlankModeActive
+    ) {
       setHintData(null);
       setIsHintLoading(false);
       setApiSuggestions(null);
@@ -177,7 +177,6 @@ function App() {
       setTatoebaError(null);
       setIsLoadingTatoebaExamples(false);
     }
-  
   }, [currentPair, isMatchingGameModeActive, isFillInTheBlankModeActive]);
 
   useEffect(() => {
@@ -241,14 +240,17 @@ function App() {
   }, [isMatchingGameModeActive]);
 
   useEffect(() => {
-  if (isFillInTheBlankModeActive && fillInTheBlankGameContainerRef.current) {
-    setTimeout(() => {
-      if (fillInTheBlankGameContainerRef.current) {
-        fillInTheBlankGameContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }, 50);
-  }
-}, [isFillInTheBlankModeActive]);
+    if (isFillInTheBlankModeActive && fillInTheBlankGameContainerRef.current) {
+      setTimeout(() => {
+        if (fillInTheBlankGameContainerRef.current) {
+          fillInTheBlankGameContainerRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      }, 50);
+    }
+  }, [isFillInTheBlankModeActive]);
 
   // === Event Handlers ===
   const handleToggleTheme = () => {
@@ -630,34 +632,37 @@ function App() {
     !isMatchingGameModeActive;
   };
 
-
-
-const handleToggleFillInTheBlankMode = () => {
-    setModeChangeMessage(""); 
-    if (!isFillInTheBlankModeActive) { 
-        const candidateWordListForFillInBlank = mainWordList.filter(pair => 
-            pair.spanish && 
-            pair.spanish.trim().split(' ').length <= 3 
-        );
-        if (!mainWordList || mainWordList.length < 4 || candidateWordListForFillInBlank.length < 1) { 
-            setModeChangeMessage("Not enough words for Fill-in-the-Blank game.");
-            setTimeout(() => setModeChangeMessage(""), 3000);
-            return;
-        }
-        setShowHardWordsView(false);
-        setIsSearchModalOpen(false);
-        setIsAddWordModalOpen(false);
-        setIsEditModalOpen(false);
-        setIsDetailsModalOpen(false);
-        setIsSettingsModalOpen(false);
-        setIsMatchingGameModeActive(false); 
-        if (setGameShowFeedback) setGameShowFeedback(false); 
+  const handleToggleFillInTheBlankMode = () => {
+    setModeChangeMessage("");
+    if (!isFillInTheBlankModeActive) {
+      const candidateWordListForFillInBlank = mainWordList.filter(
+        (pair) => pair.spanish && pair.spanish.trim().split(" ").length <= 3
+      );
+      if (
+        !mainWordList ||
+        mainWordList.length < 4 ||
+        candidateWordListForFillInBlank.length < 1
+      ) {
+        setModeChangeMessage("Not enough words for Fill-in-the-Blank game.");
+        setTimeout(() => setModeChangeMessage(""), 3000);
+        return;
+      }
+      setShowHardWordsView(false);
+      setIsSearchModalOpen(false);
+      setIsAddWordModalOpen(false);
+      setIsEditModalOpen(false);
+      setIsDetailsModalOpen(false);
+      setIsSettingsModalOpen(false);
+      setIsMatchingGameModeActive(false);
+      if (setGameShowFeedback) setGameShowFeedback(false);
     }
-    setIsFillInTheBlankModeActive(prev => !prev);
-};
+    setIsFillInTheBlankModeActive((prev) => !prev);
+  };
 
-  return (
-    <div className="App">
+   return (
+    <div className="App"> {/* Single top-level div for the component */}
+
+      {/* Header Section (Title, Version, Settings Button) */}
       <div
         style={{
           display: "flex",
@@ -674,14 +679,14 @@ const handleToggleFillInTheBlankMode = () => {
             <p
               style={{
                 fontSize: "0.8rem",
-                color: "#6c757d",
+                color: "var(--text-muted)", // Use CSS variable
                 margin: "0",
                 display: "inline-block",
                 marginRight: "15px",
               }}
             >
               Data v: {currentDataVersion}{" "}
-              {isInHardWordsMode && !isMatchingGameModeActive && "(Hard Mode)"}
+              {isInHardWordsMode && !isMatchingGameModeActive && !isFillInTheBlankModeActive && "(Hard Mode)"}
             </p>
           )}
           <button
@@ -692,10 +697,10 @@ const handleToggleFillInTheBlankMode = () => {
               border: "none",
               fontSize: "1.5em",
               cursor: "pointer",
-              color: "var(--text-muted)",
+              color: "var(--text-muted)", // Use CSS variable
               padding: "0",
             }}
-            disabled={isMatchingGameModeActive}
+            disabled={isMatchingGameModeActive || isFillInTheBlankModeActive}
           >
             <span role="img" aria-label="settings icon">
               ⚙️
@@ -704,274 +709,166 @@ const handleToggleFillInTheBlankMode = () => {
         </div>
       </div>
 
-      {/* Conditionally render Score Stacks only if NOT in matching game mode */}
-
-      {!isMatchingGameModeActive && (
+      {/* Score Stacks - Conditionally Rendered */}
+      {!isMatchingGameModeActive && !isFillInTheBlankModeActive && (
         <div className="score-stacks-container">
-          <ScoreStack
-            type="correct"
-            label="Correct"
-            count={score.correct}
-            icon="✅"
-          />
-          <ScoreStack
-            type="incorrect"
-            label="Incorrect"
-            count={score.incorrect}
-            icon="❌"
-            flashRef={incorrectScoreRef}
-          />
-          <ScoreStack
-            type="hard"
-            label="Hard Words"
-            count={hardWordsList.length}
-            icon="⭐"
-            onClick={handleToggleHardWordsView}
-          />
+          <ScoreStack type="correct" label="Correct" count={score.correct} icon="✅"/>
+          <ScoreStack type="incorrect" label="Incorrect" count={score.incorrect} icon="❌" flashRef={incorrectScoreRef}/>
+          <ScoreStack type="hard" label="Hard Words" count={hardWordsList.length} icon="⭐" onClick={handleToggleHardWordsView} />
         </div>
       )}
 
+      {/* Controls Section */}
       <div className="controls">
-        <button
-          onClick={handleToggleMatchingGameMode}
-          title="Matching Game"
-          style={{ padding: "0.6rem 0.8rem" }}
-        >
-          <span role="img" aria-label="game icon">
-            🎮
-          </span>{" "}
-          Matching Game
+        <button onClick={handleToggleFillInTheBlankMode} title="Fill-in-the-Blank Game" style={{ padding: "0.6rem 0.8rem" }} >
+            <span role="img" aria-label="pencil and paper icon">📝</span> Fill-in-Blank
         </button>
-
-        <button
-          onClick={() => setIsSearchModalOpen(true)}
-          title="Search Words"
-          style={{ padding: "0.6rem 0.8rem" }}
-          disabled={isMatchingGameModeActive}
-        >
-          <span role="img" aria-label="search icon">
-            🔍
-          </span>{" "}
-          Search
+        <button onClick={handleToggleMatchingGameMode} title="Matching Game" style={{ padding: "0.6rem 0.8rem" }} >
+          <span role="img" aria-label="game icon">🎮</span> Matching Game
         </button>
-        <button
-          onClick={handleToggleHardWordsMode}
-          title={
-            isInHardWordsMode ? "Practice All Words" : "Practice Hard Words"
-          }
-          style={{ padding: "0.6rem 0.8rem" }}
-          disabled={isMatchingGameModeActive}
-        >
-          <span
-            role="img"
-            aria-label={isInHardWordsMode ? "list icon" : "brain icon"}
-          >
-            {isInHardWordsMode ? "📋" : "🧠"}
-          </span>
-          {isInHardWordsMode ? "All Words" : "Hard Mode"}
+        <button onClick={() => setIsSearchModalOpen(true)} title="Search Words" style={{ padding: "0.6rem 0.8rem" }} 
+                disabled={isMatchingGameModeActive || isFillInTheBlankModeActive} >
+          <span role="img" aria-label="search icon">🔍</span> Search
         </button>
-        <button onClick={switchDirection} disabled={isMatchingGameModeActive}>
+        <button onClick={handleToggleHardWordsMode} title={ isInHardWordsMode ? "Practice All Words" : "Practice Hard Words" } style={{padding: '0.6rem 0.8rem'}}
+                disabled={isMatchingGameModeActive || isFillInTheBlankModeActive} >
+            <span role="img" aria-label={isInHardWordsMode ? "list icon" : "brain icon"}>{isInHardWordsMode ? "📋" : "🧠"}</span> 
+            {isInHardWordsMode ? "All Words" : "Hard Mode"}
+        </button>
+        <button onClick={switchDirection} disabled={isMatchingGameModeActive || isFillInTheBlankModeActive}>
           Switch Dir ({languageDirection === "spa-eng" ? "S->E" : "E->S"})
         </button>
         <button
           onClick={selectNewPairCard}
-          disabled={
-            isLoadingData ||
-            !listForFlashcardGame.length ||
-            showHardWordsView ||
-            isMatchingGameModeActive
-          }
-        >
+          disabled={ isLoadingData || !listForFlashcardGame.length || showHardWordsView || isMatchingGameModeActive || isFillInTheBlankModeActive } >
           {isLoadingData && !currentPair ? "Loading..." : "New Card"}
         </button>
       </div>
-
+      
+      {/* Mode Change Message - This goes before the main content switcher */}
       {modeChangeMessage && (
-        <p
-          style={{ color: "orange", textAlign: "center", fontStyle: "italic" }}
-        >
+        <p style={{ color: "orange", textAlign: "center", fontStyle: "italic" }}>
           {modeChangeMessage}
         </p>
       )}
-
+      
+      {/* Main Content Area: Game OR Flashcard/HardWords View */}
       {isMatchingGameModeActive ? (
-        <div
-          ref={matchingGameContainerRef}
-          className="matching-game-view-wrapper"
-        >
+        <div ref={matchingGameContainerRef} className="matching-game-view-wrapper">
           <MatchingGameView
             fullWordList={mainWordList}
             numPairsToDisplay={6}
             onExitGame={handleToggleMatchingGameMode}
           />
         </div>
+      ) : isFillInTheBlankModeActive ? ( 
+        <div ref={fillInTheBlankGameContainerRef} className="fill-in-blank-game-view-wrapper">
+          <FillInTheBlankGameView
+              wordList={mainWordList}
+              numChoices={4} // Or your desired number
+              onExitGame={handleToggleFillInTheBlankMode}
+          />
+        </div>
       ) : (
+        // Original Flashcard/HardWordsView display
         <>
-          {isLoadingData && !currentPair && (
-            <p>Loading word list and preparing first card...</p>
-          )}
-          {dataError && (
-            <div className="error-area">
-              <p>Word List Error: {dataError}</p>
-            </div>
-          )}
-          {/* Use gameError from useFlashcardGame for flashcard errors */}
-          {gameError && !dataError && !isLoadingData && (
-            <div className="error-area">
-              <p>Flashcard Game Error: {gameError}</p>
-            </div>
-          )}
+            {isLoadingData && !currentPair && (<p>Loading word list and preparing first card...</p>)}
+            {dataError && <div className="error-area"><p>Word List Error: {dataError}</p></div>}
+            {gameError && !dataError && !isLoadingData && (<div className="error-area"><p>Flashcard Game Error: {gameError}</p></div>)}
 
-          {showHardWordsView ? (
-            <HardWordsView
-              hardWordsList={hardWordsList}
-              onClose={handleToggleHardWordsView}
-              onRemoveWord={handleRemoveHardWord}
+            {showHardWordsView ? ( 
+              <HardWordsView 
+                hardWordsList={hardWordsList} 
+                onClose={handleToggleHardWordsView} 
+                onRemoveWord={handleRemoveHardWord} 
+              />
+            ) : ( 
+              <>
+                {!isLoadingData && !dataError && !gameError && currentPair && (
+                    <div className="flashcard-area">
+                    <Flashcard
+                        pair={currentPair} 
+                        direction={languageDirection} 
+                        onAnswerSubmit={submitAnswer}
+                        showFeedback={showFeedback} 
+                        onGetHint={handleGetHint} 
+                        hint={hintData}
+                        isHintLoading={isHintLoading} 
+                        feedbackSignal={feedbackSignal} 
+                        onMarkHard={handleMarkHard}
+                        isMarkedHard={ currentPair && hardWordsList.some( (word) => word.spanish === currentPair.spanish && word.english === currentPair.english )}
+                        onEdit={() => openEditModal(currentPair)}
+                        onShowDetails={handleShowDetailsModal}
+                    />
+                    {showFeedback && feedbackSignal === "incorrect" && (
+                         <div className="feedback-area">
+                         <p>Incorrect. The correct answer is: "{lastCorrectAnswer}"</p>
+                         <button onClick={() => handleGetHint(true)} disabled={isHintLoading} style={{ marginRight: "10px" }} >
+                           {isHintLoading ? "Getting Info..." : "Show Hint / Related"}
+                         </button>
+                         <button onClick={switchToNextCard}>Next Card</button>
+                       </div>
+                      )}
+                    {showFeedback && feedbackSignal === "correct" && (
+                        <div className="feedback-area" style={{ borderColor: "var(--color-success)", backgroundColor: "var(--bg-feedback-correct, #d4edda)"}}>
+                        <p style={{ color: "var(--color-success-darker, #155724)" }}>Correct!</p>
+                        <button onClick={switchToNextCard}>Next Card</button>
+                        </div>
+                    )}
+                    </div>
+                )}
+                {!isLoadingData && !dataError && !gameError && !currentPair && listForFlashcardGame.length > 0 && ( <p> No card available in the current list. Try "New Card" or change modes. </p> )}
+                {!isLoadingData && !dataError && !gameError && !currentPair && listForFlashcardGame.length === 0 && ( <p> The current word list is empty.{" "} {isInHardWordsMode ? "Add some hard words or switch to 'All Words' mode." : "Add words or check data source."} </p> )}
+              </>
+            )}
+        </>
+      )}
+
+      {/* Modals: Conditionally render to prevent overlap with game views */}
+      {(!isMatchingGameModeActive && !isFillInTheBlankModeActive) && (
+          <>
+            <SearchModal 
+              isOpen={isSearchModalOpen} 
+              onClose={() => setIsSearchModalOpen(false)} 
+              wordList={mainWordList} 
+              onSelectResult={handleSelectWordFromSearch} 
             />
-          ) : (
-            <>
-              {!isLoadingData && !dataError && !gameError && currentPair && (
-                <div className="flashcard-area">
-                  <Flashcard
-                    pair={currentPair}
-                    direction={languageDirection}
-                    onAnswerSubmit={submitAnswer}
-                    showFeedback={showFeedback}
-                    onGetHint={handleGetHint}
-                    hint={hintData}
-                    isHintLoading={isHintLoading}
-                    feedbackSignal={feedbackSignal}
-                    onMarkHard={handleMarkHard}
-                    isMarkedHard={
-                      currentPair &&
-                      hardWordsList.some(
-                        (word) =>
-                          word.spanish === currentPair.spanish &&
-                          word.english === currentPair.english
-                      )
-                    }
-                    onEdit={() => openEditModal(currentPair)}
-                    onShowDetails={handleShowDetailsModal}
-                  />
-                  {showFeedback && feedbackSignal === "incorrect" && (
-                    <div className="feedback-area">
-                      <p>
-                        Incorrect. The correct answer is: "{lastCorrectAnswer}"
-                      </p>
-                      <button
-                        onClick={() => handleGetHint(true)}
-                        disabled={isHintLoading}
-                        style={{ marginRight: "10px" }}
-                      >
-                        {isHintLoading
-                          ? "Getting Info..."
-                          : "Show Hint / Related"}
-                      </button>
-                      <button onClick={switchToNextCard}>Next Card</button>
-                    </div>
-                  )}
-                  {showFeedback && feedbackSignal === "correct" && (
-                    <div
-                      className="feedback-area"
-                      style={{
-                        borderColor: "var(--color-success)",
-                        backgroundColor: "var(--bg-feedback-correct, #d4edda)",
-                      }}
-                    >
-                      <p
-                        style={{
-                          color: "var(--color-success-darker, #155724)",
-                        }}
-                      >
-                        Correct!
-                      </p>
-                      <button onClick={switchToNextCard}>Next Card</button>
-                    </div>
-                  )}
-                </div>
-              )}
-              {!isLoadingData &&
-                !dataError &&
-                !gameError &&
-                !currentPair &&
-                listForFlashcardGame.length > 0 && (
-                  <p>
-                    {" "}
-                    No card available in the current list. Try "New Card" or
-                    change modes.{" "}
-                  </p>
-                )}
-              {!isLoadingData &&
-                !dataError &&
-                !gameError &&
-                !currentPair &&
-                listForFlashcardGame.length === 0 && (
-                  <p>
-                    {" "}
-                    The current word list is empty.{" "}
-                    {isInHardWordsMode
-                      ? "Add some hard words or switch to 'All Words' mode."
-                      : "Add words or check data source."}{" "}
-                  </p>
-                )}
-            </>
-          )}
-        </>
+            <AddWordModal 
+              isOpen={isAddWordModalOpen} 
+              onClose={() => setIsAddWordModalOpen(false)} 
+              onAddWord={handleAddWord} 
+            />
+            <WordEditModal
+                isOpen={isEditModalOpen}
+                onClose={closeEditModal}
+                wordToEdit={wordCurrentlyBeingEdited}
+                onSaveWord={handleUpdateWord}
+                onDeleteWord={handleDeleteWord}
+                apiSuggestions={ apiSuggestions && wordCurrentlyBeingEdited && apiSuggestions.wordId === wordCurrentlyBeingEdited.id ? apiSuggestions : null }
+            />
+            <WordDetailsModal
+                isOpen={isDetailsModalOpen}
+                onClose={handleCloseDetailsModal}
+                pair={currentPair}
+                onFetchExamples={() => currentPair && handleFetchTatoebaExamples(currentPair.spanish)}
+                examples={tatoebaExamples}
+                isLoadingExamples={isLoadingTatoebaExamples}
+                examplesError={tatoebaError}
+            />
+            <SettingsModal
+                isOpen={isSettingsModalOpen}
+                onClose={() => setIsSettingsModalOpen(false)}
+                onExportWordList={handleExportWordList}
+                isAdminMode={isAdminMode}
+                onToggleAdminMode={handleToggleAdminMode}
+                currentTheme={currentTheme}
+                onToggleTheme={handleToggleTheme}
+                onTriggerAddWordModal={handleOpenAddWordModalFromSettings} 
+            />
+          </>
       )}
-
-      {/* Modals: Conditionally render to prevent overlap with game view */}
-      {!isMatchingGameModeActive && (
-        <>
-          <SearchModal
-            isOpen={isSearchModalOpen}
-            onClose={() => setIsSearchModalOpen(false)}
-            wordList={mainWordList}
-            onSelectResult={handleSelectWordFromSearch}
-          />
-          <AddWordModal
-            isOpen={isAddWordModalOpen}
-            onClose={() => setIsAddWordModalOpen(false)}
-            onAddWord={handleAddWord}
-          />
-          <WordEditModal
-            isOpen={isEditModalOpen}
-            onClose={closeEditModal}
-            wordToEdit={wordCurrentlyBeingEdited}
-            onSaveWord={handleUpdateWord}
-            onDeleteWord={handleDeleteWord}
-            apiSuggestions={
-              apiSuggestions &&
-              wordCurrentlyBeingEdited &&
-              apiSuggestions.wordId === wordCurrentlyBeingEdited.id
-                ? apiSuggestions
-                : null
-            }
-          />
-          <WordDetailsModal
-            isOpen={isDetailsModalOpen}
-            onClose={handleCloseDetailsModal}
-            pair={currentPair}
-            onFetchExamples={() =>
-              currentPair && handleFetchTatoebaExamples(currentPair.spanish)
-            }
-            examples={tatoebaExamples}
-            isLoadingExamples={isLoadingTatoebaExamples}
-            examplesError={tatoebaError}
-          />
-          <SettingsModal
-            isOpen={isSettingsModalOpen}
-            onClose={() => setIsSettingsModalOpen(false)}
-            onExportWordList={handleExportWordList}
-            isAdminMode={isAdminMode}
-            onToggleAdminMode={handleToggleAdminMode}
-            currentTheme={currentTheme}
-            onToggleTheme={handleToggleTheme}
-            onTriggerAddWordModal={handleOpenAddWordModalFromSettings}
-          />
-        </>
-      )}
-    </div>
-  );
+    </div> // This is the closing tag for the main <div className="App">
+  ); // This is the closing parenthesis for the return statement of the App function
 }
 
 export default App;

@@ -84,7 +84,7 @@ const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame }) => {
                      {isLoadingNextQuestion && <p className="loading-text">Loading next question...</p>}
                 </div>
             ) : (
-                 !isLoadingNextQuestion && <p>Click "Start Game" to begin.</p> // Should be covered by gameMessage state
+                 !isLoadingNextQuestion && <p>Click "Start Game" to begin.</p> 
             )}
 
             <div className="fill-blank-controls">
