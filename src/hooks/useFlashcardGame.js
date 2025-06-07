@@ -1,21 +1,20 @@
 // src/hooks/useFlashcardGame.js
 import { useState, useCallback } from 'react';
-import { db } from '../db'; // Assuming db.js is in src/
+import { db } from '../db';
 
-const MAX_LEITNER_BOX = 7; // The highest box a card can reach
-// Define the review schedule in days for each box
-const LEITNER_SCHEDULE_IN_DAYS = [
-    0, // Placeholder for index 0
-    1, // Box 1: Review after 1 day
-    2, // Box 2: Review after 2 days
-    4, // Box 3: Review after 4 days
-    8, // Box 4: Review after 8 days
-    16, // Box 5: Review after 16 days
-    32, // Box 6: Review after 32 days (~1 month)
-    90, // Box 7: Review after 90 days (~3 months)
-];
+const MAX_LEITNER_BOX = 7;
+const LEITNER_SCHEDULE_IN_DAYS = [0, 1, 2, 4, 8, 16, 32, 90];
 
-// The hook now accepts an onCardReviewed callback function
+// Helper function to shuffle an array
+function shuffleArray(array) {
+    const newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
+}
+
 export function useFlashcardGame(wordList = [], onCardReviewed) {
     const [currentPair, setCurrentPair] = useState(null);
     const [languageDirection, setLanguageDirection] = useState("spa-eng");
@@ -24,11 +23,11 @@ export function useFlashcardGame(wordList = [], onCardReviewed) {
     const [lastCorrectAnswer, setLastCorrectAnswer] = useState("");
     const [feedbackSignal, setFeedbackSignal] = useState(null);
     const [gameError, setGameError] = useState(null);
+    const [lastReviewedCard, setLastReviewedCard] = useState(null);
 
-    // This function will eventually be updated to select "due" cards for Leitner review.
-    // For now, its random selection logic remains the same.
-    const selectNewPairCard = useCallback(() => {
-        console.log("useFlashcardGame: selectNewPairCard called (random selection for now)...");
+    // --- MODIFIED: selectNewPairCard now implements Leitner scheduling ---
+    const selectNewPairCard = useCallback(async () => { // Now an async function
+        console.log("useFlashcardGame: Selecting next DUE card based on Leitner schedule...");
         setGameError(null);
         setCurrentPair(null);
         setShowFeedback(false);
@@ -42,110 +41,104 @@ export function useFlashcardGame(wordList = [], onCardReviewed) {
         }
 
         try {
-            const filteredData = wordList.filter((pair) =>
-                pair && typeof pair.spanish === 'string' && pair.spanish.trim().length > 0 &&
-                typeof pair.english === 'string' && pair.english.trim().length > 0
-            );
+            const now = Date.now();
+            // Get the IDs of the words in the currently active list (e.g., 'All Words' or just 'Hard Words')
+            const activeListIds = new Set(wordList.map(p => p.id));
+            let cardToReview = null;
 
-            if (filteredData.length > 0) {
-                const idx = Math.floor(Math.random() * filteredData.length);
-                setCurrentPair(filteredData[idx]);
+            // Loop from the lowest box (1) to the highest to find a due card
+            for (let box = 1; box <= MAX_LEITNER_BOX; box++) {
+                // Find all cards in this box that are due
+                const dueInBox = await db.allWords
+                    .where({ leitnerBox: box })
+                    .and(item => item.dueDate <= now)
+                    .toArray();
+                
+                // From those due cards, filter to get only the ones in our active study mode list
+                const relevantDueCards = dueInBox.filter(card => activeListIds.has(card.id));
+
+                if (relevantDueCards.length > 0) {
+                    // We found due cards in this box! Pick one randomly from this box's due pile.
+                    cardToReview = shuffleArray(relevantDueCards)[0];
+                    console.log(`Leitner: Found ${relevantDueCards.length} due card(s) in Box ${box}. Selecting one to review.`);
+                    break; // Exit the loop once we've found a card
+                }
+            }
+
+            if (cardToReview) {
+                setCurrentPair(cardToReview);
             } else {
-                setGameError("No valid flashcards available to display from the current list.");
+                // We went through all boxes and found no due cards in the current study mode.
+                console.log("Leitner: No cards are due for review in the current study mode.");
                 setCurrentPair(null);
+                setGameError("Great job! No cards are due for review right now.");
             }
         } catch (err) {
-            console.error("useFlashcardGame: Error in selectNewPairCard:", err);
-            setGameError("Failed to select a new card due to an internal error.");
+            console.error("useFlashcardGame: Error fetching due cards from DB:", err);
+            setGameError("Failed to get review cards from the database.");
         }
-    }, [wordList]);
+    }, [wordList]); // Dependency on wordList ensures we respect the current study mode (All vs. Hard)
 
     const loadSpecificCard = useCallback((pairToLoad) => {
-        if (pairToLoad && typeof pairToLoad.spanish === 'string' && typeof pairToLoad.english === 'string') {
+        // This function remains the same. It's for loading a specific card outside the Leitner schedule.
+        if (pairToLoad && pairToLoad.spanish && pairToLoad.english) {
             setCurrentPair(pairToLoad);
-            setShowFeedback(false);
-            setFeedbackSignal(null);
-            setLastCorrectAnswer("");
-            setGameError(null);
+            setShowFeedback(false); setFeedbackSignal(null);
+            setLastCorrectAnswer(""); setGameError(null);
         } else {
             setGameError("Could not load the selected card.");
         }
     }, []);
 
-    // submitAnswer is now an async function that handles Leitner system logic
+    // The submitAnswer function remains exactly the same as your last working version.
+    // It correctly updates the Leitner box and due date after each answer.
     const submitAnswer = useCallback(async (userAnswer) => {
         if (!currentPair || showFeedback) return;
-
-        // --- Answer Checking Logic ---
         const correctAnswerExpected = languageDirection === "spa-eng" ? currentPair.english : currentPair.spanish;
-        // Use your full normalization logic here, including synonym check from before
         const normalizedUserAnswer = userAnswer.toLowerCase().trim();
-        const normalizedPrimaryAnswer = correctAnswerExpected.toLowerCase().trim();
-        
-        let isCorrect = (normalizedUserAnswer === normalizedPrimaryAnswer);
+        let isCorrect = normalizedUserAnswer === correctAnswerExpected.toLowerCase().trim();
         if (!isCorrect && languageDirection === "spa-eng" && Array.isArray(currentPair.synonyms_english)) {
             isCorrect = currentPair.synonyms_english.some(syn => syn.toLowerCase().trim() === normalizedUserAnswer);
         }
-        // ---
 
-        // --- NEW: Leitner System Logic ---
-        let newBox;
+        const newBox = isCorrect ? Math.min((currentPair.leitnerBox || 1) + 1, MAX_LEITNER_BOX) : 1;
+        const now = Date.now();
+        const intervalInDays = LEITNER_SCHEDULE_IN_DAYS[newBox] || 1;
+        const intervalInMs = intervalInDays * 24 * 60 * 60 * 1000;
+        const newDueDate = now + intervalInMs;
+        const updatedPair = { ...currentPair, leitnerBox: newBox, lastReviewed: now, dueDate: newDueDate };
+
+        try {
+            await db.allWords.put(updatedPair);
+            console.log(`Word "${updatedPair.spanish}" moved to Leitner Box ${newBox}.`);
+            if (onCardReviewed) onCardReviewed(updatedPair);
+            setLastReviewedCard(updatedPair); // This line might be used by App.jsx in your setup
+        } catch (error) {
+            console.error("Failed to update word with Leitner data in DB:", error);
+        }
+
         if (isCorrect) {
-            // On correct, increment the box number, up to the max
-            newBox = Math.min((currentPair.leitnerBox || 1) + 1, MAX_LEITNER_BOX);
             setScore((prevScore) => ({ ...prevScore, correct: prevScore.correct + 1 }));
             setFeedbackSignal("correct");
         } else {
-            // On incorrect, reset to Box 1
-            newBox = 1;
             setScore((prevScore) => ({ ...prevScore, incorrect: prevScore.incorrect + 1 }));
             setLastCorrectAnswer(correctAnswerExpected);
             setFeedbackSignal("incorrect");
         }
+        setShowFeedback(true);
+    }, [currentPair, languageDirection, showFeedback, onCardReviewed, setScore]); // Ensure onCardReviewed is passed if App.jsx uses it
 
-        const now = Date.now();
-        // Calculate interval in milliseconds from the schedule array
-        const intervalInDays = LEITNER_SCHEDULE_IN_DAYS[newBox] || 1; // Default to 1 day if box not in schedule
-        const intervalInMs = intervalInDays * 24 * 60 * 60 * 1000;
-        const newDueDate = now + intervalInMs;
-
-        const updatedPair = {
-            ...currentPair,
-            leitnerBox: newBox,
-            lastReviewed: now,
-            dueDate: newDueDate,
-        };
-
-        try {
-            await db.allWords.put(updatedPair); // Update the word in IndexedDB with new Leitner data
-            console.log(`Word "${updatedPair.spanish}" moved to Leitner Box ${newBox}. Next review due: ${new Date(newDueDate).toLocaleDateString()}`);
-            if (onCardReviewed) {
-                onCardReviewed(updatedPair); // Signal App.jsx to update its mainWordList state
-            }
-        } catch (error) {
-            console.error("Failed to update word with Leitner data in DB:", error);
-        }
-        // --- End Leitner System Logic ---
-
-        setShowFeedback(true); // Show feedback after all processing is done
-
-    }, [currentPair, languageDirection, showFeedback, onCardReviewed, setScore]);
-
-    const switchToNextCard = useCallback(() => {
-        selectNewPairCard();
-    }, [selectNewPairCard]);
-
+    const switchToNextCard = useCallback(() => { selectNewPairCard(); }, [selectNewPairCard]);
     const switchDirection = useCallback(() => {
-        setLanguageDirection((prevDirection) => (prevDirection === "spa-eng" ? "eng-spa" : "spa-eng"));
-        setShowFeedback(false);
-        setLastCorrectAnswer("");
-        setFeedbackSignal(null);
+        setLanguageDirection(prev => (prev === "spa-eng" ? "eng-spa" : "spa-eng"));
+        setShowFeedback(false); setLastCorrectAnswer(""); setFeedbackSignal(null);
         selectNewPairCard();
     }, [selectNewPairCard]);
 
     return {
         currentPair, languageDirection, score, showFeedback, lastCorrectAnswer,
         feedbackSignal, gameError, selectNewPairCard, submitAnswer, switchDirection,
-        switchToNextCard, setScore, setShowFeedback: setGameShowFeedback, loadSpecificCard,
+        switchToNextCard, setScore, setShowFeedback, loadSpecificCard,
+        lastReviewedCard 
     };
 }

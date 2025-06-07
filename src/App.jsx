@@ -78,7 +78,8 @@ function App() {
     setScore,
     setShowFeedback: setGameShowFeedback,
     loadSpecificCard,
-  } = useFlashcardGame(listForFlashcardGame, handleCardReviewed);
+    lastReviewedCard,
+  } = useFlashcardGame(listForFlashcardGame);
 
   // === Refs ===
   const incorrectScoreRef = useRef(null);
@@ -245,6 +246,17 @@ function App() {
       }, 50);
     }
   }, [isFillInTheBlankModeActive]);
+
+  useEffect(() => {
+    if (lastReviewedCard) {
+   
+      setWordList(prevWordList =>
+          prevWordList.map(word =>
+              word.id === lastReviewedCard.id ? lastReviewedCard : word
+          )
+      );
+    }
+  }, [lastReviewedCard, setWordList]);
 
   // === Event Handlers ===
   const handleToggleTheme = () => {

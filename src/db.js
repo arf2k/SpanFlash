@@ -1,3 +1,4 @@
+// src/db.js
 import Dexie from 'dexie';
 
 export const db = new Dexie('flashcardAppDB');
@@ -9,40 +10,36 @@ db.version(1).stores({
   allWords: '++id, spanish, english'
 });
 
-// Version 2: Added 'category' as an index to allWords
+// Version 2: Added 'category' index to allWords
 db.version(2).stores({
   appState: 'id', 
   hardWords: '[spanish+english]', 
   allWords: '++id, spanish, english, category' 
 }).upgrade(tx => {
-  console.log("Upgrading database to version 2 (for category index)...");
- 
-  return tx.table('allWords').count(); 
+  // Dexie handles adding the index automatically.
+  console.log("Upgrading database schema to version 2 (for category index).");
+  return tx.table('allWords').count(); // Return a promise to ensure transaction completes
 });
 
-
-// --- NEW: Version 3 for Leitner System ---
+// Version 3: Added SRS/Leitner fields to the word objects
 db.version(3).stores({
-  allWords: '++id, spanish, english, category, dueDate' // Added dueDate as an index
+  allWords: '++id, spanish, english, category, dueDate'
 }).upgrade(async (tx) => {
-    console.log("Attempting to upgrade database schema to version 3 for Leitner System...");
-
+    console.log("Upgrading database schema to version 3 for Leitner System fields...");
     const now = Date.now();
-
-    // Use modify() to update each existing word object
     await tx.table('allWords').toCollection().modify(word => {
-        // Only add fields if they don't already exist
-        if (word.leitnerBox === undefined) {
-            word.leitnerBox = 1; // Start all existing words in Box 1
-        }
-        if (word.lastReviewed === undefined) {
-            word.lastReviewed = now; // Set initial review date to now
-        }
-        if (word.dueDate === undefined) {
-            word.dueDate = now; // Make all existing cards due for review immediately
-        }
+        if (word.leitnerBox === undefined) word.leitnerBox = 1;
+        if (word.lastReviewed === undefined) word.lastReviewed = now;
+        if (word.dueDate === undefined) word.dueDate = now;
     });
+});
 
-    const count = await tx.table('allWords').count();
-    console.log(`Database upgrade to version 3 successful. All ${count} existing words now have default Leitner fields.`);
+db.version(4).stores({
+    appState: 'id',
+    hardWords: '[spanish+english]',
+    allWords: '++id, spanish, english, category, dueDate, leitnerBox' 
+}).upgrade(tx => {
+
+    console.log("Upgrading database to version 4 to add 'leitnerBox' index to allWords store.");
+    return Promise.resolve(); 
 });
