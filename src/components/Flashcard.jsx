@@ -1,136 +1,141 @@
-// src/components/Flashcard.jsx
-import React, { useState, useEffect } from 'react';
+// src/hooks/useFlashcardGame.js
+import { useState, useCallback, useEffect } from 'react';
+import { db } from '../db'; // Assuming db.js is in the parent src/ directory
 
-const Flashcard = ({
-    pair,
-    direction,
-    onAnswerSubmit,
-    showFeedback,
-    onGetHint,
-    hint,
-    isHintLoading,
-    feedbackSignal,
-    onMarkHard,
-    isMarkedHard,
-    onEdit,
-    onShowDetails // Prop to trigger showing the details modal
-}) => {
-    const [answer, setAnswer] = useState('');
+const MAX_LEITNER_BOX = 7; // e.g., 7 boxes
+const LEITNER_SCHEDULE_IN_DAYS = [
+    0, // Box 0 doesn't exist, just a placeholder
+    1, // Box 1: Review after 1 day
+    3, // Box 2: Review after 3 days
+    7, // Box 3: Review after 7 days (1 week)
+    14, // Box 4: Review after 14 days (2 weeks)
+    30, // Box 5: Review after 30 days (1 month)
+    90, // Box 6: Review after 90 days (3 months)
+    180 // Box 7: Review after 180 days (6 months)
+];
 
-    useEffect(() => {
-        setAnswer('');
-    }, [pair, showFeedback]);
+export function useFlashcardGame(wordList = [], onCardReviewed) { // <-- Added onCardReviewed prop
+    const [currentPair, setCurrentPair] = useState(null);
+    const [languageDirection, setLanguageDirection] = useState("spa-eng");
+    const [score, setScore] = useState({ correct: 0, incorrect: 0 });
+    const [showFeedback, setShowFeedback] = useState(false);
+    const [lastCorrectAnswer, setLastCorrectAnswer] = useState("");
+    const [feedbackSignal, setFeedbackSignal] = useState(null);
+    const [gameError, setGameError] = useState(null);
 
-    let wordToShow = '';
-    let placeholderText = 'Type your answer...';
+    const selectNewPairCard = useCallback(() => {
+        // Your existing selectNewPairCard logic remains the same.
+        // For a full SRS, this would change to only select "due" cards.
+        // For now, it will continue to select randomly.
+        console.log("useFlashcardGame: selectNewPairCard called (random selection for now)...");
+        setGameError(null);
+        setCurrentPair(null);
+        setShowFeedback(false);
+        setFeedbackSignal(null);
+        setLastCorrectAnswer("");
 
-    if (pair) {
-        if (direction === 'spa-eng') {
-            wordToShow = pair.spanish;
-            placeholderText = 'Type English...';
-        } else {
-            wordToShow = pair.english;
-            placeholderText = 'Type Spanish...';
+        if (!wordList || wordList.length === 0) {
+            setGameError("Word list is empty. Cannot select a new card.");
+            setCurrentPair(null);
+            return;
         }
-    }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        if (!answer.trim() || showFeedback) return;
-        onAnswerSubmit(answer);
+        try {
+            const filteredData = wordList.filter((pair) =>
+                pair && typeof pair.spanish === 'string' && pair.spanish.trim().length > 0 &&
+                typeof pair.english === 'string' && pair.english.trim().length > 0
+            );
+
+            if (filteredData.length > 0) {
+                const idx = Math.floor(Math.random() * filteredData.length);
+                setCurrentPair(filteredData[idx]);
+            } else {
+                setGameError("No valid flashcards available to display from the current list.");
+                setCurrentPair(null);
+            }
+        } catch (err) {
+            console.error("useFlashcardGame: Error in selectNewPairCard:", err);
+            setGameError("Failed to select a new card due to an internal error.");
+        }
+    }, [wordList]);
+
+    const loadSpecificCard = useCallback((pairToLoad) => {
+        if (pairToLoad && typeof pairToLoad.spanish === 'string' && typeof pairToLoad.english === 'string') {
+            setCurrentPair(pairToLoad);
+            setShowFeedback(false);
+            setFeedbackSignal(null);
+            setLastCorrectAnswer("");
+            setGameError(null);
+        } else {
+            setGameError("Could not load the selected card.");
+        }
+    }, []);
+
+    const submitAnswer = useCallback(async (userAnswer) => { // <-- Now an async function
+        if (!currentPair || showFeedback) return;
+
+        // --- Answer Checking Logic (as before) ---
+        const correctAnswerExpected = languageDirection === "spa-eng" ? currentPair.english : currentPair.spanish;
+        let normalizedUserAnswer = userAnswer.toLowerCase().trim(); // Basic normalization for now
+        // Add your more advanced normalization if needed
+        let isCorrect = normalizedUserAnswer === correctAnswerExpected.toLowerCase().trim();
+        // TODO: Re-integrate synonym check here if desired for flashcard mode
+        // ...
+
+        // --- NEW: Leitner System Logic ---
+        let newBox;
+        if (isCorrect) {
+            newBox = Math.min((currentPair.leitnerBox || 1) + 1, MAX_LEITNER_BOX);
+            setScore((prevScore) => ({ ...prevScore, correct: prevScore.correct + 1 }));
+            setFeedbackSignal("correct");
+        } else {
+            newBox = 1; // Reset to Box 1 on incorrect answer
+            setScore((prevScore) => ({ ...prevScore, incorrect: prevScore.incorrect + 1 }));
+            setLastCorrectAnswer(correctAnswerExpected);
+            setFeedbackSignal("incorrect");
+        }
+
+        const now = Date.now();
+        const intervalInMs = (LEITNER_SCHEDULE_IN_DAYS[newBox] || 1) * 24 * 60 * 60 * 1000;
+        const newDueDate = now + intervalInMs;
+
+        const updatedPair = {
+            ...currentPair,
+            leitnerBox: newBox,
+            lastReviewed: now,
+            dueDate: newDueDate,
+        };
+
+        try {
+            await db.allWords.put(updatedPair); // Update the word in IndexedDB
+            console.log(`Word "${updatedPair.spanish}" moved to Leitner Box ${newBox}. Next review due: ${new Date(newDueDate).toLocaleDateString()}`);
+            if (onCardReviewed) {
+                onCardReviewed(updatedPair); // Signal App.jsx to update its mainWordList state
+            }
+        } catch (error) {
+            console.error("Failed to update word with Leitner data in DB:", error);
+        }
+        // --- End Leitner System Logic ---
+
+        setShowFeedback(true); // Show feedback after processing
+
+    }, [currentPair, languageDirection, showFeedback, onCardReviewed, setScore]); // Added onCardReviewed and setScore
+
+    const switchToNextCard = useCallback(() => {
+        selectNewPairCard();
+    }, [selectNewPairCard]);
+
+    const switchDirection = useCallback(() => {
+        setLanguageDirection((prevDirection) => (prevDirection === "spa-eng" ? "eng-spa" : "spa-eng"));
+        setShowFeedback(false);
+        setLastCorrectAnswer("");
+        setFeedbackSignal(null);
+        selectNewPairCard();
+    }, [selectNewPairCard]);
+
+    return {
+        currentPair, languageDirection, score, showFeedback, lastCorrectAnswer,
+        feedbackSignal, gameError, selectNewPairCard, submitAnswer, switchDirection,
+        switchToNextCard, setScore, setShowFeedback: setGameShowFeedback, loadSpecificCard,
     };
-
-    const cardClassName = `flashcard ${feedbackSignal ? `flashcard--${feedbackSignal}` : ''}`.trim();
-    const markIcon = isMarkedHard ? '★' : '☆';
-    const markColor = isMarkedHard ? '#28a745' : '#ffc107';
-    const markTitle = isMarkedHard ? 'Word marked as hard' : 'Mark this word as hard';
-
-    return (
-        <div className={cardClassName}>
-            {pair ? (
-                <div style={{ marginBottom: '10px' }}>
-                    <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <p className="flashcard-word" style={{ marginRight: '60px' /* Ensure space for all buttons */ }}>{wordToShow}</p>
-                        <div style={{ position: 'absolute', top: '0px', right: '0px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                            <button onClick={() => onMarkHard(pair)} title={markTitle} style={{ background: 'none', border: 'none', fontSize: '1.8em', lineHeight: '1', padding: '0 5px', cursor: 'pointer', color: markColor }}>
-                                {markIcon}
-                            </button>
-                            {onEdit && (
-                                <button onClick={onEdit} title="Edit this word" style={{ background: 'none', border: 'none', fontSize: '1.3em', lineHeight: '1', padding: '0 5px', cursor: 'pointer', color: 'var(--text-muted)' }}>
-                                    ✏️
-                                </button>
-                            )}
-                            {/* MODIFIED: "Show Details" Button - visible if 'pair' and 'onShowDetails' exist */}
-                            {pair && onShowDetails && ( 
-                                <button
-                                    onClick={onShowDetails}
-                                    title="Show more details & examples"
-                                    style={{
-                                        background: 'none', border: 'none', fontSize: '1.3em',
-                                        lineHeight: '1', padding: '0 5px', cursor: 'pointer',
-                                        color: 'var(--text-muted)',
-                                    }}
-                                >
-                                    📖 {/* Book Icon */}
-                                </button>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            ) : (
-                <p>No card data.</p>
-            )}
-
-            {/* Answer Form: Only show if not showing feedback AND a pair exists */}
-            {pair && !showFeedback && (
-                <form onSubmit={handleSubmit} className="answer-form" style={{ marginTop: '10px' }}>
-                    <input
-                        type="text"
-                        value={answer}
-                        onChange={(e) => setAnswer(e.target.value)}
-                        placeholder={placeholderText}
-                        className="answer-input"
-                        autoFocus
-                        required
-                        style={{ marginRight: '10px' }}
-                    />
-                    <button type="submit" className="submit-button" disabled={!answer.trim()}>Check Answer</button>
-                    <button
-                        type="button"
-                        onClick={onGetHint}
-                        className="hint-button"
-                        disabled={isHintLoading || (hint && hint.type !== 'error') || (showFeedback && feedbackSignal === 'incorrect')}
-                        style={{ marginLeft: '10px' }}
-                    >
-                        {isHintLoading ? 'Getting Hint...' : 'Hint (MW)'}
-                    </button>
-                </form>
-            )}
-
-            {/* MW Hint Display Area */}
-            {(isHintLoading || hint) && ( 
-                <div className="hint-display">
-                     {isHintLoading && !hint && <span>Loading hint...</span>}
-                     {hint && (
-                        <>
-                            {hint.type === 'suggestions' && hint.suggestions?.length > 0 && (<span>Did you mean: {hint.suggestions.join(', ')}?</span> )}
-                            {hint.type === 'definitions' && hint.data ? (
-                                <>
-                                    <strong>Hint (MW): </strong>
-                                    {hint.data.fl && <em style={{marginRight: '5px'}}>({hint.data.fl})</em>}
-                                    {hint.data.shortdef && hint.data.shortdef.length > 0 ? (
-                                        hint.data.shortdef.map((def, index) => ( <span key={index}>{index > 0 && '; '} {def}</span> ))
-                                    ) : ( <span style={{ fontStyle: 'italic' }}> (No short definition)</span> )}
-                                </>
-                            ) : null }
-                            {hint.type === 'error' && ( <span style={{ color: 'orange' }}> Hint Error: {hint.message || 'Failed.'}</span> )}
-                            {hint.type === 'unknown' && ( <span style={{ color: 'orange' }}> Unrecognized hint format.</span> )}
-                        </>
-                     )}
-                </div>
-            )}
-        </div>
-    );
-};
-
-export default Flashcard;
+}
