@@ -668,7 +668,7 @@ function App() {
           marginBottom: "10px",
         }}
       >
-        <h1>Spanish Flashcards</h1>
+        <h1>Xan's Spans</h1>
         <div>
           {currentDataVersion && (
             <p
