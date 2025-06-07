@@ -78,7 +78,7 @@ function App() {
     setScore,
     setShowFeedback: setGameShowFeedback,
     loadSpecificCard,
-  } = useFlashcardGame(listForFlashcardGame);
+  } = useFlashcardGame(listForFlashcardGame, handleCardReviewed);
 
   // === Refs ===
   const incorrectScoreRef = useRef(null);
@@ -651,6 +651,15 @@ function App() {
       if (setGameShowFeedback) setGameShowFeedback(false);
     }
     setIsFillInTheBlankModeActive((prev) => !prev);
+  };
+
+  const handleCardReviewed = (updatedPair) => {
+ 
+    setWordList(prevWordList =>
+        prevWordList.map(word =>
+            word.id === updatedPair.id ? updatedPair : word
+        )
+    );
   };
 
   return (
