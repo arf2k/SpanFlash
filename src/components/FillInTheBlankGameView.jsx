@@ -1,41 +1,40 @@
-import React, { useEffect } from 'react';
-import { useFillInTheBlankGame } from '../hooks/useFillInTheBlankGame'; 
+import React from 'react';
+import { useFillInTheBlankGame } from '../hooks/useFillInTheBlankGame';
 import './FillInTheBlankGameView.css'; 
+
 const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame }) => {
     const {
         currentQuestion,
-        isLoadingNextQuestion,
+        isLoading, 
         gameMessage,
         gameScore,
         feedback,
         submitUserChoice,
-        startNewGame 
+        startNewGame, 
+        queueLength,
     } = useFillInTheBlankGame(wordList, numChoices);
 
-   
-
-
-    if (isLoadingNextQuestion && !currentQuestion) {
+    if (isLoading && !currentQuestion && queueLength === 0) {
         return (
             <div className="fill-blank-game-container">
-                <p className="loading-text">Loading question...</p>
+                <p className="loading-text">{gameMessage || "Preparing your first game..."}</p>
                 <button onClick={onExitGame} className="game-button exit-button">Exit Game</button>
             </div>
         );
     }
-
+    
     if (gameMessage && !currentQuestion) {
         return (
             <div className="fill-blank-game-container game-message-container">
                 <p>{gameMessage}</p>
-                <button onClick={startNewGame} className="game-button">Try Again / New Game</button>
+                <button onClick={startNewGame} className="game-button">Try Again</button>
                 <button onClick={onExitGame} className="game-button exit-button">Exit Game</button>
             </div>
         );
     }
     
     const handleChoiceClick = (choice) => {
-        if (feedback.message) return; 
+        if (feedback.message) return;
         submitUserChoice(choice);
     };
 
@@ -48,6 +47,7 @@ const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame }) => {
 
             {currentQuestion ? (
                 <div className="question-area">
+                    {/* ... (sentence display and choices rendering as before) ... */}
                     <p className="sentence-display">
                         Sentence: <strong>{currentQuestion.originalSentenceEng}</strong> 
                         <br/>
@@ -67,7 +67,7 @@ const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame }) => {
                                 key={index}
                                 onClick={() => handleChoiceClick(choice)}
                                 className="choice-button"
-                                disabled={!!feedback.message || isLoadingNextQuestion} 
+                                disabled={!!feedback.message || isLoading} 
                             >
                                 {choice}
                             </button>
@@ -81,19 +81,19 @@ const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame }) => {
                             )}
                         </div>
                     )}
-                     {isLoadingNextQuestion && <p className="loading-text">Loading next question...</p>}
+                    {isLoading && <p className="loading-text">Loading next question...</p>}
                 </div>
             ) : (
-                 !isLoadingNextQuestion && <p>Click "Start Game" to begin.</p> 
+                 !isLoading && <p>Click "Start Game" to begin.</p>
             )}
 
             <div className="fill-blank-controls">
                 <button 
                     onClick={startNewGame} 
                     className="game-button"
-                    disabled={isLoadingNextQuestion}
+                    disabled={isLoading}
                 >
-                    {currentQuestion ? "Next Question / Skip" : "Start Game"}
+                    Start New Game / Skip Current
                 </button>
                 <button onClick={onExitGame} className="game-button exit-button">
                     Exit Game
