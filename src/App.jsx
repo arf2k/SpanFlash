@@ -87,7 +87,7 @@ function App() {
   const previousDataVersionRef = useRef(null);
   const matchingGameContainerRef = useRef(null);
   const fillInTheBlankGameContainerRef = useRef(null);
-
+const hasLoadedInitialCard = useRef(false);
   // === Effects ===
   useEffect(() => {
     document.body.dataset.theme = currentTheme;
@@ -142,28 +142,34 @@ function App() {
     loadAppSpecificData();
   }, [setScore]);
 
-  useEffect(() => {
+ useEffect(() => {
+   
     if (
       !isLoadingData &&
       listForFlashcardGame.length > 0 &&
-      !currentPair &&
       !dataError &&
       !gameError &&
       !isMatchingGameModeActive &&
-      !isFillInTheBlankModeActive
+      !isFillInTheBlankModeActive &&
+      !hasLoadedInitialCard.current 
     ) {
+      console.log("App.jsx: All conditions met, selecting INITIAL flashcard.");
       selectNewPairCard();
+     
+      hasLoadedInitialCard.current = true; 
     }
   }, [
-    listForFlashcardGame,
-    isLoadingData,
-    dataError,
+    isLoadingData, 
+    listForFlashcardGame, 
+    dataError, 
     gameError,
-    currentPair,
-    selectNewPairCard,
     isMatchingGameModeActive,
     isFillInTheBlankModeActive,
+    selectNewPairCard 
   ]);
+
+
+
 
   useEffect(() => {
     setHintData(null);
