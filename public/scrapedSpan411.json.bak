@@ -1,5 +1,5 @@
 {
-  "version": "1.2.8",
+  "version": "1.2.7",
   "words": [
     {
       "spanish": "cargar",
@@ -213,12 +213,8 @@
       "spanish": "esconder",
       "english": "to hide",
       "notes": "",
-      "synonyms_spanish": [
-        "ocultar"
-      ],
-      "synonyms_english": [
-        "to conceal"
-      ],
+      "synonyms_spanish": ["ocultar"],
+      "synonyms_english": ["to conceal"],
       "category": "Verbs"
     },
     {
@@ -306,9 +302,7 @@
       "english": "trapeze",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "trapezoid"
-      ],
+      "synonyms_english": ["trapezoid"],
       "category": ""
     },
     {
@@ -408,10 +402,7 @@
       "english": "to warm up",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to heat",
-        "to warm"
-      ],
+      "synonyms_english": ["to heat", "to warm"],
       "category": ""
     },
     {
@@ -502,9 +493,7 @@
       "spanish": "el skateboard",
       "english": "skateboard",
       "notes": "",
-      "synonyms_spanish": [
-        "patineta"
-      ],
+      "synonyms_spanish": ["patineta"],
       "synonyms_english": [],
       "category": ""
     },
@@ -793,10 +782,7 @@
       "english": "match",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "(Political) party",
-        "game"
-      ],
+      "synonyms_english": ["(Political) party", "game"],
       "category": "Thing, Activity, Entertainment"
     },
     {
@@ -804,9 +790,7 @@
       "english": "fishing",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "catch"
-      ],
+      "synonyms_english": ["catch"],
       "category": ""
     },
     {
@@ -849,9 +833,7 @@
       "spanish": "andar",
       "english": "to walk",
       "notes": "",
-      "synonyms_spanish": [
-        "caminar"
-      ],
+      "synonyms_spanish": ["caminar"],
       "synonyms_english": [],
       "category": ""
     },
@@ -999,9 +981,7 @@
       "spanish": "el puzzle",
       "english": "jigsaw puzzle",
       "notes": "",
-      "synonyms_spanish": [
-        "rompecabezas"
-      ],
+      "synonyms_spanish": ["rompecabezas"],
       "synonyms_english": [],
       "category": ""
     },
@@ -1134,9 +1114,7 @@
       "english": "exercise",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "practice"
-      ],
+      "synonyms_english": ["practice"],
       "category": ""
     },
     {
@@ -1148,9 +1126,7 @@
       "english": "football",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "soccer"
-      ],
+      "synonyms_english": ["soccer"],
       "category": "Hobbies"
     },
     {
@@ -1218,10 +1194,7 @@
       "english": "cooking",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "kitchen",
-        "cuisine"
-      ],
+      "synonyms_english": ["kitchen", "cuisine"],
       "category": ""
     },
     {
@@ -1252,10 +1225,7 @@
       "spanish": "el hobby",
       "english": "hobby",
       "notes": "",
-      "synonyms_spanish": [
-        "pasatiempo",
-        "afición"
-      ],
+      "synonyms_spanish": ["pasatiempo", "afición"],
       "synonyms_english": [],
       "category": ""
     },
@@ -1348,10 +1318,7 @@
       "english": "cup",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "cupful",
-        "bowl (toilet)"
-      ],
+      "synonyms_english": ["cupful", "bowl (toilet)"],
       "category": "Household"
     },
     {
@@ -1379,10 +1346,7 @@
       "english": "personal",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "particular",
-        "private"
-      ],
+      "synonyms_english": ["particular", "private"],
       "category": ""
     },
     {
@@ -1701,9 +1665,7 @@
       "spanish": "el/la Internet",
       "english": "Internet",
       "notes": "",
-      "synonyms_spanish": [
-        "La red"
-      ],
+      "synonyms_spanish": ["La red"],
       "synonyms_english": [],
       "category": ""
     },
@@ -1719,10 +1681,7 @@
       "spanish": "la salsa",
       "english": "sauce",
       "notes": "",
-      "synonyms_spanish": [
-        "salsa mexicana",
-        "salsa picante"
-      ],
+      "synonyms_spanish": ["salsa mexicana", "salsa picante"],
       "synonyms_english": [],
       "category": "Foods"
     },
@@ -1895,9 +1854,7 @@
       "english": "gasoline",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "gas"
-      ],
+      "synonyms_english": ["gas"],
       "category": "Thing"
     },
     {
@@ -1988,9 +1945,7 @@
       "spanish": "la batería",
       "english": "battery",
       "notes": "",
-      "synonyms_spanish": [
-        "Pila"
-      ],
+      "synonyms_spanish": ["Pila"],
       "synonyms_english": [],
       "category": ""
     },
@@ -2267,9 +2222,7 @@
       "english": "to bore",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to tire"
-      ],
+      "synonyms_english": ["to tire"],
       "category": ""
     },
     {
@@ -2389,9 +2342,7 @@
       "english": "recipe",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "prescription"
-      ],
+      "synonyms_english": ["prescription"],
       "category": ""
     },
     {
@@ -2519,9 +2470,7 @@
       "english": "dark",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "obscure"
-      ],
+      "synonyms_english": ["obscure"],
       "category": ""
     },
     {
@@ -2596,12 +2545,8 @@
       "spanish": "la piel",
       "english": "skin",
       "notes": "",
-      "synonyms_spanish": [
-        "cuero"
-      ],
-      "synonyms_english": [
-        "leather"
-      ],
+      "synonyms_spanish": ["cuero"],
+      "synonyms_english": ["leather"],
       "category": ""
     },
     {
@@ -2617,28 +2562,15 @@
       "english": "piece of jewelry",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "jewel",
-        "treasure",
-        "gem"
-      ],
+      "synonyms_english": ["jewel", "treasure", "gem"],
       "category": ""
     },
     {
       "spanish": "rápido",
       "english": "fast",
       "notes": "General term for speed. Adjective.",
-      "synonyms_spanish": [
-        "veloz",
-        "ligero",
-        "ágil"
-      ],
-      "synonyms_english": [
-        "quick",
-        "swift",
-        "rapid",
-        "speedy"
-      ],
+      "synonyms_spanish": ["veloz", "ligero", "ágil"],
+      "synonyms_english": ["quick", "swift", "rapid", "speedy"],
       "category": "adjective"
     },
     {
@@ -2702,11 +2634,7 @@
       "english": "to be careful",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "care",
-        "worry",
-        "concern"
-      ],
+      "synonyms_english": ["care", "worry", "concern"],
       "category": "Phrase, Emotion"
     },
     {
@@ -2754,9 +2682,7 @@
       "english": "cash",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "effective"
-      ],
+      "synonyms_english": ["effective"],
       "category": ""
     },
     {
@@ -2848,9 +2774,7 @@
       "english": "to hug",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to embrace"
-      ],
+      "synonyms_english": ["to embrace"],
       "category": "Verbs"
     },
     {
@@ -2922,9 +2846,7 @@
       "english": "candidate",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "applicant"
-      ],
+      "synonyms_english": ["applicant"],
       "category": ""
     },
     {
@@ -2980,9 +2902,7 @@
       "english": "cloud",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "cloud of dust"
-      ],
+      "synonyms_english": ["cloud of dust"],
       "category": "Weather"
     },
     {
@@ -3018,10 +2938,7 @@
       "english": "demand",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Petition",
-        "lawsuit"
-      ],
+      "synonyms_english": ["Petition", "lawsuit"],
       "category": ""
     },
     {
@@ -3113,10 +3030,7 @@
       "english": "terrace",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "veranda",
-        "balcony (in a theatre)"
-      ],
+      "synonyms_english": ["veranda", "balcony (in a theatre)"],
       "category": ""
     },
     {
@@ -3148,9 +3062,7 @@
       "english": "movement",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "motion"
-      ],
+      "synonyms_english": ["motion"],
       "category": ""
     },
     {
@@ -3206,9 +3118,7 @@
       "english": "greedy",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "ambitious"
-      ],
+      "synonyms_english": ["ambitious"],
       "category": ""
     },
     {
@@ -3292,10 +3202,7 @@
       "english": "cashier",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "teller",
-        "ATM"
-      ],
+      "synonyms_english": ["teller", "ATM"],
       "category": ""
     },
     {
@@ -3586,11 +3493,7 @@
       "spanish": "disponible",
       "english": "available",
       "notes": "",
-      "synonyms_spanish": [
-        "libre",
-        "listo",
-        "accesible"
-      ],
+      "synonyms_spanish": ["libre", "listo", "accesible"],
       "synonyms_english": [],
       "category": ""
     },
@@ -3602,12 +3505,8 @@
       "spanish": "batir",
       "english": "to beat",
       "notes": "",
-      "synonyms_spanish": [
-        "Golpear"
-      ],
-      "synonyms_english": [
-        "to hit"
-      ],
+      "synonyms_spanish": ["Golpear"],
+      "synonyms_english": ["to hit"],
       "category": ""
     },
     {
@@ -3775,10 +3674,7 @@
       "english": "anxious",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "worried",
-        "eager"
-      ],
+      "synonyms_english": ["worried", "eager"],
       "category": ""
     },
     {
@@ -3830,9 +3726,7 @@
       "english": "main character",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "protagonist"
-      ],
+      "synonyms_english": ["protagonist"],
       "category": ""
     },
     {
@@ -3928,10 +3822,7 @@
       "english": "to take off",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to remove",
-        "to take away/off/out"
-      ],
+      "synonyms_english": ["to remove", "to take away/off/out"],
       "category": ""
     },
     {
@@ -4106,9 +3997,7 @@
       "spanish": "el aviso",
       "english": "notice",
       "notes": "",
-      "synonyms_spanish": [
-        "Anuncio"
-      ],
+      "synonyms_spanish": ["Anuncio"],
       "synonyms_english": [],
       "category": ""
     },
@@ -4165,9 +4054,7 @@
       "english": "to fear",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to dread"
-      ],
+      "synonyms_english": ["to dread"],
       "category": ""
     },
     {
@@ -4199,10 +4086,7 @@
       "english": "to be happy",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to make happy",
-        "to cheer up"
-      ],
+      "synonyms_english": ["to make happy", "to cheer up"],
       "category": "Verbs"
     },
     {
@@ -4250,9 +4134,7 @@
       "english": "dishwasher",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "sink"
-      ],
+      "synonyms_english": ["sink"],
       "category": ""
     },
     {
@@ -4336,11 +4218,7 @@
       "english": "balance",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "equilibrium",
-        "poise",
-        "aplomb"
-      ],
+      "synonyms_english": ["equilibrium", "poise", "aplomb"],
       "category": ""
     },
     {
@@ -4360,9 +4238,7 @@
       "english": "flour",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "cornmeal"
-      ],
+      "synonyms_english": ["cornmeal"],
       "category": ""
     },
     {
@@ -4382,9 +4258,7 @@
       "english": "to retire",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to pension off"
-      ],
+      "synonyms_english": ["to pension off"],
       "category": ""
     },
     {
@@ -4468,9 +4342,7 @@
       "english": "to be bored",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "To tire"
-      ],
+      "synonyms_english": ["To tire"],
       "category": ""
     },
     {
@@ -4657,12 +4529,8 @@
       "spanish": "vencer",
       "english": "to defeat",
       "notes": "",
-      "synonyms_spanish": [
-        "derrotar"
-      ],
-      "synonyms_english": [
-        "to vanquish"
-      ],
+      "synonyms_spanish": ["derrotar"],
+      "synonyms_english": ["to vanquish"],
       "category": ""
     },
     {
@@ -4966,9 +4834,7 @@
       "spanish": "agrio",
       "english": "sour",
       "notes": "",
-      "synonyms_spanish": [
-        "ácido"
-      ],
+      "synonyms_spanish": ["ácido"],
       "synonyms_english": [],
       "category": ""
     },
@@ -5117,9 +4983,7 @@
       "english": "to assure",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to secure"
-      ],
+      "synonyms_english": ["to secure"],
       "category": "Verbs"
     },
     {
@@ -5139,10 +5003,7 @@
       "english": "sweatshirt",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Sweatsuit",
-        "tracksuit"
-      ],
+      "synonyms_english": ["Sweatsuit", "tracksuit"],
       "category": ""
     },
     {
@@ -5190,9 +5051,7 @@
       "english": "measurement",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "measure"
-      ],
+      "synonyms_english": ["measure"],
       "category": ""
     },
     {
@@ -5276,10 +5135,7 @@
       "english": "wisdom",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "learning",
-        "knowledge"
-      ],
+      "synonyms_english": ["learning", "knowledge"],
       "category": ""
     },
     {
@@ -5370,13 +5226,8 @@
       "spanish": "el frigorífico",
       "english": "refrigerator",
       "notes": "",
-      "synonyms_spanish": [
-        "nevera",
-        "refrigerador"
-      ],
-      "synonyms_english": [
-        "fridge"
-      ],
+      "synonyms_spanish": ["nevera", "refrigerador"],
+      "synonyms_english": ["fridge"],
       "category": ""
     },
     {
@@ -5472,9 +5323,7 @@
       "english": "hand",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "coat (of paint)"
-      ],
+      "synonyms_english": ["coat (of paint)"],
       "category": ""
     },
     {
@@ -5558,9 +5407,7 @@
       "english": "to adore",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to worship"
-      ],
+      "synonyms_english": ["to worship"],
       "category": "Verbs"
     },
     {
@@ -5595,13 +5442,8 @@
       "spanish": "desear",
       "english": "to wish",
       "notes": "",
-      "synonyms_spanish": [
-        "querer"
-      ],
-      "synonyms_english": [
-        "to want",
-        "to desire"
-      ],
+      "synonyms_spanish": ["querer"],
+      "synonyms_english": ["to want", "to desire"],
       "category": ""
     },
     {
@@ -5712,9 +5554,7 @@
       "spanish": "colgar",
       "english": "to hang",
       "notes": "",
-      "synonyms_spanish": [
-        "ahorcar"
-      ],
+      "synonyms_spanish": ["ahorcar"],
       "synonyms_english": [],
       "category": ""
     },
@@ -5823,9 +5663,7 @@
       "english": "customs",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "customs office"
-      ],
+      "synonyms_english": ["customs office"],
       "category": ""
     },
     {
@@ -5925,9 +5763,7 @@
       "english": "suitcase",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "bag"
-      ],
+      "synonyms_english": ["bag"],
       "category": ""
     },
     {
@@ -5978,13 +5814,8 @@
       "spanish": "el aumento",
       "english": "raise",
       "notes": "",
-      "synonyms_spanish": [
-        "Incremento"
-      ],
-      "synonyms_english": [
-        "increase",
-        "rise"
-      ],
+      "synonyms_spanish": ["Incremento"],
+      "synonyms_english": ["increase", "rise"],
       "category": ""
     },
     {
@@ -6008,10 +5839,7 @@
       "english": "installment",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "letter",
-        "handwriting"
-      ],
+      "synonyms_english": ["letter", "handwriting"],
       "category": "Entertainment"
     },
     {
@@ -6099,9 +5927,7 @@
       "english": "ATM",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "cashier"
-      ],
+      "synonyms_english": ["cashier"],
       "category": ""
     },
     {
@@ -6129,10 +5955,7 @@
       "english": "currency",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "coin",
-        "money"
-      ],
+      "synonyms_english": ["coin", "money"],
       "category": ""
     },
     {
@@ -6168,10 +5991,7 @@
       "english": "price",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "cost",
-        "sacrifice"
-      ],
+      "synonyms_english": ["cost", "sacrifice"],
       "category": ""
     },
     {
@@ -6219,9 +6039,7 @@
       "english": "to assess",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Assess"
-      ],
+      "synonyms_english": ["Assess"],
       "category": ""
     },
     {
@@ -6345,10 +6163,7 @@
       "english": "estate",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "ranch",
-        "farm"
-      ],
+      "synonyms_english": ["ranch", "farm"],
       "category": ""
     },
     {
@@ -6452,11 +6267,7 @@
       "english": "loose change",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "loose",
-        "free",
-        "unattached"
-      ],
+      "synonyms_english": ["loose", "free", "unattached"],
       "category": ""
     },
     {
@@ -6668,10 +6479,7 @@
       "english": "mug",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "cup",
-        "bowl (toilet)"
-      ],
+      "synonyms_english": ["cup", "bowl (toilet)"],
       "category": ""
     },
     {
@@ -6758,9 +6566,7 @@
       "spanish": "el graffiti",
       "english": "graffiti",
       "notes": "",
-      "synonyms_spanish": [
-        "Pintadas"
-      ],
+      "synonyms_spanish": ["Pintadas"],
       "synonyms_english": [],
       "category": ""
     },
@@ -6769,10 +6575,7 @@
       "english": "dye",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "coloring",
-        "overtone"
-      ],
+      "synonyms_english": ["coloring", "overtone"],
       "category": ""
     },
     {
@@ -6888,10 +6691,7 @@
       "english": "opus",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "work",
-        "deed"
-      ],
+      "synonyms_english": ["work", "deed"],
       "category": ""
     },
     {
@@ -6910,12 +6710,8 @@
       "spanish": "el motivo",
       "english": "motif",
       "notes": "",
-      "synonyms_spanish": [
-        "Móvil"
-      ],
-      "synonyms_english": [
-        "motive"
-      ],
+      "synonyms_spanish": ["Móvil"],
+      "synonyms_english": ["motive"],
       "category": ""
     },
     {
@@ -6963,9 +6759,7 @@
       "english": "Paintbrush",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Makeup brush"
-      ],
+      "synonyms_english": ["Makeup brush"],
       "category": ""
     },
     {
@@ -6997,11 +6791,7 @@
       "english": "background",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "bottom",
-        "rear",
-        "back"
-      ],
+      "synonyms_english": ["bottom", "rear", "back"],
       "category": ""
     },
     {
@@ -7069,11 +6859,7 @@
       "english": "to develop",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "To reveal",
-        "to disclose",
-        "to develop (film)"
-      ],
+      "synonyms_english": ["To reveal", "to disclose", "to develop (film)"],
       "category": ""
     },
     {
@@ -7149,9 +6935,7 @@
       "english": "paint",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Painting"
-      ],
+      "synonyms_english": ["Painting"],
       "category": ""
     },
     {
@@ -7174,12 +6958,8 @@
       "spanish": "delante de",
       "english": "in front of",
       "notes": "",
-      "synonyms_spanish": [
-        "enfrente"
-      ],
-      "synonyms_english": [
-        "ahead"
-      ],
+      "synonyms_spanish": ["enfrente"],
+      "synonyms_english": ["ahead"],
       "category": ""
     },
     {
@@ -7399,10 +7179,7 @@
       "english": "corvette",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "captain",
-        "commander"
-      ],
+      "synonyms_english": ["captain", "commander"],
       "category": ""
     },
     {
@@ -7493,9 +7270,7 @@
       "spanish": "el neumático",
       "english": "tire",
       "notes": "pneumatico (Adjective) : pneumatic",
-      "synonyms_spanish": [
-        "rueda"
-      ],
+      "synonyms_spanish": ["rueda"],
       "synonyms_english": [],
       "category": "Thing"
     },
@@ -7648,10 +7423,7 @@
       "english": "subway",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "underground",
-        "subterranean"
-      ],
+      "synonyms_english": ["underground", "subterranean"],
       "category": ""
     },
     {
@@ -7762,13 +7534,8 @@
       "spanish": "la vuelta",
       "english": "bend",
       "notes": "",
-      "synonyms_spanish": [
-        "Giro"
-      ],
-      "synonyms_english": [
-        "Turn",
-        "circle"
-      ],
+      "synonyms_spanish": ["Giro"],
+      "synonyms_english": ["Turn", "circle"],
       "category": ""
     },
     {
@@ -7848,9 +7615,7 @@
       "english": "headlight",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "lighthouse"
-      ],
+      "synonyms_english": ["lighthouse"],
       "category": ""
     },
     {
@@ -7862,10 +7627,7 @@
       "english": "cruise ship",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "warship",
-        "intersection"
-      ],
+      "synonyms_english": ["warship", "intersection"],
       "category": ""
     },
     {
@@ -7905,9 +7667,7 @@
       "english": "road",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "street"
-      ],
+      "synonyms_english": ["street"],
       "category": ""
     },
     {
@@ -7930,17 +7690,8 @@
       "spanish": "coche",
       "english": "car",
       "notes": "Common term for an automobile, especially in Spain.",
-      "synonyms_spanish": [
-        "auto",
-        "automóvil",
-        "vehículo"
-      ],
-      "synonyms_english": [
-        "automobile",
-        "vehicle",
-        "auto",
-        "a motorcar"
-      ],
+      "synonyms_spanish": ["auto", "automóvil", "vehículo"],
+      "synonyms_english": ["automobile", "vehicle", "auto", "a motorcar"],
       "category": "noun"
     },
     {
@@ -7984,9 +7735,7 @@
       "english": "first edition",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "prince"
-      ],
+      "synonyms_english": ["prince"],
       "category": "Entertainment, Jobs"
     },
     {
@@ -8046,9 +7795,7 @@
       "english": "ghostwriter",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "black"
-      ],
+      "synonyms_english": ["black"],
       "category": ""
     },
     {
@@ -8108,9 +7855,7 @@
       "english": "fascicle",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Delivery"
-      ],
+      "synonyms_english": ["Delivery"],
       "category": ""
     },
     {
@@ -8118,9 +7863,7 @@
       "english": "installment",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "delivery"
-      ],
+      "synonyms_english": ["delivery"],
       "category": ""
     },
     {
@@ -8508,10 +8251,7 @@
       "english": "plot",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Weave",
-        "weft"
-      ],
+      "synonyms_english": ["Weave", "weft"],
       "category": ""
     },
     {
@@ -8711,14 +8451,8 @@
       "english": "actor"
     },
     {
-      "spanish": "un papel",
-      "english": "a part",
-      "notes": "",
-      "synonyms_spanish": [],
-      "synonyms_english": [
-        "paper"
-      ],
-      "category": ""
+      "spanish": "el papel",
+      "english": "part"
     },
     {
       "spanish": "el cinema",
@@ -8776,14 +8510,8 @@
       "spanish": "el alojamiento",
       "english": "accommodations",
       "notes": "",
-      "synonyms_spanish": [
-        "hospedaje",
-        "aposento"
-      ],
-      "synonyms_english": [
-        "Housing",
-        "lodging"
-      ],
+      "synonyms_spanish": ["hospedaje", "aposento"],
+      "synonyms_english": ["Housing", "lodging"],
       "category": ""
     },
     {
@@ -9155,9 +8883,7 @@
       "english": "loudspeaker",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "speaker"
-      ],
+      "synonyms_english": ["speaker"],
       "category": ""
     },
     {
@@ -9193,11 +8919,7 @@
       "english": "fee",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "rate",
-        "tax",
-        "appraisal"
-      ],
+      "synonyms_english": ["rate", "tax", "appraisal"],
       "category": "Business"
     },
     {
@@ -9312,13 +9034,8 @@
       "spanish": "caminar",
       "english": "to walk",
       "notes": "",
-      "synonyms_spanish": [
-        "andar"
-      ],
-      "synonyms_english": [
-        "to move",
-        "to progress"
-      ],
+      "synonyms_spanish": ["andar"],
+      "synonyms_english": ["to move", "to progress"],
       "category": "Verbs"
     },
     {
@@ -9326,9 +9043,7 @@
       "english": "way",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "road"
-      ],
+      "synonyms_english": ["road"],
       "category": "Travel, directions"
     },
     {
@@ -9384,22 +9099,15 @@
       "english": "to ride",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to pilot (plane)",
-        "to steer (ship)"
-      ],
+      "synonyms_english": ["to pilot (plane)", "to steer (ship)"],
       "category": ""
     },
     {
       "spanish": "el metro",
       "english": "metro",
       "notes": "",
-      "synonyms_spanish": [
-        "subterráneo"
-      ],
-      "synonyms_english": [
-        "subway"
-      ],
+      "synonyms_spanish": ["subterráneo"],
+      "synonyms_english": ["subway"],
       "category": ""
     },
     {
@@ -9423,9 +9131,7 @@
       "english": "excursion",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "outing"
-      ],
+      "synonyms_english": ["outing"],
       "category": ""
     },
     {
@@ -9525,10 +9231,7 @@
       "english": "ride",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "play",
-        "set"
-      ],
+      "synonyms_english": ["play", "set"],
       "category": ""
     },
     {
@@ -9696,10 +9399,7 @@
       "english": "goalie",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "doorman",
-        "bouncer"
-      ],
+      "synonyms_english": ["doorman", "bouncer"],
       "category": ""
     },
     {
@@ -9803,11 +9503,7 @@
       "english": "attack",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "assault",
-        "fit",
-        "nervous breakdown"
-      ],
+      "synonyms_english": ["assault", "fit", "nervous breakdown"],
       "category": ""
     },
     {
@@ -9943,9 +9639,7 @@
       "english": "butterfly",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Moth"
-      ],
+      "synonyms_english": ["Moth"],
       "category": ""
     },
     {
@@ -9989,9 +9683,7 @@
       "english": "oar",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "paddle"
-      ],
+      "synonyms_english": ["paddle"],
       "category": ""
     },
     {
@@ -10035,9 +9727,7 @@
       "english": "rules",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "regulations"
-      ],
+      "synonyms_english": ["regulations"],
       "category": ""
     },
     {
@@ -10164,9 +9854,7 @@
       "spanish": "la andada",
       "english": "hike",
       "notes": "",
-      "synonyms_spanish": [
-        "La excursión"
-      ],
+      "synonyms_spanish": ["La excursión"],
       "synonyms_english": [],
       "category": ""
     },
@@ -10175,9 +9863,7 @@
       "english": "long walk",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "hike"
-      ],
+      "synonyms_english": ["hike"],
       "category": ""
     },
     {
@@ -10213,10 +9899,7 @@
       "english": "healthy",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Wholesome",
-        "intact"
-      ],
+      "synonyms_english": ["Wholesome", "intact"],
       "category": ""
     },
     {
@@ -10264,11 +9947,7 @@
       "english": "block",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "cork",
-        "bottle cap",
-        "plug"
-      ],
+      "synonyms_english": ["cork", "bottle cap", "plug"],
       "category": ""
     },
     {
@@ -10284,10 +9963,7 @@
       "english": "handball",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Hand",
-        "coat (of paint)"
-      ],
+      "synonyms_english": ["Hand", "coat (of paint)"],
       "category": ""
     },
     {
@@ -10383,18 +10059,14 @@
       "english": "to score",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to mark"
-      ],
+      "synonyms_english": ["to mark"],
       "category": ""
     },
     {
       "spanish": "el banquillo",
       "english": "bench",
       "notes": "",
-      "synonyms_spanish": [
-        "Banca"
-      ],
+      "synonyms_spanish": ["Banca"],
       "synonyms_english": [],
       "category": ""
     },
@@ -10459,11 +10131,7 @@
       "english": "keeper",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Bouncer",
-        "janitor",
-        "superintendent"
-      ],
+      "synonyms_english": ["Bouncer", "janitor", "superintendent"],
       "category": "Jobs"
     },
     {
@@ -10503,9 +10171,7 @@
       "english": "winger",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "lateral"
-      ],
+      "synonyms_english": ["lateral"],
       "category": ""
     },
     {
@@ -10568,12 +10234,8 @@
       "spanish": "amonestar",
       "english": "to caution",
       "notes": "",
-      "synonyms_spanish": [
-        "Apercibir"
-      ],
-      "synonyms_english": [
-        "to admonish"
-      ],
+      "synonyms_spanish": ["Apercibir"],
+      "synonyms_english": ["to admonish"],
       "category": ""
     },
     {
@@ -10581,10 +10243,7 @@
       "english": "to throw out",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to expel",
-        "to eject"
-      ],
+      "synonyms_english": ["to expel", "to eject"],
       "category": "Verbs"
     },
     {
@@ -10592,10 +10251,7 @@
       "english": "to score a lot of goals against",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to rout",
-        "to score many goals against"
-      ],
+      "synonyms_english": ["to rout", "to score many goals against"],
       "category": ""
     },
     {
@@ -10859,9 +10515,7 @@
       "english": "roof",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "cieling"
-      ],
+      "synonyms_english": ["cieling"],
       "category": ""
     },
     {
@@ -10913,9 +10567,7 @@
       "english": "to save",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to rescue"
-      ],
+      "synonyms_english": ["to rescue"],
       "category": ""
     },
     {
@@ -10966,13 +10618,8 @@
       "spanish": "la orilla",
       "english": "shore",
       "notes": "",
-      "synonyms_spanish": [
-        "borde"
-      ],
-      "synonyms_english": [
-        "border",
-        "edge"
-      ],
+      "synonyms_spanish": ["borde"],
+      "synonyms_english": ["border", "edge"],
       "category": "Place, Nature"
     },
     {
@@ -10984,10 +10631,7 @@
       "english": "thief",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "robber",
-        "burglar"
-      ],
+      "synonyms_english": ["robber", "burglar"],
       "category": "Jobs"
     },
     {
@@ -10998,13 +10642,8 @@
       "spanish": "la etapa",
       "english": "period",
       "notes": "",
-      "synonyms_spanish": [
-        "Fase"
-      ],
-      "synonyms_english": [
-        "stage",
-        "phase"
-      ],
+      "synonyms_spanish": ["Fase"],
+      "synonyms_english": ["stage", "phase"],
       "category": ""
     },
     {
@@ -11012,9 +10651,7 @@
       "english": "to happen",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to occur"
-      ],
+      "synonyms_english": ["to occur"],
       "category": "Verbs"
     },
     {
@@ -11102,10 +10739,7 @@
       "english": "to influence",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to have an influence on",
-        "effect"
-      ],
+      "synonyms_english": ["to have an influence on", "effect"],
       "category": ""
     },
     {
@@ -11261,9 +10895,7 @@
       "english": "peach",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "peach tree"
-      ],
+      "synonyms_english": ["peach tree"],
       "category": "Foods"
     },
     {
@@ -11371,9 +11003,7 @@
       "english": "to live together",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to coexist"
-      ],
+      "synonyms_english": ["to coexist"],
       "category": "Verbs"
     },
     {
@@ -11382,13 +11012,7 @@
     },
     {
       "spanish": "secuestrar",
-      "english": "To kidnap",
-      "notes": "",
-      "synonyms_spanish": [
-        "raptar"
-      ],
-      "synonyms_english": [],
-      "category": ""
+      "english": "to kidnap"
     },
     {
       "spanish": "el/la comerciante",
@@ -11595,10 +11219,7 @@
       "english": "to invent",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to fabricate",
-        "to make up"
-      ],
+      "synonyms_english": ["to fabricate", "to make up"],
       "category": "Verbs"
     },
     {
@@ -11622,10 +11243,7 @@
       "english": "honest",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "decent",
-        "virtuous"
-      ],
+      "synonyms_english": ["decent", "virtuous"],
       "category": ""
     },
     {
@@ -11970,9 +11588,7 @@
       "english": "advisable",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "recommended"
-      ],
+      "synonyms_english": ["recommended"],
       "category": ""
     },
     {
@@ -12011,9 +11627,7 @@
       "spanish": "zumo de naranja",
       "english": "orange juice",
       "notes": "",
-      "synonyms_spanish": [
-        "jugo de naranja"
-      ],
+      "synonyms_spanish": ["jugo de naranja"],
       "synonyms_english": [],
       "category": ""
     },
@@ -12121,12 +11735,8 @@
       "spanish": "el colegio",
       "english": "school",
       "notes": "",
-      "synonyms_spanish": [
-        "escuela"
-      ],
-      "synonyms_english": [
-        "college"
-      ],
+      "synonyms_spanish": ["escuela"],
+      "synonyms_english": ["college"],
       "category": ""
     },
     {
@@ -12142,9 +11752,7 @@
       "english": "dawn",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "sunrise"
-      ],
+      "synonyms_english": ["sunrise"],
       "category": ""
     },
     {
@@ -12196,10 +11804,7 @@
       "english": "to overcome",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to surpass",
-        "to exceed"
-      ],
+      "synonyms_english": ["to surpass", "to exceed"],
       "category": "Verbs"
     },
     {
@@ -12211,11 +11816,7 @@
       "english": "to mark",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "To indicate",
-        "to show",
-        "to brand"
-      ],
+      "synonyms_english": ["To indicate", "to show", "to brand"],
       "category": ""
     },
     {
@@ -12339,10 +11940,7 @@
       "english": "cake",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "pie",
-        "tart"
-      ],
+      "synonyms_english": ["pie", "tart"],
       "category": ""
     },
     {
@@ -12389,9 +11987,7 @@
       "spanish": "el yeso",
       "english": "cast",
       "notes": "",
-      "synonyms_spanish": [
-        "plaster"
-      ],
+      "synonyms_spanish": ["plaster"],
       "synonyms_english": [],
       "category": "medical"
     },
@@ -12491,12 +12087,8 @@
       "spanish": "alimentar",
       "english": "to feed",
       "notes": "",
-      "synonyms_spanish": [
-        "nutrir"
-      ],
-      "synonyms_english": [
-        "To nourish"
-      ],
+      "synonyms_spanish": ["nutrir"],
+      "synonyms_english": ["To nourish"],
       "category": ""
     },
     {
@@ -12564,11 +12156,7 @@
       "english": "to shoot",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to roll",
-        "to roll down",
-        "to roll along"
-      ],
+      "synonyms_english": ["to roll", "to roll down", "to roll along"],
       "category": ""
     },
     {
@@ -12607,14 +12195,8 @@
       "spanish": "el tejido",
       "english": "tissue",
       "notes": "",
-      "synonyms_spanish": [
-        "tela"
-      ],
-      "synonyms_english": [
-        "fabric",
-        "texture",
-        "cloth"
-      ],
+      "synonyms_spanish": ["tela"],
+      "synonyms_english": ["fabric", "texture", "cloth"],
       "category": ""
     },
     {
@@ -12630,9 +12212,7 @@
       "english": "to bet",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to wager"
-      ],
+      "synonyms_english": ["to wager"],
       "category": "Verbs"
     },
     {
@@ -12652,10 +12232,7 @@
       "english": "finally",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "final",
-        "ultimate"
-      ],
+      "synonyms_english": ["final", "ultimate"],
       "category": ""
     },
     {
@@ -12695,10 +12272,7 @@
       "english": "godfather",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "sponsor",
-        "patron"
-      ],
+      "synonyms_english": ["sponsor", "patron"],
       "category": ""
     },
     {
@@ -12710,10 +12284,7 @@
       "english": "news",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "News item",
-        "piece of news"
-      ],
+      "synonyms_english": ["News item", "piece of news"],
       "category": ""
     },
     {
@@ -12741,10 +12312,7 @@
       "english": "essay",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "writing",
-        "composition"
-      ],
+      "synonyms_english": ["writing", "composition"],
       "category": ""
     },
     {
@@ -12756,21 +12324,15 @@
       "english": "polite",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "courteous"
-      ],
+      "synonyms_english": ["courteous"],
       "category": ""
     },
     {
       "spanish": "provocar",
       "english": "to cause",
       "notes": "",
-      "synonyms_spanish": [
-        "causar"
-      ],
-      "synonyms_english": [
-        "To provoke"
-      ],
+      "synonyms_spanish": ["causar"],
+      "synonyms_english": ["To provoke"],
       "category": ""
     },
     {
@@ -12942,9 +12504,7 @@
       "english": "lately",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "recently"
-      ],
+      "synonyms_english": ["recently"],
       "category": ""
     },
     {
@@ -13028,10 +12588,7 @@
       "english": "to require",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "To call for",
-        "to summon"
-      ],
+      "synonyms_english": ["To call for", "to summon"],
       "category": ""
     },
     {
@@ -13095,9 +12652,7 @@
       "english": "shelter",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "refuge"
-      ],
+      "synonyms_english": ["refuge"],
       "category": "Place"
     },
     {
@@ -13425,10 +12980,7 @@
       "english": "loss",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "waste",
-        "leak"
-      ],
+      "synonyms_english": ["waste", "leak"],
       "category": ""
     },
     {
@@ -13524,10 +13076,7 @@
       "english": "to imitate",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to copy",
-        "to mimic"
-      ],
+      "synonyms_english": ["to copy", "to mimic"],
       "category": ""
     },
     {
@@ -13683,9 +13232,7 @@
       "english": "occupation",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "activity"
-      ],
+      "synonyms_english": ["activity"],
       "category": "Job"
     },
     {
@@ -13713,9 +13260,7 @@
       "english": "immature",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Unripe"
-      ],
+      "synonyms_english": ["Unripe"],
       "category": "Adjective"
     },
     {
@@ -14275,9 +13820,7 @@
       "english": "to behave",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "To conduct oneself"
-      ],
+      "synonyms_english": ["To conduct oneself"],
       "category": ""
     },
     {
@@ -14424,9 +13967,7 @@
       "spanish": "libre",
       "english": "free",
       "notes": "",
-      "synonyms_spanish": [
-        "disponible"
-      ],
+      "synonyms_spanish": ["disponible"],
       "synonyms_english": [],
       "category": ""
     },
@@ -14443,11 +13984,7 @@
       "english": "down",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Downstairs",
-        "under",
-        "beneath"
-      ],
+      "synonyms_english": ["Downstairs", "under", "beneath"],
       "category": ""
     },
     {
@@ -14558,12 +14095,8 @@
       "spanish": "tardar",
       "english": "to take",
       "notes": "",
-      "synonyms_spanish": [
-        "demorar"
-      ],
-      "synonyms_english": [
-        "to take time"
-      ],
+      "synonyms_spanish": ["demorar"],
+      "synonyms_english": ["to take time"],
       "category": ""
     },
     {
@@ -14591,11 +14124,7 @@
       "english": "to throw",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to hurl",
-        "to cast",
-        "to throw off"
-      ],
+      "synonyms_english": ["to hurl", "to cast", "to throw off"],
       "category": ""
     },
     {
@@ -14819,9 +14348,7 @@
       "english": "pencil",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Lipstick"
-      ],
+      "synonyms_english": ["Lipstick"],
       "category": ""
     },
     {
@@ -14829,10 +14356,7 @@
       "english": "crayons",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Colored pencils",
-        "dye"
-      ],
+      "synonyms_english": ["Colored pencils", "dye"],
       "category": ""
     },
     {
@@ -15008,9 +14532,7 @@
       "english": "bald man",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "bald"
-      ],
+      "synonyms_english": ["bald"],
       "category": ""
     },
     {
@@ -15034,9 +14556,7 @@
       "english": "network",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "internet"
-      ],
+      "synonyms_english": ["internet"],
       "category": ""
     },
     {
@@ -15216,11 +14736,7 @@
       "english": "friendliness",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "liking",
-        "affection",
-        "warmth"
-      ],
+      "synonyms_english": ["liking", "affection", "warmth"],
       "category": "Emotion"
     },
     {
@@ -15252,9 +14768,7 @@
       "english": "unfamiliar",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "unknown"
-      ],
+      "synonyms_english": ["unknown"],
       "category": ""
     },
     {
@@ -15265,12 +14779,8 @@
       "spanish": "educar",
       "english": "to bring up",
       "notes": "",
-      "synonyms_spanish": [
-        "criar"
-      ],
-      "synonyms_english": [
-        "to educate"
-      ],
+      "synonyms_spanish": ["criar"],
+      "synonyms_english": ["to educate"],
       "category": ""
     },
     {
@@ -15318,10 +14828,7 @@
       "english": "goddaughter",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "godchild",
-        "godson goddaughter"
-      ],
+      "synonyms_english": ["godchild", "godson goddaughter"],
       "category": ""
     },
     {
@@ -15517,9 +15024,7 @@
       "english": "buddy",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "godfather"
-      ],
+      "synonyms_english": ["godfather"],
       "category": ""
     },
     {
@@ -15687,9 +15192,7 @@
       "english": "swindler",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "cheat"
-      ],
+      "synonyms_english": ["cheat"],
       "category": ""
     },
     {
@@ -15765,10 +15268,7 @@
       "english": "guy",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "kind",
-        "sort"
-      ],
+      "synonyms_english": ["kind", "sort"],
       "category": ""
     },
     {
@@ -16120,9 +15620,7 @@
       "english": "child",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Boy"
-      ],
+      "synonyms_english": ["Boy"],
       "category": ""
     },
     {
@@ -16294,12 +15792,8 @@
       "english": "work"
     },
     {
-      "spanish": "El hospital",
-      "english": "hospital",
-      "notes": "",
-      "synonyms_spanish": [],
-      "synonyms_english": [],
-      "category": "Place"
+      "spanish": "el hospital",
+      "english": "hospital"
     },
     {
       "spanish": "la escuela",
@@ -16313,9 +15807,7 @@
       "spanish": "la factoría",
       "english": "factory",
       "notes": "",
-      "synonyms_spanish": [
-        "fábrica"
-      ],
+      "synonyms_spanish": ["fábrica"],
       "synonyms_english": [],
       "category": "Place"
     },
@@ -16804,9 +16296,7 @@
       "english": "rake",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "razor"
-      ],
+      "synonyms_english": ["razor"],
       "category": ""
     },
     {
@@ -16866,10 +16356,7 @@
       "english": "mahi-mahi",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "gold",
-        "golden"
-      ],
+      "synonyms_english": ["gold", "golden"],
       "category": ""
     },
     {
@@ -17241,9 +16728,7 @@
       "english": "kid",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Young goat"
-      ],
+      "synonyms_english": ["Young goat"],
       "category": ""
     },
     {
@@ -17471,9 +16956,7 @@
       "english": "to spay",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "To sterilize"
-      ],
+      "synonyms_english": ["To sterilize"],
       "category": ""
     },
     {
@@ -17533,10 +17016,7 @@
       "english": "leash",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "strap",
-        "belt"
-      ],
+      "synonyms_english": ["strap", "belt"],
       "category": ""
     },
     {
@@ -17616,10 +17096,7 @@
       "english": "dog",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "canadá",
-        "canadiense"
-      ],
+      "synonyms_english": ["canadá", "canadiense"],
       "category": ""
     },
     {
@@ -17755,9 +17232,7 @@
       "english": "hedgehog",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "sea urchin"
-      ],
+      "synonyms_english": ["sea urchin"],
       "category": "Animals"
     },
     {
@@ -17844,12 +17319,8 @@
       "spanish": "el vertedero",
       "english": "dump",
       "notes": "",
-      "synonyms_spanish": [
-        "desagüe"
-      ],
-      "synonyms_english": [
-        "garbage dump"
-      ],
+      "synonyms_spanish": ["desagüe"],
+      "synonyms_english": ["garbage dump"],
       "category": ""
     },
     {
@@ -18165,11 +17636,7 @@
       "english": "swamp",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "marsh",
-        "bayou",
-        "reservoir"
-      ],
+      "synonyms_english": ["marsh", "bayou", "reservoir"],
       "category": ""
     },
     {
@@ -18188,12 +17655,8 @@
       "spanish": "el riachuelo",
       "english": "brook",
       "notes": "",
-      "synonyms_spanish": [
-        "arroyo"
-      ],
-      "synonyms_english": [
-        "stream"
-      ],
+      "synonyms_spanish": ["arroyo"],
+      "synonyms_english": ["stream"],
       "category": "Nature"
     },
     {
@@ -18225,10 +17688,7 @@
       "english": "water",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "holy water",
-        "running water"
-      ],
+      "synonyms_english": ["holy water", "running water"],
       "category": ""
     },
     {
@@ -18435,9 +17895,7 @@
       "spanish": "el canal",
       "english": "canal",
       "notes": "",
-      "synonyms_spanish": [
-        "tubo"
-      ],
+      "synonyms_spanish": ["tubo"],
       "synonyms_english": [],
       "category": ""
     },
@@ -18558,9 +18016,7 @@
       "english": "national park",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "park"
-      ],
+      "synonyms_english": ["park"],
       "category": "Place"
     },
     {
@@ -18680,10 +18136,7 @@
       "english": "study",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "dispatch",
-        "shipment"
-      ],
+      "synonyms_english": ["dispatch", "shipment"],
       "category": ""
     },
     {
@@ -18715,9 +18168,7 @@
       "english": "county",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "earldom"
-      ],
+      "synonyms_english": ["earldom"],
       "category": "Place"
     },
     {
@@ -18733,9 +18184,7 @@
       "english": "pharmacy",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "drugstore"
-      ],
+      "synonyms_english": ["drugstore"],
       "category": "Place"
     },
     {
@@ -18967,9 +18416,7 @@
       "english": "provocative",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "provoking"
-      ],
+      "synonyms_english": ["provoking"],
       "category": "Emotion, Adjective"
     },
     {
@@ -19005,9 +18452,7 @@
       "english": "printed",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "patterned"
-      ],
+      "synonyms_english": ["patterned"],
       "category": ""
     },
     {
@@ -19082,12 +18527,8 @@
       "spanish": "la calzoneta",
       "english": "swimming trunks",
       "notes": "",
-      "synonyms_spanish": [
-        "trajes de baño"
-      ],
-      "synonyms_english": [
-        "Swimsuit"
-      ],
+      "synonyms_spanish": ["trajes de baño"],
+      "synonyms_english": ["Swimsuit"],
       "category": ""
     },
     {
@@ -19223,11 +18664,7 @@
       "english": "style",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "line",
-        "course",
-        "position"
-      ],
+      "synonyms_english": ["line", "course", "position"],
       "category": ""
     },
     {
@@ -19243,10 +18680,7 @@
       "english": "flip-flop",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "thong sandal",
-        "slipper"
-      ],
+      "synonyms_english": ["thong sandal", "slipper"],
       "category": ""
     },
     {
@@ -19254,9 +18688,7 @@
       "english": "bow",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Ribbon"
-      ],
+      "synonyms_english": ["Ribbon"],
       "category": ""
     },
     {
@@ -19376,9 +18808,7 @@
       "english": "suspenders",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Shoulder strap"
-      ],
+      "synonyms_english": ["Shoulder strap"],
       "category": ""
     },
     {
@@ -19494,10 +18924,7 @@
       "english": "run",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "running",
-        "race"
-      ],
+      "synonyms_english": ["running", "race"],
       "category": ""
     },
     {
@@ -19505,9 +18932,7 @@
       "english": "jumpsuit",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "monkey"
-      ],
+      "synonyms_english": ["monkey"],
       "category": ""
     },
     {
@@ -19587,9 +19012,7 @@
       "english": "baggy",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "loose"
-      ],
+      "synonyms_english": ["loose"],
       "category": "Adjective"
     },
     {
@@ -19645,12 +19068,8 @@
       "english": "gem"
     },
     {
-      "spanish": "El bikini",
-      "english": "bikini",
-      "notes": "",
-      "synonyms_spanish": [],
-      "synonyms_english": [],
-      "category": "Clothing"
+      "spanish": "el bikini",
+      "english": "bikini"
     },
     {
       "spanish": "el chándal",
@@ -19665,9 +19084,7 @@
       "english": "shirt",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "straight jacket"
-      ],
+      "synonyms_english": ["straight jacket"],
       "category": ""
     },
     {
@@ -19878,14 +19295,8 @@
       "spanish": "el edredón",
       "english": "duvet",
       "notes": "",
-      "synonyms_spanish": [
-        "cobertor",
-        "colcha"
-      ],
-      "synonyms_english": [
-        "comforter",
-        "quilt"
-      ],
+      "synonyms_spanish": ["cobertor", "colcha"],
+      "synonyms_english": ["comforter", "quilt"],
       "category": "Household"
     },
     {
@@ -20005,10 +19416,7 @@
       "english": "hedge",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "fence",
-        "enclosure"
-      ],
+      "synonyms_english": ["fence", "enclosure"],
       "category": "Place, Nature"
     },
     {
@@ -20020,9 +19428,7 @@
       "english": "lawn",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "grass"
-      ],
+      "synonyms_english": ["grass"],
       "category": ""
     },
     {
@@ -20062,9 +19468,7 @@
       "english": "residence",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "boarding house"
-      ],
+      "synonyms_english": ["boarding house"],
       "category": "Place"
     },
     {
@@ -20123,9 +19527,7 @@
       "spanish": "el pasillo",
       "english": "hall",
       "notes": "",
-      "synonyms_spanish": [
-        "Corredor"
-      ],
+      "synonyms_spanish": ["Corredor"],
       "synonyms_english": [],
       "category": ""
     },
@@ -20222,10 +19624,7 @@
       "english": "neat",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "clean",
-        "exquisite"
-      ],
+      "synonyms_english": ["clean", "exquisite"],
       "category": ""
     },
     {
@@ -20413,9 +19812,7 @@
       "english": "toilet",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "restroom"
-      ],
+      "synonyms_english": ["restroom"],
       "category": ""
     },
     {
@@ -20723,9 +20120,7 @@
       "english": "to split",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to share"
-      ],
+      "synonyms_english": ["to share"],
       "category": ""
     },
     {
@@ -21109,10 +20504,7 @@
       "english": "kebab",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "wire",
-        "barbed wire"
-      ],
+      "synonyms_english": ["wire", "barbed wire"],
       "category": ""
     },
     {
@@ -21444,9 +20836,7 @@
       "english": "cumin",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "not to matter to someone"
-      ],
+      "synonyms_english": ["not to matter to someone"],
       "category": ""
     },
     {
@@ -21454,9 +20844,7 @@
       "english": "curry powder",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "curry"
-      ],
+      "synonyms_english": ["curry"],
       "category": ""
     },
     {
@@ -21592,10 +20980,7 @@
       "english": "stone",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "bone",
-        "pit (of a fruit)"
-      ],
+      "synonyms_english": ["bone", "pit (of a fruit)"],
       "category": "Body, Nature"
     },
     {
@@ -21643,11 +21028,7 @@
       "english": "to divide",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to split",
-        "to distribute",
-        "to share"
-      ],
+      "synonyms_english": ["to split", "to distribute", "to share"],
       "category": "Verbs"
     },
     {
@@ -21675,10 +21056,7 @@
       "english": "tasteless",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "insipid",
-        "bland"
-      ],
+      "synonyms_english": ["insipid", "bland"],
       "category": ""
     },
     {
@@ -21830,10 +21208,7 @@
       "english": "mince",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "minced meat",
-        "hash"
-      ],
+      "synonyms_english": ["minced meat", "hash"],
       "category": "Foods"
     },
     {
@@ -21865,9 +21240,7 @@
       "english": "cone",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "ice cream cone"
-      ],
+      "synonyms_english": ["ice cream cone"],
       "category": ""
     },
     {
@@ -22131,9 +21504,7 @@
       "english": "walnut",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "nut"
-      ],
+      "synonyms_english": ["nut"],
       "category": ""
     },
     {
@@ -22205,10 +21576,7 @@
       "english": "jar",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "pot",
-        "tin"
-      ],
+      "synonyms_english": ["pot", "tin"],
       "category": "Kitchen"
     },
     {
@@ -22228,11 +21596,7 @@
       "english": "bad",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Poor",
-        "wicked",
-        "naughty"
-      ],
+      "synonyms_english": ["Poor", "wicked", "naughty"],
       "category": ""
     },
     {
@@ -22252,11 +21616,7 @@
       "english": "slight",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Light",
-        "trivial",
-        "unimportant"
-      ],
+      "synonyms_english": ["Light", "trivial", "unimportant"],
       "category": ""
     },
     {
@@ -22379,13 +21739,8 @@
       "spanish": "la soda",
       "english": "soda water",
       "notes": "",
-      "synonyms_spanish": [
-        "gaseoso",
-        "refresco"
-      ],
-      "synonyms_english": [
-        "soda"
-      ],
+      "synonyms_spanish": ["gaseoso", "refresco"],
+      "synonyms_english": ["soda"],
       "category": ""
     },
     {
@@ -22453,10 +21808,7 @@
       "english": "squash",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "pumpkin",
-        "gourd"
-      ],
+      "synonyms_english": ["pumpkin", "gourd"],
       "category": ""
     },
     {
@@ -22527,12 +21879,8 @@
       "spanish": "la tortilla",
       "english": "omelette",
       "notes": "",
-      "synonyms_spanish": [
-        "Tortilla (de maíz)"
-      ],
-      "synonyms_english": [
-        "tortilla"
-      ],
+      "synonyms_spanish": ["Tortilla (de maíz)"],
+      "synonyms_english": ["tortilla"],
       "category": ""
     },
     {
@@ -22625,11 +21973,7 @@
     },
     {
       "spanish": "la carta",
-      "english": "menu",
-      "notes": "",
-      "synonyms_spanish": [],
-      "synonyms_english": [],
-      "category": "card"
+      "english": "menu"
     },
     {
       "spanish": "el plato",
@@ -22828,9 +22172,7 @@
       "english": "taste",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "flavor"
-      ],
+      "synonyms_english": ["flavor"],
       "category": ""
     },
     {
@@ -23062,9 +22404,7 @@
       "english": "cook",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "chef"
-      ],
+      "synonyms_english": ["chef"],
       "category": ""
     },
     {
@@ -23159,13 +22499,8 @@
       "spanish": "escapar",
       "english": "to escape",
       "notes": "",
-      "synonyms_spanish": [
-        "huir"
-      ],
-      "synonyms_english": [
-        "to flee",
-        "to run away"
-      ],
+      "synonyms_spanish": ["huir"],
+      "synonyms_english": ["to flee", "to run away"],
       "category": "Verbs"
     },
     {
@@ -23192,13 +22527,8 @@
       "spanish": "la cárcel",
       "english": "prison",
       "notes": "",
-      "synonyms_spanish": [
-        "Prision"
-      ],
-      "synonyms_english": [
-        "Jail",
-        "Prison"
-      ],
+      "synonyms_spanish": ["Prision"],
+      "synonyms_english": ["Jail", "Prison"],
       "category": ""
     },
     {
@@ -23389,12 +22719,8 @@
       "spanish": "el alud",
       "english": "avalanche",
       "notes": "",
-      "synonyms_spanish": [
-        "avalancha"
-      ],
-      "synonyms_english": [
-        "landslide"
-      ],
+      "synonyms_spanish": ["avalancha"],
+      "synonyms_english": ["landslide"],
       "category": "Nature"
     },
     {
@@ -23418,9 +22744,7 @@
       "english": "stupidity",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "nonsense"
-      ],
+      "synonyms_english": ["nonsense"],
       "category": ""
     },
     {
@@ -23511,13 +22835,8 @@
       "spanish": "la caída",
       "english": "fall",
       "notes": "",
-      "synonyms_spanish": [
-        "Baja",
-        "descenso"
-      ],
-      "synonyms_english": [
-        "Drop"
-      ],
+      "synonyms_spanish": ["Baja", "descenso"],
+      "synonyms_english": ["Drop"],
       "category": ""
     },
     {
@@ -23545,10 +22864,7 @@
       "english": "disruption",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "disorder",
-        "unrest"
-      ],
+      "synonyms_english": ["disorder", "unrest"],
       "category": ""
     },
     {
@@ -23575,15 +22891,8 @@
       "spanish": "el asunto",
       "english": "issue",
       "notes": "",
-      "synonyms_spanish": [
-        "cuestión",
-        "tema"
-      ],
-      "synonyms_english": [
-        "affair",
-        "matter",
-        "subject"
-      ],
+      "synonyms_spanish": ["cuestión", "tema"],
+      "synonyms_english": ["affair", "matter", "subject"],
       "category": ""
     },
     {
@@ -23651,10 +22960,7 @@
       "english": "to argue",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to discuss",
-        "to dispute"
-      ],
+      "synonyms_english": ["to discuss", "to dispute"],
       "category": ""
     },
     {
@@ -23678,9 +22984,7 @@
       "english": "shove",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "push"
-      ],
+      "synonyms_english": ["push"],
       "category": ""
     },
     {
@@ -23704,9 +23008,7 @@
       "english": "farce",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "circus"
-      ],
+      "synonyms_english": ["circus"],
       "category": ""
     },
     {
@@ -23797,9 +23099,7 @@
       "spanish": "el ordenador",
       "english": "computer",
       "notes": "",
-      "synonyms_spanish": [
-        "computadora"
-      ],
+      "synonyms_spanish": ["computadora"],
       "synonyms_english": [],
       "category": ""
     },
@@ -23928,9 +23228,7 @@
       "english": "cart driver",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "highway"
-      ],
+      "synonyms_english": ["highway"],
       "category": ""
     },
     {
@@ -24038,9 +23336,7 @@
       "english": "Labor",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "work"
-      ],
+      "synonyms_english": ["work"],
       "category": "Jobs"
     },
     {
@@ -24176,10 +23472,7 @@
       "english": "skills",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "functions",
-        "duties"
-      ],
+      "synonyms_english": ["functions", "duties"],
       "category": ""
     },
     {
@@ -24218,9 +23511,7 @@
       "spanish": "la compañía",
       "english": "company",
       "notes": "",
-      "synonyms_spanish": [
-        "La empresa"
-      ],
+      "synonyms_spanish": ["La empresa"],
       "synonyms_english": [],
       "category": ""
     },
@@ -24333,10 +23624,7 @@
       "english": "career",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "race",
-        "run"
-      ],
+      "synonyms_english": ["race", "run"],
       "category": ""
     },
     {
@@ -24360,9 +23648,7 @@
       "english": "profession",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "occupation"
-      ],
+      "synonyms_english": ["occupation"],
       "category": ""
     },
     {
@@ -24454,10 +23740,7 @@
       "english": "let's see",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to go",
-        "to lead"
-      ],
+      "synonyms_english": ["to go", "to lead"],
       "category": "Verbs, Idioms"
     },
     {
@@ -24601,10 +23884,7 @@
       "english": "fist",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "handful",
-        "cuff (of a shirt)"
-      ],
+      "synonyms_english": ["handful", "cuff (of a shirt)"],
       "category": ""
     },
     {
@@ -24720,9 +24000,7 @@
       "english": "trachea",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "windpipe"
-      ],
+      "synonyms_english": ["windpipe"],
       "category": ""
     },
     {
@@ -24794,9 +24072,7 @@
       "english": "earlobe",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "lobe"
-      ],
+      "synonyms_english": ["lobe"],
       "category": ""
     },
     {
@@ -24820,9 +24096,7 @@
       "english": "shin",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "pimple"
-      ],
+      "synonyms_english": ["pimple"],
       "category": ""
     },
     {
@@ -24850,9 +24124,7 @@
       "english": "pinky",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "little finger"
-      ],
+      "synonyms_english": ["little finger"],
       "category": ""
     },
     {
@@ -25268,10 +24540,7 @@
       "english": "gain",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "profit",
-        "winnings"
-      ],
+      "synonyms_english": ["profit", "winnings"],
       "category": ""
     },
     {
@@ -25291,9 +24560,7 @@
       "english": "stock market",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "market"
-      ],
+      "synonyms_english": ["market"],
       "category": ""
     },
     {
@@ -25549,9 +24816,7 @@
       "english": "heartburn",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "acidity"
-      ],
+      "synonyms_english": ["acidity"],
       "category": ""
     },
     {
@@ -25567,9 +24832,7 @@
       "english": "migraine",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "headache"
-      ],
+      "synonyms_english": ["headache"],
       "category": ""
     },
     {
@@ -25584,9 +24847,7 @@
       "spanish": "el catarro",
       "english": "cold",
       "notes": "",
-      "synonyms_spanish": [
-        "Resfriado"
-      ],
+      "synonyms_spanish": ["Resfriado"],
       "synonyms_english": [],
       "category": ""
     },
@@ -25699,9 +24960,7 @@
       "english": "onesie",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "puppet"
-      ],
+      "synonyms_english": ["puppet"],
       "category": ""
     },
     {
@@ -25877,10 +25136,7 @@
       "english": "razor",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "electric razor",
-        "shaver"
-      ],
+      "synonyms_english": ["electric razor", "shaver"],
       "category": ""
     },
     {
@@ -25935,9 +25191,7 @@
       "spanish": "los estupefacientes",
       "english": "drugs",
       "notes": "",
-      "synonyms_spanish": [
-        "drogas"
-      ],
+      "synonyms_spanish": ["drogas"],
       "synonyms_english": [],
       "category": ""
     },
@@ -26614,9 +25868,7 @@
       "english": "shower",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to take a shower"
-      ],
+      "synonyms_english": ["to take a shower"],
       "category": "Verbs, Daily Activities, Health"
     },
     {
@@ -26624,9 +25876,7 @@
       "english": "To talk",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to speak"
-      ],
+      "synonyms_english": ["to speak"],
       "category": ""
     },
     {
@@ -26942,10 +26192,7 @@
       "english": "pamphlet",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "leaflet",
-        "circular"
-      ],
+      "synonyms_english": ["leaflet", "circular"],
       "category": ""
     },
     {
@@ -26965,9 +26212,7 @@
       "english": "periodical",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "periodic (Adjective)"
-      ],
+      "synonyms_english": ["periodic (Adjective)"],
       "category": ""
     },
     {
@@ -27075,10 +26320,7 @@
       "english": "therefore",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "for",
-        "during"
-      ],
+      "synonyms_english": ["for", "during"],
       "category": "Phrase"
     },
     {
@@ -27262,9 +26504,7 @@
       "english": "puzzle",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "riddle"
-      ],
+      "synonyms_english": ["riddle"],
       "category": "Things, Hobbies"
     },
     {
@@ -27283,28 +26523,15 @@
       "spanish": "feliz",
       "english": "happy",
       "notes": "A common positive emotion.",
-      "synonyms_spanish": [
-        "contento",
-        "alegre",
-        "dichoso"
-      ],
-      "synonyms_english": [
-        "glad",
-        "joyful",
-        "pleased",
-        "content",
-        "cheerful"
-      ],
+      "synonyms_spanish": ["contento", "alegre", "dichoso"],
+      "synonyms_english": ["glad", "joyful", "pleased", "content", "cheerful"],
       "category": "adjective"
     },
     {
       "spanish": "mirar",
       "english": "to look at",
       "notes": "Often implies paying attention.",
-      "synonyms_spanish": [
-        "observar",
-        "ver"
-      ],
+      "synonyms_spanish": ["observar", "ver"],
       "synonyms_english": [
         "to watch",
         "to see",
@@ -27322,9 +26549,7 @@
       "spanish": "El aviario",
       "english": "Aviary",
       "notes": "",
-      "synonyms_spanish": [
-        "pajarera"
-      ],
+      "synonyms_spanish": ["pajarera"],
       "synonyms_english": [],
       "category": "Place, Nature"
     },
@@ -27453,9 +26678,7 @@
       "english": "Cove",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "small bay"
-      ],
+      "synonyms_english": ["small bay"],
       "category": ""
     },
     {
@@ -27489,6 +26712,14 @@
     {
       "english": "El chiringuito",
       "spanish": "beach bar / beach restaurant"
+    },
+    {
+      "spanish": "La ola",
+      "english": "wave",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": ""
     },
     {
       "english": "La sal",
@@ -27561,6 +26792,14 @@
     {
       "english": "El traje de baño",
       "spanish": "bathing suit"
+    },
+    {
+      "spanish": "El bikini",
+      "english": "bikini",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": "Clothing"
     },
     {
       "english": "El bañador",
@@ -27863,6 +27102,14 @@
       "spanish": "waiter"
     },
     {
+      "spanish": "la carta",
+      "english": "menu",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": "card"
+    },
+    {
       "english": "El cliente",
       "spanish": "client"
     },
@@ -27875,6 +27122,14 @@
       "spanish": "knife"
     },
     {
+      "spanish": "la Mesa",
+      "english": "Table",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": ""
+    },
+    {
       "english": "El plato",
       "spanish": "plate, dish"
     },
@@ -27885,6 +27140,14 @@
     {
       "english": "La silla",
       "spanish": "chair"
+    },
+    {
+      "spanish": "el tenedor",
+      "english": "fork",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": ""
     },
     {
       "english": "El aperitivo",
@@ -28387,6 +27650,14 @@
       "spanish": "to pay"
     },
     {
+      "spanish": "El hospital",
+      "english": "hospital",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": "Place"
+    },
+    {
       "english": "La consulta",
       "spanish": "doctor’s office, consulting room"
     },
@@ -28495,6 +27766,14 @@
       "spanish": "flu"
     },
     {
+      "spanish": "La alergia",
+      "english": "allergy",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": ""
+    },
+    {
       "english": "La diabetes",
       "spanish": "diabetes"
     },
@@ -28526,9 +27805,7 @@
       "spanish": "El cansancio",
       "english": "fatigue",
       "notes": "",
-      "synonyms_spanish": [
-        "la fatiga"
-      ],
+      "synonyms_spanish": ["la fatiga"],
       "synonyms_english": [],
       "category": ""
     },
@@ -28709,6 +27986,14 @@
       "spanish": "centrism"
     },
     {
+      "spanish": "La derecha",
+      "english": "The right",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": ""
+    },
+    {
       "english": "La monarquía",
       "spanish": "monarchy"
     },
@@ -28719,6 +28004,14 @@
     {
       "english": "La democracia",
       "spanish": "democracy"
+    },
+    {
+      "spanish": "La dictadura",
+      "english": "Dictatorship",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": ""
     },
     {
       "english": "votar",
@@ -28864,12 +28157,8 @@
       "spanish": "Apurarse",
       "english": "to hurry",
       "notes": "",
-      "synonyms_spanish": [
-        "apresurar"
-      ],
-      "synonyms_english": [
-        "to rush"
-      ],
+      "synonyms_spanish": ["apresurar"],
+      "synonyms_english": ["to rush"],
       "category": "Verbs"
     },
     {
@@ -28884,12 +28173,8 @@
       "spanish": "Vestíbulo",
       "english": "Entrance",
       "notes": "",
-      "synonyms_spanish": [
-        "Entrada"
-      ],
-      "synonyms_english": [
-        "Vestibule"
-      ],
+      "synonyms_spanish": ["Entrada"],
+      "synonyms_english": ["Vestibule"],
       "category": ""
     },
     {
@@ -28912,9 +28197,7 @@
       "spanish": "Envejecer",
       "english": "To grow old",
       "notes": "",
-      "synonyms_spanish": [
-        "Hacer viejo"
-      ],
+      "synonyms_spanish": ["Hacer viejo"],
       "synonyms_english": [],
       "category": ""
     },
@@ -29103,10 +28386,7 @@
       "english": "Pencil case",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "kit",
-        "case"
-      ],
+      "synonyms_english": ["kit", "case"],
       "category": "Thing, School"
     },
     {
@@ -29210,10 +28490,7 @@
       "english": "to premiere (movies/sitcoms)",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to use for the first time",
-        "to open"
-      ],
+      "synonyms_english": ["to use for the first time", "to open"],
       "category": ""
     },
     {
@@ -29225,11 +28502,7 @@
       "english": "to choke",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to asphyxiate",
-        "to suffocate",
-        "to smother"
-      ],
+      "synonyms_english": ["to asphyxiate", "to suffocate", "to smother"],
       "category": ""
     },
     {
@@ -29249,9 +28522,7 @@
       "english": "Melancholy",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "sadness"
-      ],
+      "synonyms_english": ["sadness"],
       "category": ""
     },
     {
@@ -29275,9 +28546,7 @@
       "english": "Jubilation",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "joy"
-      ],
+      "synonyms_english": ["joy"],
       "category": "Emotion"
     },
     {
@@ -29392,12 +28661,8 @@
       "spanish": "Semejante",
       "english": "Similar",
       "notes": "",
-      "synonyms_spanish": [
-        "parecido"
-      ],
-      "synonyms_english": [
-        "alike"
-      ],
+      "synonyms_spanish": ["parecido"],
+      "synonyms_english": ["alike"],
       "category": ""
     },
     {
@@ -29745,9 +29010,7 @@
       "english": "Offer",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "bargain"
-      ],
+      "synonyms_english": ["bargain"],
       "category": ""
     },
     {
@@ -29827,9 +29090,7 @@
       "english": "Sketch",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "outline"
-      ],
+      "synonyms_english": ["outline"],
       "category": "Thing"
     },
     {
@@ -30209,9 +29470,7 @@
       "english": "Wish",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Dream"
-      ],
+      "synonyms_english": ["Dream"],
       "category": ""
     },
     {
@@ -30683,6 +29942,14 @@
       "category": ""
     },
     {
+      "spanish": "secuestrar",
+      "english": "To kidnap",
+      "notes": "",
+      "synonyms_spanish": ["raptar"],
+      "synonyms_english": [],
+      "category": ""
+    },
+    {
       "english": "un rescate",
       "spanish": "a ransom"
     },
@@ -30929,6 +30196,14 @@
     {
       "english": "una comedia musical navideña",
       "spanish": "a pantomime (u.k.)"
+    },
+    {
+      "spanish": "un papel",
+      "english": "a part",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": ["paper"],
+      "category": ""
     },
     {
       "english": "una representación / una función",
@@ -31263,9 +30538,7 @@
       "english": "Gaffer",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Electrician (for film)"
-      ],
+      "synonyms_english": ["Electrician (for film)"],
       "category": "Entertainment"
     },
     {
@@ -31472,9 +30745,7 @@
       "spanish": "un enlace",
       "english": "link up",
       "notes": "",
-      "synonyms_spanish": [
-        "Un conexión"
-      ],
+      "synonyms_spanish": ["Un conexión"],
       "synonyms_english": [],
       "category": "Colloquial"
     },
@@ -31635,9 +30906,7 @@
       "english": "convent",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "monastery"
-      ],
+      "synonyms_english": ["monastery"],
       "category": "Place"
     },
     {
@@ -31685,10 +30954,7 @@
       "english": "task",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "job",
-        "work"
-      ],
+      "synonyms_english": ["job", "work"],
       "category": ""
     },
     {
@@ -31792,9 +31058,7 @@
       "english": "fellow man",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "neighbor"
-      ],
+      "synonyms_english": ["neighbor"],
       "category": ""
     },
     {
@@ -31862,9 +31126,7 @@
       "english": "to savor",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to taste"
-      ],
+      "synonyms_english": ["to taste"],
       "category": "Verbs"
     },
     {
@@ -31892,9 +31154,7 @@
       "english": "nod",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "head butt"
-      ],
+      "synonyms_english": ["head butt"],
       "category": ""
     },
     {
@@ -32014,10 +31274,7 @@
       "english": "to consider",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to weigh",
-        "to evaluate"
-      ],
+      "synonyms_english": ["to weigh", "to evaluate"],
       "category": ""
     },
     {
@@ -32029,10 +31286,7 @@
       "english": "to bring",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to have in store for",
-        "to provide with"
-      ],
+      "synonyms_english": ["to have in store for", "to provide with"],
       "category": ""
     },
     {
@@ -32044,10 +31298,7 @@
       "english": "leaflet",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "pamphlet",
-        "circular"
-      ],
+      "synonyms_english": ["pamphlet", "circular"],
       "category": ""
     },
     {
@@ -32055,9 +31306,7 @@
       "english": "neighbor",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "fellow man"
-      ],
+      "synonyms_english": ["fellow man"],
       "category": ""
     },
     {
@@ -32117,11 +31366,7 @@
       "english": "well up on",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "skilled",
-        "expert",
-        "knowledgeable"
-      ],
+      "synonyms_english": ["skilled", "expert", "knowledgeable"],
       "category": ""
     },
     {
@@ -32249,9 +31494,7 @@
       "english": "to grant",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to bestow"
-      ],
+      "synonyms_english": ["to bestow"],
       "category": "Verbs"
     },
     {
@@ -32271,10 +31514,7 @@
       "english": "to tie together",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to join",
-        "to link"
-      ],
+      "synonyms_english": ["to join", "to link"],
       "category": ""
     },
     {
@@ -32350,9 +31590,7 @@
       "english": "bundle",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "bale"
-      ],
+      "synonyms_english": ["bale"],
       "category": ""
     },
     {
@@ -32360,9 +31598,7 @@
       "english": "suspicion",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "distrust"
-      ],
+      "synonyms_english": ["distrust"],
       "category": ""
     },
     {
@@ -32386,10 +31622,7 @@
       "english": "chilling",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "horrifying",
-        "bloodcurdling"
-      ],
+      "synonyms_english": ["horrifying", "bloodcurdling"],
       "category": ""
     },
     {
@@ -32480,12 +31713,8 @@
       "spanish": "la destreza",
       "english": "skill",
       "notes": "",
-      "synonyms_spanish": [
-        "habilidad"
-      ],
-      "synonyms_english": [
-        "dexterity"
-      ],
+      "synonyms_spanish": ["habilidad"],
+      "synonyms_english": ["dexterity"],
       "category": ""
     },
     {
@@ -32521,10 +31750,7 @@
       "english": "to pant",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to puff",
-        "to snort"
-      ],
+      "synonyms_english": ["to puff", "to snort"],
       "category": "Verbs"
     },
     {
@@ -32540,10 +31766,7 @@
       "english": "to set off for",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to direct",
-        "to channel"
-      ],
+      "synonyms_english": ["to direct", "to channel"],
       "category": "Verbs"
     },
     {
@@ -32554,12 +31777,8 @@
       "spanish": "la sepultura",
       "english": "burial",
       "notes": "",
-      "synonyms_spanish": [
-        "tumba"
-      ],
-      "synonyms_english": [
-        "grave"
-      ],
+      "synonyms_spanish": ["tumba"],
+      "synonyms_english": ["grave"],
       "category": "Place"
     },
     {
@@ -32571,10 +31790,7 @@
       "english": "sort",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "ilk",
-        "kind"
-      ],
+      "synonyms_english": ["ilk", "kind"],
       "category": ""
     },
     {
@@ -32622,9 +31838,7 @@
       "english": "to howl",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to wail"
-      ],
+      "synonyms_english": ["to wail"],
       "category": "Verbs"
     },
     {
@@ -32696,10 +31910,7 @@
       "english": "to suffocate",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to drown",
-        "to smother"
-      ],
+      "synonyms_english": ["to drown", "to smother"],
       "category": "Verbs"
     },
     {
@@ -32722,13 +31933,8 @@
       "spanish": "alzar",
       "english": "to lift",
       "notes": "",
-      "synonyms_spanish": [
-        "Elevar",
-        "levantar"
-      ],
-      "synonyms_english": [
-        "to raise"
-      ],
+      "synonyms_spanish": ["Elevar", "levantar"],
+      "synonyms_english": ["to raise"],
       "category": ""
     },
     {
@@ -32736,10 +31942,7 @@
       "english": "dismal",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Gloomy",
-        "lugubrious"
-      ],
+      "synonyms_english": ["Gloomy", "lugubrious"],
       "category": ""
     },
     {
@@ -32843,9 +32046,7 @@
       "english": "to postpone",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Delayed"
-      ],
+      "synonyms_english": ["Delayed"],
       "category": ""
     },
     {
@@ -32868,13 +32069,8 @@
       "spanish": "el amparo",
       "english": "refuge",
       "notes": "",
-      "synonyms_spanish": [
-        "acogida",
-        "refugio"
-      ],
-      "synonyms_english": [
-        "protection"
-      ],
+      "synonyms_spanish": ["acogida", "refugio"],
+      "synonyms_english": ["protection"],
       "category": ""
     },
     {
@@ -32905,12 +32101,8 @@
       "spanish": "la misericordia",
       "english": "mercy",
       "notes": "",
-      "synonyms_spanish": [
-        "compasión"
-      ],
-      "synonyms_english": [
-        "compassion"
-      ],
+      "synonyms_spanish": ["compasión"],
+      "synonyms_english": ["compassion"],
       "category": "Emotion"
     },
     {
@@ -33154,10 +32346,7 @@
       "english": "to spread",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to propagate (of panic",
-        "etc.)"
-      ],
+      "synonyms_english": ["to propagate (of panic", "etc.)"],
       "category": "Verbs"
     },
     {
@@ -33217,9 +32406,7 @@
       "english": "to squeeze",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to exploit"
-      ],
+      "synonyms_english": ["to exploit"],
       "category": "Verbs"
     },
     {
@@ -33311,10 +32498,7 @@
       "english": "to flow into",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to join",
-        "to lead into"
-      ],
+      "synonyms_english": ["to join", "to lead into"],
       "category": ""
     },
     {
@@ -33394,10 +32578,7 @@
       "english": "blade",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "blade (of a fan",
-        "propeller)"
-      ],
+      "synonyms_english": ["blade (of a fan", "propeller)"],
       "category": ""
     },
     {
@@ -33532,9 +32713,7 @@
       "spanish": "pluvial",
       "english": "rain",
       "notes": "",
-      "synonyms_spanish": [
-        "lluvia"
-      ],
+      "synonyms_spanish": ["lluvia"],
       "synonyms_english": [],
       "category": ""
     },
@@ -33543,9 +32722,7 @@
       "english": "often",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "frequently"
-      ],
+      "synonyms_english": ["frequently"],
       "category": ""
     },
     {
@@ -33561,9 +32738,7 @@
       "english": "small village",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Village"
-      ],
+      "synonyms_english": ["Village"],
       "category": ""
     },
     {
@@ -33630,13 +32805,8 @@
       "spanish": "previo",
       "english": "prior",
       "notes": "",
-      "synonyms_spanish": [
-        "Preliminar"
-      ],
-      "synonyms_english": [
-        "Previous",
-        "prior"
-      ],
+      "synonyms_spanish": ["Preliminar"],
+      "synonyms_english": ["Previous", "prior"],
       "category": ""
     },
     {
@@ -33728,10 +32898,7 @@
       "english": "to rule",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "To schedule",
-        "to set rules or guidelines"
-      ],
+      "synonyms_english": ["To schedule", "to set rules or guidelines"],
       "category": ""
     },
     {
@@ -33739,10 +32906,7 @@
       "english": "collection",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "summary",
-        "compilation"
-      ],
+      "synonyms_english": ["summary", "compilation"],
       "category": ""
     },
     {
@@ -33782,10 +32946,7 @@
       "english": "depth",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "thickness",
-        "density"
-      ],
+      "synonyms_english": ["thickness", "density"],
       "category": ""
     },
     {
@@ -33969,10 +33130,7 @@
       "english": "range",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "rank",
-        "status"
-      ],
+      "synonyms_english": ["rank", "status"],
       "category": ""
     },
     {
@@ -34004,10 +33162,7 @@
       "english": "addition",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "attaché",
-        "assistant professor"
-      ],
+      "synonyms_english": ["attaché", "assistant professor"],
       "category": ""
     },
     {
@@ -34035,9 +33190,7 @@
       "english": "mood",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "disposition"
-      ],
+      "synonyms_english": ["disposition"],
       "category": ""
     },
     {
@@ -34065,10 +33218,7 @@
       "english": "to aim",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to point (a finger",
-        "etc.)"
-      ],
+      "synonyms_english": ["to point (a finger", "etc.)"],
       "category": ""
     },
     {
@@ -34087,12 +33237,8 @@
       "spanish": "implantar",
       "english": "to introduce",
       "notes": "",
-      "synonyms_spanish": [
-        "Establecer"
-      ],
-      "synonyms_english": [
-        "to implant"
-      ],
+      "synonyms_spanish": ["Establecer"],
+      "synonyms_english": ["to implant"],
       "category": ""
     },
     {
@@ -34104,9 +33250,7 @@
       "english": "enclosure",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "site"
-      ],
+      "synonyms_english": ["site"],
       "category": ""
     },
     {
@@ -34134,11 +33278,7 @@
       "english": "to appear",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to figure",
-        "to be included",
-        "to stand out"
-      ],
+      "synonyms_english": ["to figure", "to be included", "to stand out"],
       "category": ""
     },
     {
@@ -34170,9 +33310,7 @@
       "english": "to melt",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to thaw"
-      ],
+      "synonyms_english": ["to thaw"],
       "category": ""
     },
     {
@@ -34212,9 +33350,7 @@
       "english": "to avoid",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "To dodge"
-      ],
+      "synonyms_english": ["To dodge"],
       "category": ""
     },
     {
@@ -34238,9 +33374,7 @@
       "english": "to twist",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to wring"
-      ],
+      "synonyms_english": ["to wring"],
       "category": "Verbs"
     },
     {
@@ -34312,10 +33446,7 @@
       "english": "boring",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "lead",
-        "weight"
-      ],
+      "synonyms_english": ["lead", "weight"],
       "category": ""
     },
     {
@@ -34366,13 +33497,8 @@
       "spanish": "arrinconar",
       "english": "to discard",
       "notes": "",
-      "synonyms_spanish": [
-        "acorralar"
-      ],
-      "synonyms_english": [
-        "to corner",
-        "to box in"
-      ],
+      "synonyms_spanish": ["acorralar"],
+      "synonyms_english": ["to corner", "to box in"],
       "category": ""
     },
     {
@@ -34412,10 +33538,7 @@
       "english": "to sniff around",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to follow the scent of",
-        "to track"
-      ],
+      "synonyms_english": ["to follow the scent of", "to track"],
       "category": "Verbs"
     },
     {
@@ -34478,9 +33601,7 @@
       "spanish": "escoger",
       "english": "Choose",
       "notes": "",
-      "synonyms_spanish": [
-        "Eligir"
-      ],
+      "synonyms_spanish": ["Eligir"],
       "synonyms_english": [],
       "category": ""
     },
@@ -34496,9 +33617,7 @@
       "spanish": "Devolver",
       "english": "To return",
       "notes": "",
-      "synonyms_spanish": [
-        "Regresar"
-      ],
+      "synonyms_spanish": ["Regresar"],
       "synonyms_english": [],
       "category": ""
     },
@@ -34506,9 +33625,7 @@
       "spanish": "Agregar",
       "english": "To add",
       "notes": "",
-      "synonyms_spanish": [
-        "Añadir"
-      ],
+      "synonyms_spanish": ["Añadir"],
       "synonyms_english": [],
       "category": ""
     },
@@ -34516,9 +33633,7 @@
       "spanish": "afeitarse",
       "english": "To shave",
       "notes": "",
-      "synonyms_spanish": [
-        "rasurar"
-      ],
+      "synonyms_spanish": ["rasurar"],
       "synonyms_english": [],
       "category": ""
     },
@@ -34534,13 +33649,8 @@
       "spanish": "maletín",
       "english": "briefcase",
       "notes": "",
-      "synonyms_spanish": [
-        "portafolio"
-      ],
-      "synonyms_english": [
-        "Overnight bag",
-        "satchel"
-      ],
+      "synonyms_spanish": ["portafolio"],
+      "synonyms_english": ["Overnight bag", "satchel"],
       "category": ""
     },
     {
@@ -34572,10 +33682,7 @@
       "english": "clown",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Comedian",
-        "comic"
-      ],
+      "synonyms_english": ["Comedian", "comic"],
       "category": ""
     },
     {
@@ -34598,10 +33705,7 @@
       "spanish": "cazadora",
       "english": "windbreaker",
       "notes": "",
-      "synonyms_spanish": [
-        "chaqueta cazadora",
-        "quebrador de viento"
-      ],
+      "synonyms_spanish": ["chaqueta cazadora", "quebrador de viento"],
       "synonyms_english": [],
       "category": ""
     },
@@ -34610,9 +33714,7 @@
       "english": "underpants",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "briefs"
-      ],
+      "synonyms_english": ["briefs"],
       "category": "Clothing"
     },
     {
@@ -34636,9 +33738,7 @@
       "english": "Pine tree",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "pine wood"
-      ],
+      "synonyms_english": ["pine wood"],
       "category": ""
     },
     {
@@ -35146,9 +34246,7 @@
       "english": "seizure",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "imponer un embargo sobre"
-      ],
+      "synonyms_english": ["imponer un embargo sobre"],
       "category": ""
     },
     {
@@ -35232,10 +34330,7 @@
       "english": "complaint",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "bird call",
-        "lure"
-      ],
+      "synonyms_english": ["bird call", "lure"],
       "category": ""
     },
     {
@@ -35434,13 +34529,8 @@
       "spanish": "el pronóstico",
       "english": "prognosis",
       "notes": "",
-      "synonyms_spanish": [
-        "predicción"
-      ],
-      "synonyms_english": [
-        "forecast",
-        "prediction"
-      ],
+      "synonyms_spanish": ["predicción"],
+      "synonyms_english": ["forecast", "prediction"],
       "category": ""
     },
     {
@@ -35519,12 +34609,8 @@
       "spanish": "el foso",
       "english": "pit (of a theatre)",
       "notes": "",
-      "synonyms_spanish": [
-        "fosa"
-      ],
-      "synonyms_english": [
-        "ditch"
-      ],
+      "synonyms_spanish": ["fosa"],
+      "synonyms_english": ["ditch"],
       "category": "Entertainment, Place"
     },
     {
@@ -35644,9 +34730,7 @@
       "english": "cast (of characters)",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "allocation"
-      ],
+      "synonyms_english": ["allocation"],
       "category": "Entertainment"
     },
     {
@@ -35662,9 +34746,7 @@
       "english": "review",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "critique"
-      ],
+      "synonyms_english": ["critique"],
       "category": ""
     },
     {
@@ -35848,9 +34930,7 @@
       "english": "resale",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "scalping"
-      ],
+      "synonyms_english": ["scalping"],
       "category": ""
     },
     {
@@ -35966,9 +35046,7 @@
       "english": "Congratulations!",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "happiness"
-      ],
+      "synonyms_english": ["happiness"],
       "category": ""
     },
     {
@@ -36027,14 +35105,8 @@
       "spanish": "salirse",
       "english": "to leak",
       "notes": "",
-      "synonyms_spanish": [
-        "aparecer"
-      ],
-      "synonyms_english": [
-        "to go out",
-        "to come out",
-        "to get out"
-      ],
+      "synonyms_spanish": ["aparecer"],
+      "synonyms_english": ["to go out", "to come out", "to get out"],
       "category": ""
     },
     {
@@ -36634,10 +35706,7 @@
       "english": "gearshift",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "lever",
-        "crowbar"
-      ],
+      "synonyms_english": ["lever", "crowbar"],
       "category": "Thing"
     },
     {
@@ -36913,9 +35982,7 @@
       "english": "tube",
       "notes": "cano (Adj) : gray",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Thing"
-      ],
+      "synonyms_english": ["Thing"],
       "category": ""
     },
     {
@@ -36998,12 +36065,8 @@
       "spanish": "traer",
       "english": "to bring",
       "notes": "",
-      "synonyms_spanish": [
-        "causar"
-      ],
-      "synonyms_english": [
-        "to cause"
-      ],
+      "synonyms_spanish": ["causar"],
+      "synonyms_english": ["to cause"],
       "category": ""
     },
     {
@@ -37155,9 +36218,7 @@
       "english": "ancestry",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "descent"
-      ],
+      "synonyms_english": ["descent"],
       "category": ""
     },
     {
@@ -37169,9 +36230,7 @@
       "english": "to turn down",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to reject"
-      ],
+      "synonyms_english": ["to reject"],
       "category": ""
     },
     {
@@ -37211,11 +36270,7 @@
       "english": "to verify",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to confirm",
-        "to test",
-        "to check"
-      ],
+      "synonyms_english": ["to confirm", "to test", "to check"],
       "category": "Verbs"
     },
     {
@@ -37415,9 +36470,7 @@
       "english": "boyfriend",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "Boy"
-      ],
+      "synonyms_english": ["Boy"],
       "category": ""
     },
     {
@@ -37561,9 +36614,7 @@
       "english": "reptile",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "reptilian"
-      ],
+      "synonyms_english": ["reptilian"],
       "category": "Animals"
     },
     {
@@ -37811,10 +36862,7 @@
       "english": "culture",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "cultivation",
-        "farming"
-      ],
+      "synonyms_english": ["cultivation", "farming"],
       "category": ""
     },
     {
@@ -38878,9 +37926,7 @@
       "english": "unfortunately",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "misfortune"
-      ],
+      "synonyms_english": ["misfortune"],
       "category": ""
     },
     {
@@ -38951,13 +37997,8 @@
       "spanish": "estupendamente",
       "english": "marvelously",
       "notes": "",
-      "synonyms_spanish": [
-        "maravilloso"
-      ],
-      "synonyms_english": [
-        "stupendous",
-        "marvelous"
-      ],
+      "synonyms_spanish": ["maravilloso"],
+      "synonyms_english": ["stupendous", "marvelous"],
       "category": ""
     },
     {
@@ -39441,12 +38482,7 @@
       "english": "after",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "afterward",
-        "later",
-        "then",
-        "next"
-      ],
+      "synonyms_english": ["afterward", "later", "then", "next"],
       "category": ""
     },
     {
@@ -39562,9 +38598,7 @@
       "english": "now",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "continuation"
-      ],
+      "synonyms_english": ["continuation"],
       "category": ""
     },
     {
@@ -39772,10 +38806,7 @@
       "english": "naturally",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "inherently",
-        "of course"
-      ],
+      "synonyms_english": ["inherently", "of course"],
       "category": ""
     },
     {
@@ -39863,11 +38894,7 @@
       "english": "few",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "little",
-        "not much",
-        "short time"
-      ],
+      "synonyms_english": ["little", "not much", "short time"],
       "category": "Common, Adjective"
     },
     {
@@ -40031,9 +39058,7 @@
       "english": "to instill",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to inculcate"
-      ],
+      "synonyms_english": ["to inculcate"],
       "category": "Verbs"
     },
     {
@@ -40361,11 +39386,7 @@
       "english": "to waste",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to squander",
-        "to waste (time",
-        "effort)"
-      ],
+      "synonyms_english": ["to squander", "to waste (time", "effort)"],
       "category": ""
     },
     {
@@ -40385,10 +39406,7 @@
       "english": "to undress",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to strip",
-        "to lay bare"
-      ],
+      "synonyms_english": ["to strip", "to lay bare"],
       "category": "Verbs"
     },
     {
@@ -40576,10 +39594,7 @@
       "english": "to eliminate",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to suppress",
-        "to delete"
-      ],
+      "synonyms_english": ["to suppress", "to delete"],
       "category": "Verbs"
     },
     {
@@ -40918,9 +39933,7 @@
       "spanish": "esperar",
       "english": "to wait for",
       "notes": "",
-      "synonyms_spanish": [
-        "aguardar"
-      ],
+      "synonyms_spanish": ["aguardar"],
       "synonyms_english": [],
       "category": ""
     },
@@ -40929,10 +39942,7 @@
       "english": "to seat",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to accommodate",
-        "to make room for"
-      ],
+      "synonyms_english": ["to accommodate", "to make room for"],
       "category": "Verbs"
     },
     {
@@ -41168,11 +40178,7 @@
       "english": "to shrink",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to make smaller",
-        "to intimidate",
-        "to contract"
-      ],
+      "synonyms_english": ["to make smaller", "to intimidate", "to contract"],
       "category": "Verbs"
     },
     {
@@ -41247,13 +40253,8 @@
       "spanish": "motivar",
       "english": "to motivate",
       "notes": "",
-      "synonyms_spanish": [
-        "Causar",
-        "impulsar"
-      ],
-      "synonyms_english": [
-        "to cause"
-      ],
+      "synonyms_spanish": ["Causar", "impulsar"],
+      "synonyms_english": ["to cause"],
       "category": ""
     },
     {
@@ -41285,10 +40286,7 @@
       "english": "to tilt",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to lean",
-        "to incline"
-      ],
+      "synonyms_english": ["to lean", "to incline"],
       "category": ""
     },
     {
@@ -41379,13 +40377,8 @@
       "spanish": "albergar",
       "english": "to house",
       "notes": "",
-      "synonyms_spanish": [
-        "alojar"
-      ],
-      "synonyms_english": [
-        "to lodge",
-        "to shelter"
-      ],
+      "synonyms_spanish": ["alojar"],
+      "synonyms_english": ["to lodge", "to shelter"],
       "category": "Verbs"
     },
     {
@@ -41433,9 +40426,7 @@
       "english": "to dedicate",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to devote"
-      ],
+      "synonyms_english": ["to devote"],
       "category": "Verbs"
     },
     {
@@ -41443,9 +40434,7 @@
       "english": "to flatter",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to compliment"
-      ],
+      "synonyms_english": ["to compliment"],
       "category": "Verbs"
     },
     {
@@ -41465,10 +40454,7 @@
       "english": "to lighten",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to clear",
-        "to clear up"
-      ],
+      "synonyms_english": ["to clear", "to clear up"],
       "category": ""
     },
     {
@@ -41532,9 +40518,7 @@
       "english": "to upset",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to distress"
-      ],
+      "synonyms_english": ["to distress"],
       "category": ""
     },
     {
@@ -41754,10 +40738,7 @@
       "english": "to be quiet",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to keep quiet",
-        "to be silent"
-      ],
+      "synonyms_english": ["to keep quiet", "to be silent"],
       "category": ""
     },
     {
@@ -41989,22 +40970,15 @@
       "english": "to derive from",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to drift",
-        "to come from"
-      ],
+      "synonyms_english": ["to drift", "to come from"],
       "category": ""
     },
     {
       "spanish": "iniciar",
       "english": "to begin",
       "notes": "",
-      "synonyms_spanish": [
-        "comenzar"
-      ],
-      "synonyms_english": [
-        "to initiate"
-      ],
+      "synonyms_spanish": ["comenzar"],
+      "synonyms_english": ["to initiate"],
       "category": ""
     },
     {
@@ -42100,9 +41074,7 @@
       "english": "to center",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to focus"
-      ],
+      "synonyms_english": ["to focus"],
       "category": "Verbs"
     },
     {
@@ -42346,9 +41318,7 @@
       "english": "to accumulate",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to amass"
-      ],
+      "synonyms_english": ["to amass"],
       "category": "Verbs"
     },
     {
@@ -42380,11 +41350,7 @@
       "english": "to thunder",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to roar",
-        "to be furious",
-        "to rage"
-      ],
+      "synonyms_english": ["to roar", "to be furious", "to rage"],
       "category": ""
     },
     {
@@ -42448,11 +41414,7 @@
       "english": "to fill",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to fill up",
-        "to fill in",
-        "to fulfill"
-      ],
+      "synonyms_english": ["to fill up", "to fill in", "to fulfill"],
       "category": "Verbs"
     },
     {
@@ -42688,10 +41650,7 @@
       "english": "to rob",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to dock",
-        "to land"
-      ],
+      "synonyms_english": ["to dock", "to land"],
       "category": "Verbs"
     },
     {
@@ -43011,9 +41970,7 @@
       "english": "annoying",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "bothersome"
-      ],
+      "synonyms_english": ["bothersome"],
       "category": ""
     },
     {
@@ -43177,9 +42134,7 @@
       "english": "playful",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "play"
-      ],
+      "synonyms_english": ["play"],
       "category": "Emotion, Adjective"
     },
     {
@@ -43275,10 +42230,7 @@
       "english": "level",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "even",
-        "disrespectful"
-      ],
+      "synonyms_english": ["even", "disrespectful"],
       "category": ""
     },
     {
@@ -43346,10 +42298,7 @@
       "english": "imprecise",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "vague",
-        "inaccurate"
-      ],
+      "synonyms_english": ["vague", "inaccurate"],
       "category": ""
     },
     {
@@ -43445,10 +42394,7 @@
       "english": "skilled",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "skillful",
-        "clever"
-      ],
+      "synonyms_english": ["skillful", "clever"],
       "category": ""
     },
     {
@@ -43512,9 +42458,7 @@
       "english": "sullen",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "gloomy"
-      ],
+      "synonyms_english": ["gloomy"],
       "category": "Emotion, Adjective"
     },
     {
@@ -43533,12 +42477,8 @@
       "spanish": "homónimo",
       "english": "homonymous",
       "notes": "",
-      "synonyms_spanish": [
-        "tocayo"
-      ],
-      "synonyms_english": [
-        "namesake"
-      ],
+      "synonyms_spanish": ["tocayo"],
+      "synonyms_english": ["namesake"],
       "category": ""
     },
     {
@@ -43606,10 +42546,7 @@
       "english": "solid",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "strong",
-        "strapping"
-      ],
+      "synonyms_english": ["strong", "strapping"],
       "category": "Adjective"
     },
     {
@@ -43689,10 +42626,7 @@
       "english": "stingy",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "mean",
-        "petty"
-      ],
+      "synonyms_english": ["mean", "petty"],
       "category": ""
     },
     {
@@ -44256,10 +43190,7 @@
       "english": "contemptuous",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "disparaging",
-        "derogatory"
-      ],
+      "synonyms_english": ["disparaging", "derogatory"],
       "category": ""
     },
     {
@@ -44335,9 +43266,7 @@
       "english": "gentlemanly",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "chivalrous"
-      ],
+      "synonyms_english": ["chivalrous"],
       "category": ""
     },
     {
@@ -44473,11 +43402,7 @@
       "english": "filthy",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "dirty",
-        "disgusting",
-        "rotten"
-      ],
+      "synonyms_english": ["dirty", "disgusting", "rotten"],
       "category": ""
     },
     {
@@ -44605,9 +43530,7 @@
       "english": "fertilized",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "subscriber"
-      ],
+      "synonyms_english": ["subscriber"],
       "category": ""
     },
     {
@@ -44679,10 +43602,7 @@
       "english": "worthy of",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "deserving",
-        "worthy"
-      ],
+      "synonyms_english": ["deserving", "worthy"],
       "category": ""
     },
     {
@@ -45218,9 +44138,7 @@
       "english": "sheer",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "much"
-      ],
+      "synonyms_english": ["much"],
       "category": ""
     },
     {
@@ -45252,9 +44170,7 @@
       "english": "sleepy",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "drowsy"
-      ],
+      "synonyms_english": ["drowsy"],
       "category": ""
     },
     {
@@ -45506,9 +44422,7 @@
       "english": "masculine",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "manly"
-      ],
+      "synonyms_english": ["manly"],
       "category": ""
     },
     {
@@ -45579,12 +44493,8 @@
       "spanish": "mentiroso",
       "english": "lying",
       "notes": "",
-      "synonyms_spanish": [
-        "embustero"
-      ],
-      "synonyms_english": [
-        "untruthful"
-      ],
+      "synonyms_spanish": ["embustero"],
+      "synonyms_english": ["untruthful"],
       "category": ""
     },
     {
@@ -45715,10 +44625,7 @@
       "spanish": "estival",
       "english": "summer",
       "notes": "",
-      "synonyms_spanish": [
-        "verano",
-        "varaniego"
-      ],
+      "synonyms_spanish": ["verano", "varaniego"],
       "synonyms_english": [],
       "category": ""
     },
@@ -45803,9 +44710,7 @@
       "english": "stubborn",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "obstinate"
-      ],
+      "synonyms_english": ["obstinate"],
       "category": "Emotion, Adjective"
     },
     {
@@ -45901,10 +44806,7 @@
       "english": "foreign",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "alien",
-        "of another"
-      ],
+      "synonyms_english": ["alien", "of another"],
       "category": ""
     },
     {
@@ -45952,12 +44854,7 @@
       "english": "proper",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "correct",
-        "right",
-        "courteous",
-        "polite"
-      ],
+      "synonyms_english": ["correct", "right", "courteous", "polite"],
       "category": ""
     },
     {
@@ -46285,9 +45182,7 @@
       "english": "one thousand",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "thousand"
-      ],
+      "synonyms_english": ["thousand"],
       "category": ""
     },
     {
@@ -46355,9 +45250,7 @@
       "english": "lucky",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "fortunate"
-      ],
+      "synonyms_english": ["fortunate"],
       "category": ""
     },
     {
@@ -46585,9 +45478,7 @@
       "english": "babysitter",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "nanny"
-      ],
+      "synonyms_english": ["nanny"],
       "category": ""
     },
     {
@@ -46678,12 +45569,8 @@
       "spanish": "común",
       "english": "common",
       "notes": "",
-      "synonyms_spanish": [
-        "normal"
-      ],
-      "synonyms_english": [
-        "normal"
-      ],
+      "synonyms_spanish": [],
+      "synonyms_english": ["ordinary", "regular"],
       "category": ""
     },
     {
@@ -46763,10 +45650,7 @@
       "english": "to occur to",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "to occur",
-        "to happen"
-      ],
+      "synonyms_english": ["to occur", "to happen"],
       "category": ""
     },
     {
@@ -46794,11 +45678,7 @@
       "english": "latest",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "last",
-        "final",
-        "most recent"
-      ],
+      "synonyms_english": ["last", "final", "most recent"],
       "category": ""
     },
     {
@@ -47302,11 +46182,15 @@
       "english": "mischievous",
       "notes": "",
       "synonyms_spanish": [],
-      "synonyms_english": [
-        "sly",
-        "risqué",
-        "off-color"
-      ],
+      "synonyms_english": ["sly", "risqué", "off-color"],
+      "category": ""
+    },
+    {
+      "spanish": "común",
+      "english": "common",
+      "notes": "",
+      "synonyms_spanish": ["normal"],
+      "synonyms_english": ["normal"],
       "category": ""
     },
     {
