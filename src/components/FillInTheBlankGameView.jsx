@@ -5,24 +5,30 @@ import './FillInTheBlankGameView.css';
 const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame }) => {
     const {
         currentQuestion,
-        isLoading, 
+        isLoading,
         gameMessage,
         gameScore,
         feedback,
         submitUserChoice,
-        startNewGame, 
-        queueLength,
+        startNewGame 
     } = useFillInTheBlankGame(wordList, numChoices);
+    
+    const handleChoiceClick = (choice) => {
+        if (feedback.message || isLoading) return; 
+        submitUserChoice(choice);
+    };
 
-    if (isLoading && !currentQuestion && queueLength === 0) {
+    // Initial loading state or if queue is empty and fetching
+    if (isLoading && !currentQuestion) {
         return (
-            <div className="fill-blank-game-container">
-                <p className="loading-text">{gameMessage || "Preparing your first game..."}</p>
+            <div className="fill-blank-game-container game-message-container">
+                <p className="loading-text">{gameMessage || "Preparing game..."}</p>
                 <button onClick={onExitGame} className="game-button exit-button">Exit Game</button>
             </div>
         );
     }
-    
+
+    // State for when game can't start or something went wrong
     if (gameMessage && !currentQuestion) {
         return (
             <div className="fill-blank-game-container game-message-container">
@@ -32,11 +38,6 @@ const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame }) => {
             </div>
         );
     }
-    
-    const handleChoiceClick = (choice) => {
-        if (feedback.message) return;
-        submitUserChoice(choice);
-    };
 
     return (
         <div className="fill-blank-game-container">
@@ -47,12 +48,11 @@ const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame }) => {
 
             {currentQuestion ? (
                 <div className="question-area">
-                    {/* ... (sentence display and choices rendering as before) ... */}
+                    {/* --- CORRECTED: Use the full English sentence as the prompt --- */}
                     <p className="sentence-display">
-                        Sentence: <strong>{currentQuestion.originalSentenceEng}</strong> 
-                        <br/>
-                        <em>(Translate and fill in the blank for the Spanish sentence below)</em>
+                        Translate and complete the Spanish sentence for: <strong>"{currentQuestion.originalSentenceEng}"</strong>
                     </p>
+                    
                     <p className="sentence-with-blank">
                         {currentQuestion.sentenceWithBlank.split('_______').map((part, index, arr) => (
                             <React.Fragment key={index}>
@@ -76,15 +76,16 @@ const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame }) => {
                     {feedback.message && (
                         <div className={`feedback-message ${feedback.type === 'correct' ? 'correct' : 'incorrect'}`}>
                             <p>{feedback.message}</p>
-                            {feedback.type === 'incorrect' && currentQuestion.targetPair && (
-                                <p>The original sentence was: "<em>{currentQuestion.originalSentenceSpa}</em>"</p>
+                            {feedback.type === 'incorrect' && (
+                                <p>Original sentence: "<em>{currentQuestion.originalSentenceSpa}</em>"</p>
                             )}
                         </div>
                     )}
-                    {isLoading && <p className="loading-text">Loading next question...</p>}
+                     {isLoading && feedback.message && <p className="loading-text">Loading next question...</p>}
                 </div>
             ) : (
-                 !isLoading && <p>Click "Start Game" to begin.</p>
+                // This state should now only be hit if isLoading is false but there's no question, which is unlikely
+                 <p className="loading-text">Getting question...</p>
             )}
 
             <div className="fill-blank-controls">
@@ -93,7 +94,7 @@ const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame }) => {
                     className="game-button"
                     disabled={isLoading}
                 >
-                    Start New Game / Skip Current
+                    Start New Game
                 </button>
                 <button onClick={onExitGame} className="game-button exit-button">
                     Exit Game

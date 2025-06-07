@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { getTatoebaExamples } from '../services/tatoebaService.js';
+import { getTatoebaExamples } from '../services/tatoebaServices.js';
 
 function shuffleArray(array) {
     const newArray = [...array];
@@ -11,112 +11,123 @@ function shuffleArray(array) {
 }
 
 const MAX_WORDS_FOR_FILL_IN_BLANK = 3; 
-const NUM_QUESTIONS_TO_PREFETCH = 10; 
-const REFETCH_QUEUE_THRESHOLD = 3;   
-
+const NUM_QUESTIONS_TO_PREFETCH = 5;  
+const REFETCH_QUEUE_THRESHOLD = 2;   
 export function useFillInTheBlankGame(wordList = [], numChoices = 4) {
     const [currentQuestion, setCurrentQuestion] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [gameMessage, setGameMessage] = useState('Click "Start Game" to begin!');
+    const [gameMessage, setGameMessage] = useState('');
     const [gameScore, setGameScore] = useState(0);
     const [feedback, setFeedback] = useState({ message: '', type: '' });
 
-    const [questionQueue, setQuestionQueue] = useState([]); 
-    const isFetchingQueue = useRef(false); // Ref to prevent multiple simultaneous fetches
+    const [questionQueue, setQuestionQueue] = useState([]);
+    const isFetchingQueue = useRef(false);
 
-    const populateQuestionQueue = useCallback(async () => {
+    const fetchQuestionBatch = useCallback(async () => {
         if (!wordList || wordList.length < numChoices || isFetchingQueue.current) {
-            return;
+            return []; 
         }
         
         isFetchingQueue.current = true;
-        setIsLoading(true);
-        setGameMessage('Preparing your next set of questions...');
-        console.log("useFillInTheBlankGame: Populating question queue...");
+        console.log("useFillInTheBlankGame: Starting background fetch for question batch...");
 
         const candidateWordList = wordList.filter(pair => 
-            pair.spanish && 
-            pair.spanish.trim().split(' ').length <= MAX_WORDS_FOR_FILL_IN_BLANK
+            pair.spanish && pair.spanish.trim().split(' ').length <= MAX_WORDS_FOR_FILL_IN_BLANK
         );
 
         if (candidateWordList.length < numChoices) {
-            setGameMessage(`Not enough words in list to generate ${numChoices} choices for the game.`);
-            setIsLoading(false);
             isFetchingQueue.current = false;
-            return;
+            return [];
         }
 
         const newQuestions = [];
-        let attempts = 0;
-        const maxAttempts = candidateWordList.length < 20 ? candidateWordList.length : 20; 
+        const maxWordsToTry = Math.min(candidateWordList.length, 15);
+        const shuffledCandidates = shuffleArray(candidateWordList);
 
-        while (newQuestions.length < NUM_QUESTIONS_TO_PREFETCH && attempts < maxAttempts) {
-            attempts++;
-            const targetPair = candidateWordList[Math.floor(Math.random() * candidateWordList.length)];
-            if (!targetPair || !targetPair.spanish) continue;
-
+        const promises = shuffledCandidates.slice(0, maxWordsToTry).map(async (targetPair) => {
+            if (!targetPair || !targetPair.spanish) return null;
+            
             const examples = await getTatoebaExamples(targetPair.spanish);
-            if (!examples || examples.length === 0) continue;
-
-            const shuffledExamples = shuffleArray(examples);
-            for (const example of shuffledExamples) {
+            if (!examples || examples.length === 0) return null;
+            
+            for (const example of shuffleArray(examples)) {
                 const escapedWord = targetPair.spanish.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                 const regex = new RegExp(`\\b${escapedWord}\\b`, 'i');
+
                 if (example.text_spa && regex.test(example.text_spa)) {
                     const sentenceWithBlank = example.text_spa.replace(regex, "_______");
                     
                     let distractors = [];
-                    const shuffledCandidates = shuffleArray([...wordList]);
-                    for (const distractorPair of shuffledCandidates) {
+                    const tempWordListForDistractors = shuffleArray([...candidateWordList]);
+                    for (const distractorPair of tempWordListForDistractors) {
                         if (distractors.length >= numChoices - 1) break;
                         if (distractorPair.id !== targetPair.id) {
                             distractors.push(distractorPair.spanish);
                         }
                     }
-                    distractors = [...new Set(distractors)].slice(0, numChoices - 1);
+                    distractors = [...new Set(distractors)];
+
+                    if (distractors.length < numChoices - 1) continue; 
+
                     const choices = shuffleArray([targetPair.spanish, ...distractors]);
 
-                    newQuestions.push({
+                    return {
                         targetPair, sentenceWithBlank, choices,
                         correctAnswer: targetPair.spanish,
                         originalSentenceSpa: example.text_spa,
                         originalSentenceEng: example.text_eng
-                    });
-                    break; 
+                    };
                 }
             }
-        }
+            return null; 
+        });
+
+        const settledResults = await Promise.allSettled(promises);
+        settledResults.forEach(res => {
+            if (res.status === 'fulfilled' && res.value) {
+                newQuestions.push(res.value);
+            }
+        });
         
-        setQuestionQueue(prevQueue => [...prevQueue, ...newQuestions]);
-        console.log(`useFillInTheBlankGame: Added ${newQuestions.length} new questions to the queue.`);
+        console.log(`useFillInTheBlankGame: Background fetch complete. Added ${newQuestions.length} new questions.`);
         isFetchingQueue.current = false;
-        setIsLoading(false);
-        setGameMessage('');
+        return newQuestions;
 
     }, [wordList, numChoices]);
 
     const serveNextQuestion = useCallback(() => {
         setFeedback({ message: '', type: '' });
         setCurrentQuestion(null);
+        setIsLoading(true);
 
         if (questionQueue.length > 0) {
             const nextQuestion = questionQueue[0];
             setQuestionQueue(prevQueue => prevQueue.slice(1)); 
             setCurrentQuestion(nextQuestion);
+            setIsLoading(false);
         } else {
-            console.log("useFillInTheBlankGame: Question queue is empty, trying to populate.");
-        
-            populateQuestionQueue();
+            console.log("useFillInTheBlankGame: Queue is empty. Fetching a new batch now.");
+            fetchQuestionBatch().then(newQuestions => {
+                if (newQuestions.length > 0) {
+                    setCurrentQuestion(newQuestions[0]);
+                    setQuestionQueue(newQuestions.slice(1));
+                } else {
+                    setGameMessage("Could not load a new question. Please try starting a new game.");
+                }
+                setIsLoading(false);
+            });
         }
-    }, [questionQueue, populateQuestionQueue]);
+    }, [questionQueue, fetchQuestionBatch]);
 
-    // Effect to pre-fetch more questions when the queue gets low
     useEffect(() => {
-        if (!isFetchingQueue.current && questionQueue.length > 0 && questionQueue.length <= REFETCH_QUEUE_THRESHOLD) {
-            console.log(`useFillInTheBlankGame: Queue is low (${questionQueue.length}). Fetching more in background.`);
-            populateQuestionQueue();
+        if (questionQueue.length <= REFETCH_QUEUE_THRESHOLD && !isFetchingQueue.current) {
+            console.log(`useFillInTheBlankGame: Queue is low (${questionQueue.length}). Pre-fetching more in background.`);
+            fetchQuestionBatch().then(newQuestions => {
+                setQuestionQueue(prevQueue => [...prevQueue, ...newQuestions]);
+            });
         }
-    }, [questionQueue, populateQuestionQueue]);
+    }, [questionQueue.length, fetchQuestionBatch]);
+
 
     const submitUserChoice = useCallback((chosenWord) => {
         if (!currentQuestion) return;
@@ -124,18 +135,14 @@ export function useFillInTheBlankGame(wordList = [], numChoices = 4) {
         if (chosenWord.toLowerCase().trim() === currentQuestion.correctAnswer.toLowerCase().trim()) {
             setGameScore(prev => prev + 1);
             setFeedback({ message: 'Correct!', type: 'correct' });
-            console.log("Correct!");
         } else {
-            // --- Reset score if answer is incorrect ---
             setGameScore(0);
             setFeedback({ 
                 message: `Oops! The correct answer was "${currentQuestion.correctAnswer}".`, 
                 type: 'incorrect' 
             });
-            console.log("Incorrect. Score reset.");
         }
 
-        // Automatically serve next question after a short delay to show feedback
         setTimeout(() => {
             serveNextQuestion();
         }, 1500); 
@@ -144,19 +151,36 @@ export function useFillInTheBlankGame(wordList = [], numChoices = 4) {
 
     const startNewGame = useCallback(() => {
         setGameScore(0);
-        setQuestionQueue([]); // Clear any old questions
-        setCurrentQuestion(null); // Clear current question
-        populateQuestionQueue();
-    }, [populateQuestionQueue]);
+        setQuestionQueue([]); 
+        setCurrentQuestion(null);
+        setIsLoading(true);
+        setGameMessage('Preparing your game...');
+        
+        fetchQuestionBatch().then(newQuestions => {
+            if (newQuestions.length > 0) {
+                setCurrentQuestion(newQuestions[0]);
+                setQuestionQueue(newQuestions.slice(1));
+                setGameMessage('');
+            } else {
+                setGameMessage("Could not start game. Try again or check your word list.");
+            }
+            setIsLoading(false);
+        });
+    }, [fetchQuestionBatch]);
+
+    useEffect(() => {
+        if (wordList && wordList.length >= numChoices) {
+            startNewGame();
+        }
+    }, [wordList, numChoices]);
 
     return {
         currentQuestion,
-        isLoading: isLoading, 
+        isLoading,
         gameMessage,
         gameScore,
         feedback,
         submitUserChoice,
         startNewGame, 
-        queueLength: questionQueue.length 
     };
 }
