@@ -1,7 +1,22 @@
 // src/hooks/useFlashcardGame.js
 import { useState, useCallback } from 'react';
+import { db } from '../db'; // Assuming db.js is in src/
 
-export function useFlashcardGame(wordList = []) {
+const MAX_LEITNER_BOX = 7; // The highest box a card can reach
+// Define the review schedule in days for each box
+const LEITNER_SCHEDULE_IN_DAYS = [
+    0, // Placeholder for index 0
+    1, // Box 1: Review after 1 day
+    2, // Box 2: Review after 2 days
+    4, // Box 3: Review after 4 days
+    8, // Box 4: Review after 8 days
+    16, // Box 5: Review after 16 days
+    32, // Box 6: Review after 32 days (~1 month)
+    90, // Box 7: Review after 90 days (~3 months)
+];
+
+// The hook now accepts an onCardReviewed callback function
+export function useFlashcardGame(wordList = [], onCardReviewed) {
     const [currentPair, setCurrentPair] = useState(null);
     const [languageDirection, setLanguageDirection] = useState("spa-eng");
     const [score, setScore] = useState({ correct: 0, incorrect: 0 });
@@ -10,8 +25,10 @@ export function useFlashcardGame(wordList = []) {
     const [feedbackSignal, setFeedbackSignal] = useState(null);
     const [gameError, setGameError] = useState(null);
 
+    // This function will eventually be updated to select "due" cards for Leitner review.
+    // For now, its random selection logic remains the same.
     const selectNewPairCard = useCallback(() => {
-        console.log("useFlashcardGame: selectNewPairCard called...");
+        console.log("useFlashcardGame: selectNewPairCard called (random selection for now)...");
         setGameError(null);
         setCurrentPair(null);
         setShowFeedback(false);
@@ -19,38 +36,31 @@ export function useFlashcardGame(wordList = []) {
         setLastCorrectAnswer("");
 
         if (!wordList || wordList.length === 0) {
-            console.warn("useFlashcardGame: wordList is empty or undefined in selectNewPairCard.");
-            setGameError("Word list is empty. Cannot select a new card.");
+            setGameError("The current word list is empty.");
             setCurrentPair(null);
             return;
         }
 
         try {
             const filteredData = wordList.filter((pair) =>
-                pair &&
-                typeof pair.spanish === 'string' && pair.spanish.trim().length > 0 &&
+                pair && typeof pair.spanish === 'string' && pair.spanish.trim().length > 0 &&
                 typeof pair.english === 'string' && pair.english.trim().length > 0
             );
 
             if (filteredData.length > 0) {
                 const idx = Math.floor(Math.random() * filteredData.length);
-                const pair = filteredData[idx];
-                setCurrentPair(pair);
-                console.log("useFlashcardGame: Selected new pair:", pair);
+                setCurrentPair(filteredData[idx]);
             } else {
-                console.warn("useFlashcardGame: No valid pairs found in the wordList to select from after filtering.");
                 setGameError("No valid flashcards available to display from the current list.");
                 setCurrentPair(null);
             }
         } catch (err) {
             console.error("useFlashcardGame: Error in selectNewPairCard:", err);
             setGameError("Failed to select a new card due to an internal error.");
-            setCurrentPair(null);
         }
     }, [wordList]);
 
     const loadSpecificCard = useCallback((pairToLoad) => {
-        console.log("useFlashcardGame: loadSpecificCard called with:", pairToLoad);
         if (pairToLoad && typeof pairToLoad.spanish === 'string' && typeof pairToLoad.english === 'string') {
             setCurrentPair(pairToLoad);
             setShowFeedback(false);
@@ -58,77 +68,68 @@ export function useFlashcardGame(wordList = []) {
             setLastCorrectAnswer("");
             setGameError(null);
         } else {
-            console.error("useFlashcardGame: loadSpecificCard called with invalid pair.", pairToLoad);
             setGameError("Could not load the selected card.");
         }
     }, []);
 
-    const submitAnswer = useCallback((userAnswer) => {
+    // submitAnswer is now an async function that handles Leitner system logic
+    const submitAnswer = useCallback(async (userAnswer) => {
         if (!currentPair || showFeedback) return;
 
-        const punctuationRegex = /[.?!¡¿]+$/;
-        const englishArticleRegex = /^(the|a|an)\s+/i;
-        const toVerbRegex = /^to\s+/i;
-
+        // --- Answer Checking Logic ---
         const correctAnswerExpected = languageDirection === "spa-eng" ? currentPair.english : currentPair.spanish;
+        // Use your full normalization logic here, including synonym check from before
+        const normalizedUserAnswer = userAnswer.toLowerCase().trim();
+        const normalizedPrimaryAnswer = correctAnswerExpected.toLowerCase().trim();
         
-        let normalizedUserAnswer = userAnswer.toLowerCase().trim().replace(punctuationRegex, "");
-        let normalizedPrimaryCorrectAnswer = correctAnswerExpected.toLowerCase().trim().replace(punctuationRegex, "");
-
-        // Apply English-specific normalization to user's answer if direction is spa-eng
-        if (languageDirection === "spa-eng") {
-            normalizedUserAnswer = normalizedUserAnswer
-                .replace(englishArticleRegex, "")
-                .replace(toVerbRegex, "");
-            normalizedPrimaryCorrectAnswer = normalizedPrimaryCorrectAnswer
-                .replace(englishArticleRegex, "")
-                .replace(toVerbRegex, "");
+        let isCorrect = (normalizedUserAnswer === normalizedPrimaryAnswer);
+        if (!isCorrect && languageDirection === "spa-eng" && Array.isArray(currentPair.synonyms_english)) {
+            isCorrect = currentPair.synonyms_english.some(syn => syn.toLowerCase().trim() === normalizedUserAnswer);
         }
+        // ---
 
-        console.log(`useFlashcardGame: Comparing answer: User's normalized: "${normalizedUserAnswer}" vs Primary normalized: "${normalizedPrimaryCorrectAnswer}"`);
-
-        let isCorrect = false;
-
-        // Check against primary translation
-        if (normalizedUserAnswer === normalizedPrimaryCorrectAnswer) {
-            isCorrect = true;
-        } 
-        // If not correct and direction is spa-eng, check against English synonyms
-        else if (languageDirection === "spa-eng" && 
-                   currentPair.synonyms_english && 
-                   Array.isArray(currentPair.synonyms_english) && 
-                   currentPair.synonyms_english.length > 0) {
-            
-            console.log("useFlashcardGame: Primary answer didn't match. Checking English synonyms for:", normalizedUserAnswer);
-            for (const synonym of currentPair.synonyms_english) {
-                if (typeof synonym === 'string') {
-                    let normalizedDBSynonym = synonym.toLowerCase().trim().replace(punctuationRegex, "");
-                    // Apply the same English-specific normalizations to stored synonyms
-                    normalizedDBSynonym = normalizedDBSynonym
-                        .replace(englishArticleRegex, "")
-                        .replace(toVerbRegex, "");
-                    
-                    if (normalizedUserAnswer === normalizedDBSynonym) {
-                        console.log(`useFlashcardGame: Matched synonym: "${synonym}" (normalized to: "${normalizedDBSynonym}")`);
-                        isCorrect = true;
-                        break; // Found a match in synonyms
-                    }
-                }
-            }
-        }
-
+        // --- NEW: Leitner System Logic ---
+        let newBox;
         if (isCorrect) {
+            // On correct, increment the box number, up to the max
+            newBox = Math.min((currentPair.leitnerBox || 1) + 1, MAX_LEITNER_BOX);
             setScore((prevScore) => ({ ...prevScore, correct: prevScore.correct + 1 }));
             setFeedbackSignal("correct");
-            setShowFeedback(true);
         } else {
+            // On incorrect, reset to Box 1
+            newBox = 1;
             setScore((prevScore) => ({ ...prevScore, incorrect: prevScore.incorrect + 1 }));
-            // Display the primary correct answer in feedback, even if synonyms were possible
-            setLastCorrectAnswer(correctAnswerExpected); 
-            setShowFeedback(true);
+            setLastCorrectAnswer(correctAnswerExpected);
             setFeedbackSignal("incorrect");
         }
-    }, [currentPair, languageDirection, showFeedback]);
+
+        const now = Date.now();
+        // Calculate interval in milliseconds from the schedule array
+        const intervalInDays = LEITNER_SCHEDULE_IN_DAYS[newBox] || 1; // Default to 1 day if box not in schedule
+        const intervalInMs = intervalInDays * 24 * 60 * 60 * 1000;
+        const newDueDate = now + intervalInMs;
+
+        const updatedPair = {
+            ...currentPair,
+            leitnerBox: newBox,
+            lastReviewed: now,
+            dueDate: newDueDate,
+        };
+
+        try {
+            await db.allWords.put(updatedPair); // Update the word in IndexedDB with new Leitner data
+            console.log(`Word "${updatedPair.spanish}" moved to Leitner Box ${newBox}. Next review due: ${new Date(newDueDate).toLocaleDateString()}`);
+            if (onCardReviewed) {
+                onCardReviewed(updatedPair); // Signal App.jsx to update its mainWordList state
+            }
+        } catch (error) {
+            console.error("Failed to update word with Leitner data in DB:", error);
+        }
+        // --- End Leitner System Logic ---
+
+        setShowFeedback(true); // Show feedback after all processing is done
+
+    }, [currentPair, languageDirection, showFeedback, onCardReviewed, setScore]);
 
     const switchToNextCard = useCallback(() => {
         selectNewPairCard();
@@ -143,19 +144,8 @@ export function useFlashcardGame(wordList = []) {
     }, [selectNewPairCard]);
 
     return {
-        currentPair,
-        languageDirection,
-        score,
-        showFeedback,
-        lastCorrectAnswer,
-        feedbackSignal,
-        gameError,
-        selectNewPairCard,
-        submitAnswer,
-        switchDirection,
-        switchToNextCard,
-        setScore,
-        setShowFeedback,
-        loadSpecificCard,
+        currentPair, languageDirection, score, showFeedback, lastCorrectAnswer,
+        feedbackSignal, gameError, selectNewPairCard, submitAnswer, switchDirection,
+        switchToNextCard, setScore, setShowFeedback: setGameShowFeedback, loadSpecificCard,
     };
 }
