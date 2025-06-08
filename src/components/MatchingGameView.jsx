@@ -1,8 +1,8 @@
-import React from 'react'; 
+import React, { useEffect } from 'react'; 
 import { useMatchingGame } from '../hooks/useMatchingGame'; 
 import './MatchingGameView.css'; 
 
-const MatchingGameView = ({ fullWordList, numPairsToDisplay = 6, onExitGame }) => {
+const MatchingGameView = ({ fullWordList, numPairsToDisplay = 6, onExitGame, onWordsUpdated }) => {
     const {
         spanishOptions,
         englishOptions,
@@ -14,11 +14,20 @@ const MatchingGameView = ({ fullWordList, numPairsToDisplay = 6, onExitGame }) =
         initializeNewRound, 
         activePairCount,
         allWordsCount,
-        incorrectAttempt 
+        incorrectAttempt,
+        lastUpdatedWords, 
+        clearLastUpdatedWords 
     } = useMatchingGame(fullWordList, numPairsToDisplay);
 
-     console.log("MatchingGameView: incorrectAttempt prop received:", incorrectAttempt); // Check this log
+   
+    useEffect(() => {
+        if (lastUpdatedWords && lastUpdatedWords.length > 0 && onWordsUpdated) {
+            onWordsUpdated(lastUpdatedWords);
+            clearLastUpdatedWords(); 
+        }
+    }, [lastUpdatedWords, onWordsUpdated, clearLastUpdatedWords]);
 
+    console.log("MatchingGameView: incorrectAttempt prop received:", incorrectAttempt);
 
     if (allWordsCount < numPairsToDisplay) {
         return (
@@ -28,16 +37,11 @@ const MatchingGameView = ({ fullWordList, numPairsToDisplay = 6, onExitGame }) =
             </div>
         );
     }
-    
-
 
     if (activePairCount === 0 && allWordsCount >= numPairsToDisplay && spanishOptions.length === 0 && englishOptions.length === 0) {
-        // Show "Preparing" only if options are truly empty and we expect them.
-        // This might indicate the initial initializeNewRound is still pending or failed to populate.
         return (
             <div className="matching-game-container matching-game-message">
                 <p>Preparing new words... or click "Start / New Round".</p>
-                {/* Ensure initializeNewRound(true) is called for a full reset by the button */}
                 <button onClick={() => initializeNewRound(true)} className="matching-game-button">Start / New Round</button>
                 <button onClick={onExitGame} className="matching-game-button">Back to Flashcards</button>
             </div>
@@ -95,7 +99,6 @@ const MatchingGameView = ({ fullWordList, numPairsToDisplay = 6, onExitGame }) =
                 </div>
             </div>
             <div className="matching-game-controls">
-                 {/* Ensure this calls initializeNewRound with true for a full reset */}
                 <button onClick={() => initializeNewRound(true)} className="matching-game-button">
                     New Round / Reshuffle
                 </button>

@@ -17,16 +17,6 @@ import { useFlashcardGame } from "./hooks/useFlashcardGame";
 import "./App.css";
 
 function App() {
-  // === Custom Hooks ===
-  const {
-    wordList: mainWordList,
-    initialCard,
-    isLoadingData,
-    dataError,
-    currentDataVersion,
-    setWordList,
-  } = useWordData();
-
   // === App-specific State Variables ===
   const [hardWordsList, setHardWordsList] = useState([]);
   const [hintData, setHintData] = useState(null);
@@ -63,6 +53,16 @@ function App() {
   });
 
   const listForFlashcardGame = isInHardWordsMode ? hardWordsList : mainWordList;
+
+  // === Custom Hooks ===
+  const {
+    wordList: mainWordList,
+    initialCard,
+    isLoadingData,
+    dataError,
+    currentDataVersion,
+    setWordList,
+  } = useWordData();
 
   const {
     currentPair,
@@ -234,6 +234,7 @@ function App() {
       );
     }
   }, [lastReviewedCard, setWordList]);
+
 
   // === Event Handlers ===
   const handleToggleTheme = () => {
@@ -642,6 +643,22 @@ function App() {
     setIsFillInTheBlankModeActive((prev) => !prev);
   };
 
+  const handleMatchingGameWordsUpdated = (updatedWords) => {
+    if (updatedWords && updatedWords.length > 0) {
+      setWordList((prevWordList) => {
+        let updatedList = [...prevWordList];
+        updatedWords.forEach((updatedWord) => {
+          updatedList = updatedList.map((word) =>
+            word.id === updatedWord.id ? updatedWord : word
+          );
+        });
+        return updatedList;
+      });
+      console.log(
+        `App.jsx: Updated ${updatedWords.length} words from matching game with Leitner data`
+      );
+    }
+  };
   return (
     <div className="App">
       {" "}
@@ -806,6 +823,7 @@ function App() {
             fullWordList={mainWordList}
             numPairsToDisplay={6}
             onExitGame={handleToggleMatchingGameMode}
+            onWordsUpdated={handleMatchingGameWordsUpdated}
           />
         </div>
       ) : isFillInTheBlankModeActive ? (
