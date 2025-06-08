@@ -1,197 +1,121 @@
 // src/hooks/useFillInTheBlankGame.js
-import { useState, useEffect, useCallback, useRef } from "react";
-import { getTatoebaExamples } from "../services/tatoebaServices.js";
+import { useState, useEffect, useCallback } from 'react';
+import { getTatoebaExamples } from '../services/tatoebaServices.js';
 
 function shuffleArray(array) {
-  const newArray = [...array];
-  for (let i = newArray.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-  }
-  return newArray;
+    const newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
 }
 
-const NUM_QUESTIONS_TO_PREFETCH = 7;
-const REFETCH_QUEUE_THRESHOLD = 3;
-
 export function useFillInTheBlankGame(wordList = [], numChoices = 4) {
-  const [currentQuestion, setCurrentQuestion] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [gameMessage, setGameMessage] = useState("");
-  const [gameScore, setGameScore] = useState(0);
-  const [feedback, setFeedback] = useState({ message: "", type: "" });
-  const [questionQueue, setQuestionQueue] = useState([]);
-  const isFetchingQueue = useRef(false);
+    const [currentQuestion, setCurrentQuestion] = useState(null);
+    const [isLoadingNextQuestion, setIsLoadingNextQuestion] = useState(true);
+    const [gameMessage, setGameMessage] = useState('');
+    const [gameScore, setGameScore] = useState(0);
+    const [feedback, setFeedback] = useState({ message: '', type: '' });
 
-  const populateQuestionQueue = useCallback(async () => {
-    if (!wordList || wordList.length < numChoices || isFetchingQueue.current)
-      return [];
+    const fetchNewQuestion = useCallback(async () => {
+        setIsLoadingNextQuestion(true);
+        setGameMessage('');
+        setFeedback({ message: '', type: '' });
+        setCurrentQuestion(null);
 
-    isFetchingQueue.current = true;
-    console.log("HOOK: Starting to fetch a batch of new questions...");
-
-    const maxWordsToTry = Math.min(
-      wordList.length,
-      NUM_QUESTIONS_TO_PREFETCH * 2
-    );
-    const shuffledCandidates = shuffleArray(wordList);
-
-    const promises = shuffledCandidates
-      .slice(0, maxWordsToTry)
-      .map(async (targetPair) => {
-        if (!targetPair?.spanish || !targetPair.english) return null;
-        const examples = await getTatoebaExamples(targetPair.spanish);
-        if (!examples || examples.length === 0) return null;
-
-        for (const example of shuffleArray(examples)) {
-          const escapedWord = targetPair.english.replace(
-            /[.*+?^${}()|[\]\\]/g,
-            "\\$&"
-          );
-          const regex = new RegExp(`\\b${escapedWord}\\b`, "i");
-
-          if (example.text_eng && regex.test(example.text_eng)) {
-            const sentenceWithBlank = example.text_eng.replace(
-              regex,
-              "_______"
-            );
-            let distractors = shuffleArray(
-              wordList.filter((p) => p.id !== targetPair.id)
-            )
-              .slice(0, numChoices - 1)
-              .map((p) => p.english);
-            if (distractors.length < numChoices - 1) continue;
-
-            const choices = shuffleArray([targetPair.english, ...distractors]);
-            return {
-              targetPair,
-              sentenceWithBlank,
-              choices,
-              correctAnswer: targetPair.english,
-              originalSentenceSpa: example.text_spa,
-              originalSentenceEng: example.text_eng,
-            };
-          }
+        if (!wordList || wordList.length < numChoices) {
+            setGameMessage(`Not enough words in list to start game (need at least ${numChoices}).`);
+            setIsLoadingNextQuestion(false);
+            return;
         }
-        return null;
-      });
 
-    const settledResults = await Promise.allSettled(promises);
-    const newQuestions = [];
-    settledResults.forEach((res) => {
-      if (
-        res.status === "fulfilled" &&
-        res.value &&
-        newQuestions.length < NUM_QUESTIONS_TO_PREFETCH
-      ) {
-        newQuestions.push(res.value);
-      }
-    });
-
-    console.log(
-      `HOOK: Fetch complete. Created ${newQuestions.length} new questions.`
-    );
-    isFetchingQueue.current = false;
-    return newQuestions;
-  }, [wordList, numChoices]);
-
-  const serveNextQuestion = useCallback(
-    (currentQueue) => {
-      console.log("HOOK: Serving next question from queue.");
-      setFeedback({ message: "", type: "" });
-
-      if (currentQueue.length > 0) {
-        const nextQuestion = currentQueue[0];
-        const remainingQueue = currentQueue.slice(1);
-        setCurrentQuestion(nextQuestion);
-        setQuestionQueue(remainingQueue);
-
-        // Check if we need to pre-fetch more in the background
-        if (
-          remainingQueue.length <= REFETCH_QUEUE_THRESHOLD &&
-          !isFetchingQueue.current
-        ) {
-          console.log(
-            `HOOK: Queue is low (${remainingQueue.length}). Pre-fetching more in background.`
-          );
-          populateQuestionQueue().then((newlyFetched) => {
-            setQuestionQueue((q) => [...q, ...newlyFetched]); // Append new questions to the end of the queue
-          });
-        }
-      } else {
-        console.log("HOOK: Queue is empty. Must fetch a new batch now.");
-        setIsLoading(true);
-        setGameMessage("Preparing more questions...");
-        populateQuestionQueue().then((newlyFetched) => {
-          if (newlyFetched.length > 0) {
-            serveNextQuestion(newlyFetched); // Recursively call with the new batch
-          } else {
-            setGameMessage(
-              "Could not load more questions. Try starting a new game."
-            );
-            setIsLoading(false);
-          }
-        });
-      }
-    },
-    [populateQuestionQueue]
-  );
-
-  const submitUserChoice = useCallback(
-    (chosenWord) => {
-      if (!currentQuestion) return;
-
-      const isCorrect =
-        chosenWord.toLowerCase().trim() ===
-        currentQuestion.correctAnswer.toLowerCase().trim();
-      setGameScore(isCorrect ? (prev) => prev + 1 : 0);
-      setFeedback({
-        message: isCorrect
-          ? "Correct!"
-          : `Oops! The correct answer was "${currentQuestion.correctAnswer}".`,
-        type: isCorrect ? "correct" : "incorrect",
-      });
-
-      setTimeout(() => serveNextQuestion(questionQueue), 2000);
-    },
-    [currentQuestion, questionQueue, serveNextQuestion]
-  );
-
-  const startNewGame = useCallback(() => {
-    setGameScore(0);
-    setQuestionQueue([]);
-    setCurrentQuestion(null);
-    setIsLoading(true);
-    setGameMessage("Preparing your game...");
-
-    populateQuestionQueue().then((newQuestions) => {
-      if (newQuestions.length > 0) {
-        setGameMessage("");
-        serveNextQuestion(newQuestions);
-      } else {
-        setGameMessage(
-          "Could not start game. Try again or check your word list."
+        // --- NEW, SMARTER LOGIC ---
+        // 1. Prioritize non-verbs (nouns, adjectives, short phrases) as they are easier to match in sentences.
+        const verbRegex = /ar$|er$|ir$/;
+        const candidateWordList = wordList.filter(pair => 
+            pair.spanish && !verbRegex.test(pair.spanish.trim())
         );
-        setIsLoading(false);
-      }
-    });
-  }, [populateQuestionQueue, serveNextQuestion]);
 
-  // This effect initializes the very first game when the hook mounts with a valid list
-  useEffect(() => {
-    if (wordList && wordList.length >= numChoices) {
-      startNewGame();
-    }
+        if (candidateWordList.length < numChoices) {
+            setGameMessage(`Not enough non-verb words in your list to play this game.`);
+            setIsLoadingNextQuestion(false);
+            return;
+        }
+        
+        // 2. Pick a batch of candidates and fetch for them in parallel
+        const shuffledCandidates = shuffleArray(candidateWordList);
+        const candidatesToFetch = shuffledCandidates.slice(0, 5); // Try 5 words at once
+
+        const promises = candidatesToFetch.map(pair => 
+            getTatoebaExamples(pair.spanish).then(examples => ({ targetPair: pair, examples: examples || [] }))
+        );
+
+        const results = await Promise.allSettled(promises);
+        
+        let questionData = null;
+
+        // 3. Use the first successful result from the parallel fetch
+        for (const result of results) {
+            if (result.status === 'fulfilled' && result.value.examples.length > 0) {
+                const { targetPair, examples } = result.value;
+                for (const example of shuffleArray(examples)) {
+                    const escapedWord = targetPair.spanish.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    const regex = new RegExp(`\\b${escapedWord}\\b`, 'i');
+
+                    if (example.text_spa && regex.test(example.text_spa)) {
+                        const sentenceWithBlank = example.text_spa.replace(regex, "_______");
+                        let distractors = shuffleArray(candidateWordList.filter(p => p.id !== targetPair.id)).slice(0, numChoices - 1).map(p => p.spanish);
+                        if (distractors.length < numChoices - 1) continue;
+
+                        const choices = shuffleArray([targetPair.spanish, ...distractors]);
+                        questionData = { targetPair, sentenceWithBlank, choices, correctAnswer: targetPair.spanish };
+                        break; 
+                    }
+                }
+            }
+            if (questionData) break; 
+        }
+        // --- END NEW LOGIC ---
+
+        if (questionData) {
+            setCurrentQuestion(questionData);
+        } else {
+            setGameMessage("Could not find a suitable example sentence. Please try again.");
+            console.warn("useFillInTheBlankGame: Failed to find any suitable question from the batch.");
+        }
+        setIsLoadingNextQuestion(false);
+        
+    }, [wordList, numChoices]);
+
+    const submitUserChoice = useCallback((chosenWord) => {
+        if (!currentQuestion) return;
+        
+        if (chosenWord.toLowerCase().trim() === currentQuestion.correctAnswer.toLowerCase().trim()) {
+            setGameScore(prev => prev + 1);
+            setFeedback({ message: 'Correct!', type: 'correct' });
+        } else {
+            setGameScore(0);
+            setFeedback({ 
+                message: `The correct answer was "${currentQuestion.correctAnswer}".`, 
+                type: 'incorrect' 
+            });
+        }
+        setTimeout(() => fetchNewQuestion(), 2000); 
+
+    }, [currentQuestion, fetchNewQuestion]);
+
+    const startNewGame = useCallback(() => {
+        setGameScore(0);
+        fetchNewQuestion();
+    }, [fetchNewQuestion]);
+
+    useEffect(() => {
+        if (wordList && wordList.length >= numChoices) {
+            startNewGame();
+        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [wordList]); // This is intended to run only when the master word list changes
+    }, [wordList]);
 
-  return {
-    currentQuestion,
-    isLoading,
-    gameMessage,
-    gameScore,
-    feedback,
-    submitUserChoice,
-    startNewGame,
-  };
+    return { currentQuestion, isLoadingNextQuestion, gameMessage, gameScore, feedback, submitUserChoice, startNewGame };
 }
