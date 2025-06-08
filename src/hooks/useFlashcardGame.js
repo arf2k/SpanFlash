@@ -65,7 +65,7 @@ export function useFlashcardGame(wordList = [], initialCard = null) {
       setGameError("Failed to get review cards from the database.");
       setCurrentPair(null);
     }
-  }, [wordList, currentPair]); // Add currentPair to avoid selecting the same card again right away
+  }, [wordList, currentPair]); 
 
   const loadSpecificCard = useCallback((pairToLoad) => {
     if (pairToLoad && pairToLoad.spanish && pairToLoad.english) {

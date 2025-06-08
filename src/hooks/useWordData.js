@@ -1,8 +1,7 @@
-// src/hooks/useWordData.js
 import { useState, useEffect } from "react";
 import { db } from "../db";
 
-// Helper function to shuffle an array (can live here or in a shared utils file)
+
 function shuffleArray(array) {
   const newArray = [...array];
   for (let i = newArray.length - 1; i > 0; i--) {
@@ -14,7 +13,7 @@ function shuffleArray(array) {
 
 export function useWordData() {
   const [wordList, setWordList] = useState([]);
-  const [initialCard, setInitialCard] = useState(null); // <-- NEW STATE for the first card
+  const [initialCard, setInitialCard] = useState(null); 
   const [isLoadingData, setIsLoadingData] = useState(true);
   const [dataError, setDataError] = useState(null);
   const [currentDataVersion, setCurrentDataVersion] = useState(null);
@@ -86,11 +85,11 @@ export function useWordData() {
           );
         }
 
-        // --- Set State from DB After All DB Writes are Complete ---
+        
         const finalWords = await db.allWords.toArray();
         setWordList(finalWords);
 
-        // ** NEW: Find the initial card here, inside this hook **
+      
         if (finalWords.length > 0) {
           const now = Date.now();
           const dueCards = await db.allWords
@@ -108,7 +107,7 @@ export function useWordData() {
             setInitialCard(firstCard);
           } else {
             console.log("useWordData: No cards due for review right now.");
-            setInitialCard(null); // No card is due
+            setInitialCard(null); 
           }
         }
         const finalVersionState = await db.appState.get("dataVersion");
@@ -123,9 +122,8 @@ export function useWordData() {
     };
 
     loadWordDataAsync();
-  }, []); // This effect runs once on mount.
-
-  // Return the new initialCard state along with existing ones
+  }, []); 
+ 
   return {
     wordList,
     initialCard,
