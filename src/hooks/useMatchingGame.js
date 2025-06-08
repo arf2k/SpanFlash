@@ -178,7 +178,7 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
       numPairsToDisplay,
       pickNewWords,
       sessionUsedWordIds,
-      activeWordPairs,
+ 
     ]
   );
 

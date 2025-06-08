@@ -52,8 +52,6 @@ function App() {
     return storedTheme || (prefersDark ? "dark" : "light");
   });
 
-  const listForFlashcardGame = isInHardWordsMode ? hardWordsList : mainWordList;
-
   // === Custom Hooks ===
   const {
     wordList: mainWordList,
@@ -63,6 +61,8 @@ function App() {
     currentDataVersion,
     setWordList,
   } = useWordData();
+
+  const listForFlashcardGame = isInHardWordsMode ? hardWordsList : mainWordList;
 
   const {
     currentPair,
@@ -234,7 +234,6 @@ function App() {
       );
     }
   }, [lastReviewedCard, setWordList]);
-
 
   // === Event Handlers ===
   const handleToggleTheme = () => {
