@@ -13,109 +13,105 @@ function shuffleArray(array) {
 
 export function useFillInTheBlankGame(wordList = [], numChoices = 4) {
     const [currentQuestion, setCurrentQuestion] = useState(null);
-    const [isLoadingNextQuestion, setIsLoadingNextQuestion] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
     const [gameMessage, setGameMessage] = useState('');
     const [gameScore, setGameScore] = useState(0);
     const [feedback, setFeedback] = useState({ message: '', type: '' });
 
     const fetchNewQuestion = useCallback(async () => {
-        setIsLoadingNextQuestion(true);
+        console.log("HOOK: Fetching a new question...");
+        setIsLoading(true);
         setGameMessage('');
         setFeedback({ message: '', type: '' });
         setCurrentQuestion(null);
 
         if (!wordList || wordList.length < numChoices) {
             setGameMessage(`Not enough words in list to start game (need at least ${numChoices}).`);
-            setIsLoadingNextQuestion(false);
+            setIsLoading(false);
             return;
         }
 
-        // --- NEW, SMARTER LOGIC ---
-        // 1. Prioritize non-verbs (nouns, adjectives, short phrases) as they are easier to match in sentences.
-        const verbRegex = /ar$|er$|ir$/;
-        const candidateWordList = wordList.filter(pair => 
-            pair.spanish && !verbRegex.test(pair.spanish.trim())
-        );
+        let attempts = 0;
+        const maxAttempts = 15; // Try up to 15 random words to find a usable sentence
+        while (attempts < maxAttempts) {
+            attempts++;
+            const targetPair = wordList[Math.floor(Math.random() * wordList.length)];
+            if (!targetPair?.spanish) continue;
 
-        if (candidateWordList.length < numChoices) {
-            setGameMessage(`Not enough non-verb words in your list to play this game.`);
-            setIsLoadingNextQuestion(false);
-            return;
-        }
-        
-        // 2. Pick a batch of candidates and fetch for them in parallel
-        const shuffledCandidates = shuffleArray(candidateWordList);
-        const candidatesToFetch = shuffledCandidates.slice(0, 5); // Try 5 words at once
+            const examples = await getTatoebaExamples(targetPair.spanish);
+            if (!examples || examples.length === 0) continue;
 
-        const promises = candidatesToFetch.map(pair => 
-            getTatoebaExamples(pair.spanish).then(examples => ({ targetPair: pair, examples: examples || [] }))
-        );
+            for (const example of shuffleArray(examples)) {
+                const escapedWord = targetPair.spanish.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const regex = new RegExp(`\\b${escapedWord}\\b`, 'i');
 
-        const results = await Promise.allSettled(promises);
-        
-        let questionData = null;
+                if (example.text_spa && regex.test(example.text_spa)) {
+                    const sentenceWithBlank = example.text_spa.replace(regex, "_______");
+                    
+                    let distractors = shuffleArray(wordList.filter(p => p.id !== targetPair.id))
+                                      .slice(0, numChoices - 1)
+                                      .map(p => p.spanish);
 
-        // 3. Use the first successful result from the parallel fetch
-        for (const result of results) {
-            if (result.status === 'fulfilled' && result.value.examples.length > 0) {
-                const { targetPair, examples } = result.value;
-                for (const example of shuffleArray(examples)) {
-                    const escapedWord = targetPair.spanish.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                    const regex = new RegExp(`\\b${escapedWord}\\b`, 'i');
+                    if (distractors.length < numChoices - 1) continue;
 
-                    if (example.text_spa && regex.test(example.text_spa)) {
-                        const sentenceWithBlank = example.text_spa.replace(regex, "_______");
-                        let distractors = shuffleArray(candidateWordList.filter(p => p.id !== targetPair.id)).slice(0, numChoices - 1).map(p => p.spanish);
-                        if (distractors.length < numChoices - 1) continue;
+                    const choices = shuffleArray([targetPair.spanish, ...distractors]);
 
-                        const choices = shuffleArray([targetPair.spanish, ...distractors]);
-                        questionData = { targetPair, sentenceWithBlank, choices, correctAnswer: targetPair.spanish };
-                        break; 
-                    }
+                    setCurrentQuestion({
+                        targetPair,
+                        sentenceWithBlank,
+                        choices,
+                        correctAnswer: targetPair.spanish,
+                        originalSentenceSpa: example.text_spa,
+                        originalSentenceEng: targetPair.english, // Use the word's direct translation as prompt
+                    });
+                    setIsLoading(false);
+                    console.log("HOOK: New question set for", targetPair.spanish);
+                    return; // Exit successfully
                 }
             }
-            if (questionData) break; 
         }
-        // --- END NEW LOGIC ---
 
-        if (questionData) {
-            setCurrentQuestion(questionData);
-        } else {
-            setGameMessage("Could not find a suitable example sentence. Please try again.");
-            console.warn("useFillInTheBlankGame: Failed to find any suitable question from the batch.");
-        }
-        setIsLoadingNextQuestion(false);
-        
+        setGameMessage(`Could not find a suitable sentence after ${maxAttempts} attempts. Please try again.`);
+        setIsLoading(false);
     }, [wordList, numChoices]);
 
     const submitUserChoice = useCallback((chosenWord) => {
-        if (!currentQuestion) return;
+        if (!currentQuestion || feedback.message) return;
         
-        if (chosenWord.toLowerCase().trim() === currentQuestion.correctAnswer.toLowerCase().trim()) {
-            setGameScore(prev => prev + 1);
-            setFeedback({ message: 'Correct!', type: 'correct' });
-        } else {
-            setGameScore(0);
-            setFeedback({ 
-                message: `The correct answer was "${currentQuestion.correctAnswer}".`, 
-                type: 'incorrect' 
-            });
-        }
-        setTimeout(() => fetchNewQuestion(), 2000); 
+        const isCorrect = chosenWord.toLowerCase().trim() === currentQuestion.correctAnswer.toLowerCase().trim();
+        setGameScore(isCorrect ? prev => prev + 1 : 0);
+        setFeedback({ 
+            message: isCorrect ? 'Correct!' : `Oops! The correct answer was "${currentQuestion.correctAnswer}".`, 
+            type: isCorrect ? 'correct' : 'incorrect' 
+        });
 
-    }, [currentQuestion, fetchNewQuestion]);
+        // After showing feedback, wait for the user to click "Next" in the UI.
+        // We will remove the automatic advance for now to stabilize.
+    }, [currentQuestion]);
 
     const startNewGame = useCallback(() => {
         setGameScore(0);
         fetchNewQuestion();
     }, [fetchNewQuestion]);
 
+    // This effect initializes the very first game when the hook mounts with a valid list
     useEffect(() => {
         if (wordList && wordList.length >= numChoices) {
             startNewGame();
         }
+    // We disable the lint rule here because we truly only want this effect
+    // to run when the wordList reference changes, not startNewGame.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [wordList]);
+    }, [wordList, numChoices]);
 
-    return { currentQuestion, isLoadingNextQuestion, gameMessage, gameScore, feedback, submitUserChoice, startNewGame };
+    return {
+        currentQuestion,
+        isLoading,
+        gameMessage,
+        gameScore,
+        feedback,
+        submitUserChoice,
+        startNewGame,
+        fetchNewQuestion, // Expose this so the "Next" button can call it
+    };
 }

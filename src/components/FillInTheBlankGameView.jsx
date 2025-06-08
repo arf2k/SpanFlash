@@ -6,23 +6,24 @@ import './FillInTheBlankGameView.css';
 const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame }) => {
     const {
         currentQuestion,
-        isLoadingNextQuestion,
+        isLoading,
         gameMessage,
         gameScore,
         feedback,
         submitUserChoice,
-        startNewGame 
+        startNewGame,
+        fetchNewQuestion, // Get the function for the "Next" button
     } = useFillInTheBlankGame(wordList, numChoices);
     
     const handleChoiceClick = (choice) => {
-        if (feedback.message || isLoadingNextQuestion) return; 
+        if (feedback.message || isLoading) return; 
         submitUserChoice(choice);
     };
 
-    if (isLoadingNextQuestion && !currentQuestion) {
+    if (isLoading) {
         return (
             <div className="fill-blank-game-container game-message-container">
-                <p className="loading-text">Finding a great sentence...</p>
+                <p className="loading-text">{gameMessage || "Loading question..."}</p>
             </div>
         );
     }
@@ -46,11 +47,9 @@ const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame }) => {
 
             {currentQuestion ? (
                 <div className="question-area">
-                    {/* --- CORRECTED UI PROMPT --- */}
                     <p className="sentence-display">
                         Fill in the blank for the Spanish translation of: <strong>"{currentQuestion.targetPair.english}"</strong>
                     </p>
-                    
                     <p className="sentence-with-blank">
                         {currentQuestion.sentenceWithBlank.split('_______').map((part, index, arr) => (
                             <React.Fragment key={index}>
@@ -59,15 +58,13 @@ const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame }) => {
                             </React.Fragment>
                         ))}
                     </p>
-                    {/* --- END CORRECTED UI PROMPT --- */}
-                    
                     <div className="choices-container">
                         {currentQuestion.choices.map((choice, index) => (
                             <button
                                 key={index}
                                 onClick={() => handleChoiceClick(choice)}
                                 className="choice-button"
-                                disabled={!!feedback.message || isLoadingNextQuestion} 
+                                disabled={!!feedback.message} // Disable choices after an answer
                             >
                                 {choice}
                             </button>
@@ -77,20 +74,23 @@ const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame }) => {
                     {feedback.message && (
                         <div className={`feedback-message ${feedback.type === 'correct' ? 'correct' : 'incorrect'}`}>
                             <p>{feedback.message}</p>
+                            {feedback.type === 'incorrect' && (
+                                <p>Original: "<em>{currentQuestion.originalSentenceSpa}</em>"</p>
+                            )}
+                            {/* Give user control to move to the next question */}
+                            <button onClick={fetchNewQuestion} className="game-button next-question-button">
+                                Next Question
+                            </button>
                         </div>
                     )}
                 </div>
             ) : (
-                 !isLoadingNextQuestion && <p>Click "Start New Game" to begin.</p>
+                 <p>Something went wrong. Please try starting a new game.</p>
             )}
 
             <div className="fill-blank-controls">
-                <button 
-                    onClick={startNewGame} 
-                    className="game-button"
-                    disabled={isLoadingNextQuestion}
-                >
-                    Start New Game / Skip
+                <button onClick={startNewGame} className="game-button">
+                    Start New Game
                 </button>
                 <button onClick={onExitGame} className="game-button exit-button">
                     Exit Game
