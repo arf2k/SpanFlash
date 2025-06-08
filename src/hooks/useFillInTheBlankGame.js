@@ -1,6 +1,9 @@
-// src/hooks/useFillInTheBlankGame.js
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { getTatoebaExamples } from '../services/tatoebaServices.js';
+import { db } from "../db"; 
+
+const MAX_LEITNER_BOX = 7;
+const LEITNER_SCHEDULE_IN_DAYS = [0, 1, 2, 4, 8, 16, 32, 90];
 
 function shuffleArray(array) {
     const newArray = [...array];
@@ -11,6 +14,37 @@ function shuffleArray(array) {
     return newArray;
 }
 
+const updateWordLeitnerData = async (word, isCorrect) => {
+  const newBox = isCorrect
+    ? Math.min((word.leitnerBox || 0) + 1, MAX_LEITNER_BOX)
+    : 1;
+
+  const now = Date.now();
+  const intervalInDays = LEITNER_SCHEDULE_IN_DAYS[newBox] || 1;
+  const intervalInMs = intervalInDays * 24 * 60 * 60 * 1000;
+  const newDueDate = now + intervalInMs;
+
+  const updatedWord = {
+    ...word,
+    leitnerBox: newBox,
+    lastReviewed: now,
+    dueDate: newDueDate,
+  };
+
+  try {
+    await db.allWords.put(updatedWord);
+    console.log(
+      `Fill-in-Blank: Updated "${word.spanish}" to Box ${newBox} (${
+        isCorrect ? "correct" : "incorrect"
+      })`
+    );
+    return updatedWord;
+  } catch (error) {
+    console.error("Fill-in-Blank: Failed to update word with Leitner data:", error);
+    return word; 
+  }
+};
+
 export function useFillInTheBlankGame(wordList = [], numChoices = 4) {
     const [currentQuestion, setCurrentQuestion] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -18,12 +52,15 @@ export function useFillInTheBlankGame(wordList = [], numChoices = 4) {
     const [gameScore, setGameScore] = useState(0);
     const [feedback, setFeedback] = useState({ message: '', type: '' });
     
-    // This ref will ensure our initial fetch only happens ONCE.
+  
+    const [lastUpdatedWords, setLastUpdatedWords] = useState([]);
+    
+   
     const hasStartedGame = useRef(false);
-    const isFetchingRef = useRef(false); // <-- Add this
+    const isFetchingRef = useRef(false);
 
     const fetchNewQuestion = useCallback(async () => {
-        if (isFetchingRef.current) return; // <-- Prevent concurrent fetches
+        if (isFetchingRef.current) return;
         isFetchingRef.current = true;
         setIsLoading(true);
         setGameMessage('');
@@ -33,7 +70,7 @@ export function useFillInTheBlankGame(wordList = [], numChoices = 4) {
         if (!wordList || wordList.length < numChoices) {
             setGameMessage(`Not enough words in list to start game (need at least ${numChoices}).`);
             setIsLoading(false);
-            isFetchingRef.current = false; // <-- Reset after fetch
+            isFetchingRef.current = false;
             return;
         }
 
@@ -43,7 +80,7 @@ export function useFillInTheBlankGame(wordList = [], numChoices = 4) {
         if (candidateWordList.length < numChoices) {
             setGameMessage("Not enough suitable short words to generate choices for the game.");
             setIsLoading(false);
-            isFetchingRef.current = false; // <-- Reset after fetch
+            isFetchingRef.current = false;
             return;
         }
 
@@ -76,37 +113,45 @@ export function useFillInTheBlankGame(wordList = [], numChoices = 4) {
                         originalSentenceSpa: example.text_spa,   
                     });
                     setIsLoading(false);
-                    isFetchingRef.current = false; // <-- Reset after fetch
-                    return; // Found a valid question, exit successfully
+                    isFetchingRef.current = false;
+                    return;
                 }
             }
         }
         setGameMessage(`Could not find a suitable sentence after ${maxAttempts} attempts. Please try again.`);
         setIsLoading(false);
-        isFetchingRef.current = false; // <-- Reset after fetch
+        isFetchingRef.current = false;
     }, [wordList, numChoices]);
 
-    const submitUserChoice = useCallback((chosenWord) => {
+  
+    const submitUserChoice = useCallback(async (chosenWord) => {
         if (!currentQuestion || feedback.message) return;
+        
         const isCorrect = chosenWord.toLowerCase().trim() === currentQuestion.correctAnswer.toLowerCase().trim();
         setGameScore(isCorrect ? (prev) => prev + 1 : 0);
         setFeedback({
             message: isCorrect ? "Correct!" : `Oops! The correct answer was "${currentQuestion.correctAnswer}".`,
             type: isCorrect ? "correct" : "incorrect",
         });
-    }, [currentQuestion]);
+
+        if (currentQuestion.targetPair) {
+            const updatedWord = await updateWordLeitnerData(currentQuestion.targetPair, isCorrect);
+            setLastUpdatedWords((prev) => [...prev, updatedWord]);
+        }
+    }, [currentQuestion, feedback.message]);
 
     const startNewGame = useCallback(() => {
         setGameScore(0);
         fetchNewQuestion();
     }, [fetchNewQuestion]);
 
-    // This is the corrected initialization effect.
+    const clearLastUpdatedWords = useCallback(() => {
+        setLastUpdatedWords([]);
+    }, []);
+
     useEffect(() => {
-        // Run only if wordList is ready AND we have NOT run the initial fetch yet.
         if (wordList.length > 0 && !hasStartedGame.current) {
             console.log("HOOK: Word list is ready. Starting the first game session.");
-            // Set the flag to true immediately to prevent this from ever running again
             hasStartedGame.current = true; 
             startNewGame();
         }
@@ -114,6 +159,8 @@ export function useFillInTheBlankGame(wordList = [], numChoices = 4) {
 
     return {
         currentQuestion, isLoading, gameMessage, gameScore, feedback,
-        submitUserChoice, startNewGame, fetchNewQuestion, 
+        submitUserChoice, startNewGame, fetchNewQuestion,
+        lastUpdatedWords, 
+        clearLastUpdatedWords,
     };
 }

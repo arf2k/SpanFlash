@@ -1,9 +1,8 @@
-// src/components/FillInTheBlankGameView.jsx
-import React from 'react';
+import React, { useEffect } from 'react'; 
 import { useFillInTheBlankGame } from '../hooks/useFillInTheBlankGame';
 import './FillInTheBlankGameView.css'; 
 
-const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame }) => {
+const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame, onWordsUpdated }) => { 
     const {
         currentQuestion,
         isLoading,
@@ -12,8 +11,21 @@ const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame }) => {
         feedback,
         submitUserChoice,
         startNewGame,
-        fetchNewQuestion, 
+        fetchNewQuestion,
+        lastUpdatedWords,   
+        clearLastUpdatedWords, 
     } = useFillInTheBlankGame(wordList, numChoices);
+    
+ 
+    useEffect(() => {
+        if (lastUpdatedWords && lastUpdatedWords.length > 0) {
+            if (onWordsUpdated) {
+                onWordsUpdated(lastUpdatedWords);
+            }
+        
+            clearLastUpdatedWords(); 
+        }
+    }, [lastUpdatedWords, onWordsUpdated, clearLastUpdatedWords]);
     
     const handleChoiceClick = (choice) => {
         if (feedback.message || isLoading) return; 
