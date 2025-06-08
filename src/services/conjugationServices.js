@@ -1,10 +1,14 @@
-// utils/conjugationService.js
-export class ConjugationService {
+export class ConjugationServices {
   constructor() {
-    // Use hosted version by default, change to localhost:8000 if self-hosting
-    this.apiBase = 'http://verbe.cc/vcfr';
+    // Fixed API endpoint (you found the correct one!)
+    this.apiBase = process.env.REACT_APP_CONJUGATION_API || 'http://localhost:8000';
     this.cache = new Map();
     this.verbCache = new Set(); // Cache known verbs
+    this.isOnline = navigator.onLine;
+    
+    // Listen for online/offline changes
+    window.addEventListener('online', () => this.isOnline = true);
+    window.addEventListener('offline', () => this.isOnline = false);
   }
 
   // Check if a word is likely a Spanish verb
@@ -20,7 +24,7 @@ export class ConjugationService {
            this.verbCache.has(word); // Or we know it's a verb from API
   }
 
-  // Get all conjugations for a verb
+  // Enhanced conjugation fetching with better error handling
   async getConjugations(verb) {
     const cacheKey = `full-${verb}`;
     
@@ -28,9 +32,25 @@ export class ConjugationService {
       return this.cache.get(cacheKey);
     }
 
+    if (!this.isOnline) {
+      console.warn('Offline - using cached data only');
+      return null;
+    }
+
     try {
-      const response = await fetch(`${this.apiBase}/conjugate/es/${verb}`);
-      if (!response.ok) throw new Error('API request failed');
+      const response = await fetch(`${this.apiBase}/conjugate/es/${verb}`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        // Add timeout
+        signal: AbortSignal.timeout(10000) // 10 second timeout
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
       
       const data = await response.json();
       
@@ -42,47 +62,98 @@ export class ConjugationService {
       
       return null;
     } catch (error) {
-      console.warn(`Failed to conjugate ${verb}:`, error);
-      return null;
-    }
-  }
-
-  // Get specific conjugation (e.g., present tense)
-  async getSpecificConjugation(verb, mood = 'indicativo', tense = 'presente') {
-    const cacheKey = `${verb}-${mood}-${tense}`;
-    
-    if (this.cache.has(cacheKey)) {
-      return this.cache.get(cacheKey);
-    }
-
-    try {
-      const url = `${this.apiBase}/conjugate/es/${verb}?mood=${mood}&tense=${tense}`;
-      const response = await fetch(url);
-      if (!response.ok) throw new Error('API request failed');
+      console.warn(`Failed to conjugate ${verb}:`, error.message);
       
-      const data = await response.json();
-      
-      if (data.value && Array.isArray(data.value)) {
-        this.verbCache.add(verb);
-        this.cache.set(cacheKey, data.value);
-        return data.value;
+      // Try fallback with simpler conjugation if API fails
+      if (!error.message.includes('timeout')) {
+        return await this.tryFallbackConjugation(verb);
       }
       
       return null;
-    } catch (error) {
-      console.warn(`Failed to get ${mood} ${tense} for ${verb}:`, error);
-      return null;
     }
   }
 
-  // Generate a conjugation question for your Leitner system
+  // Fallback conjugation for basic verbs
+  async tryFallbackConjugation(verb) {
+    // Simple rule-based conjugation for common regular verbs
+    if (verb.endsWith('ar')) {
+      return this.generateRegularArConjugation(verb);
+    } else if (verb.endsWith('er')) {
+      return this.generateRegularErConjugation(verb);
+    } else if (verb.endsWith('ir')) {
+      return this.generateRegularIrConjugation(verb);
+    }
+    return null;
+  }
+
+  generateRegularArConjugation(verb) {
+    const stem = verb.slice(0, -2);
+    return {
+      moods: {
+        indicativo: {
+          presente: [
+            `yo ${stem}o`,
+            `tú ${stem}as`, 
+            `él ${stem}a`,
+            `nosotros ${stem}amos`,
+            `vosotros ${stem}áis`,
+            `ellos ${stem}an`
+          ]
+        }
+      }
+    };
+  }
+
+  generateRegularErConjugation(verb) {
+    const stem = verb.slice(0, -2);
+    return {
+      moods: {
+        indicativo: {
+          presente: [
+            `yo ${stem}o`,
+            `tú ${stem}es`, 
+            `él ${stem}e`,
+            `nosotros ${stem}emos`,
+            `vosotros ${stem}éis`,
+            `ellos ${stem}en`
+          ]
+        }
+      }
+    };
+  }
+
+  generateRegularIrConjugation(verb) {
+    const stem = verb.slice(0, -2);
+    return {
+      moods: {
+        indicativo: {
+          presente: [
+            `yo ${stem}o`,
+            `tú ${stem}es`, 
+            `él ${stem}e`,
+            `nosotros ${stem}imos`,
+            `vosotros ${stem}ís`,
+            `ellos ${stem}en`
+          ]
+        }
+      }
+    };
+  }
+
+  // Generate a conjugation question with better tense mapping
   async generateConjugationQuestion(word) {
     if (!this.isVerb(word.spanish)) {
       return null;
     }
 
-    const moods = ['indicativo'];
-    const tenses = ['presente', 'pretérito', 'imperfecto', 'futuro'];
+    const tenseMapping = {
+      'presente': 'presente',
+      'pretérito': 'pretérito-perfecto-simple', 
+      'imperfecto': 'pretérito-imperfecto',
+      'futuro': 'futuro'
+    };
+
+    const displayTenses = Object.keys(tenseMapping);
     const persons = [
       { label: 'yo', index: 0 },
       { label: 'tú', index: 1 },
@@ -92,30 +163,39 @@ export class ConjugationService {
       { label: 'ellos/ellas', index: 5 }
     ];
 
-    // Pick random mood and tense
-    const mood = moods[Math.floor(Math.random() * moods.length)];
-    const tense = tenses[Math.floor(Math.random() * tenses.length)];
+    // Pick random tense and person
+    const displayTense = displayTenses[Math.floor(Math.random() * displayTenses.length)];
+    const apiTense = tenseMapping[displayTense];
     const person = persons[Math.floor(Math.random() * persons.length)];
 
     try {
-      const conjugations = await this.getSpecificConjugation(word.spanish, mood, tense);
+      const conjugations = await this.getConjugations(word.spanish);
       
-      if (!conjugations || !conjugations[person.index]) {
+      if (!conjugations || 
+          !conjugations.moods || 
+          !conjugations.moods.indicativo || 
+          !conjugations.moods.indicativo[apiTense]) {
         return null;
       }
 
-      // Clean up the conjugation (remove pronouns)
-      let answer = conjugations[person.index];
+      const tenseConjugations = conjugations.moods.indicativo[apiTense];
+      
+      if (!tenseConjugations || !tenseConjugations[person.index]) {
+        return null;
+      }
+
+      // Clean up the conjugation (remove pronouns if present)
+      let answer = tenseConjugations[person.index];
       answer = answer.replace(/^(yo|tú|él|ella|nosotros|vosotros|ellos|ellas)\s+/, '');
 
       return {
         type: 'conjugation',
         word: word,
-        question: `Conjugate "${word.spanish}" for "${person.label}" in ${tense}`,
+        question: `Conjugate "${word.spanish}" for "${person.label}" in ${displayTense}`,
         answer: answer.trim(),
-        fullAnswer: conjugations[person.index],
-        mood: mood,
-        tense: tense,
+        fullAnswer: tenseConjugations[person.index],
+        mood: 'indicativo',
+        tense: displayTense,
         person: person.label,
         englishMeaning: word.english
       };

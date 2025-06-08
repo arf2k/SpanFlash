@@ -15,6 +15,9 @@ import { db } from "./db";
 import { useWordData } from "./hooks/useWordData";
 import { useFlashcardGame } from "./hooks/useFlashcardGame";
 import "./App.css";
+import { ConjugationService } from "./services/conjugationServices.js";
+import VerbConjugationGameView from "./components/VerbConjugationGameView";
+
 
 function App() {
   // === App-specific State Variables ===
@@ -51,6 +54,7 @@ function App() {
       window.matchMedia("(prefers-color-scheme: dark)").matches;
     return storedTheme || (prefersDark ? "dark" : "light");
   });
+const [isVerbConjugationGameActive, setIsVerbConjugationGameActive] = useState(false);
 
   // === Custom Hooks ===
   const {
@@ -88,6 +92,7 @@ function App() {
   const previousDataVersionRef = useRef(null);
   const matchingGameContainerRef = useRef(null);
   const fillInTheBlankGameContainerRef = useRef(null);
+  const verbConjugationGameContainerRef = useRef(null);
   // === Effects ===
   useEffect(() => {
     document.body.dataset.theme = currentTheme;
@@ -149,7 +154,7 @@ function App() {
     setTatoebaExamples([]);
     setTatoebaError(null);
     setIsLoadingTatoebaExamples(false);
-  }, [currentPair, isMatchingGameModeActive, isFillInTheBlankModeActive]);
+  }, [currentPair, isMatchingGameModeActive, isFillInTheBlankModeActive,isVerbConjugationGameActive]);
 
   useEffect(() => {
     if (currentDataVersion !== null) {
@@ -223,6 +228,18 @@ function App() {
       }, 50);
     }
   }, [isFillInTheBlankModeActive]);
+  useEffect(() => {
+  if (isVerbConjugationGameActive && verbConjugationGameContainerRef.current) {
+    setTimeout(() => {
+      if (verbConjugationGameContainerRef.current) {
+        verbConjugationGameContainerRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    }, 50);
+  }
+}, [isVerbConjugationGameActive]);
 
   useEffect(() => {
     if (lastReviewedCard) {
@@ -641,6 +658,35 @@ function App() {
     setIsFillInTheBlankModeActive((prev) => !prev);
   };
 
+  const handleToggleVerbConjugationGame = () => {
+  setModeChangeMessage("");
+  if (!isVerbConjugationGameActive) {
+    const potentialVerbs = mainWordList.filter(word => 
+      word.spanish && (word.spanish.endsWith('ar') || word.spanish.endsWith('er') || word.spanish.endsWith('ir'))
+    );
+    
+    if (!mainWordList || mainWordList.length < 4 || potentialVerbs.length < 1) {
+      setModeChangeMessage(
+        "Not enough verbs in your word list. Add some Spanish verbs ending in -ar, -er, or -ir."
+      );
+      setTimeout(() => setModeChangeMessage(""), 3000);
+      return;
+    }
+    
+    // Close other views/modals
+    setShowHardWordsView(false);
+    setIsSearchModalOpen(false);
+    setIsAddWordModalOpen(false);
+    setIsEditModalOpen(false);
+    setIsDetailsModalOpen(false);
+    setIsSettingsModalOpen(false);
+    setIsMatchingGameModeActive(false);
+    setIsFillInTheBlankModeActive(false);
+    if (setGameShowFeedback) setGameShowFeedback(false);
+  }
+  setIsVerbConjugationGameActive((prev) => !prev);
+};
+
   const handleMatchingGameWordsUpdated = (updatedWords) => {
     if (updatedWords && updatedWords.length > 0) {
       setWordList((prevWordList) => {
@@ -688,6 +734,8 @@ function App() {
               {isInHardWordsMode &&
                 !isMatchingGameModeActive &&
                 !isFillInTheBlankModeActive &&
+                  !isVerbConjugationGameActive &&
+
                 "(Hard Mode)"}
             </p>
           )}
@@ -702,7 +750,7 @@ function App() {
               color: "var(--text-muted)", // Use CSS variable
               padding: "0",
             }}
-            disabled={isMatchingGameModeActive || isFillInTheBlankModeActive}
+            disabled={isMatchingGameModeActive || isFillInTheBlankModeActive || isVerbConjugationGameActive}
           >
             <span role="img" aria-label="settings icon">
               ⚙️
@@ -711,7 +759,8 @@ function App() {
         </div>
       </div>
       {/* Score Stacks - Conditionally Rendered */}
-      {!isMatchingGameModeActive && !isFillInTheBlankModeActive && (
+      {!isMatchingGameModeActive && !isFillInTheBlankModeActive &&
+      !isVerbConjugationGameActive && (
         <div className="score-stacks-container">
           <ScoreStack
             type="correct"
@@ -747,6 +796,7 @@ function App() {
           </span>{" "}
           Fill-in-Blank
         </button>
+
         <button
           onClick={handleToggleMatchingGameMode}
           title="Matching Game"
@@ -769,12 +819,23 @@ function App() {
           Search
         </button>
         <button
+  onClick={handleToggleVerbConjugationGame}
+  title="Verb Conjugation Game"
+  style={{ padding: "0.6rem 0.8rem" }}
+  disabled={isMatchingGameModeActive || isFillInTheBlankModeActive|| isVerbConjugationGameActive}
+>
+  <span role="img" aria-label="verb conjugation icon">
+    🔗
+  </span>{" "}
+  Conjugation
+</button>
+        <button
           onClick={handleToggleHardWordsMode}
           title={
             isInHardWordsMode ? "Practice All Words" : "Practice Hard Words"
           }
           style={{ padding: "0.6rem 0.8rem" }}
-          disabled={isMatchingGameModeActive || isFillInTheBlankModeActive}
+          disabled={isMatchingGameModeActive || isFillInTheBlankModeActive|| isVerbConjugationGameActive}
         >
           <span
             role="img"
@@ -786,7 +847,7 @@ function App() {
         </button>
         <button
           onClick={switchDirection}
-          disabled={isMatchingGameModeActive || isFillInTheBlankModeActive}
+          disabled={isMatchingGameModeActive || isFillInTheBlankModeActive || isVerbConjugationGameActive}
         >
           Switch Dir ({languageDirection === "spa-eng" ? "S->E" : "E->S"})
         </button>
@@ -798,6 +859,7 @@ function App() {
             showHardWordsView ||
             isMatchingGameModeActive ||
             isFillInTheBlankModeActive
+            || isVerbConjugationGameActive
           }
         >
           {isLoadingData && !currentPair ? "Loading..." : "New Card"}
@@ -812,7 +874,18 @@ function App() {
         </p>
       )}
       {/* Main Content Area: Game OR Flashcard/HardWords View */}
-      {isMatchingGameModeActive ? (
+      {isVerbConjugationGameActive ? (
+  <div
+    ref={verbConjugationGameContainerRef}
+    className="verb-conjugation-game-view-wrapper"
+  >
+    <VerbConjugationGameView
+      wordList={mainWordList}
+      onExitGame={handleToggleVerbConjugationGame}
+    />
+  </div>
+) : isMatchingGameModeActive ? (
+    
         <div
           ref={matchingGameContainerRef}
           className="matching-game-view-wrapper"
@@ -821,7 +894,6 @@ function App() {
             fullWordList={mainWordList}
             numPairsToDisplay={6}
             onExitGame={handleToggleMatchingGameMode}
-         
           />
         </div>
       ) : isFillInTheBlankModeActive ? (
