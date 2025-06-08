@@ -1,5 +1,5 @@
 {
-  "version": "1.2.8",
+  "version": "1.2.9",
   "words": [
     {
       "spanish": "cargar",
@@ -6628,8 +6628,8 @@
       "english": "sweet"
     },
     {
-      "spanish": "salteado",
-      "english": "sautéed"
+      "spanish": "sautéed",
+      "english": "salteado"
     },
     {
       "spanish": "al horno",
@@ -20539,8 +20539,8 @@
       "english": "to grind"
     },
     {
-      "spanish": "saltear",
-      "english": "to sauté"
+      "spanish": "to sauté",
+      "english": "saltear"
     },
     {
       "spanish": "cocer a fuego lento",
@@ -20615,8 +20615,8 @@
       "english": "whipped cream"
     },
     {
-      "spanish": "sofrito",
-      "english": "sautéed"
+      "spanish": "sautéed",
+      "english": "sofrito"
     },
     {
       "spanish": "saltado",
@@ -22413,8 +22413,8 @@
       "english": "hunting"
     },
     {
-      "spanish": "buen provecho",
-      "english": "bon appétit"
+      "spanish": "bon appétit",
+      "english": "buen provecho"
     },
     {
       "spanish": "el ron",
@@ -24068,8 +24068,8 @@
       "english": "CV"
     },
     {
-      "spanish": "CV",
-      "english": "résumé"
+      "spanish": "résumé",
+      "english": "CV"
     },
     {
       "spanish": "la competencia",
@@ -27315,8 +27315,8 @@
       "category": "verb"
     },
     {
-      "english": "El acuario",
-      "spanish": "aquarium"
+      "english": "aquarium",
+      "spanish": "El acuario"
     },
     {
       "spanish": "El aviario",
@@ -27329,80 +27329,60 @@
       "category": "Place, Nature"
     },
     {
-      "english": "El aparcamiento",
-      "spanish": "parking lot"
+      "english": "area of the elephants",
+      "spanish": "El área de los elefantes"
     },
     {
-      "english": "El área de los elefantes",
-      "spanish": "area of the elephants"
+      "english": "sign",
+      "spanish": "El cartel / La señal"
     },
     {
-      "english": "El camino",
-      "spanish": "way"
+      "english": "zoo keeper",
+      "spanish": "El cuidador"
     },
     {
-      "english": "El cartel / La señal",
-      "spanish": "sign"
+      "english": "entrance, ticket",
+      "spanish": "La entrada"
     },
     {
-      "english": "El cuidador",
-      "spanish": "zoo keeper"
+      "english": "dolphin trainer",
+      "spanish": "El entrenador de delfines"
     },
     {
-      "english": "La entrada",
-      "spanish": "entrance, ticket"
+      "english": "lions’ cage",
+      "spanish": "La jaula de los leones"
     },
     {
-      "english": "El entrenador de delfines",
-      "spanish": "dolphin trainer"
+      "english": "dolphins’ pool",
+      "spanish": "La piscina de los delfines"
     },
     {
-      "english": "La granja",
-      "spanish": "farm"
+      "english": "toilets",
+      "spanish": "Los servicios"
     },
     {
-      "english": "La jaula de los leones",
-      "spanish": "lions’ cage"
+      "english": "ticket window",
+      "spanish": "La taquilla"
     },
     {
-      "english": "La piscina de los delfines",
-      "spanish": "dolphins’ pool"
+      "english": "souvenir shop",
+      "spanish": "La tienda de recuerdos"
     },
     {
-      "english": "El restaurante",
-      "spanish": "restaurant"
-    },
-    {
-      "english": "La salida",
-      "spanish": "exit"
-    },
-    {
-      "english": "Los servicios",
-      "spanish": "toilets"
-    },
-    {
-      "english": "La taquilla",
-      "spanish": "ticket window"
-    },
-    {
-      "english": "La tienda de recuerdos",
-      "spanish": "souvenir shop"
-    },
-    {
-      "english": "El zoológico / El zoo",
-      "spanish": "zoo"
+      "english": "zoo",
+      "spanish": "El zoológico / El zoo"
     },
     {
       "english": "Dar de comer a los animales",
       "spanish": "to feed the animals"
     },
     {
-      "english": "Buscar el acuario",
-      "spanish": "to look for the aquarium"
+      "english": "to look for the aquarium",
+      "spanish": "Buscar el acuario"
     },
     {
-      "english": "Comprar las entradas",
-      "spanish": "to buy the tickets"
+      "english": "to buy the tickets",
+      "spanish": "Comprar las entradas"
     },
     {
       "spanish": "Comprar un oso de peluche para los niños",
@@ -27413,8 +27393,8 @@
       "category": "Phrase"
     },
     {
-      "english": "Comprar un recuerdo",
-      "spanish": "to buy a souvenir"
+      "english": "to buy a souvenir",
+      "spanish": "Comprar un recuerdo"
     },
     {
       "spanish": "Echar cacahuetes a los monos",
@@ -27429,24 +27409,20 @@
       "spanish": "to throw food to the animals"
     },
     {
-      "english": "Ir al área de los elefantes",
-      "spanish": "to go to the elephant’s area"
+      "english": "to go to the elephant’s area",
+      "spanish": "Ir al área de los elefantes"
     },
     {
       "english": "Ir a la jaula de los leones",
       "spanish": "to go to the lions’ cage"
     },
     {
-      "english": "Observar el comportamiento de los gorilas",
-      "spanish": "to watch the gorillas’ behavior"
+      "english": "to watch the gorillas’ behavior",
+      "spanish": "Observar el comportamiento de los gorilas"
     },
     {
-      "english": "Tocar un animal",
-      "spanish": "to touch an animal"
-    },
-    {
-      "english": "La playa",
-      "spanish": "beach"
+      "english": "to touch an animal",
+      "spanish": "Tocar un animal"
     },
     {
       "spanish": "La cala",
@@ -27459,76 +27435,44 @@
       "category": ""
     },
     {
-      "english": "El mar",
-      "spanish": "sea"
+      "english": "sea",
+      "spanish": "El mar"
     },
     {
-      "english": "La arena",
-      "spanish": "sand"
+      "english": "promenade",
+      "spanish": "El paseo marítimo"
     },
     {
-      "english": "El agua",
-      "spanish": "water"
+      "english": "beach bar / beach restaurant",
+      "spanish": "El chiringuito"
     },
     {
-      "english": "El sol",
-      "spanish": "sun"
+      "english": "fish (alive)",
+      "spanish": "El pez"
     },
     {
-      "english": "El océano",
-      "spanish": "ocean"
+      "english": "fish (at the restaurant)",
+      "spanish": "El pescado"
     },
     {
-      "english": "La orilla",
-      "spanish": "shore"
+      "english": "shell",
+      "spanish": "La concha"
     },
     {
-      "english": "El paseo marítimo",
-      "spanish": "promenade"
+      "english": "seaweed",
+      "spanish": "Las algas"
     },
     {
-      "english": "El chiringuito",
-      "spanish": "beach bar / beach restaurant"
+      "english": "sandcastle",
+      "spanish": "El castillo de arena"
     },
     {
-      "english": "La sal",
-      "spanish": "salt"
+      "english": "tide",
+      "spanish": "La marea"
     },
     {
-      "english": "El pez",
-      "spanish": "fish (alive)"
-    },
-    {
-      "english": "El pescado",
-      "spanish": "fish (at the restaurant)"
-    },
-    {
-      "english": "El cangrejo",
-      "spanish": "crab"
-    },
-    {
-      "english": "La medusa",
-      "spanish": "jellyfish"
-    },
-    {
-      "english": "La concha",
-      "spanish": "shell"
-    },
-    {
-      "english": "Las algas",
-      "spanish": "seaweed"
-    },
-    {
-      "english": "El castillo de arena",
-      "spanish": "sandcastle"
-    },
-    {
-      "english": "La marea",
-      "spanish": "tide"
-    },
-    {
-      "english": "El socorrista",
-      "spanish": "lifeguard"
+      "english": "lifeguard",
+      "spanish": "El socorrista"
     },
     {
       "spanish": "la boya",
@@ -27539,96 +27483,72 @@
       "category": ""
     },
     {
-      "english": "El viento",
-      "spanish": "wind"
+      "english": "easterly wind",
+      "spanish": "El levante"
     },
     {
-      "english": "El levante",
-      "spanish": "easterly wind"
+      "english": "westerly wind",
+      "spanish": "El poniente"
     },
     {
-      "english": "El poniente",
-      "spanish": "westerly wind"
+      "english": "boat, ship",
+      "spanish": "El barco"
     },
     {
-      "english": "El barco",
-      "spanish": "boat, ship"
+      "english": "pedal boat",
+      "spanish": "El hidropedal"
     },
     {
-      "english": "El hidropedal",
-      "spanish": "pedal boat"
+      "english": "swimming trunks",
+      "spanish": "El bañador"
     },
     {
-      "english": "El traje de baño",
-      "spanish": "bathing suit"
+      "english": "flip flops",
+      "spanish": "Las chanclas"
     },
     {
-      "english": "El bañador",
-      "spanish": "swimming trunks"
+      "english": "sandals",
+      "spanish": "Las sandalias"
     },
     {
-      "english": "Las gafas de sol",
-      "spanish": "sunglasses"
+      "english": "sun bed",
+      "spanish": "La tumbona"
     },
     {
-      "english": "Las chanclas",
-      "spanish": "flip flops"
+      "english": "umbrella (for the sun)",
+      "spanish": "La sombrilla"
     },
     {
-      "english": "Las sandalias",
-      "spanish": "sandals"
+      "english": "cool box",
+      "spanish": "La nevera"
     },
     {
-      "english": "La toalla",
-      "spanish": "towel"
+      "english": "sunscreen",
+      "spanish": "La crema solar"
     },
     {
-      "english": "La tumbona",
-      "spanish": "sun bed"
+      "english": "beach ball",
+      "spanish": "La pelota de playa"
     },
     {
-      "english": "La sombrilla",
-      "spanish": "umbrella (for the sun)"
+      "english": "shovel (also, beach racket)",
+      "spanish": "La pala"
     },
     {
-      "english": "La nevera",
-      "spanish": "cool box"
+      "english": "bucket, pail",
+      "spanish": "El cubo"
     },
     {
-      "english": "La crema solar",
-      "spanish": "sunscreen"
+      "english": "lilo",
+      "spanish": "La colchoneta"
     },
     {
-      "english": "La pelota de playa",
-      "spanish": "beach ball"
+      "english": "armbands",
+      "spanish": "Los manguitos"
     },
     {
-      "english": "La pala",
-      "spanish": "shovel (also, beach racket)"
-    },
-    {
-      "english": "El cubo",
-      "spanish": "bucket, pail"
-    },
-    {
-      "english": "La cometa",
-      "spanish": "kite"
-    },
-    {
-      "english": "La colchoneta",
-      "spanish": "lilo"
-    },
-    {
-      "english": "Los manguitos",
-      "spanish": "armbands"
-    },
-    {
-      "english": "La tabla de surf",
-      "spanish": "surfboard"
-    },
-    {
-      "english": "Bañarse",
-      "spanish": "to be in the water"
+      "english": "to be in the water",
+      "spanish": "Bañarse"
     },
     {
       "english": "Nadar",
@@ -27643,8 +27563,8 @@
       "spanish": "to surf"
     },
     {
-      "english": "Hacer un castillo de arena",
-      "spanish": "to build a sandcastle"
+      "english": "to build a sandcastle",
+      "spanish": "Hacer un castillo de arena"
     },
     {
       "english": "Jugar a… (algo)",
@@ -27655,8 +27575,8 @@
       "spanish": "to play beach tennis"
     },
     {
-      "english": "Jugar al vóley-playa",
-      "spanish": "to play beach volleyball"
+      "english": "to play beach volleyball",
+      "spanish": "Jugar al vóley-playa"
     },
     {
       "english": "Jugar al frisbee",
@@ -27679,10 +27599,6 @@
       "spanish": "to collect shells"
     },
     {
-      "english": "Tomar el sol",
-      "spanish": "to sunbathe"
-    },
-    {
       "spanish": "Quisiera reservar una mesa...",
       "english": "I’d like to reserve a table",
       "notes": "",
@@ -27691,40 +27607,36 @@
       "category": "Phrase"
     },
     {
-      "english": "... para las ocho de la noche",
-      "spanish": "at 20:00"
+      "english": "at 20:00",
+      "spanish": "... para las ocho de la noche"
     },
     {
       "english": "... para esta noche",
       "spanish": "... for tonight"
     },
     {
-      "english": "... en la terraza",
-      "spanish": "... on the terrace"
+      "english": "... on the terrace",
+      "spanish": "... en la terraza"
     },
     {
-      "english": "... cerca de una ventana",
-      "spanish": "... near a window"
+      "english": "... near a window",
+      "spanish": "... cerca de una ventana"
     },
     {
-      "english": "¿Tienen mesa libre?",
-      "spanish": "Is there any free table?"
+      "english": "Is there any free table?",
+      "spanish": "¿Tienen mesa libre?"
     },
     {
       "english": "Esa mesa, por favor.",
       "spanish": "That table, please."
     },
     {
-      "english": "¿Puede traer otra silla?",
-      "spanish": "Could you bring another chair?"
+      "english": "Could you bring another chair?",
+      "spanish": "¿Puede traer otra silla?"
     },
     {
       "english": "Tengo una mesa reservada a nombre de John Smith.",
       "spanish": "I have a table reserved in the name of John Smith."
-    },
-    {
-      "english": "¡Camarero!",
-      "spanish": "Waiter!"
     },
     {
       "english": "Para beber, me pone…",
@@ -27747,12 +27659,12 @@
       "spanish": "For dessert, I would like…"
     },
     {
-      "english": "Y para ella / Y para él…",
-      "spanish": "And for her / And for him…"
+      "english": "And for her / And for him…",
+      "spanish": "Y para ella / Y para él…"
     },
     {
-      "english": "Para el niño…",
-      "spanish": "For the kid…"
+      "english": "For the kid…",
+      "spanish": "Para el niño…"
     },
     {
       "spanish": "¿Qué me recomienda?",
@@ -27763,24 +27675,24 @@
       "category": ""
     },
     {
-      "english": "Perdone, ¿me trae...?",
-      "spanish": "Excuse me, could you bring me...?"
+      "english": "Excuse me, could you bring me...?",
+      "spanish": "Perdone, ¿me trae...?"
     },
     {
-      "english": "... más agua",
-      "spanish": "... more water"
+      "english": "... more water",
+      "spanish": "... más agua"
     },
     {
       "english": "... otra copa de vino",
       "spanish": "... another glass of wine"
     },
     {
-      "english": "... más pan",
-      "spanish": "... more bread"
+      "english": "... more bread",
+      "spanish": "... más pan"
     },
     {
-      "english": "La carne está...",
-      "spanish": "The meat is..."
+      "english": "The meat is...",
+      "spanish": "La carne está..."
     },
     {
       "english": "... demasiado hecha",
@@ -27795,8 +27707,8 @@
       "spanish": "The soup is cold."
     },
     {
-      "english": "La cuenta, por favor.",
-      "spanish": "Could I have the bill, please?"
+      "english": "Could I have the bill, please?",
+      "spanish": "La cuenta, por favor."
     },
     {
       "english": "Estaba todo muy rico, gracias.",
@@ -27815,8 +27727,8 @@
       "spanish": "... by card"
     },
     {
-      "english": "Creo que hay un error",
-      "spanish": "I think there's a mistake"
+      "english": "I think there's a mistake",
+      "spanish": "Creo que hay un error"
     },
     {
       "english": "Pagamos por separado",
@@ -27827,16 +27739,16 @@
       "spanish": "We pay all together"
     },
     {
-      "english": "¿Qué desean para beber?",
-      "spanish": "What do you want to drink?"
+      "english": "What do you want to drink?",
+      "spanish": "¿Qué desean para beber?"
     },
     {
-      "english": "¿Qué desean para comer?",
-      "spanish": "What do you want to eat?"
+      "english": "What do you want to eat?",
+      "spanish": "¿Qué desean para comer?"
     },
     {
-      "english": "¿Han decidido ya?",
-      "spanish": "Have you decided yet?"
+      "english": "Have you decided yet?",
+      "spanish": "¿Han decidido ya?"
     },
     {
       "english": "Les recomiendo...",
@@ -27855,152 +27767,96 @@
       "category": ""
     },
     {
-      "english": "¿Cómo desean pagar?",
-      "spanish": "How would you like to pay?"
+      "english": "How would you like to pay?",
+      "spanish": "¿Cómo desean pagar?"
     },
     {
-      "english": "El camarero",
-      "spanish": "waiter"
+      "english": "plate, dish",
+      "spanish": "El plato"
     },
     {
-      "english": "El cliente",
-      "spanish": "client"
-    },
-    {
-      "english": "La cuchara",
-      "spanish": "spoon"
-    },
-    {
-      "english": "El cuchillo",
-      "spanish": "knife"
-    },
-    {
-      "english": "El plato",
-      "spanish": "plate, dish"
-    },
-    {
-      "english": "La servilleta",
-      "spanish": "serviette, napkin"
-    },
-    {
-      "english": "La silla",
-      "spanish": "chair"
-    },
-    {
-      "english": "El aperitivo",
-      "spanish": "appetizer"
-    },
-    {
-      "english": "La bebida",
-      "spanish": "the drink"
-    },
-    {
-      "english": "La carne",
-      "spanish": "meat"
+      "english": "serviette, napkin",
+      "spanish": "La servilleta"
     },
     {
       "english": "El menú del día",
       "spanish": "dish of the day"
     },
     {
-      "english": "El pescado",
-      "spanish": "fish"
+      "english": "starter",
+      "spanish": "El primer plato / El entrante"
     },
     {
-      "english": "El postre",
-      "spanish": "dessert"
+      "english": "plate / portion",
+      "spanish": "La ración"
     },
     {
-      "english": "El primer plato / El entrante",
-      "spanish": "starter"
+      "english": "main course",
+      "spanish": "El segundo plato"
     },
     {
-      "english": "La ración",
-      "spanish": "plate / portion"
+      "english": "very small dish",
+      "spanish": "La tapa"
     },
     {
-      "english": "El segundo plato",
-      "spanish": "main course"
+      "english": "olives",
+      "spanish": "Las aceitunas"
     },
     {
-      "english": "La tapa",
-      "spanish": "very small dish"
+      "english": "serrano ham",
+      "spanish": "El jamón serrano"
     },
     {
-      "english": "Las aceitunas",
-      "spanish": "olives"
+      "english": "iberian ham",
+      "spanish": "El jamón ibérico"
     },
     {
-      "english": "El jamón serrano",
-      "spanish": "serrano ham"
+      "english": "bread with garlic mayonnaise",
+      "spanish": "El pan con alioli"
     },
     {
-      "english": "El jamón ibérico",
-      "spanish": "iberian ham"
+      "english": "ham croquettes",
+      "spanish": "Las croquetas de jamón"
     },
     {
-      "english": "El pan con alioli",
-      "spanish": "bread with garlic mayonnaise"
+      "english": "mixed salad",
+      "spanish": "La ensalada mixta"
     },
     {
-      "english": "El queso",
-      "spanish": "cheese"
+      "english": "Spanish potato salad",
+      "spanish": "La ensaladilla rusa"
     },
     {
-      "english": "Las croquetas de jamón",
-      "spanish": "ham croquettes"
+      "english": "garlic shrimp",
+      "spanish": "Las gambas al ajillo"
     },
     {
-      "english": "La ensalada mixta",
-      "spanish": "mixed salad"
+      "english": "Spanish cold tomato soup",
+      "spanish": "El gazpacho"
     },
     {
-      "english": "La ensaladilla rusa",
-      "spanish": "Spanish potato salad"
+      "english": "spicy potatoes",
+      "spanish": "Las patatas bravas"
     },
     {
-      "english": "Las gambas al ajillo",
-      "spanish": "garlic shrimp"
+      "english": "tomato soup",
+      "spanish": "La sopa de tomate"
     },
     {
-      "english": "El gazpacho",
-      "spanish": "Spanish cold tomato soup"
+      "english": "Spanish omelette",
+      "spanish": "La tortilla española"
     },
     {
-      "english": "Las patatas bravas",
-      "spanish": "spicy potatoes"
+      "english": "squid rings",
+      "spanish": "Los calamares"
     },
     {
-      "english": "La sopa de tomate",
-      "spanish": "tomato soup"
+      "english": "beef filet",
+      "spanish": "El filete de ternera"
     },
     {
-      "english": "La tortilla española",
-      "spanish": "Spanish omelette"
-    },
-    {
-      "english": "Los calamares",
-      "spanish": "squid rings"
-    },
-    {
-      "english": "El filete de ternera",
-      "spanish": "beef filet"
-    },
-    {
-      "english": "El filete de cerdo con patatas",
-      "spanish": "pork filet with fries"
-    },
-    {
-      "english": "La hamburguesa",
-      "spanish": "hamburger"
-    },
-    {
-      "english": "La paella",
-      "spanish": "paella"
-    },
-    {
-      "english": "La pizza",
-      "spanish": "pizza"
+      "english": "pork filet with fries",
+      "spanish": "El filete de cerdo con patatas"
     },
     {
       "english": "El pulpo a la gallega",
@@ -28015,52 +27871,32 @@
       "category": ""
     },
     {
-      "english": "El arroz con leche",
-      "spanish": "rice pudding"
+      "english": "rice pudding",
+      "spanish": "El arroz con leche"
     },
     {
-      "english": "El helado",
-      "spanish": "ice cream"
+      "english": "sparkling water",
+      "spanish": "El agua con gas"
     },
     {
-      "english": "El pastel",
-      "spanish": "cake"
+      "english": "still water",
+      "spanish": "El agua sin gas"
     },
     {
-      "english": "El yogur",
-      "spanish": "yogurt"
-    },
-    {
-      "english": "El agua con gas",
-      "spanish": "sparkling water"
-    },
-    {
-      "english": "El agua sin gas",
-      "spanish": "still water"
-    },
-    {
-      "english": "La botella de vino tinto",
-      "spanish": "bottle of red wine"
-    },
-    {
-      "english": "El café",
-      "spanish": "coffee"
+      "english": "bottle of red wine",
+      "spanish": "La botella de vino tinto"
     },
     {
       "english": "La caña",
       "spanish": "beer, small draft"
     },
     {
-      "english": "La cerveza",
-      "spanish": "beer"
+      "english": "glass of white wine",
+      "spanish": "La copa de vino blanco"
     },
     {
-      "english": "La copa de vino blanco",
-      "spanish": "glass of white wine"
-    },
-    {
-      "english": "El vaso de agua",
-      "spanish": "glass of water"
+      "english": "glass of water",
+      "spanish": "El vaso de agua"
     },
     {
       "english": "Dejar propina",
@@ -28079,44 +27915,44 @@
       "spanish": "to pay in cash"
     },
     {
-      "english": "Pedir la comida",
-      "spanish": "to order the food"
+      "english": "to order the food",
+      "spanish": "Pedir la comida"
     },
     {
-      "english": "Pedir la cuenta",
-      "spanish": "to ask for the check"
+      "english": "to ask for the check",
+      "spanish": "Pedir la cuenta"
     },
     {
-      "english": "Pedir las bebidas",
-      "spanish": "to order the drinks"
+      "english": "to order the drinks",
+      "spanish": "Pedir las bebidas"
     },
     {
-      "english": "Reservar una mesa",
-      "spanish": "to reserve a table"
+      "english": "to reserve a table",
+      "spanish": "Reservar una mesa"
     },
     {
-      "english": "Quisiera reservar una habitación…",
-      "spanish": "I’d like to reserve a room…"
+      "english": "I’d like to reserve a room…",
+      "spanish": "Quisiera reservar una habitación…"
     },
     {
-      "english": "Quisiera una habitación...",
-      "spanish": "I'd like a room..."
+      "english": "I'd like a room...",
+      "spanish": "Quisiera una habitación..."
     },
     {
       "english": "... para dos personas.",
       "spanish": "... for 2 people"
     },
     {
-      "english": "… para el próximo viernes.",
-      "spanish": "… for next Friday."
+      "english": "… for next Friday.",
+      "spanish": "… para el próximo viernes."
     },
     {
       "english": "… para dos noches.",
       "spanish": "… for 2 nights."
     },
     {
-      "english": "... para el fin de semana.",
-      "spanish": "... for the weekend"
+      "english": "... for the weekend",
+      "spanish": "... para el fin de semana."
     },
     {
       "english": "… de viernes a domingo.",
@@ -28127,8 +27963,8 @@
       "spanish": "… from July 25 to August 5."
     },
     {
-      "english": "... con baño propio.",
-      "spanish": "... with its own bathroom."
+      "english": "... with its own bathroom.",
+      "spanish": "... con baño propio."
     },
     {
       "english": "... con ducha.",
@@ -28143,12 +27979,12 @@
       "spanish": "... with a sea view."
     },
     {
-      "english": "¿Cuánto cuesta por noche?",
-      "spanish": "How much does it cost per night?"
+      "english": "How much does it cost per night?",
+      "spanish": "¿Cuánto cuesta por noche?"
     },
     {
-      "english": "¿Está incluido el desayuno?",
-      "spanish": "Is breakfast included?"
+      "english": "Is breakfast included?",
+      "spanish": "¿Está incluido el desayuno?"
     },
     {
       "spanish": "Llegaremos a las dos de la tarde.",
@@ -28159,84 +27995,84 @@
       "category": "Phrase, Sentence"
     },
     {
-      "english": "¿Puedo ver la habitación?",
-      "spanish": "May I see the room?"
+      "english": "May I see the room?",
+      "spanish": "¿Puedo ver la habitación?"
     },
     {
-      "english": "Está bien, me la quedo.",
-      "spanish": "It's fine, I'll take it."
+      "english": "It's fine, I'll take it.",
+      "spanish": "Está bien, me la quedo."
     },
     {
-      "english": "¿Tiene algo más barato?",
-      "spanish": "Do you have something cheaper?"
+      "english": "Do you have something cheaper?",
+      "spanish": "¿Tiene algo más barato?"
     },
     {
-      "english": "¿Tiene algo más grande?",
-      "spanish": "Do you have something bigger?"
+      "english": "Do you have something bigger?",
+      "spanish": "¿Tiene algo más grande?"
     },
     {
-      "english": "Hola, tengo una habitación reservada.",
-      "spanish": "Hi, I have a room reserved."
+      "english": "Hi, I have a room reserved.",
+      "spanish": "Hola, tengo una habitación reservada."
     },
     {
       "english": "Quería registrarme en el hotel.",
       "spanish": "I’d like to check into the hotel."
     },
     {
-      "english": "¿Está lista la habitación?",
-      "spanish": "Is the room ready?"
+      "english": "Is the room ready?",
+      "spanish": "¿Está lista la habitación?"
     },
     {
-      "english": "¿Cuál es el número de habitación?",
-      "spanish": "What's the room number?"
+      "english": "What's the room number?",
+      "spanish": "¿Cuál es el número de habitación?"
     },
     {
-      "english": "¿En qué planta está la habitación?",
-      "spanish": "What floor is the room on?"
+      "english": "What floor is the room on?",
+      "spanish": "¿En qué planta está la habitación?"
     },
     {
       "english": "Quería pagar la habitación ahora.",
       "spanish": "I’d like to make the payment for the room now."
     },
     {
-      "english": "Aquí está mi carné de identidad",
-      "spanish": "Here's my ID card"
+      "english": "Here's my ID card",
+      "spanish": "Aquí está mi carné de identidad"
     },
     {
       "english": "¿A qué hora es el desayuno?",
       "spanish": "What time is the breakfast?"
     },
     {
-      "english": "¿Cuál es el horario de la piscina?",
-      "spanish": "What are the swimming pool hours?"
+      "english": "What are the swimming pool hours?",
+      "spanish": "¿Cuál es el horario de la piscina?"
     },
     {
       "english": "Hola, voy a tomar...",
       "spanish": "Hello, I'll have..."
     },
     {
-      "english": "... una tostada con mantequilla.",
-      "spanish": "... buttered toast."
+      "english": "... buttered toast.",
+      "spanish": "... una tostada con mantequilla."
     },
     {
-      "english": "... huevos fritos con jamón.",
-      "spanish": "... fried eggs with ham."
+      "english": "... fried eggs with ham.",
+      "spanish": "... huevos fritos con jamón."
     },
     {
-      "english": "... un café.",
-      "spanish": "a coffee."
+      "english": "a coffee.",
+      "spanish": "... un café."
     },
     {
-      "english": "... un zumo de naranja.",
-      "spanish": "an orange juice."
+      "english": "an orange juice.",
+      "spanish": "... un zumo de naranja."
     },
     {
-      "english": "La cuenta, por favor.",
-      "spanish": "The check, please."
+      "english": "The check, please.",
+      "spanish": "La cuenta, por favor."
     },
     {
-      "english": "La televisión no funciona.",
-      "spanish": "The TV doesn't work."
+      "english": "The TV doesn't work.",
+      "spanish": "La televisión no funciona."
     },
     {
       "spanish": "El aire acondicionado no funciona.",
@@ -28247,36 +28083,36 @@
       "category": ""
     },
     {
-      "english": "La ventana está atascada.",
-      "spanish": "The window is stuck."
+      "english": "The window is stuck.",
+      "spanish": "La ventana está atascada."
     },
     {
-      "english": "La persiana está atascada.",
-      "spanish": "The blind is jammed."
+      "english": "The blind is jammed.",
+      "spanish": "La persiana está atascada."
     },
     {
       "english": "No hay agua caliente.",
       "spanish": "There is no hot water."
     },
     {
-      "english": "La lámpara está rota.",
-      "spanish": "The lamp is broken."
+      "english": "The lamp is broken.",
+      "spanish": "La lámpara está rota."
     },
     {
-      "english": "El ... está roto.",
-      "spanish": "The ... is broken."
+      "english": "The ... is broken.",
+      "spanish": "El ... está roto."
     },
     {
-      "english": "Me marcho hoy / mañana.",
-      "spanish": "I am leaving today / tomorrow."
+      "english": "I am leaving today / tomorrow.",
+      "spanish": "Me marcho hoy / mañana."
     },
     {
-      "english": "Nos marchamos hoy / mañana.",
-      "spanish": "We are leaving today / tomorrow."
+      "english": "We are leaving today / tomorrow.",
+      "spanish": "Nos marchamos hoy / mañana."
     },
     {
-      "english": "Prepare la factura, por favor.",
-      "spanish": "Prepare the invoice, please."
+      "english": "Prepare the invoice, please.",
+      "spanish": "Prepare la factura, por favor."
     },
     {
       "english": "¿Puede llamar a un taxi para mí?",
@@ -28295,12 +28131,12 @@
       "spanish": "We have been very comfortable, thank you."
     },
     {
-      "english": "una habitación",
-      "spanish": "a room"
+      "english": "a room",
+      "spanish": "una habitación"
     },
     {
-      "english": "una reserva",
-      "spanish": "a reservation"
+      "english": "a reservation",
+      "spanish": "una reserva"
     },
     {
       "english": "con cama individual",
@@ -28315,8 +28151,8 @@
       "spanish": "for 2 people"
     },
     {
-      "english": "con balcón",
-      "spanish": "with a balcony"
+      "english": "with a balcony",
+      "spanish": "con balcón"
     },
     {
       "english": "con vista al mar",
@@ -28339,28 +28175,28 @@
       "category": ""
     },
     {
-      "english": "con baño compartido",
-      "spanish": "with a shared bathroom"
+      "english": "with a shared bathroom",
+      "spanish": "con baño compartido"
     },
     {
-      "english": "media pensión",
-      "spanish": "breakfast and one daily meal included in the price"
+      "english": "breakfast and one daily meal included in the price",
+      "spanish": "media pensión"
     },
     {
-      "english": "pensión completa",
-      "spanish": "breakfast, lunch and dinner included in the price"
+      "english": "breakfast, lunch and dinner included in the price",
+      "spanish": "pensión completa"
     },
     {
-      "english": "la hora de llegada",
-      "spanish": "time of arrival"
+      "english": "time of arrival",
+      "spanish": "la hora de llegada"
     },
     {
-      "english": "la llave de la habitación",
-      "spanish": "the room key"
+      "english": "the room key",
+      "spanish": "la llave de la habitación"
     },
     {
-      "english": "el número de habitación",
-      "spanish": "the room number"
+      "english": "the room number",
+      "spanish": "el número de habitación"
     },
     {
       "english": "reservar",
@@ -28375,24 +28211,20 @@
       "spanish": "to do the check in"
     },
     {
-      "english": "hacer el check-in",
-      "spanish": "to do the check in"
+      "english": "to do the check in",
+      "spanish": "hacer el check-in"
     },
     {
-      "english": "dejar la habitación",
-      "spanish": "to leave the room"
+      "english": "to leave the room",
+      "spanish": "dejar la habitación"
     },
     {
       "english": "pagar",
       "spanish": "to pay"
     },
     {
-      "english": "La consulta",
-      "spanish": "doctor’s office, consulting room"
-    },
-    {
-      "english": "La sala de espera",
-      "spanish": "waiting room"
+      "english": "doctor’s office, consulting room",
+      "spanish": "La consulta"
     },
     {
       "spanish": "Las urgencias",
@@ -28403,56 +28235,44 @@
       "category": ""
     },
     {
-      "english": "La cama",
-      "spanish": "bed"
+      "english": "doctor",
+      "spanish": "El médico\nEl doctor"
     },
     {
-      "english": "La ambulancia",
-      "spanish": "ambulance"
+      "english": "nurse (male, female)",
+      "spanish": "El enfermero\nLa enfermera"
     },
     {
-      "english": "El médico\nEl doctor",
-      "spanish": "doctor"
+      "english": "primary care physician",
+      "spanish": "el médico de atención primaria"
     },
     {
-      "english": "El enfermero\nLa enfermera",
-      "spanish": "nurse (male, female)"
+      "english": "cardiologist",
+      "spanish": "el cardiólogo"
     },
     {
-      "english": "El paciente",
-      "spanish": "patient"
+      "english": "dermatologist",
+      "spanish": "el dermatólogo"
     },
     {
-      "english": "el médico de atención primaria",
-      "spanish": "primary care physician"
+      "english": "stomatologist",
+      "spanish": "el estomatólogo"
     },
     {
-      "english": "el cardiólogo",
-      "spanish": "cardiologist"
+      "english": "ophthalmologist",
+      "spanish": "el oftalmólogo"
     },
     {
-      "english": "el dermatólogo",
-      "spanish": "dermatologist"
+      "english": "endocrinologist",
+      "spanish": "el endocrinólogo"
     },
     {
-      "english": "el estomatólogo",
-      "spanish": "stomatologist"
+      "english": "neurologist",
+      "spanish": "el neurólogo"
     },
     {
-      "english": "el oftalmólogo",
-      "spanish": "ophthalmologist"
-    },
-    {
-      "english": "el endocrinólogo",
-      "spanish": "endocrinologist"
-    },
-    {
-      "english": "el neurólogo",
-      "spanish": "neurologist"
-    },
-    {
-      "english": "el psiquiatra",
-      "spanish": "psychiatrist"
+      "english": "psychiatrist",
+      "spanish": "el psiquiatra"
     },
     {
       "spanish": "el oncólogo",
@@ -28463,64 +28283,48 @@
       "category": ""
     },
     {
-      "english": "el otorrinolaringólogo",
-      "spanish": "otolaryngologist"
+      "english": "otolaryngologist",
+      "spanish": "el otorrinolaringólogo"
     },
     {
-      "english": "el ortopeda",
-      "spanish": "orthopedist"
+      "english": "orthopedist",
+      "spanish": "el ortopeda"
     },
     {
-      "english": "el ginecólogo",
-      "spanish": "gynecologist"
+      "english": "gynecologist",
+      "spanish": "el ginecólogo"
     },
     {
-      "english": "el urólogo",
-      "spanish": "urologist"
+      "english": "urologist",
+      "spanish": "el urólogo"
     },
     {
-      "english": "el cirujano",
-      "spanish": "surgeon"
+      "english": "illness, disease",
+      "spanish": "La enfermedad"
     },
     {
-      "english": "La enfermedad",
-      "spanish": "illness, disease"
+      "english": "diabetes",
+      "spanish": "La diabetes"
     },
     {
-      "english": "El resfriado",
-      "spanish": "cold"
-    },
-    {
-      "english": "La gripe",
-      "spanish": "flu"
-    },
-    {
-      "english": "La diabetes",
-      "spanish": "diabetes"
-    },
-    {
-      "english": "El asma",
-      "spanish": "asthma"
+      "english": "asthma",
+      "spanish": "El asma"
     },
     {
       "english": "La migraña",
       "spanish": "migraine"
     },
     {
-      "english": "La bronquitis",
-      "spanish": "bronchitis"
+      "english": "bronchitis",
+      "spanish": "La bronquitis"
     },
     {
-      "english": "La tensión alta",
-      "spanish": "high blood pressure"
+      "english": "high blood pressure",
+      "spanish": "La tensión alta"
     },
     {
-      "english": "La infección",
-      "spanish": "infection"
-    },
-    {
-      "english": "La fractura de hueso",
-      "spanish": "bone fracture"
+      "english": "bone fracture",
+      "spanish": "La fractura de hueso"
     },
     {
       "spanish": "El cansancio",
@@ -28533,36 +28337,24 @@
       "category": ""
     },
     {
-      "english": "La diarrea",
-      "spanish": "diarrhea"
+      "english": "back pain",
+      "spanish": "El dolor de espalda"
     },
     {
-      "english": "El dolor de cabeza",
-      "spanish": "headache"
+      "english": "sneezes",
+      "spanish": "Los estornudos"
     },
     {
-      "english": "El dolor de espalda",
-      "spanish": "back pain"
+      "english": "throat inflammation",
+      "spanish": "La inflamación de garganta"
     },
     {
-      "english": "Los estornudos",
-      "spanish": "sneezes"
+      "english": "dizziness",
+      "spanish": "Los mareos"
     },
     {
-      "english": "La fiebre",
-      "spanish": "fever"
-    },
-    {
-      "english": "La inflamación de garganta",
-      "spanish": "throat inflammation"
-    },
-    {
-      "english": "Los mareos",
-      "spanish": "dizziness"
-    },
-    {
-      "english": "La tos",
-      "spanish": "coughing"
+      "english": "coughing",
+      "spanish": "La tos"
     },
     {
       "spanish": "los vómitos",
@@ -28573,20 +28365,20 @@
       "category": "Medical, health"
     },
     {
-      "english": "Llamar al médico",
-      "spanish": "To call the doctor"
+      "english": "To call the doctor",
+      "spanish": "Llamar al médico"
     },
     {
       "english": "Llamar a la ambulancia",
       "spanish": "to call for an ambulance"
     },
     {
-      "english": "Pedir una cita con el médico / doctor",
-      "spanish": "to asks for an appointment with the doctor"
+      "english": "to asks for an appointment with the doctor",
+      "spanish": "Pedir una cita con el médico / doctor"
     },
     {
-      "english": "Explicar los síntomas",
-      "spanish": "to explain the symptoms"
+      "english": "to explain the symptoms",
+      "spanish": "Explicar los síntomas"
     },
     {
       "english": "Mandar hacer un análisis de sangre",
@@ -28597,152 +28389,124 @@
       "spanish": "to ask for a X-ray done"
     },
     {
-      "english": "Recetar un antibiótico",
-      "spanish": "to prescribe an antibiotic"
+      "english": "to prescribe an antibiotic",
+      "spanish": "Recetar un antibiótico"
     },
     {
-      "english": "Recetar un medicamento",
-      "spanish": "to prescribe a medicine"
+      "english": "to prescribe a medicine",
+      "spanish": "Recetar un medicamento"
     },
     {
-      "english": "Tomar la tensión",
-      "spanish": "check out the blood pressure"
+      "english": "check out the blood pressure",
+      "spanish": "Tomar la tensión"
     },
     {
-      "english": "El presidente",
-      "spanish": "President"
+      "english": "Vice President",
+      "spanish": "El vicepresidente"
     },
     {
-      "english": "El vicepresidente",
-      "spanish": "Vice President"
+      "english": "head of state",
+      "spanish": "El jefe de estado"
     },
     {
-      "english": "El primer ministro",
-      "spanish": "Prime Minister"
+      "english": "congressman (in some countries, like the US)",
+      "spanish": "El congresista"
     },
     {
-      "english": "El jefe de estado",
-      "spanish": "head of state"
+      "english": "congressman (in other countries, like Spain)",
+      "spanish": "El diputado"
     },
     {
-      "english": "El congresista",
-      "spanish": "congressman (in some countries, like the US)"
-    },
-    {
-      "english": "El diputado",
-      "spanish": "congressman (in other countries, like Spain)"
-    },
-    {
-      "english": "El senador",
-      "spanish": "senator"
+      "spanish": "El senador",
+      "english": "Senator",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": [],
+      "category": "Jobs"
     },
     {
       "english": "El ministro de Economía",
       "spanish": "Minister of Economy"
     },
     {
-      "english": "El secretario de Educación",
-      "spanish": "Secretary of Education"
+      "english": "Secretary of Education",
+      "spanish": "El secretario de Educación"
     },
     {
-      "english": "El político",
-      "spanish": "politician"
+      "english": "politician",
+      "spanish": "El político"
     },
     {
-      "english": "El candidato",
-      "spanish": "candidate"
+      "english": "spokesperson",
+      "spanish": "El portavoz"
     },
     {
-      "english": "El portavoz",
-      "spanish": "spokesperson"
+      "english": "voter",
+      "spanish": "El votante"
     },
     {
-      "english": "El rey",
-      "spanish": "king"
+      "english": "conservatism",
+      "spanish": "El conservadurismo"
     },
     {
-      "english": "La reina",
-      "spanish": "queen"
+      "english": "progressivism",
+      "spanish": "El progresismo"
     },
     {
-      "english": "El príncipe",
-      "spanish": "prince"
+      "english": "socialism",
+      "spanish": "El socialismo"
     },
     {
-      "english": "La princesa",
-      "spanish": "princess"
+      "english": "anarchism",
+      "spanish": "El anarquismo"
     },
     {
-      "english": "El votante",
-      "spanish": "voter"
+      "english": "liberalism",
+      "spanish": "El liberalismo"
     },
     {
-      "english": "El conservadurismo",
-      "spanish": "conservatism"
+      "english": "capitalism",
+      "spanish": "El capitalismo"
     },
     {
-      "english": "El progresismo",
-      "spanish": "progressivism"
+      "english": "fascism",
+      "spanish": "El fascismo"
     },
     {
-      "english": "El socialismo",
-      "spanish": "socialism"
-    },
-    {
-      "english": "El anarquismo",
-      "spanish": "anarchism"
-    },
-    {
-      "english": "El liberalismo",
-      "spanish": "liberalism"
-    },
-    {
-      "english": "El capitalismo",
-      "spanish": "capitalism"
-    },
-    {
-      "english": "El fascismo",
-      "spanish": "fascism"
-    },
-    {
-      "english": "El centrismo",
-      "spanish": "centrism"
+      "english": "centrism",
+      "spanish": "El centrismo"
     },
     {
       "english": "La monarquía",
       "spanish": "monarchy"
     },
     {
-      "english": "La república",
-      "spanish": "republic"
-    },
-    {
-      "english": "La democracia",
-      "spanish": "democracy"
+      "english": "republic",
+      "spanish": "La república"
     },
     {
       "english": "votar",
       "spanish": "to vote"
     },
     {
-      "english": "meter la papeleta en la urna",
-      "spanish": "to put the ballot in the ballot box"
+      "english": "to put the ballot in the ballot box",
+      "spanish": "meter la papeleta en la urna"
     },
     {
       "english": "gobernar",
       "spanish": "to govern"
     },
     {
-      "english": "aprobar una ley",
-      "spanish": "to pass a law"
+      "english": "to pass a law",
+      "spanish": "aprobar una ley"
     },
     {
       "english": "corromperse",
       "spanish": "to become corrupt"
     },
     {
-      "english": "formar una coalición",
-      "spanish": "to build a coalition"
+      "english": "to build a coalition",
+      "spanish": "formar una coalición"
     },
     {
       "english": "nombrar a un ministro / secretario",
@@ -28757,52 +28521,48 @@
       "spanish": "to run for president"
     },
     {
-      "english": "dar un discurso",
-      "spanish": "to give a speech"
+      "english": "to give a speech",
+      "spanish": "dar un discurso"
     },
     {
-      "english": "celebrar un mitin",
-      "spanish": "to hold a political rally"
+      "english": "to hold a political rally",
+      "spanish": "celebrar un mitin"
     },
     {
       "english": "hacer campaña",
       "spanish": "to campaign"
     },
     {
-      "english": "El parlamento",
-      "spanish": "parliament"
+      "english": "congress",
+      "spanish": "El congreso"
     },
     {
-      "english": "El congreso",
-      "spanish": "congress"
+      "english": "senate",
+      "spanish": "El senado"
     },
     {
-      "english": "El senado",
-      "spanish": "senate"
+      "english": "White House",
+      "spanish": "La Casa Blanca"
     },
     {
-      "english": "La Casa Blanca",
-      "spanish": "White House"
+      "english": "west wing",
+      "spanish": "El ala oeste"
     },
     {
-      "english": "El ala oeste",
-      "spanish": "west wing"
-    },
-    {
-      "english": "El despacho oval",
-      "spanish": "Oval office"
+      "english": "Oval office",
+      "spanish": "El despacho oval"
     },
     {
       "english": "El día de las elecciones",
       "spanish": "election day"
     },
     {
-      "english": "La votación",
-      "spanish": "the vote"
+      "english": "the vote",
+      "spanish": "La votación"
     },
     {
-      "english": "El debate televisado",
-      "spanish": "televised debate"
+      "english": "televised debate",
+      "spanish": "El debate televisado"
     },
     {
       "spanish": "La encuesta",
@@ -28813,32 +28573,32 @@
       "category": ""
     },
     {
-      "english": "El gobierno",
-      "spanish": "government"
+      "english": "government",
+      "spanish": "El gobierno"
     },
     {
       "english": "La ideología",
       "spanish": "ideology"
     },
     {
-      "english": "La oposición",
-      "spanish": "opposition"
+      "english": "opposition",
+      "spanish": "La oposición"
     },
     {
-      "english": "La papeleta",
-      "spanish": "ballot"
+      "english": "ballot",
+      "spanish": "La papeleta"
     },
     {
-      "english": "La urna",
-      "spanish": "ballot box"
+      "english": "ballot box",
+      "spanish": "La urna"
     },
     {
-      "english": "El partido político",
-      "spanish": "political party"
+      "english": "political party",
+      "spanish": "El partido político"
     },
     {
-      "english": "Las primarias",
-      "spanish": "primaries"
+      "english": "primaries",
+      "spanish": "Las primarias"
     },
     {
       "english": "La campaña",
@@ -29961,32 +29721,8 @@
       "spanish": "El anarquismo"
     },
     {
-      "english": "Fascism",
-      "spanish": "El fascismo"
-    },
-    {
-      "english": "Capitalism",
-      "spanish": "El capitalismo"
-    },
-    {
-      "english": "Socialism",
-      "spanish": "El socialismo"
-    },
-    {
       "english": "Communism",
       "spanish": "El comunismo"
-    },
-    {
-      "english": "Liberalism",
-      "spanish": "El liberalismo"
-    },
-    {
-      "english": "Centrism",
-      "spanish": "El centrismo"
-    },
-    {
-      "english": "Conservatism",
-      "spanish": "El conservadurismo"
     },
     {
       "english": "Left-wing",
@@ -30013,14 +29749,6 @@
       "spanish": "El diputado"
     },
     {
-      "spanish": "El senador",
-      "english": "Senator",
-      "notes": "",
-      "synonyms_spanish": [],
-      "synonyms_english": [],
-      "category": "Jobs"
-    },
-    {
       "english": "Chancellor",
       "spanish": "Canciller"
     },
@@ -30043,14 +29771,6 @@
     {
       "english": "Corruption",
       "spanish": "La corrupción"
-    },
-    {
-      "english": "Congress",
-      "spanish": "El congreso"
-    },
-    {
-      "english": "Senate",
-      "spanish": "El senado"
     },
     {
       "english": "Synecdoche",
@@ -30215,84 +29935,80 @@
       "category": ""
     },
     {
-      "english": "una brisa / una brisa marina",
-      "spanish": "a breeze / a sea breeze"
+      "english": "a breeze / a sea breeze",
+      "spanish": "una brisa / una brisa marina"
     },
     {
-      "english": "un trueno",
-      "spanish": "a clap of thunder, a thunderclap"
+      "english": "a clap of thunder, a thunderclap",
+      "spanish": "un trueno"
     },
     {
       "english": "un cielo/día despejado",
       "spanish": "a clear sky/day"
     },
     {
-      "english": "un chaparrón",
-      "spanish": "a cloudburst"
+      "english": "a cloudburst",
+      "spanish": "un chaparrón"
     },
     {
-      "english": "un frente frío",
-      "spanish": "a cold front"
+      "english": "a cold front",
+      "spanish": "un frente frío"
     },
     {
-      "english": "un turbión",
-      "spanish": "a downpour"
+      "english": "a downpour",
+      "spanish": "un turbión"
     },
     {
-      "english": "un chaparrón",
-      "spanish": "a downpour"
+      "english": "a downpour",
+      "spanish": "un chaparrón"
     },
     {
-      "english": "un relámpago",
-      "spanish": "a flash of lightning"
+      "english": "a flash of lightning",
+      "spanish": "un relámpago"
     },
     {
       "english": "vientos de fuerza nueve",
       "spanish": "a force nine gale"
     },
     {
-      "english": "una noche de helada",
-      "spanish": "a frosty  night"
+      "english": "a frosty  night",
+      "spanish": "una noche de helada"
     },
     {
-      "english": "un viento fuerte, una vendaval",
-      "spanish": "a gale"
+      "english": "a gale",
+      "spanish": "un viento fuerte, una vendaval"
     },
     {
-      "english": "una racha",
-      "spanish": "a gust of wind"
+      "english": "a gust of wind",
+      "spanish": "una racha"
     },
     {
-      "english": "una granizada",
-      "spanish": "a hailstorm"
+      "english": "a hailstorm",
+      "spanish": "una granizada"
     },
     {
-      "english": "una ola de calor",
-      "spanish": "a heat wave"
+      "english": "a light covering of snow",
+      "spanish": "una fina capa de nieve"
     },
     {
-      "english": "una fina capa de nieve",
-      "spanish": "a light covering of snow"
+      "english": "a shower",
+      "spanish": "un chaparrón, un chubasco"
     },
     {
-      "english": "un chaparrón, un chubasco",
-      "spanish": "a shower"
+      "english": "a snowball",
+      "spanish": "una bola de nieve"
     },
     {
-      "english": "una bola de nieve",
-      "spanish": "a snowball"
-    },
-    {
-      "english": "una tormenta, un temporal",
-      "spanish": "a storm"
+      "english": "a storm",
+      "spanish": "una tormenta, un temporal"
     },
     {
       "english": "un día tormentoso",
       "spanish": "a stormy day"
     },
     {
-      "english": "un rayo",
-      "spanish": "a streak of lightning"
+      "english": "a streak of lightning",
+      "spanish": "un rayo"
     },
     {
       "english": "un día soleado",
@@ -30307,28 +30023,16 @@
       "category": ""
     },
     {
-      "english": "un deshielo",
-      "spanish": "a thaw"
+      "english": "a thundercloud",
+      "spanish": "un nubarrón"
     },
     {
-      "english": "un nubarrón",
-      "spanish": "a thundercloud"
-    },
-    {
-      "english": "una veleta",
-      "spanish": "a weather vane"
+      "english": "a weather vane",
+      "spanish": "una veleta"
     },
     {
       "english": "borrascoso",
       "spanish": "blustery"
-    },
-    {
-      "english": "el clima",
-      "spanish": "climate"
-    },
-    {
-      "english": "una nube",
-      "spanish": "cloud"
     },
     {
       "spanish": "Húmedo",
@@ -30343,68 +30047,52 @@
       "spanish": "degree"
     },
     {
-      "english": "una depresión atmosférica, una borrasca",
-      "spanish": "depression"
+      "english": "depression",
+      "spanish": "una depresión atmosférica, una borrasca"
     },
     {
-      "english": "el rocío",
-      "spanish": "dew"
+      "english": "dew",
+      "spanish": "el rocío"
     },
     {
       "english": "llovizna / lloviznar",
       "spanish": "drizzle / to drizzle"
     },
     {
-      "english": "un relampagueo",
-      "spanish": "flashes of lightning"
+      "english": "flashes of lightning",
+      "spanish": "un relampagueo"
     },
     {
-      "english": "la niebla",
-      "spanish": "fog"
-    },
-    {
-      "english": "una culebrina",
-      "spanish": "forked lightning"
+      "english": "forked lightning",
+      "spanish": "una culebrina"
     },
     {
       "english": "escarcha",
       "spanish": "frost (white frozen dew)"
     },
     {
-      "english": "los vientos (con intensidad) de tormenta",
-      "spanish": "gale-force winds"
+      "english": "gale-force winds",
+      "spanish": "los vientos (con intensidad) de tormenta"
     },
     {
-      "english": "los granizos, las piedras de granizo",
-      "spanish": "hailstones"
+      "english": "hailstones",
+      "spanish": "los granizos, las piedras de granizo"
     },
     {
-      "english": "la nebulosidad, lo neblinoso",
-      "spanish": "haziness"
+      "english": "haziness",
+      "spanish": "la nebulosidad, lo neblinoso"
     },
     {
-      "english": "le cayó un rayo",
-      "spanish": "he was struck by lightning"
+      "english": "he was struck by lightning",
+      "spanish": "le cayó un rayo"
     },
     {
-      "english": "cálido",
-      "spanish": "hot"
+      "english": "hot",
+      "spanish": "cálido"
     },
     {
-      "english": "húmedo",
-      "spanish": "humid"
-    },
-    {
-      "english": "la humedad",
-      "spanish": "humidity"
-    },
-    {
-      "english": "un huracán",
-      "spanish": "hurricane"
-    },
-    {
-      "english": "no me gusta cómo se está poniendo el tiempo",
-      "spanish": "I dont like the look of the weather"
+      "english": "I dont like the look of the weather",
+      "spanish": "no me gusta cómo se está poniendo el tiempo"
     },
     {
       "english": "inestabilidad",
@@ -30415,20 +30103,20 @@
       "spanish": "it looks like it's going to rain"
     },
     {
-      "english": "hace nubes or está nublado",
-      "spanish": "its cloudy"
+      "english": "its cloudy",
+      "spanish": "hace nubes or está nublado"
     },
     {
-      "english": "está lloviznando",
-      "spanish": "its drizzling"
+      "english": "its drizzling",
+      "spanish": "está lloviznando"
     },
     {
       "english": "hay niebla",
       "spanish": "its foggy"
     },
     {
-      "english": "está helado",
-      "spanish": "its frosty"
+      "english": "its frosty",
+      "spanish": "está helado"
     },
     {
       "english": "hace calor",
@@ -30439,56 +30127,48 @@
       "spanish": "its misty"
     },
     {
-      "english": "está lloviendo",
-      "spanish": "its raining"
+      "english": "its raining",
+      "spanish": "está lloviendo"
     },
     {
       "english": "cae aguanieve",
       "spanish": "its sleeting"
     },
     {
-      "english": "está nevado",
-      "spanish": "its snowing"
+      "english": "its snowing",
+      "spanish": "está nevado"
     },
     {
       "english": "hace sol",
       "spanish": "its sunny"
     },
     {
-      "english": "hace viento, está ventoso",
-      "spanish": "its windy"
+      "english": "its windy",
+      "spanish": "hace viento, está ventoso"
     },
     {
       "english": "hace fresquito hoy",
       "spanish": "It's chilly today"
     },
     {
-      "english": "esperemos que no nos falle el tiempo",
-      "spanish": "lets hope the weather holds out"
+      "english": "lets hope the weather holds out",
+      "spanish": "esperemos que no nos falle el tiempo"
     },
     {
       "english": "de bajas/altas presiones",
       "spanish": "low/high-pressure"
     },
     {
-      "english": "la neblina",
-      "spanish": "mist"
-    },
-    {
-      "english": "el sereno",
-      "spanish": "night dew"
-    },
-    {
-      "english": "la lluvia",
-      "spanish": "rain"
+      "english": "night dew",
+      "spanish": "el sereno"
     },
     {
       "english": "chubascos aislados",
       "spanish": "scattered showers"
     },
     {
-      "english": "la bruma",
-      "spanish": "sea mist"
+      "english": "sea mist",
+      "spanish": "la bruma"
     },
     {
       "english": "aguanieve f.",
@@ -30503,52 +30183,40 @@
       "category": ""
     },
     {
-      "english": "la nieve",
-      "spanish": "snow"
-    },
-    {
       "english": "chubascos de nieve",
       "spanish": "snow showers"
     },
     {
-      "english": "insolación",
-      "spanish": "sunstroke"
+      "english": "sunstroke",
+      "spanish": "insolación"
     },
     {
       "english": "seguimos con mal tiempo",
       "spanish": "the bad weather is still with us"
     },
     {
-      "english": "el litoral",
-      "spanish": "the coastal area (used in weather forecasts)"
+      "english": "the coastal area (used in weather forecasts)",
+      "spanish": "el litoral"
     },
     {
       "english": "al jardín le vendría bien que lloviera un poco",
       "spanish": "the garden could do with a spot of rain"
     },
     {
-      "english": "la previsión del tiempo para mañana",
-      "spanish": "the outlook for tomorrow"
+      "english": "the outlook for tomorrow",
+      "spanish": "la previsión del tiempo para mañana"
     },
     {
-      "english": "la temperatura",
-      "spanish": "the temperature"
+      "english": "the weather spoiled our plans",
+      "spanish": "el tiempo nos estropeó los planes"
     },
     {
-      "english": "el tiempo",
-      "spanish": "the weather"
+      "english": "theres been a change in the weather",
+      "spanish": "ha cambiado el tiempo"
     },
     {
-      "english": "el tiempo nos estropeó los planes",
-      "spanish": "the weather spoiled our plans"
-    },
-    {
-      "english": "ha cambiado el tiempo",
-      "spanish": "theres been a change in the weather"
-    },
-    {
-      "english": "los truenos",
-      "spanish": "thunder"
+      "english": "thunder",
+      "spanish": "los truenos"
     },
     {
       "english": "abochornarse",
@@ -30591,8 +30259,8 @@
       "category": ""
     },
     {
-      "english": "capear el temporal",
-      "spanish": "to ride out the storm"
+      "english": "to ride out the storm",
+      "spanish": "capear el temporal"
     },
     {
       "english": "nevar",
@@ -30603,12 +30271,8 @@
       "spanish": "to thaw"
     },
     {
-      "english": "mañana hará tiempo seco",
-      "spanish": "tomorrow will be dry"
-    },
-    {
-      "english": "la turbulencia",
-      "spanish": "turbulence"
+      "english": "tomorrow will be dry",
+      "spanish": "mañana hará tiempo seco"
     },
     {
       "spanish": "un tiempo revuelto",
@@ -30619,40 +30283,36 @@
       "category": "Weather"
     },
     {
-      "english": "esperamos tener buen tiempo durante las vacaciones",
-      "spanish": "were hoping for good weather while were on holiday"
+      "english": "were hoping for good weather while were on holiday",
+      "spanish": "esperamos tener buen tiempo durante las vacaciones"
     },
     {
       "english": "si hace buen tiempo",
       "spanish": "weather permitting"
     },
     {
-      "english": "el terrorismo",
-      "spanish": "terrorism"
+      "english": "war against terrorism",
+      "spanish": "la guerra contra el terrorismo\nla lucha contra el terrorismo"
     },
     {
-      "english": "la guerra contra el terrorismo\nla lucha contra el terrorismo",
-      "spanish": "war against terrorism"
+      "english": "a terrorist\na bomber",
+      "spanish": "un/una terrorista"
     },
     {
-      "english": "un/una terrorista",
-      "spanish": "a terrorist\na bomber"
+      "english": "a terrorist group",
+      "spanish": "un grupo/banda terrorist"
     },
     {
-      "english": "un grupo/banda terrorist",
-      "spanish": "a terrorist group"
+      "english": "a (nuclear / atom) bomb",
+      "spanish": "una bomba (nuclear / atómica)"
     },
     {
-      "english": "una bomba (nuclear / atómica)",
-      "spanish": "a (nuclear / atom) bomb"
+      "english": "bombing (by terrorists)\nterrorist attack",
+      "spanish": "un atentado terrorista"
     },
     {
-      "english": "un atentado terrorista",
-      "spanish": "bombing (by terrorists)\nterrorist attack"
-    },
-    {
-      "english": "bombardear (from air)\ncolocar una bomba en",
-      "spanish": "to bomb\nto bomb / to plant a bomb in"
+      "english": "to bomb\nto bomb / to plant a bomb in",
+      "spanish": "bombardear (from air)\ncolocar una bomba en"
     },
     {
       "spanish": "Un coche bomba",
@@ -30663,16 +30323,12 @@
       "category": ""
     },
     {
-      "english": "una explosión",
-      "spanish": "an explosion"
-    },
-    {
       "english": "un artificiero\nNo estalló gracias a la intervención de los artificieros.",
       "spanish": "a bomb disposal expert\nIt didn't explode thanks to the intervention of the bomb disposal experts."
     },
     {
-      "english": "derrumbarse\nEl edificio se derrumbó.",
-      "spanish": "to collapse\nThe building collapsed."
+      "english": "to collapse\nThe building collapsed.",
+      "spanish": "derrumbarse\nEl edificio se derrumbó."
     },
     {
       "spanish": "un piloto suicida",
@@ -30683,20 +30339,20 @@
       "category": ""
     },
     {
-      "english": "un rescate",
-      "spanish": "a ransom"
+      "english": "a ransom",
+      "spanish": "un rescate"
     },
     {
-      "english": "exigir un rescate por alguien",
-      "spanish": "to hold someone to / for ransom"
+      "english": "to hold someone to / for ransom",
+      "spanish": "exigir un rescate por alguien"
     },
     {
-      "english": "un rehén",
-      "spanish": "a hostage"
+      "english": "a hostage",
+      "spanish": "un rehén"
     },
     {
-      "english": "secuestrar (avión /",
-      "spanish": "to hijack"
+      "english": "to hijack",
+      "spanish": "secuestrar (avión /"
     },
     {
       "english": "un/a secuestrador/a\nun/ pirata aéreo/a",
@@ -30715,32 +30371,32 @@
       "spanish": "reprisal"
     },
     {
-      "english": "la intervención del ejército",
-      "spanish": "military action"
+      "english": "military action",
+      "spanish": "la intervención del ejército"
     },
     {
-      "english": "régimen",
-      "spanish": "a regime"
+      "english": "a regime",
+      "spanish": "régimen"
     },
     {
-      "english": "las torres gemelas",
-      "spanish": "the twin towers"
+      "english": "the twin towers",
+      "spanish": "las torres gemelas"
     },
     {
-      "english": "frustrar un atentado terrorista",
-      "spanish": "to foil a terrorist attack"
+      "english": "to foil a terrorist attack",
+      "spanish": "frustrar un atentado terrorista"
     },
     {
-      "english": "daño colateral",
-      "spanish": "colateral damage"
+      "english": "colateral damage",
+      "spanish": "daño colateral"
     },
     {
-      "english": "autorizar el uso de la fuerza contra los terroristas.",
-      "spanish": "authorise the use of force against terrorists."
+      "english": "authorise the use of force against terrorists.",
+      "spanish": "autorizar el uso de la fuerza contra los terroristas."
     },
     {
-      "english": "el Centro Mundial de Comercio",
-      "spanish": "World Trade Center"
+      "english": "World Trade Center",
+      "spanish": "el Centro Mundial de Comercio"
     },
     {
       "english": "secuestrado",
@@ -30763,84 +30419,60 @@
       "spanish": "military action\nHe didn't rule out military action.\nHe would back military action by the USA."
     },
     {
-      "english": "un portaaviones",
-      "spanish": "an aircraft carrier"
+      "english": "a training camp",
+      "spanish": "un campamento de instrucción"
     },
     {
-      "english": "un campamento de instrucción",
-      "spanish": "a training camp"
+      "english": "nuclear weapons",
+      "spanish": "las armas nucleares"
     },
     {
-      "english": "las armas nucleares",
-      "spanish": "nuclear weapons"
-    },
-    {
-      "english": "el ejército",
-      "spanish": "the army"
-    },
-    {
-      "english": "un soldado",
-      "spanish": "a soldier"
+      "english": "a soldier",
+      "spanish": "un soldado"
     },
     {
       "english": "nuestras tropas",
       "spanish": "our troops"
     },
     {
-      "english": "la marina / la armada\nla armada británica\nla marina de los EEUU",
-      "spanish": "the navy\nthe Royal Navy\nthe US navy"
+      "english": "the navy\nthe Royal Navy\nthe US navy",
+      "spanish": "la marina / la armada\nla armada británica\nla marina de los EEUU"
     },
     {
       "english": "base aérea",
       "spanish": "air base"
     },
     {
-      "english": "los despliegues",
-      "spanish": "deployments"
+      "english": "deployments",
+      "spanish": "los despliegues"
     },
     {
-      "english": "una batalla",
-      "spanish": "a battle"
+      "english": "an act of war",
+      "spanish": "un acto bélico / un acto de guerra"
     },
     {
-      "english": "una bandera",
-      "spanish": "a flag"
+      "english": "the use of force",
+      "spanish": "el uso de la fuerza"
     },
     {
-      "english": "una amenaza",
-      "spanish": "a threat"
-    },
-    {
-      "english": "el enemigo",
-      "spanish": "the enemy"
-    },
-    {
-      "english": "un acto bélico / un acto de guerra",
-      "spanish": "an act of war"
-    },
-    {
-      "english": "el uso de la fuerza",
-      "spanish": "the use of force"
-    },
-    {
-      "english": "una fuerza disuasoria",
-      "spanish": "a deterrent"
+      "english": "a deterrent",
+      "spanish": "una fuerza disuasoria"
     },
     {
       "english": "herido",
       "spanish": "wounded"
     },
     {
-      "english": "un despliegue miitar",
-      "spanish": "a military deployment"
+      "english": "a military deployment",
+      "spanish": "un despliegue miitar"
     },
     {
       "english": "sede / oficina central",
       "spanish": "headquarters"
     },
     {
-      "english": "un alto el fuego",
-      "spanish": "a ceasefire"
+      "english": "a ceasefire",
+      "spanish": "un alto el fuego"
     },
     {
       "english": "guerra santa",
@@ -30851,28 +30483,28 @@
       "spanish": "NATO"
     },
     {
-      "english": "congelar los fondos",
-      "spanish": "to freeze financial assets / accounts"
+      "english": "to freeze financial assets / accounts",
+      "spanish": "congelar los fondos"
     },
     {
       "english": "imponer sanciones contra",
       "spanish": "to impose sanctions against"
     },
     {
-      "english": "las sanciones militares / económicas",
-      "spanish": "military / economic sanctions"
+      "english": "military / economic sanctions",
+      "spanish": "las sanciones militares / económicas"
     },
     {
-      "english": "habrá que extremar la vigilancia",
-      "spanish": "security will have to be tightened"
+      "english": "security will have to be tightened",
+      "spanish": "habrá que extremar la vigilancia"
     },
     {
-      "english": "derribar un régimen / gobierno",
-      "spanish": "to overthrow a regime / government"
+      "english": "to overthrow a regime / government",
+      "spanish": "derribar un régimen / gobierno"
     },
     {
-      "english": "el proceso de paz",
-      "spanish": "the peace process"
+      "english": "the peace process",
+      "spanish": "el proceso de paz"
     },
     {
       "english": "el levantamiento de sanciones a Pakistán",
@@ -30883,60 +30515,44 @@
       "spanish": "take the necessary measures in order to guarantee the safety of the citizens."
     },
     {
-      "english": "La Operación Libertad Duradera",
-      "spanish": "Operation Enduring Freedom"
+      "english": "Operation Enduring Freedom",
+      "spanish": "La Operación Libertad Duradera"
     },
     {
-      "english": "niega estar involucrado en el atentado",
-      "spanish": "he denies being involved in the attack"
+      "english": "he denies being involved in the attack",
+      "spanish": "niega estar involucrado en el atentado"
     },
     {
       "english": "una compañía",
       "spanish": "a company"
     },
     {
-      "english": "un vestuario",
-      "spanish": "a costume"
+      "english": "a costumer",
+      "spanish": "un diseñador"
     },
     {
-      "english": "un diseñador",
-      "spanish": "a costumer"
+      "english": "a cue",
+      "spanish": "un pie"
     },
     {
-      "english": "un pie",
-      "spanish": "a cue"
+      "english": "a dresser",
+      "spanish": "el ayudante de camerino"
     },
     {
-      "english": "un director",
-      "spanish": "a director"
-    },
-    {
-      "english": "el ayudante de camerino",
-      "spanish": "a dresser"
-    },
-    {
-      "english": "una farsa",
-      "spanish": "a farce"
-    },
-    {
-      "english": "un bastidor",
-      "spanish": "a flat"
-    },
-    {
-      "english": "un musical",
-      "spanish": "a musical"
+      "english": "a flat",
+      "spanish": "un bastidor"
     },
     {
       "english": "una comedia musical navideña",
       "spanish": "a pantomime (u.k.)"
     },
     {
-      "english": "una representación / una función",
-      "spanish": "a performance"
+      "english": "a performance",
+      "spanish": "una representación / una función"
     },
     {
-      "english": "una obra de teatro",
-      "spanish": "a play"
+      "english": "a play",
+      "spanish": "una obra de teatro"
     },
     {
       "english": "un/a dramaturgo/a, un/a autor/a teatral",
@@ -30947,20 +30563,20 @@
       "spanish": "a prompter"
     },
     {
-      "english": "un espectáculo",
-      "spanish": "a show"
+      "english": "a show",
+      "spanish": "un espectáculo"
     },
     {
-      "english": "un sketch, un apunte",
-      "spanish": "a sketch"
+      "english": "a sketch",
+      "spanish": "un sketch, un apunte"
     },
     {
-      "english": "un papel hablado",
-      "spanish": "a speaking part"
+      "english": "a speaking part",
+      "spanish": "un papel hablado"
     },
     {
-      "english": "un parlamento",
-      "spanish": "a speech"
+      "english": "a speech",
+      "spanish": "un parlamento"
     },
     {
       "spanish": "un aficionado al teatro",
@@ -30971,36 +30587,28 @@
       "category": ""
     },
     {
-      "english": "una gira",
-      "spanish": "a tour"
+      "english": "a tour",
+      "spanish": "una gira"
     },
     {
-      "english": "un actor",
-      "spanish": "an actor"
+      "english": "booking office",
+      "spanish": "la taquilla"
     },
     {
-      "english": "una actriz",
-      "spanish": "an actress"
+      "english": "callboy",
+      "spanish": "el traspunte"
     },
     {
-      "english": "la taquilla",
-      "spanish": "booking office"
+      "english": "centre stage",
+      "spanish": "el centro del escenario"
     },
     {
-      "english": "el traspunte",
-      "spanish": "callboy"
+      "english": "dramatisation",
+      "spanish": "la dramatización / adaptación teatral"
     },
     {
-      "english": "el centro del escenario",
-      "spanish": "centre stage"
-    },
-    {
-      "english": "la dramatización / adaptación teatral",
-      "spanish": "dramatisation"
-    },
-    {
-      "english": "el primer piso / la platea alta",
-      "spanish": "dress circle"
+      "english": "dress circle",
+      "spanish": "el primer piso / la platea alta"
     },
     {
       "spanish": "el camerino",
@@ -31011,112 +30619,104 @@
       "category": ""
     },
     {
-      "english": "un bis",
-      "spanish": "encore"
+      "english": "encore",
+      "spanish": "un bis"
     },
     {
-      "english": "la apoteosis",
-      "spanish": "finale"
+      "english": "finale",
+      "spanish": "la apoteosis"
     },
     {
-      "english": "la noche del estreno",
-      "spanish": "first night"
+      "english": "first night",
+      "spanish": "la noche del estreno"
     },
     {
-      "english": "las candilejas",
-      "spanish": "footlights"
+      "english": "footlights",
+      "spanish": "las candilejas"
     },
     {
-      "english": "un lleno",
-      "spanish": "full house"
+      "english": "full house",
+      "spanish": "un lleno"
     },
     {
-      "english": "las luces de la sala",
-      "spanish": "house lights"
+      "english": "house lights",
+      "spanish": "las luces de la sala"
     },
     {
-      "english": "la primera actriz",
-      "spanish": "leading lady"
+      "english": "leading lady",
+      "spanish": "la primera actriz"
     },
     {
-      "english": "el primer actor",
-      "spanish": "leading man"
+      "english": "leading man",
+      "spanish": "el primer actor"
     },
     {
-      "english": "la iluminación",
-      "spanish": "lighting"
-    },
-    {
-      "english": "el maquillaje",
-      "spanish": "makeup"
+      "english": "lighting",
+      "spanish": "la iluminación"
     },
     {
       "english": "fuera del escenario",
       "spanish": "offstage"
     },
     {
-      "english": "el estreno",
-      "spanish": "opening"
+      "english": "opening",
+      "spanish": "el estreno"
     },
     {
       "english": "la escenografía, el decorado",
       "spanish": "scenery"
     },
     {
-      "english": "los tramoyistas",
-      "spanish": "stage crew"
+      "english": "stage crew",
+      "spanish": "los tramoyistas"
     },
     {
-      "english": "el telón de fondo",
-      "spanish": "the backdrop"
+      "english": "the backdrop",
+      "spanish": "el telón de fondo"
     },
     {
-      "english": "el reparto, el elenco",
-      "spanish": "the cast"
+      "english": "the cast",
+      "spanish": "el reparto, el elenco"
     },
     {
-      "english": "el telón",
-      "spanish": "the curtain"
+      "english": "the curtain",
+      "spanish": "el telón"
     },
     {
-      "english": "las bambalinas",
-      "spanish": "the flies"
+      "english": "the flies",
+      "spanish": "las bambalinas"
     },
     {
       "english": "la  galería",
       "spanish": "the gallery"
     },
     {
-      "english": "el entreacto",
-      "spanish": "the interval"
+      "english": "the interval",
+      "spanish": "el entreacto"
     },
     {
-      "english": "el foco",
-      "spanish": "the spotlight"
+      "english": "the spotlight",
+      "spanish": "el foco"
     },
     {
-      "english": "el escenario, el decorado",
-      "spanish": "the set"
+      "english": "the set",
+      "spanish": "el escenario, el decorado"
     },
     {
-      "english": "el escenario",
-      "spanish": "the stage"
+      "english": "the staging",
+      "spanish": "la puesta en escena, el montaje"
     },
     {
-      "english": "la puesta en escena, el montaje",
-      "spanish": "the staging"
+      "english": "the stalls",
+      "spanish": "la platea, el patio de butacas"
     },
     {
-      "english": "la platea, el patio de butacas",
-      "spanish": "the stalls"
+      "english": "the wardrobe",
+      "spanish": "el vestuario"
     },
     {
-      "english": "el vestuario",
-      "spanish": "the wardrobe"
-    },
-    {
-      "english": "los bastidores",
-      "spanish": "the wings"
+      "english": "the wings",
+      "spanish": "los bastidores"
     },
     {
       "english": "aplaudir",
@@ -31131,8 +30731,8 @@
       "spanish": "to cast"
     },
     {
-      "english": "aprenderse el papel",
-      "spanish": "to learn ones lines"
+      "english": "to learn ones lines",
+      "spanish": "aprenderse el papel"
     },
     {
       "english": "presentar",
@@ -31143,120 +30743,112 @@
       "spanish": "to stage"
     },
     {
-      "english": "el segundo piso",
-      "spanish": "upper circle"
+      "english": "upper circle",
+      "spanish": "el segundo piso"
     },
     {
-      "english": "una sala de conciertos, un auditorio",
-      "spanish": "a concert hall"
+      "english": "a concert hall",
+      "spanish": "una sala de conciertos, un auditorio"
     },
     {
-      "english": "el foso orquestal",
-      "spanish": "the orchestra pit"
+      "english": "the orchestra pit",
+      "spanish": "el foso orquestal"
     },
     {
-      "english": "la orquesta",
-      "spanish": "the orchestra"
+      "english": "an orchestra stall",
+      "spanish": "una butaca de platea"
     },
     {
-      "english": "una butaca de platea",
-      "spanish": "an orchestra stall"
+      "english": "a conductor",
+      "spanish": "un director / una directora"
     },
     {
-      "english": "un director / una directora",
-      "spanish": "a conductor"
-    },
-    {
-      "english": "un / una guionista",
-      "spanish": "a scriptwriter"
-    },
-    {
-      "english": "el guión",
-      "spanish": "the script"
+      "english": "a scriptwriter",
+      "spanish": "un / una guionista"
     },
     {
       "english": "rodar, filmar",
       "spanish": "to shoot"
     },
     {
-      "english": "un cortometraje",
-      "spanish": "a short"
+      "english": "a short",
+      "spanish": "un cortometraje"
     },
     {
-      "english": "un/una doble",
-      "spanish": "a stand-in"
+      "english": "a stand-in",
+      "spanish": "un/una doble"
     },
     {
-      "english": "un / una doble de riesgo",
-      "spanish": "a stunt man / woman"
+      "english": "a stunt man / woman",
+      "spanish": "un / una doble de riesgo"
     },
     {
-      "english": "el guión",
-      "spanish": "screenplay"
+      "english": "screenplay",
+      "spanish": "el guión"
     },
     {
-      "english": "un primer plano",
-      "spanish": "a close up"
+      "english": "a close up",
+      "spanish": "un primer plano"
     },
     {
-      "english": "el equipo de rodaje",
-      "spanish": "film crew"
+      "english": "film crew",
+      "spanish": "el equipo de rodaje"
     },
     {
-      "english": "el plató",
-      "spanish": "the set"
+      "english": "the set",
+      "spanish": "el plató"
     },
     {
-      "english": "un papel de extra",
-      "spanish": "a walk on part"
+      "english": "a walk on part",
+      "spanish": "un papel de extra"
     },
     {
-      "english": "aparecer en el papel de",
-      "spanish": "to feature"
+      "english": "to feature",
+      "spanish": "aparecer en el papel de"
     },
     {
-      "english": "un largometraje",
-      "spanish": "a feature film"
+      "english": "a feature film",
+      "spanish": "un largometraje"
     },
     {
-      "english": "el protagonista",
-      "spanish": "leading man"
+      "english": "leading man",
+      "spanish": "el protagonista"
     },
     {
-      "english": "la protagonista",
-      "spanish": "leading lady, main character"
+      "english": "leading lady, main character",
+      "spanish": "la protagonista"
     },
     {
-      "english": "el lugar de filmación",
-      "spanish": "location"
+      "english": "location",
+      "spanish": "el lugar de filmación"
     },
     {
       "english": "la primera sesión de la tarde",
       "spanish": "matinée"
     },
     {
-      "english": "la función",
-      "spanish": "performance"
+      "english": "performance",
+      "spanish": "la función"
     },
     {
-      "english": "la proyección",
-      "spanish": "screening"
+      "english": "screening",
+      "spanish": "la proyección"
     },
     {
-      "english": "el ayudante del electricista",
-      "spanish": "best boy"
+      "english": "best boy",
+      "spanish": "el ayudante del electricista"
     },
     {
-      "english": "la distribudora",
-      "spanish": "distributor"
+      "english": "distributor",
+      "spanish": "la distribudora"
     },
     {
       "english": "doblar",
       "spanish": "dub"
     },
     {
-      "english": "un extra",
-      "spanish": "an extra"
+      "english": "an extra",
+      "spanish": "un extra"
     },
     {
       "spanish": "Un electricista",
@@ -31269,12 +30861,8 @@
       "category": "Entertainment"
     },
     {
-      "english": "los fragmentos, rushes",
-      "spanish": "rushes"
-    },
-    {
-      "english": "una toma",
-      "spanish": "a take"
+      "english": "rushes",
+      "spanish": "los fragmentos, rushes"
     },
     {
       "english": "un / una acomodador/a",
@@ -31289,24 +30877,20 @@
       "spanish": "black and white"
     },
     {
-      "english": "el operador de sonido",
-      "spanish": "mixer"
+      "english": "mixer",
+      "spanish": "el operador de sonido"
     },
     {
-      "english": "el papel",
-      "spanish": "role"
+      "english": "producer",
+      "spanish": "el productor / la productora"
     },
     {
-      "english": "el productor / la productora",
-      "spanish": "producer"
+      "english": "audience",
+      "spanish": "el público"
     },
     {
-      "english": "el público",
-      "spanish": "audience"
-    },
-    {
-      "english": "el reparto/los actores",
-      "spanish": "cast"
+      "english": "cast",
+      "spanish": "el reparto/los actores"
     },
     {
       "spanish": "fracasar estrepitosamente",
@@ -31317,14 +30901,6 @@
       "category": ""
     },
     {
-      "english": "la adaptación",
-      "spanish": "adaptation"
-    },
-    {
-      "english": "la cámara",
-      "spanish": "camera"
-    },
-    {
       "spanish": "la continuación de",
       "english": "sequel (movie)",
       "notes": "",
@@ -31333,24 +30909,20 @@
       "category": ""
     },
     {
-      "english": "la producción",
-      "spanish": "production"
-    },
-    {
-      "english": "los camarógrafos",
-      "spanish": "camera crew"
+      "english": "camera crew",
+      "spanish": "los camarógrafos"
     },
     {
       "english": "subtitular",
       "spanish": "to subtitle"
     },
     {
-      "english": "los subtítulos",
-      "spanish": "subtitles"
+      "english": "subtitles",
+      "spanish": "los subtítulos"
     },
     {
-      "english": "los telespectadores",
-      "spanish": "viewers"
+      "english": "viewers",
+      "spanish": "los telespectadores"
     },
     {
       "english": "tener como protagonista",
@@ -31361,108 +30933,92 @@
       "spanish": "a prop"
     },
     {
-      "english": "un actor secundario",
-      "spanish": "supporting actor"
+      "english": "supporting actor",
+      "spanish": "un actor secundario"
     },
     {
-      "english": "un avance/un traíler",
-      "spanish": "a trailer"
+      "english": "a trailer",
+      "spanish": "un avance/un traíler"
     },
     {
-      "english": "un crítico",
-      "spanish": "a critic"
+      "english": "supporting actress",
+      "spanish": "una actriz secundaria"
     },
     {
-      "english": "un estudio",
-      "spanish": "a studio"
+      "english": "a ticket",
+      "spanish": "una entrada"
     },
     {
-      "english": "una actriz secundaria",
-      "spanish": "supporting actress"
-    },
-    {
-      "english": "una entrada",
-      "spanish": "a ticket"
-    },
-    {
-      "english": "una escena peligrosa",
-      "spanish": "a stunt"
+      "english": "a stunt",
+      "spanish": "una escena peligrosa"
     },
     {
       "english": "el/la regidor/a",
       "spanish": "floor manager"
     },
     {
-      "english": "las secuencias",
-      "spanish": "footage"
+      "english": "footage",
+      "spanish": "las secuencias"
     },
     {
-      "english": "un fotograma",
-      "spanish": "a frame, a still"
+      "english": "a frame, a still",
+      "spanish": "un fotograma"
     },
     {
-      "english": "la emisión",
-      "spanish": "screening"
+      "english": "screening",
+      "spanish": "la emisión"
     },
     {
-      "english": "una repetición f de la jugada",
-      "spanish": "action replay"
+      "english": "action replay",
+      "spanish": "una repetición f de la jugada"
     },
     {
-      "english": "un anuncio,un spot (publicitario)",
-      "spanish": "an advert, a commercial"
+      "english": "an advert, a commercial",
+      "spanish": "un anuncio,un spot (publicitario)"
     },
     {
-      "english": "los comentarios,una crónica",
-      "spanish": "a commentary"
+      "english": "a commentary",
+      "spanish": "los comentarios,una crónica"
     },
     {
-      "english": "la cabina de prensa",
-      "spanish": "the commentary box"
+      "english": "the commentary box",
+      "spanish": "la cabina de prensa"
     },
     {
-      "english": "la sala de control",
-      "spanish": "control room"
+      "english": "control room",
+      "spanish": "la sala de control"
     },
     {
-      "english": "un episodio",
-      "spanish": "an episode"
+      "english": "an anchorman",
+      "spanish": "un presentador"
     },
     {
-      "english": "un documental",
-      "spanish": "documentary"
+      "english": "an anchorwoman",
+      "spanish": "una presentadora"
     },
     {
-      "english": "un presentador",
-      "spanish": "an anchorman"
+      "english": "a commentator",
+      "spanish": "un / una comentarista"
     },
     {
-      "english": "una presentadora",
-      "spanish": "an anchorwoman"
-    },
-    {
-      "english": "un / una comentarista",
-      "spanish": "a commentator"
-    },
-    {
-      "english": "un locutor / una locutora de continuidad",
-      "spanish": "an announcer"
+      "english": "an announcer",
+      "spanish": "un locutor / una locutora de continuidad"
     },
     {
       "english": "un / una presentador/a (de un informativo)",
       "spanish": "a newscaster"
     },
     {
-      "english": "una antena",
-      "spanish": "an aerial/antenna"
+      "english": "an aerial/antenna",
+      "spanish": "una antena"
     },
     {
-      "english": "el presentador",
-      "spanish": "the front man"
+      "english": "the front man",
+      "spanish": "el presentador"
     },
     {
-      "english": "la estrella invitada",
-      "spanish": "guest star"
+      "english": "guest star",
+      "spanish": "la estrella invitada"
     },
     {
       "english": "el/la presentador/a",
@@ -31483,32 +31039,24 @@
       "spanish": "live (adjective)"
     },
     {
-      "english": "un programa que lleva tiempo en pantalla",
-      "spanish": "long running programme"
-    },
-    {
-      "english": "las noticias",
-      "spanish": "the news"
+      "english": "long running programme",
+      "spanish": "un programa que lleva tiempo en pantalla"
     },
     {
       "english": "el / la programador/a",
       "spanish": "the programmer"
     },
     {
-      "english": "un drama psicológico",
-      "spanish": "a psychodrama"
+      "english": "a psychodrama",
+      "spanish": "un drama psicológico"
     },
     {
-      "english": "un programa concurso",
-      "spanish": "a quiz show"
+      "english": "a quiz show",
+      "spanish": "un programa concurso"
     },
     {
-      "english": "el índice de audiencia",
-      "spanish": "ratings"
-    },
-    {
-      "english": "la recepción",
-      "spanish": "reception"
+      "english": "ratings",
+      "spanish": "el índice de audiencia"
     },
     {
       "english": "el mando a distancia",
@@ -31523,24 +31071,24 @@
       "category": ""
     },
     {
-      "english": "una antena parabólica",
-      "spanish": "satellite dish"
+      "english": "satellite dish",
+      "spanish": "una antena parabólica"
     },
     {
-      "english": "la programación",
-      "spanish": "scheduling"
+      "english": "scheduling",
+      "spanish": "la programación"
     },
     {
-      "english": "una serie",
-      "spanish": "a tv series"
+      "english": "a tv series",
+      "spanish": "una serie"
     },
     {
-      "english": "un culebrón, una telenovela",
-      "spanish": "a soap opera"
+      "english": "a soap opera",
+      "spanish": "un culebrón, una telenovela"
     },
     {
-      "english": "el transmisor",
-      "spanish": "transmitter"
+      "english": "transmitter",
+      "spanish": "el transmisor"
     },
     {
       "spanish": "aguerrido",
@@ -35303,10 +34851,6 @@
       "english": "to treat"
     },
     {
-      "spanish": "la bronquitis",
-      "english": "bronchitis"
-    },
-    {
       "spanish": "el cólico",
       "english": "colic"
     },
@@ -35405,10 +34949,6 @@
     {
       "spanish": "el arañazo",
       "english": "scratch"
-    },
-    {
-      "spanish": "el asma",
-      "english": "asthma"
     },
     {
       "spanish": "el cuadro",
@@ -35564,10 +35104,6 @@
       "english": "scriptwriter"
     },
     {
-      "spanish": "el público",
-      "english": "audience"
-    },
-    {
       "spanish": "el conjunto",
       "english": "ensemble"
     },
@@ -35596,16 +35132,8 @@
       "category": "Entertainment, Jobs"
     },
     {
-      "spanish": "las candilejas",
-      "english": "footlights"
-    },
-    {
       "spanish": "la utilería",
       "english": "props"
-    },
-    {
-      "spanish": "el vestuario",
-      "english": "wardrobe"
     },
     {
       "spanish": "el coreógrafo",
@@ -35654,10 +35182,6 @@
       "english": "dialogue"
     },
     {
-      "spanish": "el foco",
-      "english": "spotlight"
-    },
-    {
       "spanish": "la crítica",
       "english": "review",
       "notes": "",
@@ -35676,16 +35200,8 @@
       "english": "usher"
     },
     {
-      "spanish": "el espectáculo",
-      "english": "show"
-    },
-    {
       "spanish": "el aplauso",
       "english": "applause"
-    },
-    {
-      "spanish": "la obra de teatro",
-      "english": "play"
     },
     {
       "spanish": "el primer actor",
@@ -35744,16 +35260,8 @@
       "english": "box office"
     },
     {
-      "spanish": "la iluminación",
-      "english": "lighting"
-    },
-    {
       "spanish": "la plataforma",
       "english": "platform"
-    },
-    {
-      "spanish": "el telón",
-      "english": "curtain"
     },
     {
       "spanish": "centralizar",
@@ -36244,10 +35752,6 @@
     {
       "spanish": "qué sabroso",
       "english": "how delicious"
-    },
-    {
-      "spanish": "la cuenta, por favor",
-      "english": "the check, please"
     },
     {
       "spanish": "especialidad de la casa",
@@ -37049,10 +36553,6 @@
     {
       "spanish": "trasladar",
       "english": "to move"
-    },
-    {
-      "spanish": "el gobierno",
-      "english": "government"
     },
     {
       "spanish": "quedar",
@@ -42807,10 +42307,6 @@
       "english": "to study for the exam"
     },
     {
-      "spanish": "dar un discurso",
-      "english": "to give a speech"
-    },
-    {
       "spanish": "bajar",
       "english": "to go down"
     },
@@ -46832,10 +46328,6 @@
     {
       "spanish": "la bachata",
       "english": "bachata"
-    },
-    {
-      "spanish": "el castillo de arena",
-      "english": "sandcastle"
     },
     {
       "spanish": "el karaoke",
