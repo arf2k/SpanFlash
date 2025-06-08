@@ -1,48 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { db } from "../db";
-
-const MAX_LEITNER_BOX = 7;
-const LEITNER_SCHEDULE_IN_DAYS = [0, 1, 2, 4, 8, 16, 32, 90];
-
-function shuffleArray(array) {
-  const newArray = [...array];
-  for (let i = newArray.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-  }
-  return newArray;
-}
-
-const updateWordLeitnerData = async (word, isCorrect) => {
-  const newBox = isCorrect
-    ? Math.min((word.leitnerBox || 0) + 1, MAX_LEITNER_BOX)
-    : 1;
-
-  const now = Date.now();
-  const intervalInDays = LEITNER_SCHEDULE_IN_DAYS[newBox] || 1;
-  const intervalInMs = intervalInDays * 24 * 60 * 60 * 1000;
-  const newDueDate = now + intervalInMs;
-
-  const updatedWord = {
-    ...word,
-    leitnerBox: newBox,
-    lastReviewed: now,
-    dueDate: newDueDate,
-  };
-
-  try {
-    await db.allWords.put(updatedWord);
-    console.log(
-      `Matching: Updated "${word.spanish}" to Box ${newBox} (${
-        isCorrect ? "correct" : "incorrect"
-      })`
-    );
-    return updatedWord;
-  } catch (error) {
-    console.error("Matching: Failed to update word with Leitner data:", error);
-    return word; 
-  }
-};
+import { shuffleArray, updateWordLeitnerData } from "../utils/gameUtils";
 
 export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
   const [activeWordPairs, setActiveWordPairs] = useState([]);
@@ -173,12 +131,7 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
       );
       return true;
     },
-    [
-      fullWordList,
-      numPairsToDisplay,
-      pickNewWords
- 
-    ]
+    [fullWordList, numPairsToDisplay, pickNewWords]
   );
 
   useEffect(() => {
@@ -222,7 +175,8 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
       if (originalPairForSpanish) {
         const updatedWord = await updateWordLeitnerData(
           originalPairForSpanish,
-          isCorrectMatch
+          isCorrectMatch,
+          "Matching"
         );
         setLastUpdatedWords((prev) => [...prev, updatedWord]);
       }
@@ -231,7 +185,6 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
         console.log("useMatchingGame: Correct Match!", originalPairForSpanish);
         setGameScore((prev) => prev + 1);
 
-  
         const newMatchedIdsInSession = new Set(sessionUsedWordIds).add(
           originalPairForSpanish.id
         );
@@ -252,7 +205,6 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
           "useMatchingGame: Pair matched. Items will remain visually matched."
         );
 
-   
         const allCurrentlyOnBoardAreMatched =
           activeWordPairs.length > 0 &&
           activeWordPairs.every((ap) => newMatchedIdsInSession.has(ap.id));
@@ -279,12 +231,7 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
       setSelectedSpanish(null);
       setSelectedEnglish(null);
     }
-  }, [
-    selectedSpanish,
-    selectedEnglish,
-    activeWordPairs,
-    sessionUsedWordIds
-  ]);
+  }, [selectedSpanish, selectedEnglish, activeWordPairs, sessionUsedWordIds]);
 
   const handleSpanishSelection = useCallback(
     (spanishItem) => {
@@ -317,8 +264,8 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
   }, [selectedSpanish, selectedEnglish, attemptMatch]);
 
   const clearLastUpdatedWords = useCallback(() => {
-  setLastUpdatedWords([]);
-}, []);
+    setLastUpdatedWords([]);
+  }, []);
 
   return {
     spanishOptions,
@@ -332,7 +279,7 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
     activePairCount: activeWordPairs.length,
     allWordsCount: fullWordList.length,
     incorrectAttempt,
-    lastUpdatedWords, 
+    lastUpdatedWords,
     clearLastUpdatedWords,
   };
 }
