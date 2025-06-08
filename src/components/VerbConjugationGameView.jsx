@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { ConjugationService } from '../services/conjugationServices';
+import { ConjugationService } from '../services/conjugationService.js';
 import { updateWordLeitnerData } from '../utils/gameUtils';
-import './VerbConjugationGameView.css';
+import './VerbConjugationGame.css';
 
 export default function VerbConjugationGameView({ 
   wordList, 
@@ -59,7 +59,7 @@ export default function VerbConjugationGameView({
     
     setIsLoading(true);
     const randomWord = words[Math.floor(Math.random() * words.length)];
-    const question = await conjugationService.generateConjugationQuestion(randomWord);
+  const question = await ConjugationServices.generateConjugationQuestion(word);
     
     if (question) {
       setCurrentQuestion(question);

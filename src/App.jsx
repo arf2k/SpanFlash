@@ -15,9 +15,8 @@ import { db } from "./db";
 import { useWordData } from "./hooks/useWordData";
 import { useFlashcardGame } from "./hooks/useFlashcardGame";
 import "./App.css";
-import { ConjugationService } from "./services/conjugationServices.js";
-import VerbConjugationGameView from "./components/VerbConjugationGameView";
-
+import { ConjugationService } from "./services/conjugationService.js";
+import VerbConjugationGameView from "./components/VerbConjugationGameView.jsx";
 
 function App() {
   // === App-specific State Variables ===

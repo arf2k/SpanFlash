@@ -1,4 +1,4 @@
-export class ConjugationServices {
+export class ConjugationService {
   constructor() {
     // Fixed API endpoint (you found the correct one!)
     this.apiBase = process.env.REACT_APP_CONJUGATION_API || 'http://localhost:8000';
@@ -150,7 +150,10 @@ export class ConjugationServices {
       'presente': 'presente',
       'pretérito': 'pretérito-perfecto-simple', 
       'imperfecto': 'pretérito-imperfecto',
-      'futuro': 'futuro'
+      'futuro': 'futuro',
+      'condicional': 'condicional-simple',
+      'subjuntivo presente': 'subjuntivo-presente',
+      'subjuntivo imperfecto': 'subjuntivo-imperfecto',
     };
 
     const displayTenses = Object.keys(tenseMapping);
