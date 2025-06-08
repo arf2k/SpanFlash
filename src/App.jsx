@@ -88,7 +88,6 @@ function App() {
   const previousDataVersionRef = useRef(null);
   const matchingGameContainerRef = useRef(null);
   const fillInTheBlankGameContainerRef = useRef(null);
-  const hasLoadedInitialCard = useRef(false);
   // === Effects ===
   useEffect(() => {
     document.body.dataset.theme = currentTheme;

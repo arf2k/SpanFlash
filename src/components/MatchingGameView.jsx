@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'; 
+import React, { useEffect, memo } from 'react'; 
 import { useMatchingGame } from '../hooks/useMatchingGame'; 
 import './MatchingGameView.css'; 
 
@@ -24,7 +24,7 @@ useEffect(() => {
         if (onWordsUpdated) {
             onWordsUpdated(lastUpdatedWords);
         }
-        // Always clear the updated words, even if no callback provided
+      
         clearLastUpdatedWords(); 
     }
 }, [lastUpdatedWords, onWordsUpdated, clearLastUpdatedWords]);
@@ -110,4 +110,4 @@ useEffect(() => {
     );
 };
 
-export default MatchingGameView;
+export default memo(MatchingGameView);

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'; 
+import React, { useEffect, memo } from 'react'; 
 import { useFillInTheBlankGame } from '../hooks/useFillInTheBlankGame';
 import './FillInTheBlankGameView.css'; 
 
@@ -115,4 +115,4 @@ const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame, onWordsU
     );
 };
 
-export default FillInTheBlankGameView;
+export default memo(FillInTheBlankGameView);

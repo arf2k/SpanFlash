@@ -132,7 +132,6 @@ export function useFillInTheBlankGame(wordList = [], numChoices = 4) {
 
   useEffect(() => {
     if (wordList.length > 0 && !hasStartedGame.current) {
-      console.log("HOOK: Word list is ready. Starting the first game session.");
       hasStartedGame.current = true;
       startNewGame();
     }

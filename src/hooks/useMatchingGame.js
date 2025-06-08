@@ -21,6 +21,8 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
   const [lastUpdatedWords, setLastUpdatedWords] = useState([]);
 
   const initializedForCurrentListRef = useRef(false);
+  const incorrectTimeoutRef = useRef(null);
+  const autoAdvanceTimeoutRef = useRef(null);
 
   const pickNewWords = useCallback(
     (count, excludeIds = new Set()) => {
@@ -49,10 +51,7 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
 
   const initializeNewRound = useCallback(
     (isNewGameSession = false) => {
-      console.log(
-        "useMatchingGame: initializeNewRound called. isNewGameSession:",
-        isNewGameSession
-      );
+      isNewGameSession;
       setSelectedSpanish(null);
       setSelectedEnglish(null);
       setIncorrectAttempt({ spanishId: null, englishId: null });
@@ -63,9 +62,6 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
         const newSessionIdSet = new Set();
         setSessionUsedWordIds(newSessionIdSet);
         exclusionsForPicking = newSessionIdSet;
-        console.log(
-          "useMatchingGame: New game session started. Score and sessionUsedWordIds reset."
-        );
       }
 
       let newPairs = pickNewWords(numPairsToDisplay, exclusionsForPicking);
@@ -75,9 +71,6 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
         fullWordList.length >= numPairsToDisplay
       ) {
         if (!isNewGameSession) {
-          console.warn(
-            `useMatchingGame: Auto-advance: Not enough unique words from session. Allowing reuse from full list for this board.`
-          );
           newPairs = pickNewWords(
             numPairsToDisplay,
             new Set(activeWordPairs.map((p) => p.id))
@@ -90,9 +83,6 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
       }
 
       if (newPairs.length === 0 && fullWordList.length > 0) {
-        console.warn(
-          "useMatchingGame: Could not pick ANY pairs for new round. Displaying empty board."
-        );
         setActiveWordPairs([]);
         setSpanishOptions([]);
         setEnglishOptions([]);
@@ -213,7 +203,7 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
           console.log(
             "useMatchingGame: All pairs on current board fully matched! Auto-advancing to next set..."
           );
-          setTimeout(() => {
+          autoAdvanceTimeoutRef.current = setTimeout(() => {
             initializeNewRound(false);
           }, 1200);
         }
@@ -224,7 +214,7 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
           englishId: selectedEnglish.id,
         });
         setGameScore(0);
-        setTimeout(() => {
+        incorrectTimeoutRef.current = setTimeout(() => {
           setIncorrectAttempt({ spanishId: null, englishId: null });
         }, 1000);
       }
@@ -265,6 +255,17 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
 
   const clearLastUpdatedWords = useCallback(() => {
     setLastUpdatedWords([]);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (incorrectTimeoutRef.current) {
+        clearTimeout(incorrectTimeoutRef.current);
+      }
+      if (autoAdvanceTimeoutRef.current) {
+        clearTimeout(autoAdvanceTimeoutRef.current);
+      }
+    };
   }, []);
 
   return {
