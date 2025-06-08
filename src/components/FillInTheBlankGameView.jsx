@@ -12,7 +12,7 @@ const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame }) => {
         feedback,
         submitUserChoice,
         startNewGame,
-        fetchNewQuestion, // Get the function for the "Next" button
+        fetchNewQuestion, 
     } = useFillInTheBlankGame(wordList, numChoices);
     
     const handleChoiceClick = (choice) => {
@@ -20,10 +20,14 @@ const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame }) => {
         submitUserChoice(choice);
     };
 
+    const handleNextQuestionClick = () => {
+        fetchNewQuestion();
+    };
+
     if (isLoading) {
         return (
             <div className="fill-blank-game-container game-message-container">
-                <p className="loading-text">{gameMessage || "Loading question..."}</p>
+                <p className="loading-text">Loading Question...</p>
             </div>
         );
     }
@@ -48,7 +52,7 @@ const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame }) => {
             {currentQuestion ? (
                 <div className="question-area">
                     <p className="sentence-display">
-                        Fill in the blank for the Spanish translation of: <strong>"{currentQuestion.targetPair.english}"</strong>
+                        Fill in the blank for the Spanish translation of: <strong>"{currentQuestion.originalSentenceEng}"</strong>
                     </p>
                     <p className="sentence-with-blank">
                         {currentQuestion.sentenceWithBlank.split('_______').map((part, index, arr) => (
@@ -64,7 +68,7 @@ const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame }) => {
                                 key={index}
                                 onClick={() => handleChoiceClick(choice)}
                                 className="choice-button"
-                                disabled={!!feedback.message} // Disable choices after an answer
+                                disabled={!!feedback.message || isLoading} 
                             >
                                 {choice}
                             </button>
@@ -75,21 +79,20 @@ const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame }) => {
                         <div className={`feedback-message ${feedback.type === 'correct' ? 'correct' : 'incorrect'}`}>
                             <p>{feedback.message}</p>
                             {feedback.type === 'incorrect' && (
-                                <p>Original: "<em>{currentQuestion.originalSentenceSpa}</em>"</p>
+                                <p>Original sentence: "<em>{currentQuestion.originalSentenceSpa}</em>"</p>
                             )}
-                            {/* Give user control to move to the next question */}
-                            <button onClick={fetchNewQuestion} className="game-button next-question-button">
+                            <button onClick={handleNextQuestionClick} className="game-button next-question-button" autoFocus>
                                 Next Question
                             </button>
                         </div>
                     )}
                 </div>
             ) : (
-                 <p>Something went wrong. Please try starting a new game.</p>
+                <p>Click "Start New Game" to begin.</p>
             )}
 
             <div className="fill-blank-controls">
-                <button onClick={startNewGame} className="game-button">
+                <button onClick={startNewGame} className="game-button" disabled={isLoading}>
                     Start New Game
                 </button>
                 <button onClick={onExitGame} className="game-button exit-button">

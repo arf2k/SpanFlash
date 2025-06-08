@@ -1,5 +1,5 @@
 // src/hooks/useFillInTheBlankGame.js
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { getTatoebaExamples } from '../services/tatoebaServices.js';
 
 function shuffleArray(array) {
@@ -17,9 +17,14 @@ export function useFillInTheBlankGame(wordList = [], numChoices = 4) {
     const [gameMessage, setGameMessage] = useState('');
     const [gameScore, setGameScore] = useState(0);
     const [feedback, setFeedback] = useState({ message: '', type: '' });
+    
+    // This ref will ensure our initial fetch only happens ONCE.
+    const hasStartedGame = useRef(false);
+    const isFetchingRef = useRef(false); // <-- Add this
 
     const fetchNewQuestion = useCallback(async () => {
-        console.log("HOOK: Fetching a new question...");
+        if (isFetchingRef.current) return; // <-- Prevent concurrent fetches
+        isFetchingRef.current = true;
         setIsLoading(true);
         setGameMessage('');
         setFeedback({ message: '', type: '' });
@@ -28,14 +33,25 @@ export function useFillInTheBlankGame(wordList = [], numChoices = 4) {
         if (!wordList || wordList.length < numChoices) {
             setGameMessage(`Not enough words in list to start game (need at least ${numChoices}).`);
             setIsLoading(false);
+            isFetchingRef.current = false; // <-- Reset after fetch
+            return;
+        }
+
+        const candidateWordList = wordList.filter(
+            (pair) => pair.spanish && pair.spanish.trim().split(' ').length <= 3
+        );
+        if (candidateWordList.length < numChoices) {
+            setGameMessage("Not enough suitable short words to generate choices for the game.");
+            setIsLoading(false);
+            isFetchingRef.current = false; // <-- Reset after fetch
             return;
         }
 
         let attempts = 0;
-        const maxAttempts = 15; // Try up to 15 random words to find a usable sentence
+        const maxAttempts = 15;
         while (attempts < maxAttempts) {
             attempts++;
-            const targetPair = wordList[Math.floor(Math.random() * wordList.length)];
+            const targetPair = candidateWordList[Math.floor(Math.random() * candidateWordList.length)];
             if (!targetPair?.spanish) continue;
 
             const examples = await getTatoebaExamples(targetPair.spanish);
@@ -47,46 +63,37 @@ export function useFillInTheBlankGame(wordList = [], numChoices = 4) {
 
                 if (example.text_spa && regex.test(example.text_spa)) {
                     const sentenceWithBlank = example.text_spa.replace(regex, "_______");
-                    
-                    let distractors = shuffleArray(wordList.filter(p => p.id !== targetPair.id))
-                                      .slice(0, numChoices - 1)
-                                      .map(p => p.spanish);
+                    const distractors = shuffleArray(candidateWordList.filter(p => p.id !== targetPair.id))
+                                      .slice(0, numChoices - 1).map(p => p.spanish);
 
                     if (distractors.length < numChoices - 1) continue;
 
                     const choices = shuffleArray([targetPair.spanish, ...distractors]);
-
                     setCurrentQuestion({
-                        targetPair,
-                        sentenceWithBlank,
-                        choices,
+                        targetPair, sentenceWithBlank, choices,
                         correctAnswer: targetPair.spanish,
-                        originalSentenceSpa: example.text_spa,
-                        originalSentenceEng: targetPair.english, // Use the word's direct translation as prompt
+                        originalSentenceEng: targetPair.english,
+                        originalSentenceSpa: example.text_spa,   
                     });
                     setIsLoading(false);
-                    console.log("HOOK: New question set for", targetPair.spanish);
-                    return; // Exit successfully
+                    isFetchingRef.current = false; // <-- Reset after fetch
+                    return; // Found a valid question, exit successfully
                 }
             }
         }
-
         setGameMessage(`Could not find a suitable sentence after ${maxAttempts} attempts. Please try again.`);
         setIsLoading(false);
+        isFetchingRef.current = false; // <-- Reset after fetch
     }, [wordList, numChoices]);
 
     const submitUserChoice = useCallback((chosenWord) => {
         if (!currentQuestion || feedback.message) return;
-        
         const isCorrect = chosenWord.toLowerCase().trim() === currentQuestion.correctAnswer.toLowerCase().trim();
-        setGameScore(isCorrect ? prev => prev + 1 : 0);
-        setFeedback({ 
-            message: isCorrect ? 'Correct!' : `Oops! The correct answer was "${currentQuestion.correctAnswer}".`, 
-            type: isCorrect ? 'correct' : 'incorrect' 
+        setGameScore(isCorrect ? (prev) => prev + 1 : 0);
+        setFeedback({
+            message: isCorrect ? "Correct!" : `Oops! The correct answer was "${currentQuestion.correctAnswer}".`,
+            type: isCorrect ? "correct" : "incorrect",
         });
-
-        // After showing feedback, wait for the user to click "Next" in the UI.
-        // We will remove the automatic advance for now to stabilize.
     }, [currentQuestion]);
 
     const startNewGame = useCallback(() => {
@@ -94,24 +101,19 @@ export function useFillInTheBlankGame(wordList = [], numChoices = 4) {
         fetchNewQuestion();
     }, [fetchNewQuestion]);
 
-    // This effect initializes the very first game when the hook mounts with a valid list
+    // This is the corrected initialization effect.
     useEffect(() => {
-        if (wordList && wordList.length >= numChoices) {
+        // Run only if wordList is ready AND we have NOT run the initial fetch yet.
+        if (wordList.length > 0 && !hasStartedGame.current) {
+            console.log("HOOK: Word list is ready. Starting the first game session.");
+            // Set the flag to true immediately to prevent this from ever running again
+            hasStartedGame.current = true; 
             startNewGame();
         }
-    // We disable the lint rule here because we truly only want this effect
-    // to run when the wordList reference changes, not startNewGame.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [wordList, numChoices]);
+    }, [wordList, startNewGame]);
 
     return {
-        currentQuestion,
-        isLoading,
-        gameMessage,
-        gameScore,
-        feedback,
-        submitUserChoice,
-        startNewGame,
-        fetchNewQuestion, // Expose this so the "Next" button can call it
+        currentQuestion, isLoading, gameMessage, gameScore, feedback,
+        submitUserChoice, startNewGame, fetchNewQuestion, 
     };
 }
