@@ -19,15 +19,15 @@ const MatchingGameView = ({ fullWordList, numPairsToDisplay = 6, onExitGame, onW
         clearLastUpdatedWords 
     } = useMatchingGame(fullWordList, numPairsToDisplay);
 
-   
-    useEffect(() => {
-        if (lastUpdatedWords && lastUpdatedWords.length > 0 && onWordsUpdated) {
+useEffect(() => {
+    if (lastUpdatedWords && lastUpdatedWords.length > 0) {
+        if (onWordsUpdated) {
             onWordsUpdated(lastUpdatedWords);
-            clearLastUpdatedWords(); 
         }
-    }, [lastUpdatedWords, onWordsUpdated, clearLastUpdatedWords]);
-
-    console.log("MatchingGameView: incorrectAttempt prop received:", incorrectAttempt);
+        // Always clear the updated words, even if no callback provided
+        clearLastUpdatedWords(); 
+    }
+}, [lastUpdatedWords, onWordsUpdated, clearLastUpdatedWords]);
 
     if (allWordsCount < numPairsToDisplay) {
         return (

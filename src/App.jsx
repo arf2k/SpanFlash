@@ -822,7 +822,7 @@ function App() {
             fullWordList={mainWordList}
             numPairsToDisplay={6}
             onExitGame={handleToggleMatchingGameMode}
-            onWordsUpdated={handleMatchingGameWordsUpdated}
+         
           />
         </div>
       ) : isFillInTheBlankModeActive ? (

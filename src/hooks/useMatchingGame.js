@@ -176,8 +176,7 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
     [
       fullWordList,
       numPairsToDisplay,
-      pickNewWords,
-      sessionUsedWordIds,
+      pickNewWords
  
     ]
   );
@@ -284,8 +283,7 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
     selectedSpanish,
     selectedEnglish,
     activeWordPairs,
-    sessionUsedWordIds,
-    initializeNewRound,
+    sessionUsedWordIds
   ]);
 
   const handleSpanishSelection = useCallback(
