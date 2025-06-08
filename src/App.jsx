@@ -20,6 +20,7 @@ function App() {
   // === Custom Hooks ===
   const {
     wordList: mainWordList,
+    initialCard,
     isLoadingData,
     dataError,
     currentDataVersion,
@@ -79,7 +80,7 @@ function App() {
     setShowFeedback: setGameShowFeedback,
     loadSpecificCard,
     lastReviewedCard,
-  } = useFlashcardGame(listForFlashcardGame);
+  } = useFlashcardGame(listForFlashcardGame, initialCard);
 
   // === Refs ===
   const incorrectScoreRef = useRef(null);
@@ -87,7 +88,7 @@ function App() {
   const previousDataVersionRef = useRef(null);
   const matchingGameContainerRef = useRef(null);
   const fillInTheBlankGameContainerRef = useRef(null);
-const hasLoadedInitialCard = useRef(false);
+  const hasLoadedInitialCard = useRef(false);
   // === Effects ===
   useEffect(() => {
     document.body.dataset.theme = currentTheme;
@@ -141,35 +142,6 @@ const hasLoadedInitialCard = useRef(false);
     };
     loadAppSpecificData();
   }, [setScore]);
-
- useEffect(() => {
-   
-    if (
-      !isLoadingData &&
-      listForFlashcardGame.length > 0 &&
-      !dataError &&
-      !gameError &&
-      !isMatchingGameModeActive &&
-      !isFillInTheBlankModeActive &&
-      !hasLoadedInitialCard.current 
-    ) {
-      console.log("App.jsx: All conditions met, selecting INITIAL flashcard.");
-      selectNewPairCard();
-     
-      hasLoadedInitialCard.current = true; 
-    }
-  }, [
-    isLoadingData, 
-    listForFlashcardGame, 
-    dataError, 
-    gameError,
-    isMatchingGameModeActive,
-    isFillInTheBlankModeActive,
-    selectNewPairCard 
-  ]);
-
-
-
 
   useEffect(() => {
     setHintData(null);
@@ -255,11 +227,10 @@ const hasLoadedInitialCard = useRef(false);
 
   useEffect(() => {
     if (lastReviewedCard) {
-   
-      setWordList(prevWordList =>
-          prevWordList.map(word =>
-              word.id === lastReviewedCard.id ? lastReviewedCard : word
-          )
+      setWordList((prevWordList) =>
+        prevWordList.map((word) =>
+          word.id === lastReviewedCard.id ? lastReviewedCard : word
+        )
       );
     }
   }, [lastReviewedCard, setWordList]);
@@ -671,15 +642,6 @@ const hasLoadedInitialCard = useRef(false);
     setIsFillInTheBlankModeActive((prev) => !prev);
   };
 
-  const handleCardReviewed = (updatedPair) => {
- 
-    setWordList(prevWordList =>
-        prevWordList.map(word =>
-            word.id === updatedPair.id ? updatedPair : word
-        )
-    );
-  };
-
   return (
     <div className="App">
       {" "}
@@ -1021,8 +983,8 @@ const hasLoadedInitialCard = useRef(false);
           />
         </>
       )}
-    </div> // This is the closing tag for the main <div className="App">
-  ); // This is the closing parenthesis for the return statement of the App function
+    </div>
+  );
 }
 
 export default App;
