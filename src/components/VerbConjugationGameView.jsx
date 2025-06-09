@@ -37,7 +37,7 @@ export default function VerbConjugationGameView({
         if (question) {
           confirmedVerbs.push(word);
         }
-        if (confirmedVerbs.length >= 10) break; // Start game with 10 confirmed verbs
+        if (confirmedVerbs.length >= 20) break; // Start game with 10 confirmed verbs
       }
       
       console.log(`Confirmed ${confirmedVerbs.length} working verbs`);
@@ -59,7 +59,7 @@ export default function VerbConjugationGameView({
     
     setIsLoading(true);
     const randomWord = words[Math.floor(Math.random() * words.length)];
-  const question = await ConjugationServices.generateConjugationQuestion(word);
+  const question = await conjugationService.generateConjugationQuestion(randomWord);
     
     if (question) {
       setCurrentQuestion(question);
