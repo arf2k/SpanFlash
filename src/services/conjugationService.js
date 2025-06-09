@@ -99,7 +99,6 @@ export class ConjugationService {
             `tú ${stem}as`,
             `él ${stem}a`,
             `nosotros ${stem}amos`,
-
             `ellos ${stem}an`,
           ],
         },
