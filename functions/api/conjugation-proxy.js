@@ -23,7 +23,7 @@ export async function onRequestGet(context) {
   }
 
   // Reconstruct the target URL for the verbe.cc service
-  const targetUrl = `<span class="math-inline">\{VERBECC\_API\_BASE\}/conjugate/</span>{language}/${verb}`;
+  const targetUrl = `<span class="math-inline">\{VERBECC\_API\_BASE\}/conjugate/es/${verb}`;
   console.log(`Conjugation Proxy: Forwarding request to: ${targetUrl}`);
 
   try {
