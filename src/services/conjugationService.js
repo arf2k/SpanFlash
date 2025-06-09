@@ -1,7 +1,9 @@
 export class ConjugationService {
   constructor() {
-    // Fixed API endpoint (you found the correct one!)
-    this.apiBase = "http://localhost:8000";
+
+    //this.apiBase = "http://localhost:8000";
+//this.apiBase = '/api/conjugation-proxy';
+this.apiBase = 'https://verbe.cc/verbecc'
 
     this.cache = new Map();
     this.verbCache = new Set(); // Cache known verbs
