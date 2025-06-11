@@ -22,9 +22,9 @@ export async function onRequestGet(context) {
     return new Response(JSON.stringify(errorResponse), { status: 400, headers: corsHeaders });
   }
 
-  // Reconstruct the target URL for the verbe.cc service
-  const targetUrl = `<span class="math-inline">\{VERBECC\_API\_BASE\}/conjugate/es/${verb}`;
-  console.log(`Conjugation Proxy: Forwarding request to: ${targetUrl}`);
+// Reconstruct the target URL for the verbe.cc service
+const targetUrl = `${VERBECC_API_BASE}/conjugate/es/${verb}`;
+console.log(`Conjugation Proxy: Forwarding request to: ${targetUrl}`);
 
   try {
     const response = await fetch(targetUrl, {
