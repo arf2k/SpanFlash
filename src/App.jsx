@@ -53,7 +53,8 @@ function App() {
       window.matchMedia("(prefers-color-scheme: dark)").matches;
     return storedTheme || (prefersDark ? "dark" : "light");
   });
-const [isVerbConjugationGameActive, setIsVerbConjugationGameActive] = useState(false);
+  const [isVerbConjugationGameActive, setIsVerbConjugationGameActive] =
+    useState(false);
 
   // === Custom Hooks ===
   const {
@@ -153,7 +154,12 @@ const [isVerbConjugationGameActive, setIsVerbConjugationGameActive] = useState(f
     setTatoebaExamples([]);
     setTatoebaError(null);
     setIsLoadingTatoebaExamples(false);
-  }, [currentPair, isMatchingGameModeActive, isFillInTheBlankModeActive,isVerbConjugationGameActive]);
+  }, [
+    currentPair,
+    isMatchingGameModeActive,
+    isFillInTheBlankModeActive,
+    isVerbConjugationGameActive,
+  ]);
 
   useEffect(() => {
     if (currentDataVersion !== null) {
@@ -228,17 +234,20 @@ const [isVerbConjugationGameActive, setIsVerbConjugationGameActive] = useState(f
     }
   }, [isFillInTheBlankModeActive]);
   useEffect(() => {
-  if (isVerbConjugationGameActive && verbConjugationGameContainerRef.current) {
-    setTimeout(() => {
-      if (verbConjugationGameContainerRef.current) {
-        verbConjugationGameContainerRef.current.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }
-    }, 50);
-  }
-}, [isVerbConjugationGameActive]);
+    if (
+      isVerbConjugationGameActive &&
+      verbConjugationGameContainerRef.current
+    ) {
+      setTimeout(() => {
+        if (verbConjugationGameContainerRef.current) {
+          verbConjugationGameContainerRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      }, 50);
+    }
+  }, [isVerbConjugationGameActive]);
 
   useEffect(() => {
     if (lastReviewedCard) {
@@ -534,84 +543,91 @@ const [isVerbConjugationGameActive, setIsVerbConjugationGameActive] = useState(f
       );
   };
 
- const handleExportWordList = async () => {
+  const handleExportWordList = async () => {
     console.log("App.jsx: Exporting word list...");
     try {
-        const allWordsFromDB = await db.allWords.toArray();
-        
-        // Still removing only 'id' field, preserving all Leitner data
-        const wordsForExport = allWordsFromDB.map(
-            ({ id, ...restOfWord }) => restOfWord
-        );
-        
-        // Calculate statistics for the export
-        const wordsWithProgress = wordsForExport.filter(w => w.leitnerBox > 0).length;
-        const boxDistribution = {};
-        wordsForExport.forEach(w => {
-            const box = w.leitnerBox || 0;
-            boxDistribution[box] = (boxDistribution[box] || 0) + 1;
-        });
-        
-        // Enhanced export object with metadata
-        const exportObject = {
-            version: currentDataVersion || "1.0.0",
-            exportDate: new Date().toISOString(),
-            exportMetadata: {
-                // Statistics to help track export contents
-                totalWords: wordsForExport.length,
-                wordsWithProgress: wordsWithProgress,
-                boxDistribution: boxDistribution,
-                
-                // Device info helps identify which device exported
-                deviceInfo: navigator.userAgent,
-                deviceType: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ? 'mobile' : 'desktop',
-                
-                // Warning for manual editing
-                warning: "DO NOT manually edit leitnerBox, lastReviewed, or dueDate fields - use merge script instead",
-                
-                // Instructions for merging
-                mergeInstructions: "To merge with master: node scripts/mergePhoneExport.cjs"
-            },
-            words: wordsForExport,
-        };
-        
-        // Convert to JSON with nice formatting
-        const jsonString = JSON.stringify(exportObject, null, 2);
-        const blob = new Blob([jsonString], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        
-        // Create download link
-        const a = document.createElement("a");
-        a.href = url;
-        
-        // Enhanced filename with device type and time
-        const date = new Date();
-        const dateString = `${date.getFullYear()}-${String(
-            date.getMonth() + 1
-        ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
-        const timeString = `${String(date.getHours()).padStart(2, "0")}${String(
-            date.getMinutes()
-        ).padStart(2, "0")}`;
-        const deviceType = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
-        
-        a.download = `flashcard_export_${deviceType}_${dateString}_${timeString}.json`;
-        
-        // Trigger download
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        
-        // Enhanced success logging
-        console.log(`App.jsx: Word list exported successfully.`);
-        console.log(`  - Total words: ${wordsForExport.length}`);
-        console.log(`  - Words with progress: ${wordsWithProgress}`);
-        console.log(`  - Filename: ${a.download}`);
-        
+      const allWordsFromDB = await db.allWords.toArray();
+
+      // Still removing only 'id' field, preserving all Leitner data
+      const wordsForExport = allWordsFromDB.map(
+        ({ id, ...restOfWord }) => restOfWord
+      );
+
+      // Calculate statistics for the export
+      const wordsWithProgress = wordsForExport.filter(
+        (w) => w.leitnerBox > 0
+      ).length;
+      const boxDistribution = {};
+      wordsForExport.forEach((w) => {
+        const box = w.leitnerBox || 0;
+        boxDistribution[box] = (boxDistribution[box] || 0) + 1;
+      });
+
+      // Enhanced export object with metadata
+      const exportObject = {
+        version: currentDataVersion || "1.0.0",
+        exportDate: new Date().toISOString(),
+        exportMetadata: {
+          // Statistics to help track export contents
+          totalWords: wordsForExport.length,
+          wordsWithProgress: wordsWithProgress,
+          boxDistribution: boxDistribution,
+
+          // Device info helps identify which device exported
+          deviceInfo: navigator.userAgent,
+          deviceType: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+            ? "mobile"
+            : "desktop",
+
+          // Warning for manual editing
+          warning:
+            "DO NOT manually edit leitnerBox, lastReviewed, or dueDate fields - use merge script instead",
+
+          // Instructions for merging
+          mergeInstructions:
+            "To merge with master: node scripts/mergePhoneExport.cjs",
+        },
+        words: wordsForExport,
+      };
+
+      // Convert to JSON with nice formatting
+      const jsonString = JSON.stringify(exportObject, null, 2);
+      const blob = new Blob([jsonString], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+
+      // Create download link
+      const a = document.createElement("a");
+      a.href = url;
+
+      // Enhanced filename with device type and time
+      const date = new Date();
+      const dateString = `${date.getFullYear()}-${String(
+        date.getMonth() + 1
+      ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+      const timeString = `${String(date.getHours()).padStart(2, "0")}${String(
+        date.getMinutes()
+      ).padStart(2, "0")}`;
+      const deviceType = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+        ? "mobile"
+        : "desktop";
+
+      a.download = `flashcard_export_${deviceType}_${dateString}_${timeString}.json`;
+
+      // Trigger download
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      // Enhanced success logging
+      console.log(`App.jsx: Word list exported successfully.`);
+      console.log(`  - Total words: ${wordsForExport.length}`);
+      console.log(`  - Words with progress: ${wordsWithProgress}`);
+      console.log(`  - Filename: ${a.download}`);
     } catch (error) {
-        console.error("App.jsx: Failed to export word list:", error);
+      console.error("App.jsx: Failed to export word list:", error);
     }
-};
+  };
   const handleFetchTatoebaExamples = async (wordToFetch) => {
     if (!wordToFetch) {
       setTatoebaError("No Spanish word provided to fetch examples for.");
@@ -705,33 +721,41 @@ const [isVerbConjugationGameActive, setIsVerbConjugationGameActive] = useState(f
   };
 
   const handleToggleVerbConjugationGame = () => {
-  setModeChangeMessage("");
-  if (!isVerbConjugationGameActive) {
-    const potentialVerbs = mainWordList.filter(word => 
-      word.spanish && (word.spanish.endsWith('ar') || word.spanish.endsWith('er') || word.spanish.endsWith('ir'))
-    );
-    
-    if (!mainWordList || mainWordList.length < 4 || potentialVerbs.length < 1) {
-      setModeChangeMessage(
-        "Not enough verbs in your word list. Add some Spanish verbs ending in -ar, -er, or -ir."
+    setModeChangeMessage("");
+    if (!isVerbConjugationGameActive) {
+      const potentialVerbs = mainWordList.filter(
+        (word) =>
+          word.spanish &&
+          (word.spanish.endsWith("ar") ||
+            word.spanish.endsWith("er") ||
+            word.spanish.endsWith("ir"))
       );
-      setTimeout(() => setModeChangeMessage(""), 3000);
-      return;
+
+      if (
+        !mainWordList ||
+        mainWordList.length < 4 ||
+        potentialVerbs.length < 1
+      ) {
+        setModeChangeMessage(
+          "Not enough verbs in your word list. Add some Spanish verbs ending in -ar, -er, or -ir."
+        );
+        setTimeout(() => setModeChangeMessage(""), 3000);
+        return;
+      }
+
+      // Close other views/modals
+      setShowHardWordsView(false);
+      setIsSearchModalOpen(false);
+      setIsAddWordModalOpen(false);
+      setIsEditModalOpen(false);
+      setIsDetailsModalOpen(false);
+      setIsSettingsModalOpen(false);
+      setIsMatchingGameModeActive(false);
+      setIsFillInTheBlankModeActive(false);
+      if (setGameShowFeedback) setGameShowFeedback(false);
     }
-    
-    // Close other views/modals
-    setShowHardWordsView(false);
-    setIsSearchModalOpen(false);
-    setIsAddWordModalOpen(false);
-    setIsEditModalOpen(false);
-    setIsDetailsModalOpen(false);
-    setIsSettingsModalOpen(false);
-    setIsMatchingGameModeActive(false);
-    setIsFillInTheBlankModeActive(false);
-    if (setGameShowFeedback) setGameShowFeedback(false);
-  }
-  setIsVerbConjugationGameActive((prev) => !prev);
-};
+    setIsVerbConjugationGameActive((prev) => !prev);
+  };
 
   const handleMatchingGameWordsUpdated = (updatedWords) => {
     if (updatedWords && updatedWords.length > 0) {
@@ -780,8 +804,7 @@ const [isVerbConjugationGameActive, setIsVerbConjugationGameActive] = useState(f
               {isInHardWordsMode &&
                 !isMatchingGameModeActive &&
                 !isFillInTheBlankModeActive &&
-                  !isVerbConjugationGameActive &&
-
+                !isVerbConjugationGameActive &&
                 "(Hard Mode)"}
             </p>
           )}
@@ -796,7 +819,11 @@ const [isVerbConjugationGameActive, setIsVerbConjugationGameActive] = useState(f
               color: "var(--text-muted)", // Use CSS variable
               padding: "0",
             }}
-            disabled={isMatchingGameModeActive || isFillInTheBlankModeActive || isVerbConjugationGameActive}
+            disabled={
+              isMatchingGameModeActive ||
+              isFillInTheBlankModeActive ||
+              isVerbConjugationGameActive
+            }
           >
             <span role="img" aria-label="settings icon">
               ⚙️
@@ -805,31 +832,32 @@ const [isVerbConjugationGameActive, setIsVerbConjugationGameActive] = useState(f
         </div>
       </div>
       {/* Score Stacks - Conditionally Rendered */}
-      {!isMatchingGameModeActive && !isFillInTheBlankModeActive &&
-      !isVerbConjugationGameActive && (
-        <div className="score-stacks-container">
-          <ScoreStack
-            type="correct"
-            label="Correct"
-            count={score.correct}
-            icon="✅"
-          />
-          <ScoreStack
-            type="incorrect"
-            label="Incorrect"
-            count={score.incorrect}
-            icon="❌"
-            flashRef={incorrectScoreRef}
-          />
-          <ScoreStack
-            type="hard"
-            label="Hard Words"
-            count={hardWordsList.length}
-            icon="⭐"
-            onClick={handleToggleHardWordsView}
-          />
-        </div>
-      )}
+      {!isMatchingGameModeActive &&
+        !isFillInTheBlankModeActive &&
+        !isVerbConjugationGameActive && (
+          <div className="score-stacks-container">
+            <ScoreStack
+              type="correct"
+              label="Correct"
+              count={score.correct}
+              icon="✅"
+            />
+            <ScoreStack
+              type="incorrect"
+              label="Incorrect"
+              count={score.incorrect}
+              icon="❌"
+              flashRef={incorrectScoreRef}
+            />
+            <ScoreStack
+              type="hard"
+              label="Hard Words"
+              count={hardWordsList.length}
+              icon="⭐"
+              onClick={handleToggleHardWordsView}
+            />
+          </div>
+        )}
       {/* Controls Section */}
       <div className="controls">
         <button
@@ -865,23 +893,31 @@ const [isVerbConjugationGameActive, setIsVerbConjugationGameActive] = useState(f
           Search
         </button>
         <button
-  onClick={handleToggleVerbConjugationGame}
-  title="Verb Conjugation Game"
-  style={{ padding: "0.6rem 0.8rem" }}
-  disabled={isMatchingGameModeActive || isFillInTheBlankModeActive|| isVerbConjugationGameActive}
->
-  <span role="img" aria-label="verb conjugation icon">
-    🔗
-  </span>{" "}
-  Conjugation
-</button>
+          onClick={handleToggleVerbConjugationGame}
+          title="Verb Conjugation Game"
+          style={{ padding: "0.6rem 0.8rem" }}
+          disabled={
+            isMatchingGameModeActive ||
+            isFillInTheBlankModeActive ||
+            isVerbConjugationGameActive
+          }
+        >
+          <span role="img" aria-label="verb conjugation icon">
+            🔗
+          </span>{" "}
+          Conjugation
+        </button>
         <button
           onClick={handleToggleHardWordsMode}
           title={
             isInHardWordsMode ? "Practice All Words" : "Practice Hard Words"
           }
           style={{ padding: "0.6rem 0.8rem" }}
-          disabled={isMatchingGameModeActive || isFillInTheBlankModeActive|| isVerbConjugationGameActive}
+          disabled={
+            isMatchingGameModeActive ||
+            isFillInTheBlankModeActive ||
+            isVerbConjugationGameActive
+          }
         >
           <span
             role="img"
@@ -893,7 +929,11 @@ const [isVerbConjugationGameActive, setIsVerbConjugationGameActive] = useState(f
         </button>
         <button
           onClick={switchDirection}
-          disabled={isMatchingGameModeActive || isFillInTheBlankModeActive || isVerbConjugationGameActive}
+          disabled={
+            isMatchingGameModeActive ||
+            isFillInTheBlankModeActive ||
+            isVerbConjugationGameActive
+          }
         >
           Switch Dir ({languageDirection === "spa-eng" ? "S->E" : "E->S"})
         </button>
@@ -904,8 +944,8 @@ const [isVerbConjugationGameActive, setIsVerbConjugationGameActive] = useState(f
             !listForFlashcardGame.length ||
             showHardWordsView ||
             isMatchingGameModeActive ||
-            isFillInTheBlankModeActive
-            || isVerbConjugationGameActive
+            isFillInTheBlankModeActive ||
+            isVerbConjugationGameActive
           }
         >
           {isLoadingData && !currentPair ? "Loading..." : "New Card"}
@@ -921,17 +961,16 @@ const [isVerbConjugationGameActive, setIsVerbConjugationGameActive] = useState(f
       )}
       {/* Main Content Area: Game OR Flashcard/HardWords View */}
       {isVerbConjugationGameActive ? (
-  <div
-    ref={verbConjugationGameContainerRef}
-    className="verb-conjugation-game-view-wrapper"
-  >
-    <VerbConjugationGameView
-      wordList={mainWordList}
-      onExitGame={handleToggleVerbConjugationGame}
-    />
-  </div>
-) : isMatchingGameModeActive ? (
-    
+        <div
+          ref={verbConjugationGameContainerRef}
+          className="verb-conjugation-game-view-wrapper"
+        >
+          <VerbConjugationGameView
+            wordList={mainWordList}
+            onExitGame={handleToggleVerbConjugationGame}
+          />
+        </div>
+      ) : isMatchingGameModeActive ? (
         <div
           ref={matchingGameContainerRef}
           className="matching-game-view-wrapper"

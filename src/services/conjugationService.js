@@ -1,9 +1,8 @@
 export class ConjugationService {
   constructor() {
-
     //this.apiBase = "http://localhost:8000";
-this.apiBase = '/api/conjugation-proxy';
-//this.apiBase = 'http://verbe.cc/verbecc/conjugate/es/'
+    this.apiBase = "/api/conjugation-proxy";
+    //this.apiBase = 'http://verbe.cc/verbecc/conjugate/es/'
 
     this.cache = new Map();
     this.verbCache = new Set(); // Cache known verbs
@@ -28,8 +27,6 @@ this.apiBase = '/api/conjugation-proxy';
       this.verbCache.has(word)
     ); // Or we know it's a verb from API
   }
-
-  // Enhanced conjugation fetching with better error handling
   async getConjugations(verb) {
     const cacheKey = `full-${verb}`;
 
@@ -43,14 +40,14 @@ this.apiBase = '/api/conjugation-proxy';
     }
 
     try {
-      const response = await fetch(`${this.apiBase}/conjugate/es/${verb}`, {
+      // FIXED: Remove /conjugate from here
+      const response = await fetch(`${this.apiBase}/es/${verb}`, {
         method: "GET",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        // Add timeout
-        signal: AbortSignal.timeout(10000), // 10 second timeout
+        signal: AbortSignal.timeout(10000),
       });
 
       if (!response.ok) {
@@ -193,10 +190,7 @@ this.apiBase = '/api/conjugation-proxy';
 
       // Clean up the conjugation (remove pronouns if present)
       let answer = tenseConjugations[person.index];
-      answer = answer.replace(
-        /^(yo|tú|él|ella|nosotros|ellos|ellas)\s+/,
-        ""
-      );
+      answer = answer.replace(/^(yo|tú|él|ella|nosotros|ellos|ellas)\s+/, "");
 
       return {
         type: "conjugation",
