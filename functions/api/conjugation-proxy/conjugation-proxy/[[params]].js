@@ -1,15 +1,12 @@
 const VERBECC_API_BASE = 'http://verbe.cc/verbecc';
 
 export async function onRequestGet(context) {
-  const { request, env } = context;
-  const url = new URL(request.url);
-
-  // The verb will be part of the path, e.g., /api/conjugation-proxy/es/hablar
-  // We need to extract the path segments after our proxy path.
-  const pathSegments = url.pathname.split('/');
-  // Expected path: ['', 'api', 'conjugation-proxy', 'es', 'hablar']
-  const language = pathSegments[3]; 
-  const verb = pathSegments[4];
+  const { request, env, params } = context;
+  
+  // params.params will be an array like ['es', 'hablar']
+  const pathParams = params.params || [];
+  const language = pathParams[0];
+  const verb = pathParams[1];
 
   const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
@@ -22,9 +19,9 @@ export async function onRequestGet(context) {
     return new Response(JSON.stringify(errorResponse), { status: 400, headers: corsHeaders });
   }
 
-// Reconstruct the target URL for the verbe.cc service
-const targetUrl = `${VERBECC_API_BASE}/conjugate/es/${verb}`;
-console.log(`Conjugation Proxy: Forwarding request to: ${targetUrl}`);
+  // Construct the target URL for the verbe.cc service
+  const targetUrl = `${VERBECC_API_BASE}/conjugate/${language}/${verb}`;
+  console.log(`Conjugation Proxy: Forwarding request to: ${targetUrl}`);
 
   try {
     const response = await fetch(targetUrl, {
