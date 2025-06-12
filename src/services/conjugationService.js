@@ -1,31 +1,27 @@
+
 export class ConjugationService {
   constructor() {
     //this.apiBase = "http://localhost:8000";
     this.apiBase = "/api/conjugation-proxy";
-    //this.apiBase = 'http://verbe.cc/verbecc/conjugate/es/'
 
     this.cache = new Map();
-    this.verbCache = new Set(); // Cache known verbs
+    this.verbCache = new Set(); 
     this.isOnline = navigator.onLine;
 
-    // Listen for online/offline changes
     window.addEventListener("online", () => (this.isOnline = true));
     window.addEventListener("offline", () => (this.isOnline = false));
   }
 
-  // Check if a word is likely a Spanish verb
   isVerb(spanishWord) {
     if (!spanishWord) return false;
 
-    // Basic Spanish verb patterns
     const verbEndings = ["ar", "er", "ir"];
     const word = spanishWord.toLowerCase().trim();
 
-    // Check if it ends with verb suffixes
     return (
       verbEndings.some((ending) => word.endsWith(ending)) ||
       this.verbCache.has(word)
-    ); // Or we know it's a verb from API
+    ); 
   }
   async getConjugations(verb) {
     const cacheKey = `full-${verb}`;
@@ -40,7 +36,6 @@ export class ConjugationService {
     }
 
     try {
-      // FIXED: Remove /conjugate from here
       const response = await fetch(`${this.apiBase}/es/${verb}`, {
         method: "GET",
         headers: {
@@ -66,7 +61,7 @@ export class ConjugationService {
     } catch (error) {
       console.warn(`Failed to conjugate ${verb}:`, error.message);
 
-      // Try fallback with simpler conjugation if API fails
+     
       if (!error.message.includes("timeout")) {
         return await this.tryFallbackConjugation(verb);
       }
@@ -139,7 +134,7 @@ export class ConjugationService {
     };
   }
 
-  // Generate a conjugation question with better tense mapping
+
   async generateConjugationQuestion(word) {
     if (!this.isVerb(word.spanish)) {
       return null;
@@ -156,28 +151,29 @@ export class ConjugationService {
     };
 
     const displayTenses = Object.keys(tenseMapping);
-    const persons = [
+   const persons = [
       { label: "yo", index: 0 },
       { label: "tú", index: 1 },
-      { label: "él/ella", index: 2 },
-      { label: "nosotros", index: 3 },
-      { label: "ellos/ellas", index: 4 },
+      { label: "él/ella/usted", index: 2 },
+      { label: "nosotros/as", index: 3 },
+      { label: "vosotros/as", index: 4 }, 
+      { label: "ellos/ellas/ustedes", index: 5 } 
     ];
 
+    const personsToPractice = persons.filter((p) => p.label !== "vosotros/as");
     // Pick random tense and person
     const displayTense =
       displayTenses[Math.floor(Math.random() * displayTenses.length)];
     const apiTense = tenseMapping[displayTense];
-    const person = persons[Math.floor(Math.random() * persons.length)];
+    const person =
+      personsToPractice[Math.floor(Math.random() * personsToPractice.length)]; // Use the filtered list
 
     try {
       const conjugations = await this.getConjugations(word.spanish);
 
       if (
         !conjugations ||
-        !conjugations.moods ||
-        !conjugations.moods.indicativo ||
-        !conjugations.moods.indicativo[apiTense]
+        !conjugations.moods?.indicativo?.[apiTense] // Using optional chaining for safety
       ) {
         return null;
       }
@@ -188,14 +184,16 @@ export class ConjugationService {
         return null;
       }
 
-      // Clean up the conjugation (remove pronouns if present)
       let answer = tenseConjugations[person.index];
-      answer = answer.replace(/^(yo|tú|él|ella|nosotros|ellos|ellas)\s+/, "");
+      answer = answer.replace(
+        /^(yo|tú|él|ella|Ud\.|nosotros|vosotros|ellos|ellas|Uds\.)\s+/, // Added Ud. and Uds.
+        ""
+      );
 
       return {
         type: "conjugation",
         word: word,
-        question: `Conjugate "${word.spanish}" for "${person.label}" in ${displayTense}`,
+        question: `Conjugate "${word.spanish}" for "${person.label}" in the ${displayTense} tense`,
         answer: answer.trim(),
         fullAnswer: tenseConjugations[person.index],
         mood: "indicativo",

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ConjugationService } from '../services/conjugationService.js';
-import { updateWordLeitnerData } from '../utils/gameUtils';
+import { updateWordLeitnerData, shuffleArray } from '../utils/gameUtils';
+import { normalizeForAnswerCheck } from '../utils/textUtils.js'; 
 import './VerbConjugationGame.css';
 
 export default function VerbConjugationGameView({ 
@@ -18,26 +19,28 @@ export default function VerbConjugationGameView({
   const [showAnswer, setShowAnswer] = useState(false);
   const [gameCompleted, setGameCompleted] = useState(false);
 
-  // Initialize game by finding verbs in word list
   useEffect(() => {
     const initializeGame = async () => {
       setIsLoading(true);
-      
-      // Filter to likely verbs first (fast)
+    
+           
       const likelyVerbs = wordList.filter(word => 
         conjugationService.isVerb(word.spanish)
-      ).slice(0, 50); // Limit to avoid too many API calls
+      );
+
+  
+      const shuffledLikelyVerbs = shuffleArray(likelyVerbs);
+      const verbsToTest = shuffledLikelyVerbs.slice(0, 50);
       
-      console.log(`Found ${likelyVerbs.length} potential verbs`);
+      console.log(`Found ${likelyVerbs.length} potential verbs, testing up to 50 of them.`);
       
-      // Test first 20 to confirm they work with API
       const confirmedVerbs = [];
-      for (const word of likelyVerbs.slice(0, 20)) {
+      for (const word of verbsToTest) { 
         const question = await conjugationService.generateConjugationQuestion(word);
         if (question) {
           confirmedVerbs.push(word);
         }
-        if (confirmedVerbs.length >= 20) break; // Start game with 10 confirmed verbs
+        if (confirmedVerbs.length >= 20) break; 
       }
       
       console.log(`Confirmed ${confirmedVerbs.length} working verbs`);
@@ -52,7 +55,8 @@ export default function VerbConjugationGameView({
     if (wordList && wordList.length > 0) {
       initializeGame();
     }
-  }, [wordList]);
+  }, [wordList, conjugationService]);
+
 
   const generateNewQuestion = async (words = verbWords) => {
     if (words.length === 0) return;
@@ -73,10 +77,12 @@ export default function VerbConjugationGameView({
   const checkAnswer = async () => {
     if (!currentQuestion || !userAnswer.trim()) return;
     
-    const userAnswerClean = userAnswer.toLowerCase().trim();
-    const correctAnswer = currentQuestion.answer.toLowerCase().trim();
+     const normalizedUserAnswer = normalizeForAnswerCheck(userAnswer);
+    const normalizedCorrectAnswer = normalizeForAnswerCheck(currentQuestion.answer);
+
+    const isCorrect = normalizedUserAnswer === normalizedCorrectAnswer;
     
-    const isCorrect = userAnswerClean === correctAnswer;
+ 
     
     setFeedback({
       isCorrect,
