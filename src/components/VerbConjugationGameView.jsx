@@ -34,14 +34,22 @@ export default function VerbConjugationGameView({
       
       console.log(`Found ${likelyVerbs.length} potential verbs, testing up to 50 of them.`);
       
-      const confirmedVerbs = [];
-      for (const word of verbsToTest) { 
-        const question = await conjugationService.generateConjugationQuestion(word);
-        if (question) {
-          confirmedVerbs.push(word);
-        }
-        if (confirmedVerbs.length >= 20) break; 
-      }
+   // Create promises for parallel verb testing (much faster)
+const verbTestPromises = verbsToTest.slice(0, 25).map(async (word) => {
+  try {
+    const question = await conjugationService.generateConjugationQuestion(word);
+    return question ? word : null;
+  } catch (error) {
+    console.warn(`Failed to test verb ${word.spanish}:`, error);
+    return null;
+  }
+});
+
+// Wait for all tests to complete simultaneously
+const testResults = await Promise.all(verbTestPromises);
+
+// Filter successful verbs and take first 20
+const confirmedVerbs = testResults.filter(word => word !== null).slice(0, 20);
       
       console.log(`Confirmed ${confirmedVerbs.length} working verbs`);
       setVerbWords(confirmedVerbs);
