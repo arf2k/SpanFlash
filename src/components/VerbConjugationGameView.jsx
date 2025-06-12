@@ -52,10 +52,10 @@ export default function VerbConjugationGameView({
       }
     };
 
-    if (wordList && wordList.length > 0) {
+    if (wordList && wordList.length > 0 && !gameCompleted) {
       initializeGame();
     }
-  }, [wordList, conjugationService]);
+  }, [wordList, gameCompleted, conjugationService]);
 
 
   const generateNewQuestion = async (words = verbWords) => {

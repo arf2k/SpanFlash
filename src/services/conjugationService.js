@@ -1,11 +1,10 @@
-
 export class ConjugationService {
   constructor() {
     //this.apiBase = "http://localhost:8000";
     this.apiBase = "/api/conjugation-proxy";
 
     this.cache = new Map();
-    this.verbCache = new Set(); 
+    this.verbCache = new Set();
     this.isOnline = navigator.onLine;
 
     window.addEventListener("online", () => (this.isOnline = true));
@@ -14,14 +13,18 @@ export class ConjugationService {
 
   isVerb(spanishWord) {
     if (!spanishWord) return false;
+    const word = spanishWord.toLowerCase().trim();
+
+    if (word.includes(" ")) {
+      return false;
+    }
 
     const verbEndings = ["ar", "er", "ir"];
-    const word = spanishWord.toLowerCase().trim();
 
     return (
       verbEndings.some((ending) => word.endsWith(ending)) ||
       this.verbCache.has(word)
-    ); 
+    );
   }
   async getConjugations(verb) {
     const cacheKey = `full-${verb}`;
@@ -61,7 +64,6 @@ export class ConjugationService {
     } catch (error) {
       console.warn(`Failed to conjugate ${verb}:`, error.message);
 
-     
       if (!error.message.includes("timeout")) {
         return await this.tryFallbackConjugation(verb);
       }
@@ -134,7 +136,6 @@ export class ConjugationService {
     };
   }
 
-
   async generateConjugationQuestion(word) {
     if (!this.isVerb(word.spanish)) {
       return null;
@@ -151,13 +152,13 @@ export class ConjugationService {
     };
 
     const displayTenses = Object.keys(tenseMapping);
-   const persons = [
+    const persons = [
       { label: "yo", index: 0 },
       { label: "tú", index: 1 },
       { label: "él/ella/usted", index: 2 },
       { label: "nosotros/as", index: 3 },
-      { label: "vosotros/as", index: 4 }, 
-      { label: "ellos/ellas/ustedes", index: 5 } 
+      { label: "vosotros/as", index: 4 },
+      { label: "ellos/ellas/ustedes", index: 5 },
     ];
 
     const personsToPractice = persons.filter((p) => p.label !== "vosotros/as");
