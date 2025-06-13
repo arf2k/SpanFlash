@@ -22,6 +22,8 @@ import { useGameModes } from "./hooks/useGameModes";
 import { useAppSettings } from "./hooks/useAppSettings";
 import { createHardWordsHandlers } from "./handlers/hardWordsHandlers";
 import { createModalHandlers } from "./handlers/modalHandlers";
+import { createWordManagementHandlers } from "./handlers/wordManagementHandlers";
+import { createGameModeHandlers } from "./handlers/gameModeHandlers";
 
 function App() {
   // === App-specific State Variables ===
@@ -114,7 +116,6 @@ function App() {
   const verbConjugationGameContainerRef = useRef(null);
 
   // === Handlers ===
-  // Create handler instances
   const {
     handleMarkHard,
     handleRemoveHardWord,
@@ -146,6 +147,44 @@ function App() {
     setIsDetailsModalOpen,
     setIsAddWordModalOpen,
     setIsSettingsModalOpen
+  );
+
+  const {
+    handleAddWord,
+    handleUpdateWord,
+    handleDeleteWord,
+    handleSelectWordFromSearch,
+    handleExportWordList,
+  } = createWordManagementHandlers(
+    setWordList,
+    currentPair,
+    selectNewPairCard,
+    listForFlashcardGame,
+    setIsSearchModalOpen,
+    loadSpecificCard,
+    currentDataVersion,
+    closeEditModal
+  );
+
+  const {
+    handleToggleMatchingGameMode,
+    handleToggleFillInTheBlankMode,
+    handleToggleVerbConjugationGame,
+    handleMatchingGameWordsUpdated,
+  } = createGameModeHandlers(
+    mainWordList,
+    setModeChangeMessage,
+    setShowHardWordsView,
+    setIsSearchModalOpen,
+    setIsAddWordModalOpen,
+    setIsEditModalOpen,
+    setIsDetailsModalOpen,
+    setIsSettingsModalOpen,
+    setIsMatchingGameModeActive,
+    setIsFillInTheBlankModeActive,
+    setIsVerbConjugationGameActive,
+    setGameShowFeedback,
+    setWordList
   );
 
   // === Effects ===
@@ -441,158 +480,6 @@ function App() {
     }
   };
 
-  const handleAddWord = async (newWordObject) => {
-    try {
-      const newId = await db.allWords.add(newWordObject);
-      const wordWithId = await db.allWords.get(newId);
-      if (wordWithId)
-        setWordList((prevWordList) => [...prevWordList, wordWithId]);
-      else console.error("Failed to retrieve new word from DB:", newId);
-      console.log("New word added:", wordWithId);
-    } catch (error) {
-      console.error("Failed to add new word:", error);
-    }
-  };
-
-  const handleUpdateWord = async (updatedWordData) => {
-    if (!updatedWordData || updatedWordData.id == null) {
-      console.error("Update attempt with invalid data:", updatedWordData);
-      return;
-    }
-    try {
-      await db.allWords.put(updatedWordData);
-      setWordList((prevWordList) =>
-        prevWordList.map((w) =>
-          w.id === updatedWordData.id ? updatedWordData : w
-        )
-      );
-      if (currentPair && currentPair.id === updatedWordData.id)
-        selectNewPairCard();
-      console.log("Word updated:", updatedWordData);
-      closeEditModal();
-    } catch (error) {
-      console.error("Failed to update word:", error);
-    }
-  };
-
-  const handleDeleteWord = async (idToDelete) => {
-    if (idToDelete == null) {
-      console.error("Delete attempt with invalid ID.");
-      return;
-    }
-    try {
-      await db.allWords.delete(idToDelete);
-      setWordList((prevWordList) =>
-        prevWordList.filter((word) => word.id !== idToDelete)
-      );
-      console.log(`Word ID ${idToDelete} deleted.`);
-      if (currentPair && currentPair.id === idToDelete) {
-        selectNewPairCard();
-      } else if (
-        listForFlashcardGame.filter((w) => w.id !== idToDelete).length === 0
-      ) {
-        selectNewPairCard();
-      }
-    } catch (error) {
-      console.error(`Failed to delete word ID ${idToDelete}:`, error);
-    }
-  };
-
-  const handleSelectWordFromSearch = (selectedPair) => {
-    if (selectedPair && loadSpecificCard) {
-      loadSpecificCard(selectedPair);
-      setIsSearchModalOpen(false);
-    } else
-      console.warn(
-        "handleSelectWordFromSearch: invalid pair or loadSpecificCard."
-      );
-  };
-
-  const handleExportWordList = async () => {
-    console.log("App.jsx: Exporting word list...");
-    try {
-      const allWordsFromDB = await db.allWords.toArray();
-
-      // Still removing only 'id' field, preserving all Leitner data
-      const wordsForExport = allWordsFromDB.map(
-        ({ id, ...restOfWord }) => restOfWord
-      );
-
-      // Calculate statistics for the export
-      const wordsWithProgress = wordsForExport.filter(
-        (w) => w.leitnerBox > 0
-      ).length;
-      const boxDistribution = {};
-      wordsForExport.forEach((w) => {
-        const box = w.leitnerBox || 0;
-        boxDistribution[box] = (boxDistribution[box] || 0) + 1;
-      });
-
-      // Enhanced export object with metadata
-      const exportObject = {
-        version: currentDataVersion || "1.0.0",
-        exportDate: new Date().toISOString(),
-        exportMetadata: {
-          // Statistics to help track export contents
-          totalWords: wordsForExport.length,
-          wordsWithProgress: wordsWithProgress,
-          boxDistribution: boxDistribution,
-
-          // Device info helps identify which device exported
-          deviceInfo: navigator.userAgent,
-          deviceType: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
-            ? "mobile"
-            : "desktop",
-
-          // Warning for manual editing
-          warning:
-            "DO NOT manually edit leitnerBox, lastReviewed, or dueDate fields - use merge script instead",
-
-          // Instructions for merging
-          mergeInstructions:
-            "To merge with master: node scripts/mergePhoneExport.cjs",
-        },
-        words: wordsForExport,
-      };
-
-      // Convert to JSON with nice formatting
-      const jsonString = JSON.stringify(exportObject, null, 2);
-      const blob = new Blob([jsonString], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-
-      // Create download link
-      const a = document.createElement("a");
-      a.href = url;
-
-      // Enhanced filename with device type and time
-      const date = new Date();
-      const dateString = `${date.getFullYear()}-${String(
-        date.getMonth() + 1
-      ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
-      const timeString = `${String(date.getHours()).padStart(2, "0")}${String(
-        date.getMinutes()
-      ).padStart(2, "0")}`;
-      const deviceType = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
-        ? "mobile"
-        : "desktop";
-
-      a.download = `flashcard_export_${deviceType}_${dateString}_${timeString}.json`;
-
-      // Trigger download
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-
-      // Enhanced success logging
-      console.log(`App.jsx: Word list exported successfully.`);
-      console.log(`  - Total words: ${wordsForExport.length}`);
-      console.log(`  - Words with progress: ${wordsWithProgress}`);
-      console.log(`  - Filename: ${a.download}`);
-    } catch (error) {
-      console.error("App.jsx: Failed to export word list:", error);
-    }
-  };
   const handleFetchTatoebaExamples = async (wordToFetch) => {
     if (!wordToFetch) {
       setTatoebaError("No Spanish word provided to fetch examples for.");
@@ -618,109 +505,6 @@ function App() {
     }
   };
 
-  const handleToggleMatchingGameMode = () => {
-    setModeChangeMessage("");
-    if (!isMatchingGameModeActive) {
-      if (!mainWordList || mainWordList.length < 6) {
-        setModeChangeMessage(
-          "Not enough words in the main list to start the matching game (need at least 6)."
-        );
-        setTimeout(() => setModeChangeMessage(""), 3000);
-        return;
-      }
-      setShowHardWordsView(false);
-      setIsSearchModalOpen(false);
-      setIsAddWordModalOpen(false);
-      setIsEditModalOpen(false);
-      setIsDetailsModalOpen(false);
-      setIsSettingsModalOpen(false);
-      if (setGameShowFeedback) setGameShowFeedback(false);
-    }
-    setIsMatchingGameModeActive((prev) => !prev);
-
-    !isMatchingGameModeActive;
-  };
-
-  const handleToggleFillInTheBlankMode = () => {
-    setModeChangeMessage("");
-    if (!isFillInTheBlankModeActive) {
-      const candidateWordListForFillInBlank = mainWordList.filter(
-        (pair) => pair.spanish && pair.spanish.trim().split(" ").length <= 3
-      );
-      if (
-        !mainWordList ||
-        mainWordList.length < 4 ||
-        candidateWordListForFillInBlank.length < 1
-      ) {
-        setModeChangeMessage("Not enough words for Fill-in-the-Blank game.");
-        setTimeout(() => setModeChangeMessage(""), 3000);
-        return;
-      }
-      setShowHardWordsView(false);
-      setIsSearchModalOpen(false);
-      setIsAddWordModalOpen(false);
-      setIsEditModalOpen(false);
-      setIsDetailsModalOpen(false);
-      setIsSettingsModalOpen(false);
-      setIsMatchingGameModeActive(false);
-      if (setGameShowFeedback) setGameShowFeedback(false);
-    }
-    setIsFillInTheBlankModeActive((prev) => !prev);
-  };
-
-  const handleToggleVerbConjugationGame = () => {
-    setModeChangeMessage("");
-    if (!isVerbConjugationGameActive) {
-      const potentialVerbs = mainWordList.filter(
-        (word) =>
-          word.spanish &&
-          (word.spanish.endsWith("ar") ||
-            word.spanish.endsWith("er") ||
-            word.spanish.endsWith("ir"))
-      );
-
-      if (
-        !mainWordList ||
-        mainWordList.length < 4 ||
-        potentialVerbs.length < 1
-      ) {
-        setModeChangeMessage(
-          "Not enough verbs in your word list. Add some Spanish verbs ending in -ar, -er, or -ir."
-        );
-        setTimeout(() => setModeChangeMessage(""), 3000);
-        return;
-      }
-
-      // Close other views/modals
-      setShowHardWordsView(false);
-      setIsSearchModalOpen(false);
-      setIsAddWordModalOpen(false);
-      setIsEditModalOpen(false);
-      setIsDetailsModalOpen(false);
-      setIsSettingsModalOpen(false);
-      setIsMatchingGameModeActive(false);
-      setIsFillInTheBlankModeActive(false);
-      if (setGameShowFeedback) setGameShowFeedback(false);
-    }
-    setIsVerbConjugationGameActive((prev) => !prev);
-  };
-
-  const handleMatchingGameWordsUpdated = (updatedWords) => {
-    if (updatedWords && updatedWords.length > 0) {
-      setWordList((prevWordList) => {
-        let updatedList = [...prevWordList];
-        updatedWords.forEach((updatedWord) => {
-          updatedList = updatedList.map((word) =>
-            word.id === updatedWord.id ? updatedWord : word
-          );
-        });
-        return updatedList;
-      });
-      console.log(
-        `App.jsx: Updated ${updatedWords.length} words from matching game with Leitner data`
-      );
-    }
-  };
   return (
     <div className="App">
       {" "}
