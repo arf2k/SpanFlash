@@ -17,6 +17,8 @@ import { useFlashcardGame } from "./hooks/useFlashcardGame";
 import "./App.css";
 import { ConjugationService } from "./services/conjugationService.js";
 import VerbConjugationGameView from "./components/VerbConjugationGameView.jsx";
+import { useModalState } from "./hooks/useModalState";
+import { useGameModes } from "./hooks/useGameModes";
 
 function App() {
   // === App-specific State Variables ===
@@ -27,19 +29,13 @@ function App() {
 
   const [wordCurrentlyBeingEdited, setWordCurrentlyBeingEdited] =
     useState(null);
-  const [isInHardWordsMode, setIsInHardWordsMode] = useState(false);
-  const [modeChangeMessage, setModeChangeMessage] = useState("");
+
   const [apiSuggestions, setApiSuggestions] = useState(null);
 
   const [tatoebaExamples, setTatoebaExamples] = useState([]);
   const [isLoadingTatoebaExamples, setIsLoadingTatoebaExamples] =
     useState(false);
   const [tatoebaError, setTatoebaError] = useState(null);
-
-  const [isMatchingGameModeActive, setIsMatchingGameModeActive] =
-    useState(false);
-  const [isFillInTheBlankModeActive, setIsFillInTheBlankModeActive] =
-    useState(false);
 
   const [isAdminMode, setIsAdminMode] = useState(false);
   const [currentTheme, setCurrentTheme] = useState(() => {
@@ -50,10 +46,22 @@ function App() {
       window.matchMedia("(prefers-color-scheme: dark)").matches;
     return storedTheme || (prefersDark ? "dark" : "light");
   });
-  const [isVerbConjugationGameActive, setIsVerbConjugationGameActive] =
-    useState(false);
 
   // === Custom Hooks ===
+  const {
+    isInHardWordsMode,
+    setIsInHardWordsMode,
+    isMatchingGameModeActive,
+    setIsMatchingGameModeActive,
+    isFillInTheBlankModeActive,
+    setIsFillInTheBlankModeActive,
+    isVerbConjugationGameActive,
+    setIsVerbConjugationGameActive,
+    modeChangeMessage,
+    setModeChangeMessage,
+    isAnyGameActive,
+  } = useGameModes();
+
   const {
     isSearchModalOpen,
     setIsSearchModalOpen,
@@ -828,11 +836,7 @@ function App() {
               color: "var(--text-muted)", // Use CSS variable
               padding: "0",
             }}
-            disabled={
-              isMatchingGameModeActive ||
-              isFillInTheBlankModeActive ||
-              isVerbConjugationGameActive
-            }
+            disabled={isAnyGameActive}
           >
             <span role="img" aria-label="settings icon">
               ⚙️
@@ -922,11 +926,7 @@ function App() {
             isInHardWordsMode ? "Practice All Words" : "Practice Hard Words"
           }
           style={{ padding: "0.6rem 0.8rem" }}
-          disabled={
-            isMatchingGameModeActive ||
-            isFillInTheBlankModeActive ||
-            isVerbConjugationGameActive
-          }
+          disabled={isAnyGameActive}
         >
           <span
             role="img"
@@ -936,14 +936,7 @@ function App() {
           </span>
           {isInHardWordsMode ? "All Words" : "Hard Mode"}
         </button>
-        <button
-          onClick={switchDirection}
-          disabled={
-            isMatchingGameModeActive ||
-            isFillInTheBlankModeActive ||
-            isVerbConjugationGameActive
-          }
-        >
+        <button onClick={switchDirection} disabled={isAnyGameActive}>
           Switch Dir ({languageDirection === "spa-eng" ? "S->E" : "E->S"})
         </button>
         <button
@@ -952,9 +945,7 @@ function App() {
             isLoadingData ||
             !listForFlashcardGame.length ||
             showHardWordsView ||
-            isMatchingGameModeActive ||
-            isFillInTheBlankModeActive ||
-            isVerbConjugationGameActive
+           isAnyGameActive
           }
         >
           {isLoadingData && !currentPair ? "Loading..." : "New Card"}
