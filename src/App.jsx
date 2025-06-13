@@ -418,23 +418,23 @@ function App() {
           </div>
         )}
       {/* Controls Section */}
-     
-     <GameControls
-  onFillInBlankToggle={handleToggleFillInTheBlankMode}
-  onMatchingGameToggle={handleToggleMatchingGameMode}
-  onVerbConjugationToggle={handleToggleVerbConjugationGame}
-  onHardModeToggle={handleToggleHardWordsMode}
-  onSearchClick={() => setIsSearchModalOpen(true)}
-  onSwitchDirection={switchDirection}
-  onNewCard={selectNewPairCard}
-  isAnyGameActive={isAnyGameActive}
-  isInHardWordsMode={isInHardWordsMode}
-  languageDirection={languageDirection}
-  isLoadingData={isLoadingData}
-  listForFlashcardGame={listForFlashcardGame}
-  showHardWordsView={showHardWordsView}
-/>
-     
+      <GameControls
+        onFillInBlankToggle={handleToggleFillInTheBlankMode}
+        onMatchingGameToggle={handleToggleMatchingGameMode}
+        onVerbConjugationToggle={handleToggleVerbConjugationGame}
+        onHardModeToggle={handleToggleHardWordsMode}
+        onSearchClick={() => setIsSearchModalOpen(true)}
+        onSwitchDirection={switchDirection}
+        onNewCard={selectNewPairCard}
+        isAnyGameActive={isAnyGameActive}
+        isMatchingGameModeActive={isMatchingGameModeActive}
+        isFillInTheBlankModeActive={isFillInTheBlankModeActive}
+        isInHardWordsMode={isInHardWordsMode}
+        languageDirection={languageDirection}
+        isLoadingData={isLoadingData}
+        listForFlashcardGame={listForFlashcardGame}
+        showHardWordsView={showHardWordsView}
+      />
       {/* Mode Change Message - This goes before the main content switcher */}
       {modeChangeMessage && (
         <p

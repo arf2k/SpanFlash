@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const GameControls = ({
   // Game mode handlers
@@ -6,19 +6,21 @@ const GameControls = ({
   onMatchingGameToggle,
   onVerbConjugationToggle,
   onHardModeToggle,
-  
+
   // Other handlers
   onSearchClick,
   onSwitchDirection,
   onNewCard,
-  
+
   // State
   isAnyGameActive,
+  isMatchingGameModeActive,        
+  isFillInTheBlankModeActive,      
   isInHardWordsMode,
   languageDirection,
   isLoadingData,
   listForFlashcardGame,
-  showHardWordsView
+  showHardWordsView,
 }) => {
   return (
     <div className="controls">
@@ -26,6 +28,7 @@ const GameControls = ({
         onClick={onFillInBlankToggle}
         title="Fill-in-the-Blank Game"
         style={{ padding: "0.6rem 0.8rem" }}
+        disabled={isAnyGameActive && !isFillInTheBlankModeActive} // NEW
       >
         <span role="img" aria-label="pencil and paper icon">
           📝
@@ -37,13 +40,14 @@ const GameControls = ({
         onClick={onMatchingGameToggle}
         title="Matching Game"
         style={{ padding: "0.6rem 0.8rem" }}
+        disabled={isAnyGameActive && !isMatchingGameModeActive}
       >
         <span role="img" aria-label="game icon">
           🎮
         </span>{" "}
         Matching Game
       </button>
-      
+
       <button
         onClick={onSearchClick}
         title="Search Words"
@@ -55,7 +59,7 @@ const GameControls = ({
         </span>{" "}
         Search
       </button>
-      
+
       <button
         onClick={onVerbConjugationToggle}
         title="Verb Conjugation Game"
@@ -67,12 +71,10 @@ const GameControls = ({
         </span>{" "}
         Conjugation
       </button>
-      
+
       <button
         onClick={onHardModeToggle}
-        title={
-          isInHardWordsMode ? "Practice All Words" : "Practice Hard Words"
-        }
+        title={isInHardWordsMode ? "Practice All Words" : "Practice Hard Words"}
         style={{ padding: "0.6rem 0.8rem" }}
         disabled={isAnyGameActive}
       >
@@ -84,7 +86,7 @@ const GameControls = ({
         </span>
         {isInHardWordsMode ? "All Words" : "Hard Mode"}
       </button>
-      
+
       <button
         onClick={onSwitchDirection}
         disabled={
@@ -96,7 +98,7 @@ const GameControls = ({
       >
         Switch Dir ({languageDirection === "spa-eng" ? "S->E" : "E->S"})
       </button>
-      
+
       <button
         onClick={onNewCard}
         disabled={
