@@ -11,9 +11,62 @@ export function useFillInTheBlankGame(wordList = [], numChoices = 4) {
   const [feedback, setFeedback] = useState({ message: "", type: "" });
 
   const [lastUpdatedWords, setLastUpdatedWords] = useState([]);
+  const [cachedSentences, setCachedSentences] = useState(new Map());
 
   const hasStartedGame = useRef(false);
   const isFetchingRef = useRef(false);
+
+  const preFetchSentences = useCallback(
+    async (wordList, numWordsToCache = 20) => {
+      console.log("Fill-in-Blank: Starting sentence pre-fetch...");
+      setIsLoading(true);
+
+      const candidateWords = wordList.filter(
+        (pair) => pair.spanish && pair.spanish.trim().split(" ").length <= 3
+      );
+
+      if (candidateWords.length === 0) {
+        setIsLoading(false);
+        return;
+      }
+
+      // Pick random words to pre-fetch
+      const shuffledWords = shuffleArray(candidateWords);
+      const wordsToCache = shuffledWords.slice(
+        0,
+        Math.min(numWordsToCache, candidateWords.length)
+      );
+
+      const newCache = new Map();
+      let successCount = 0;
+
+      // Pre-fetch sentences for selected words
+      for (const word of wordsToCache) {
+        try {
+          const examples = await getTatoebaExamples(word.spanish);
+          if (examples && examples.length > 0) {
+            newCache.set(word.spanish.toLowerCase(), examples);
+            successCount++;
+            console.log(
+              `Cached ${examples.length} sentences for "${word.spanish}"`
+            );
+          }
+        } catch (error) {
+          console.warn(
+            `Failed to cache sentences for "${word.spanish}":`,
+            error
+          );
+        }
+      }
+
+      setCachedSentences(newCache);
+      console.log(
+        `Fill-in-Blank: Pre-fetch complete. Cached sentences for ${successCount}/${wordsToCache.length} words.`
+      );
+      setIsLoading(false);
+    },
+    []
+  );
 
   const fetchNewQuestion = useCallback(async () => {
     if (isFetchingRef.current) return;
@@ -52,7 +105,10 @@ export function useFillInTheBlankGame(wordList = [], numChoices = 4) {
         candidateWordList[Math.floor(Math.random() * candidateWordList.length)];
       if (!targetPair?.spanish) continue;
 
-      const examples = await getTatoebaExamples(targetPair.spanish);
+      // Use cached sentences instead of API call
+      const cacheKey = targetPair.spanish.toLowerCase();
+      const examples = cachedSentences.get(cacheKey) || [];
+
       if (!examples || examples.length === 0) continue;
 
       for (const example of shuffleArray(examples)) {
@@ -92,7 +148,7 @@ export function useFillInTheBlankGame(wordList = [], numChoices = 4) {
     );
     setIsLoading(false);
     isFetchingRef.current = false;
-  }, [wordList, numChoices]);
+  }, [wordList, numChoices, cachedSentences]);
 
   const submitUserChoice = useCallback(
     async (chosenWord) => {
@@ -123,8 +179,13 @@ export function useFillInTheBlankGame(wordList = [], numChoices = 4) {
 
   const startNewGame = useCallback(() => {
     setGameScore(0);
-    fetchNewQuestion();
-  }, [fetchNewQuestion]);
+    // First pre-fetch sentences, then start questions
+    if (wordList.length > 0) {
+      preFetchSentences(wordList).then(() => {
+        fetchNewQuestion();
+      });
+    }
+  }, [fetchNewQuestion, preFetchSentences, wordList]);
 
   const clearLastUpdatedWords = useCallback(() => {
     setLastUpdatedWords([]);

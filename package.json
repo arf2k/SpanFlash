@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+   "analyze-rollup": "vite build --mode analyze"
+
   },
   "dependencies": {
     "axios": "^1.9.0",
