@@ -19,6 +19,7 @@ import { ConjugationService } from "./services/conjugationService.js";
 import VerbConjugationGameView from "./components/VerbConjugationGameView.jsx";
 import { useModalState } from "./hooks/useModalState";
 import { useGameModes } from "./hooks/useGameModes";
+import { useAppSettings } from "./hooks/useAppSettings";
 
 function App() {
   // === App-specific State Variables ===
@@ -37,17 +38,14 @@ function App() {
     useState(false);
   const [tatoebaError, setTatoebaError] = useState(null);
 
-  const [isAdminMode, setIsAdminMode] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState(() => {
-    const storedTheme = localStorage.getItem("flashcardAppTheme");
-
-    const prefersDark =
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches;
-    return storedTheme || (prefersDark ? "dark" : "light");
-  });
-
+  
   // === Custom Hooks ===
+const {
+  isAdminMode, setIsAdminMode,
+  currentTheme, setCurrentTheme,
+  toggleTheme, toggleAdminMode,
+} = useAppSettings();
+  
   const {
     isInHardWordsMode,
     setIsInHardWordsMode,
@@ -277,21 +275,20 @@ function App() {
   }, [lastReviewedCard, setWordList]);
 
   // === Event Handlers ===
-  const handleToggleTheme = () => {
-    setCurrentTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
-  };
+const handleToggleTheme = toggleTheme;
 
-  const handleToggleAdminMode = () => {
-    const newAdminState = !isAdminMode;
-    setIsAdminMode(newAdminState);
-    if (newAdminState) {
-      localStorage.setItem("spanFlashAdminMode", "true");
-      console.log("Admin mode enabled (localStorage set).");
-    } else {
-      localStorage.removeItem("spanFlashAdminMode");
-      console.log("Admin mode disabled (localStorage removed).");
-    }
-  };
+
+const handleToggleAdminMode = () => {
+  const newAdminState = !isAdminMode;
+  toggleAdminMode();
+  if (newAdminState) {
+    localStorage.setItem("spanFlashAdminMode", "true");
+    console.log("Admin mode enabled (localStorage set).");
+  } else {
+    localStorage.removeItem("spanFlashAdminMode");
+    console.log("Admin mode disabled (localStorage removed).");
+  }
+};
 
   const handleToggleHardWordsMode = () => {
     setModeChangeMessage("");
