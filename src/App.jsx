@@ -20,6 +20,8 @@ import VerbConjugationGameView from "./components/VerbConjugationGameView.jsx";
 import { useModalState } from "./hooks/useModalState";
 import { useGameModes } from "./hooks/useGameModes";
 import { useAppSettings } from "./hooks/useAppSettings";
+import { createHardWordsHandlers } from "./handlers/hardWordsHandlers";
+import { createModalHandlers } from "./handlers/modalHandlers";
 
 function App() {
   // === App-specific State Variables ===
@@ -38,14 +40,16 @@ function App() {
     useState(false);
   const [tatoebaError, setTatoebaError] = useState(null);
 
-  
   // === Custom Hooks ===
-const {
-  isAdminMode, setIsAdminMode,
-  currentTheme, setCurrentTheme,
-  toggleTheme, toggleAdminMode,
-} = useAppSettings();
-  
+  const {
+    isAdminMode,
+    setIsAdminMode,
+    currentTheme,
+    setCurrentTheme,
+    toggleTheme,
+    toggleAdminMode,
+  } = useAppSettings();
+
   const {
     isInHardWordsMode,
     setIsInHardWordsMode,
@@ -108,6 +112,42 @@ const {
   const matchingGameContainerRef = useRef(null);
   const fillInTheBlankGameContainerRef = useRef(null);
   const verbConjugationGameContainerRef = useRef(null);
+
+  // === Handlers ===
+  // Create handler instances
+  const {
+    handleMarkHard,
+    handleRemoveHardWord,
+    handleToggleHardWordsMode,
+    handleToggleHardWordsView,
+  } = createHardWordsHandlers(
+    hardWordsList,
+    setHardWordsList,
+    showHardWordsView,
+    setShowHardWordsView,
+    isInHardWordsMode,
+    setIsInHardWordsMode,
+    setModeChangeMessage,
+    setGameShowFeedback
+  );
+
+  const {
+    openEditModal,
+    closeEditModal,
+    handleShowDetailsModal,
+    handleCloseDetailsModal,
+    handleOpenAddWordModalFromSettings,
+  } = createModalHandlers(
+    setWordCurrentlyBeingEdited,
+    setIsEditModalOpen,
+    setTatoebaExamples,
+    setTatoebaError,
+    setIsLoadingTatoebaExamples,
+    setIsDetailsModalOpen,
+    setIsAddWordModalOpen,
+    setIsSettingsModalOpen
+  );
+
   // === Effects ===
   useEffect(() => {
     document.body.dataset.theme = currentTheme;
@@ -275,86 +315,17 @@ const {
   }, [lastReviewedCard, setWordList]);
 
   // === Event Handlers ===
-const handleToggleTheme = toggleTheme;
+  const handleToggleTheme = toggleTheme;
 
-
-const handleToggleAdminMode = () => {
-  const newAdminState = !isAdminMode;
-  toggleAdminMode();
-  if (newAdminState) {
-    localStorage.setItem("spanFlashAdminMode", "true");
-    console.log("Admin mode enabled (localStorage set).");
-  } else {
-    localStorage.removeItem("spanFlashAdminMode");
-    console.log("Admin mode disabled (localStorage removed).");
-  }
-};
-
-  const handleToggleHardWordsMode = () => {
-    setModeChangeMessage("");
-    if (!isInHardWordsMode) {
-      if (!hardWordsList || hardWordsList.length === 0) {
-        setModeChangeMessage(
-          "Your hard words list is empty. Add some words as hard first!"
-        );
-        setTimeout(() => setModeChangeMessage(""), 3000);
-        return;
-      }
-    }
-    setIsInHardWordsMode((prevMode) => !prevMode);
-  };
-
-  const handleMarkHard = async (pairToMark) => {
-    if (!pairToMark?.spanish || !pairToMark?.english) {
-      console.error("handleMarkHard: Invalid pair received", pairToMark);
-      return;
-    }
-    const { spanish, english } = pairToMark;
-
-    const isAlreadyHard = hardWordsList.some(
-      (w) => w.spanish === spanish && w.english === english
-    );
-
-    try {
-      if (isAlreadyHard) {
-        const compoundKey = [spanish, english];
-        await db.hardWords.delete(compoundKey);
-        setHardWordsList((prevList) =>
-          prevList.filter(
-            (w) => !(w.spanish === spanish && w.english === english)
-          )
-        );
-        console.log(
-          `App.jsx: Word "${spanish}" unmarked as hard and removed from DB.`
-        );
-      } else {
-        const hardWordEntry = {
-          spanish,
-          english,
-        };
-        await db.hardWords.put(hardWordEntry);
-
-        const updatedHardWords = await db.hardWords.toArray();
-        setHardWordsList(updatedHardWords);
-
-        console.log(
-          `App.jsx: Word "${spanish}" marked as hard and added/updated in DB.`
-        );
-      }
-    } catch (error) {
-      console.error("App.jsx: Failed to toggle hard word status:", error);
-    }
-  };
-
-  const handleRemoveHardWord = async (pairToRemove) => {
-    if (!pairToRemove?.spanish || !pairToRemove?.english) return;
-    const compoundKey = [pairToRemove.spanish, pairToRemove.english];
-    try {
-      await db.hardWords.delete(compoundKey);
-      const updatedHardWords = await db.hardWords.toArray();
-      setHardWordsList(updatedHardWords);
-    } catch (error) {
-      console.error("Failed to remove hard word:", error);
+  const handleToggleAdminMode = () => {
+    const newAdminState = !isAdminMode;
+    toggleAdminMode();
+    if (newAdminState) {
+      localStorage.setItem("spanFlashAdminMode", "true");
+      console.log("Admin mode enabled (localStorage set).");
+    } else {
+      localStorage.removeItem("spanFlashAdminMode");
+      console.log("Admin mode disabled (localStorage removed).");
     }
   };
 
@@ -470,12 +441,6 @@ const handleToggleAdminMode = () => {
     }
   };
 
-  const handleToggleHardWordsView = () =>
-    setShowHardWordsView((prev) => {
-      if (!prev) setGameShowFeedback(false);
-      return !prev;
-    });
-
   const handleAddWord = async (newWordObject) => {
     try {
       const newId = await db.allWords.add(newWordObject);
@@ -487,20 +452,6 @@ const handleToggleAdminMode = () => {
     } catch (error) {
       console.error("Failed to add new word:", error);
     }
-  };
-
-  const openEditModal = (wordToEdit) => {
-    if (!wordToEdit || wordToEdit.id == null) {
-      console.error("Edit attempt on invalid word:", wordToEdit);
-      return;
-    }
-    setWordCurrentlyBeingEdited(wordToEdit);
-    setIsEditModalOpen(true);
-  };
-
-  const closeEditModal = () => {
-    setIsEditModalOpen(false);
-    setWordCurrentlyBeingEdited(null);
   };
 
   const handleUpdateWord = async (updatedWordData) => {
@@ -665,23 +616,6 @@ const handleToggleAdminMode = () => {
     } finally {
       setIsLoadingTatoebaExamples(false);
     }
-  };
-
-  const handleShowDetailsModal = () => {
-    if (currentPair) {
-      setTatoebaExamples([]);
-      setTatoebaError(null);
-      setIsLoadingTatoebaExamples(false);
-      setIsDetailsModalOpen(true);
-    } else
-      console.warn("App.jsx: Tried to show details but no currentPair is set.");
-  };
-
-  const handleCloseDetailsModal = () => setIsDetailsModalOpen(false);
-
-  const handleOpenAddWordModalFromSettings = () => {
-    setIsAddWordModalOpen(true);
-    setIsSettingsModalOpen(false);
   };
 
   const handleToggleMatchingGameMode = () => {
@@ -942,7 +876,7 @@ const handleToggleAdminMode = () => {
             isLoadingData ||
             !listForFlashcardGame.length ||
             showHardWordsView ||
-           isAnyGameActive
+            isAnyGameActive
           }
         >
           {isLoadingData && !currentPair ? "Loading..." : "New Card"}
