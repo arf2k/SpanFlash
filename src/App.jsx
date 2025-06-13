@@ -332,7 +332,7 @@ function App() {
         if (fillInTheBlankGameContainerRef.current) {
           fillInTheBlankGameContainerRef.current.scrollIntoView({
             behavior: "smooth",
-            block: "start",
+            block: "center",
           });
         }
       }, 50);
@@ -347,7 +347,7 @@ function App() {
         if (verbConjugationGameContainerRef.current) {
           verbConjugationGameContainerRef.current.scrollIntoView({
             behavior: "smooth",
-            block: "start",
+            block: "center",
           });
         }
       }, 50);

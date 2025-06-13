@@ -136,7 +136,7 @@ textarea::placeholder {
 /* ================================== */
 .App {
   max-width: 700px;
-  margin: 8rem auto;
+  margin: 2rem auto;
   padding: 25px;
   display: flex;
   flex-direction: column;
