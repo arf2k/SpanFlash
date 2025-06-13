@@ -9,13 +9,10 @@ import WordDetailsModal from "./components/WordDetailsModal";
 import SettingsModal from "./components/SettingsModal";
 import MatchingGameView from "./components/MatchingGameView";
 import FillInTheBlankGameView from "./components/FillInTheBlankGameView.jsx";
-import { getMwHint } from "./services/dictionaryServices.js";
-import { getTatoebaExamples } from "./services/tatoebaServices.js";
 import { db } from "./db";
 import { useWordData } from "./hooks/useWordData";
 import { useFlashcardGame } from "./hooks/useFlashcardGame";
 import "./App.css";
-import { ConjugationService } from "./services/conjugationService.js";
 import VerbConjugationGameView from "./components/VerbConjugationGameView.jsx";
 import { useModalState } from "./hooks/useModalState";
 import { useGameModes } from "./hooks/useGameModes";
@@ -26,6 +23,7 @@ import { createWordManagementHandlers } from "./handlers/wordManagementHandlers"
 import { createGameModeHandlers } from "./handlers/gameModeHandlers";
 import { createApiHandlers } from "./handlers/apiHandlers";
 import AppHeader from "./components/AppHeader";
+import GameControls from "./components/GameControls";
 
 function App() {
   // === App-specific State Variables ===
@@ -33,12 +31,9 @@ function App() {
   const [hintData, setHintData] = useState(null);
   const [isHintLoading, setIsHintLoading] = useState(false);
   const [showHardWordsView, setShowHardWordsView] = useState(false);
-
   const [wordCurrentlyBeingEdited, setWordCurrentlyBeingEdited] =
     useState(null);
-
   const [apiSuggestions, setApiSuggestions] = useState(null);
-
   const [tatoebaExamples, setTatoebaExamples] = useState([]);
   const [isLoadingTatoebaExamples, setIsLoadingTatoebaExamples] =
     useState(false);
@@ -423,85 +418,23 @@ function App() {
           </div>
         )}
       {/* Controls Section */}
-      <div className="controls">
-        <button
-          onClick={handleToggleFillInTheBlankMode}
-          title="Fill-in-the-Blank Game"
-          style={{ padding: "0.6rem 0.8rem" }}
-        >
-          <span role="img" aria-label="pencil and paper icon">
-            📝
-          </span>{" "}
-          Fill-in-Blank
-        </button>
-
-        <button
-          onClick={handleToggleMatchingGameMode}
-          title="Matching Game"
-          style={{ padding: "0.6rem 0.8rem" }}
-        >
-          <span role="img" aria-label="game icon">
-            🎮
-          </span>{" "}
-          Matching Game
-        </button>
-        <button
-          onClick={() => setIsSearchModalOpen(true)}
-          title="Search Words"
-          style={{ padding: "0.6rem 0.8rem" }}
-          disabled={isMatchingGameModeActive || isFillInTheBlankModeActive}
-        >
-          <span role="img" aria-label="search icon">
-            🔍
-          </span>{" "}
-          Search
-        </button>
-        <button
-          onClick={handleToggleVerbConjugationGame}
-          title="Verb Conjugation Game"
-          style={{ padding: "0.6rem 0.8rem" }}
-          disabled={
-            isMatchingGameModeActive ||
-            isFillInTheBlankModeActive ||
-            isVerbConjugationGameActive
-          }
-        >
-          <span role="img" aria-label="verb conjugation icon">
-            🔗
-          </span>{" "}
-          Conjugation
-        </button>
-        <button
-          onClick={handleToggleHardWordsMode}
-          title={
-            isInHardWordsMode ? "Practice All Words" : "Practice Hard Words"
-          }
-          style={{ padding: "0.6rem 0.8rem" }}
-          disabled={isAnyGameActive}
-        >
-          <span
-            role="img"
-            aria-label={isInHardWordsMode ? "list icon" : "brain icon"}
-          >
-            {isInHardWordsMode ? "📋" : "🧠"}
-          </span>
-          {isInHardWordsMode ? "All Words" : "Hard Mode"}
-        </button>
-        <button onClick={switchDirection} disabled={isAnyGameActive}>
-          Switch Dir ({languageDirection === "spa-eng" ? "S->E" : "E->S"})
-        </button>
-        <button
-          onClick={selectNewPairCard}
-          disabled={
-            isLoadingData ||
-            !listForFlashcardGame.length ||
-            showHardWordsView ||
-            isAnyGameActive
-          }
-        >
-          {isLoadingData && !currentPair ? "Loading..." : "New Card"}
-        </button>
-      </div>
+     
+     <GameControls
+  onFillInBlankToggle={handleToggleFillInTheBlankMode}
+  onMatchingGameToggle={handleToggleMatchingGameMode}
+  onVerbConjugationToggle={handleToggleVerbConjugationGame}
+  onHardModeToggle={handleToggleHardWordsMode}
+  onSearchClick={() => setIsSearchModalOpen(true)}
+  onSwitchDirection={switchDirection}
+  onNewCard={selectNewPairCard}
+  isAnyGameActive={isAnyGameActive}
+  isInHardWordsMode={isInHardWordsMode}
+  languageDirection={languageDirection}
+  isLoadingData={isLoadingData}
+  listForFlashcardGame={listForFlashcardGame}
+  showHardWordsView={showHardWordsView}
+/>
+     
       {/* Mode Change Message - This goes before the main content switcher */}
       {modeChangeMessage && (
         <p
