@@ -25,6 +25,7 @@ import { createModalHandlers } from "./handlers/modalHandlers";
 import { createWordManagementHandlers } from "./handlers/wordManagementHandlers";
 import { createGameModeHandlers } from "./handlers/gameModeHandlers";
 import { createApiHandlers } from "./handlers/apiHandlers";
+import AppHeader from "./components/AppHeader";
 
 function App() {
   // === App-specific State Variables ===
@@ -188,23 +189,20 @@ function App() {
     setWordList
   );
 
-const {
-  handleGetHint,
-  handleFetchTatoebaExamples,
-} = createApiHandlers(
-  currentPair,
-  isHintLoading,
-  setIsHintLoading,
-  hintData,
-  setHintData,
-  showFeedback,
-  feedbackSignal,
-  setApiSuggestions,
-  setIsLoadingTatoebaExamples,
-  setTatoebaError,
-  setTatoebaExamples
-);
-  
+  const { handleGetHint, handleFetchTatoebaExamples } = createApiHandlers(
+    currentPair,
+    isHintLoading,
+    setIsHintLoading,
+    hintData,
+    setHintData,
+    showFeedback,
+    feedbackSignal,
+    setApiSuggestions,
+    setIsLoadingTatoebaExamples,
+    setTatoebaError,
+    setTatoebaExamples
+  );
+
   // === Effects ===
   useEffect(() => {
     document.body.dataset.theme = currentTheme;
@@ -386,61 +384,17 @@ const {
     }
   };
 
-
   return (
     <div className="App">
       {" "}
       {/* Single top-level div for the component */}
       {/* Header Section (Title, Version, Settings Button) */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          width: "100%",
-          maxWidth: "700px",
-          marginBottom: "10px",
-        }}
-      >
-        <h1>Xan's Spans</h1>
-        <div>
-          {currentDataVersion && (
-            <p
-              style={{
-                fontSize: "0.8rem",
-                color: "var(--text-muted)", // Use CSS variable
-                margin: "0",
-                display: "inline-block",
-                marginRight: "15px",
-              }}
-            >
-              Data v: {currentDataVersion}{" "}
-              {isInHardWordsMode &&
-                !isMatchingGameModeActive &&
-                !isFillInTheBlankModeActive &&
-                !isVerbConjugationGameActive &&
-                "(Hard Mode)"}
-            </p>
-          )}
-          <button
-            onClick={() => setIsSettingsModalOpen(true)}
-            title="Settings"
-            style={{
-              background: "none",
-              border: "none",
-              fontSize: "1.5em",
-              cursor: "pointer",
-              color: "var(--text-muted)", // Use CSS variable
-              padding: "0",
-            }}
-            disabled={isAnyGameActive}
-          >
-            <span role="img" aria-label="settings icon">
-              ⚙️
-            </span>
-          </button>
-        </div>
-      </div>
+      <AppHeader
+        currentDataVersion={currentDataVersion}
+        isInHardWordsMode={isInHardWordsMode}
+        isAnyGameActive={isAnyGameActive}
+        onSettingsClick={() => setIsSettingsModalOpen(true)}
+      />
       {/* Score Stacks - Conditionally Rendered */}
       {!isMatchingGameModeActive &&
         !isFillInTheBlankModeActive &&
