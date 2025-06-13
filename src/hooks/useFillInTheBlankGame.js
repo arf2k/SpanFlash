@@ -45,7 +45,7 @@ export function useFillInTheBlankGame(wordList = [], numChoices = 4) {
     }
 
     let attempts = 0;
-    const maxAttempts = 5; // Reduced from 15 to 5
+    const maxAttempts = 5; 
     while (attempts < maxAttempts) {
       attempts++;
       const targetPair =

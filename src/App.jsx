@@ -24,9 +24,7 @@ function App() {
   const [hintData, setHintData] = useState(null);
   const [isHintLoading, setIsHintLoading] = useState(false);
   const [showHardWordsView, setShowHardWordsView] = useState(false);
-  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
-  const [isAddWordModalOpen, setIsAddWordModalOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
   const [wordCurrentlyBeingEdited, setWordCurrentlyBeingEdited] =
     useState(null);
   const [isInHardWordsMode, setIsInHardWordsMode] = useState(false);
@@ -37,13 +35,12 @@ function App() {
   const [isLoadingTatoebaExamples, setIsLoadingTatoebaExamples] =
     useState(false);
   const [tatoebaError, setTatoebaError] = useState(null);
-  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+
   const [isMatchingGameModeActive, setIsMatchingGameModeActive] =
     useState(false);
   const [isFillInTheBlankModeActive, setIsFillInTheBlankModeActive] =
     useState(false);
 
-  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isAdminMode, setIsAdminMode] = useState(false);
   const [currentTheme, setCurrentTheme] = useState(() => {
     const storedTheme = localStorage.getItem("flashcardAppTheme");
@@ -57,6 +54,18 @@ function App() {
     useState(false);
 
   // === Custom Hooks ===
+  const {
+    isSearchModalOpen,
+    setIsSearchModalOpen,
+    isAddWordModalOpen,
+    setIsAddWordModalOpen,
+    isEditModalOpen,
+    setIsEditModalOpen,
+    isDetailsModalOpen,
+    setIsDetailsModalOpen,
+    isSettingsModalOpen,
+    setIsSettingsModalOpen,
+  } = useModalState();
   const {
     wordList: mainWordList,
     initialCard,
