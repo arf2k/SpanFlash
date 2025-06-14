@@ -51,6 +51,14 @@ function App() {
     toggleAdminMode,
   } = useAppSettings();
 
+    const {
+    sessionStats,
+    recordAnswer,
+    startNewSession,
+    getSessionAccuracy,
+    getSessionDuration,
+  } = useSessionStats();
+
   const {
     isInHardWordsMode,
     setIsInHardWordsMode,
@@ -107,15 +115,9 @@ function App() {
     setShowFeedback: setGameShowFeedback,
     loadSpecificCard,
     lastReviewedCard,
-  } = useFlashcardGame(listForFlashcardGame, initialCard);
+  } = useFlashcardGame(listForFlashcardGame, initialCard, recordAnswer);
 
-  const {
-    sessionStats,
-    recordAnswer,
-    startNewSession,
-    getSessionAccuracy,
-    getSessionDuration,
-  } = useSessionStats();
+
 
   // === Refs ===
   const incorrectScoreRef = useRef(null);

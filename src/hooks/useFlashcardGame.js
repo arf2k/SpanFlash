@@ -1,21 +1,13 @@
 // src/hooks/useFlashcardGame.js
 import { useState, useCallback, useEffect } from 'react';
 import { db } from '../db';
+import { shuffleArray } from '../utils/gameUtils';
 
 const MAX_LEITNER_BOX = 7;
 const LEITNER_SCHEDULE_IN_DAYS = [0, 1, 2, 4, 8, 16, 32, 90];
 
-function shuffleArray(array) {
-    if (!array || array.length === 0) return [];
-    const newArray = [...array];
-    for (let i = newArray.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-    }
-    return newArray;
-}
 
-export function useFlashcardGame(wordList = [], initialCard = null) {
+export function useFlashcardGame(wordList = [], initialCard = null, recordAnswer = null) {
     const [currentPair, setCurrentPair] = useState(initialCard);
     const [languageDirection, setLanguageDirection] = useState("spa-eng");
     const [score, setScore] = useState({ correct: 0, incorrect: 0 });
@@ -135,7 +127,9 @@ export function useFlashcardGame(wordList = [], initialCard = null) {
         } catch (error) { 
             console.error("Failed to update word with Leitner data in DB:", error); 
         }
-
+if (recordAnswer) {
+    recordAnswer(isCorrect, 'flashcards');
+}
         if (isCorrect) {
             setScore((prev) => ({ ...prev, correct: prev.correct + 1 }));
             setFeedbackSignal("correct");
