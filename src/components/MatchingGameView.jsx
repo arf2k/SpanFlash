@@ -2,7 +2,7 @@ import React, { useEffect, memo } from 'react';
 import { useMatchingGame } from '../hooks/useMatchingGame'; 
 import './MatchingGameView.css'; 
 
-const MatchingGameView = ({ fullWordList, numPairsToDisplay = 6, onExitGame, onWordsUpdated }) => {
+const MatchingGameView = ({ fullWordList, numPairsToDisplay = 6, onExitGame, onWordsUpdated, recordAnswer }) => {
     const {
         spanishOptions,
         englishOptions,
@@ -17,7 +17,7 @@ const MatchingGameView = ({ fullWordList, numPairsToDisplay = 6, onExitGame, onW
         incorrectAttempt,
         lastUpdatedWords, 
         clearLastUpdatedWords 
-    } = useMatchingGame(fullWordList, numPairsToDisplay);
+    } = useMatchingGame(fullWordList, numPairsToDisplay, recordAnswer);
 
 useEffect(() => {
     if (lastUpdatedWords && lastUpdatedWords.length > 0) {
