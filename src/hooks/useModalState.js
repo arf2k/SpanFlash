@@ -6,32 +6,30 @@ export function useModalState() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+  const [isStatsModalOpen, setIsStatsModalOpen] = useState(false); 
 
-  // Helper functions for convenience
   const closeAllModals = () => {
     setIsSearchModalOpen(false);
     setIsAddWordModalOpen(false);
     setIsEditModalOpen(false);
     setIsDetailsModalOpen(false);
     setIsSettingsModalOpen(false);
+    setIsStatsModalOpen(false); 
   };
 
   return {
-    // State values
     isSearchModalOpen,
     isAddWordModalOpen,
     isEditModalOpen,
     isDetailsModalOpen,
     isSettingsModalOpen,
-    
-    // Setters
+    isStatsModalOpen, 
     setIsSearchModalOpen,
     setIsAddWordModalOpen,
     setIsEditModalOpen,
     setIsDetailsModalOpen,
     setIsSettingsModalOpen,
-    
-    // Helper
+    setIsStatsModalOpen, 
     closeAllModals,
   };
 }

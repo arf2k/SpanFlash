@@ -24,6 +24,8 @@ import { createGameModeHandlers } from "./handlers/gameModeHandlers";
 import { createApiHandlers } from "./handlers/apiHandlers";
 import AppHeader from "./components/AppHeader";
 import GameControls from "./components/GameControls";
+import { useSessionStats } from "./hooks/useSessionStats";
+import StatsModal from "./components/StatsModal";
 
 function App() {
   // === App-specific State Variables ===
@@ -74,7 +76,10 @@ function App() {
     setIsDetailsModalOpen,
     isSettingsModalOpen,
     setIsSettingsModalOpen,
+    isStatsModalOpen,
+    setIsStatsModalOpen,
   } = useModalState();
+
   const {
     wordList: mainWordList,
     initialCard,
@@ -103,6 +108,14 @@ function App() {
     loadSpecificCard,
     lastReviewedCard,
   } = useFlashcardGame(listForFlashcardGame, initialCard);
+
+  const {
+    sessionStats,
+    recordAnswer,
+    startNewSession,
+    getSessionAccuracy,
+    getSessionDuration,
+  } = useSessionStats();
 
   // === Refs ===
   const incorrectScoreRef = useRef(null);
@@ -389,6 +402,7 @@ function App() {
         isInHardWordsMode={isInHardWordsMode}
         isAnyGameActive={isAnyGameActive}
         onSettingsClick={() => setIsSettingsModalOpen(true)}
+        onStatsClick={() => setIsStatsModalOpen(true)}
       />
       {/* Score Stacks - Conditionally Rendered */}
       {!isMatchingGameModeActive &&
