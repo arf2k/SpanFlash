@@ -2,7 +2,11 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { db } from "../db";
 import { shuffleArray, updateWordLeitnerData } from "../utils/gameUtils";
 
-export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
+export function useMatchingGame(
+  fullWordList = [],
+  numPairsToDisplay = 6,
+  recordAnswer = null
+) {
   const [activeWordPairs, setActiveWordPairs] = useState([]);
   const [spanishOptions, setSpanishOptions] = useState([]);
   const [englishOptions, setEnglishOptions] = useState([]);
@@ -173,6 +177,9 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
 
       if (isCorrectMatch) {
         console.log("useMatchingGame: Correct Match!", originalPairForSpanish);
+        if (recordAnswer) {
+          recordAnswer(true, "matching");
+        }
         setGameScore((prev) => prev + 1);
 
         const newMatchedIdsInSession = new Set(sessionUsedWordIds).add(
@@ -209,6 +216,9 @@ export function useMatchingGame(fullWordList = [], numPairsToDisplay = 6) {
         }
       } else {
         console.log("useMatchingGame: Incorrect Match.");
+        if (recordAnswer) {
+          recordAnswer(false, "matching");
+        }
         setIncorrectAttempt({
           spanishId: selectedSpanish.id,
           englishId: selectedEnglish.id,
