@@ -17,13 +17,34 @@ export function useSessionStats() {
 
   const sessionInitialized = useRef(false);
 
-  // Initialize session on first load
-  useEffect(() => {
-    if (!sessionInitialized.current) {
+
+
+const shouldStartNewSession = () => {
+  // Check 1: App reload detection
+  const wasAppReloaded = !sessionStorage.getItem('appSessionActive');
+  
+  // Check 2: Time-based (30+ minutes of inactivity) 
+  const lastActivity = localStorage.getItem('lastActivityTime');
+  const thirtyMinutesAgo = Date.now() - (30 * 60 * 1000);
+  const wasInactive = !lastActivity || parseInt(lastActivity) < thirtyMinutesAgo;
+  
+  return wasAppReloaded || wasInactive;
+};
+
+const updateActivity = () => {
+  localStorage.setItem('lastActivityTime', Date.now().toString());
+  sessionStorage.setItem('appSessionActive', 'true');
+};
+
+useEffect(() => {
+  if (!sessionInitialized.current) {
+    if (shouldStartNewSession()) {
       startNewSession();
-      sessionInitialized.current = true;
     }
-  }, []);
+    updateActivity();
+    sessionInitialized.current = true;
+  }
+}, []);
 
   const startNewSession = () => {
     const now = Date.now();
