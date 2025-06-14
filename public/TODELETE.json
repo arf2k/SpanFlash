@@ -1,5 +1,5 @@
 {
-  "version": "1.3.1",
+  "version": "1.3.0",
   "words": [
     {
       "spanish": "cargar",
@@ -18,9 +18,9 @@
     {
       "spanish": "escanear",
       "english": "to scan",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869880863,
-      "dueDate": 1749956280863
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "instalar",
@@ -137,9 +137,9 @@
     {
       "spanish": "entrar en línea",
       "english": "to go online",
-      "leitnerBox": 1,
-      "lastReviewed": 1749698933684,
-      "dueDate": 1749785333684
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "entrar a Facebook",
@@ -243,8 +243,8 @@
       "spanish": "ir al museo",
       "english": "to go to the museum",
       "leitnerBox": 1,
-      "lastReviewed": 1749784170391,
-      "dueDate": 1749870570391
+      "lastReviewed": 1749615520556,
+      "dueDate": 1749701920556
     },
     {
       "spanish": "coleccionar monedas",
@@ -340,9 +340,9 @@
     {
       "spanish": "brincar",
       "english": "to skip",
-      "leitnerBox": 1,
-      "lastReviewed": 1749870186301,
-      "dueDate": 1749956586301
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "saltar",
@@ -404,9 +404,9 @@
     {
       "spanish": "el parque infantil",
       "english": "playground",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783909142,
-      "dueDate": 1749956709142
+      "leitnerBox": 1,
+      "lastReviewed": 1749615608490,
+      "dueDate": 1749702008490
     },
     {
       "spanish": "empujar",
@@ -460,9 +460,9 @@
     {
       "spanish": "la noria",
       "english": "Ferris wheel",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869761348,
-      "dueDate": 1749956161348
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el carrusel",
@@ -990,9 +990,9 @@
     {
       "spanish": "componer",
       "english": "to compose",
-      "leitnerBox": 1,
-      "lastReviewed": 1749699359488,
-      "dueDate": 1749785759488
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "interpretar",
@@ -1130,9 +1130,9 @@
     {
       "spanish": "la tarea",
       "english": "homework",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783645036,
-      "dueDate": 1749956445036
+      "leitnerBox": 1,
+      "lastReviewed": 1749615589546,
+      "dueDate": 1749701989546
     },
     {
       "spanish": "los quehaceres",
@@ -1179,9 +1179,9 @@
     {
       "spanish": "los intereses",
       "english": "interests",
-      "leitnerBox": 3,
-      "lastReviewed": 1749869813207,
-      "dueDate": 1750215413207
+      "leitnerBox": 2,
+      "lastReviewed": 1749615146256,
+      "dueDate": 1749787946256
     },
     {
       "spanish": "el entrenamiento",
@@ -1702,9 +1702,9 @@
     {
       "spanish": "cosas que hacer",
       "english": "things to do",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783657231,
-      "dueDate": 1749956457231
+      "leitnerBox": 1,
+      "lastReviewed": 1749614242121,
+      "dueDate": 1749700642121
     },
     {
       "spanish": "el puzzle",
@@ -1856,8 +1856,8 @@
       "spanish": "la natación",
       "english": "swimming",
       "leitnerBox": 1,
-      "lastReviewed": 1749785105411,
-      "dueDate": 1749871505411
+      "lastReviewed": 1749616462130,
+      "dueDate": 1749702862130
     },
     {
       "spanish": "el programa",
@@ -2105,9 +2105,9 @@
     {
       "spanish": "las tareas domésticas",
       "english": "chores",
-      "leitnerBox": 1,
-      "lastReviewed": 1749870498046,
-      "dueDate": 1749956898046
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la vacación",
@@ -2252,9 +2252,9 @@
     {
       "spanish": "el sol",
       "english": "sun",
-      "leitnerBox": 2,
-      "lastReviewed": 1749698631773,
-      "dueDate": 1749871431773
+      "leitnerBox": 1,
+      "lastReviewed": 1749492114944,
+      "dueDate": 1749578514944
     },
     {
       "spanish": "duro",
@@ -2350,9 +2350,9 @@
         "private"
       ],
       "category": "",
-      "leitnerBox": 1,
-      "lastReviewed": 1749870920299,
-      "dueDate": 1749957320299
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el ruso",
@@ -2567,9 +2567,9 @@
     {
       "spanish": "la comunicación",
       "english": "communication",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784644329,
-      "dueDate": 1749871044329
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la comunidad",
@@ -3137,9 +3137,9 @@
     {
       "spanish": "la prima",
       "english": "cousin",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869807095,
-      "dueDate": 1749956207095
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la física",
@@ -3304,9 +3304,9 @@
     {
       "spanish": "tener sed",
       "english": "to be thirsty",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870561313,
-      "dueDate": 1750043361313
+      "leitnerBox": 1,
+      "lastReviewed": 1749492274020,
+      "dueDate": 1749578674020
     },
     {
       "spanish": "el título",
@@ -3450,9 +3450,9 @@
     {
       "spanish": "la dieta",
       "english": "diet",
-      "leitnerBox": 1,
-      "lastReviewed": 1749699289648,
-      "dueDate": 1749785689648
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la banda",
@@ -3545,9 +3545,9 @@
     {
       "spanish": "el ritmo",
       "english": "rhythm",
-      "leitnerBox": 2,
-      "lastReviewed": 1749784075592,
-      "dueDate": 1749956875592
+      "leitnerBox": 1,
+      "lastReviewed": 1749615515826,
+      "dueDate": 1749701915826
     },
     {
       "spanish": "artístico",
@@ -3629,9 +3629,9 @@
     {
       "spanish": "rápidamente",
       "english": "quickly",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870531230,
-      "dueDate": 1750043331230
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la marca",
@@ -3664,9 +3664,9 @@
     {
       "spanish": "el aniversario",
       "english": "anniversary",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784600107,
-      "dueDate": 1749871000107
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el poema",
@@ -3727,9 +3727,9 @@
     {
       "spanish": "económico",
       "english": "economic",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784411967,
-      "dueDate": 1749870811967
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "lleno",
@@ -3908,9 +3908,9 @@
     {
       "spanish": "el sushi",
       "english": "sushi",
-      "leitnerBox": 2,
-      "lastReviewed": 1749698134232,
-      "dueDate": 1749870934232
+      "leitnerBox": 1,
+      "lastReviewed": 1749492118046,
+      "dueDate": 1749578518046
     },
     {
       "spanish": "los hermanos",
@@ -4020,9 +4020,9 @@
     {
       "spanish": "matar",
       "english": "to kill",
-      "leitnerBox": 2,
-      "lastReviewed": 1749871051644,
-      "dueDate": 1750043851644
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el balcón",
@@ -4379,9 +4379,9 @@
       "synonyms_spanish": [],
       "synonyms_english": [],
       "category": "Adjective",
-      "leitnerBox": 1,
-      "lastReviewed": 1749870790330,
-      "dueDate": 1749957190330
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el ambiente",
@@ -4407,9 +4407,9 @@
     {
       "spanish": "dudar",
       "english": "to doubt",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784981855,
-      "dueDate": 1749871381855
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el sabor",
@@ -4606,8 +4606,8 @@
       "spanish": "el juez",
       "english": "judge",
       "leitnerBox": 1,
-      "lastReviewed": 1749785073630,
-      "dueDate": 1749871473630
+      "lastReviewed": 1749615594978,
+      "dueDate": 1749701994978
     },
     {
       "spanish": "asado",
@@ -5250,8 +5250,8 @@
       "spanish": "vuestro",
       "english": "your",
       "leitnerBox": 1,
-      "lastReviewed": 1749785016981,
-      "dueDate": 1749871416981
+      "lastReviewed": 1749615633512,
+      "dueDate": 1749702033512
     },
     {
       "spanish": "estresado",
@@ -5790,9 +5790,9 @@
     {
       "spanish": "dentro de",
       "english": "inside",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784435124,
-      "dueDate": 1749870835124
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "destruir",
@@ -5833,8 +5833,8 @@
       "spanish": "la frente",
       "english": "forehead",
       "leitnerBox": 1,
-      "lastReviewed": 1749870901012,
-      "dueDate": 1749957301012
+      "lastReviewed": 1749616475928,
+      "dueDate": 1749702875928
     },
     {
       "spanish": "borrar",
@@ -5867,9 +5867,9 @@
     {
       "spanish": "el hueso",
       "english": "bone",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869975591,
-      "dueDate": 1749956375591
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "siguiente",
@@ -6350,8 +6350,8 @@
       "spanish": "extranjero",
       "english": "foreign",
       "leitnerBox": 1,
-      "lastReviewed": 1749871228827,
-      "dueDate": 1749957628827
+      "lastReviewed": 1749615377077,
+      "dueDate": 1749701777077
     },
     {
       "spanish": "la madera",
@@ -6440,9 +6440,9 @@
     {
       "spanish": "la receta",
       "english": "prescription",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869920299,
-      "dueDate": 1749956320299
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "regalar",
@@ -6523,9 +6523,9 @@
     {
       "spanish": "el suéter",
       "english": "sweater",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870628344,
-      "dueDate": 1750043428344
+      "leitnerBox": 1,
+      "lastReviewed": 1749615380956,
+      "dueDate": 1749701780956
     },
     {
       "spanish": "cálido",
@@ -6724,8 +6724,8 @@
       "spanish": "crecer",
       "english": "to grow",
       "leitnerBox": 1,
-      "lastReviewed": 1749870756015,
-      "dueDate": 1749957156015
+      "lastReviewed": 1749439182107,
+      "dueDate": 1749525582107
     },
     {
       "spanish": "el bocadillo",
@@ -6971,9 +6971,9 @@
     {
       "spanish": "ir de vacaciones",
       "english": "to go on vacation",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869379043,
-      "dueDate": 1749955779043
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "inolvidable",
@@ -6999,9 +6999,9 @@
     {
       "spanish": "la niebla",
       "english": "fog",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869902116,
-      "dueDate": 1749956302116
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "pasarlo mal",
@@ -7035,8 +7035,8 @@
       "spanish": "el estado civil",
       "english": "marital status",
       "leitnerBox": 1,
-      "lastReviewed": 1749785177723,
-      "dueDate": 1749871577723
+      "lastReviewed": 1749615536782,
+      "dueDate": 1749701936782
     },
     {
       "spanish": "sostenible",
@@ -7451,9 +7451,9 @@
     {
       "spanish": "engordar",
       "english": "to gain weight",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749616382869,
+      "dueDate": 1749702782869
     },
     {
       "spanish": "llevarse mal",
@@ -7501,8 +7501,8 @@
       "spanish": "cobrar",
       "english": "to charge for",
       "leitnerBox": 1,
-      "lastReviewed": 1749785023835,
-      "dueDate": 1749871423835
+      "lastReviewed": 1749616258884,
+      "dueDate": 1749702658884
     },
     {
       "spanish": "renunciar",
@@ -7632,9 +7632,9 @@
     {
       "spanish": "encantado",
       "english": "delighted",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784645875,
-      "dueDate": 1749871045875
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la ceja",
@@ -7653,9 +7653,9 @@
     {
       "spanish": "apasionado",
       "english": "passionate",
-      "leitnerBox": 1,
-      "lastReviewed": 1749699414202,
-      "dueDate": 1749785814202
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la huella",
@@ -7786,9 +7786,9 @@
     {
       "spanish": "contratar",
       "english": "to hire",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749615359134,
+      "dueDate": 1749701759134
     },
     {
       "spanish": "importar",
@@ -7800,9 +7800,9 @@
     {
       "spanish": "el agricultor",
       "english": "farmer",
-      "leitnerBox": 2,
-      "lastReviewed": 1749698406320,
-      "dueDate": 1749871206320
+      "leitnerBox": 1,
+      "lastReviewed": 1749413822853,
+      "dueDate": 1749500222853
     },
     {
       "spanish": "la pirámide",
@@ -7828,9 +7828,9 @@
     {
       "spanish": "la bufanda",
       "english": "scarf",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784580650,
-      "dueDate": 1749870980650
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el funcionario",
@@ -8169,16 +8169,16 @@
     {
       "spanish": "la contabilidad",
       "english": "accounting",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784382149,
-      "dueDate": 1749870782149
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "convertirse en",
       "english": "to turn into",
       "leitnerBox": 1,
-      "lastReviewed": 1749785086646,
-      "dueDate": 1749871486646
+      "lastReviewed": 1749616040951,
+      "dueDate": 1749702440951
     },
     {
       "spanish": "la langosta",
@@ -8346,9 +8346,9 @@
     {
       "spanish": "el arete",
       "english": "earring",
-      "leitnerBox": 2,
-      "lastReviewed": 1749698215850,
-      "dueDate": 1749871015850
+      "leitnerBox": 1,
+      "lastReviewed": 1749439701382,
+      "dueDate": 1749526101382
     },
     {
       "spanish": "el campamento",
@@ -8360,9 +8360,9 @@
     {
       "spanish": "el síntoma",
       "english": "symptom",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783863239,
-      "dueDate": 1749956663239
+      "leitnerBox": 1,
+      "lastReviewed": 1749615544344,
+      "dueDate": 1749701944344
     },
     {
       "spanish": "el impermeable",
@@ -8798,9 +8798,9 @@
     {
       "spanish": "el ayuntamiento",
       "english": "city council",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870391571,
-      "dueDate": 1750043191571
+      "leitnerBox": 1,
+      "lastReviewed": 1749614215581,
+      "dueDate": 1749700615581
     },
     {
       "spanish": "la contraseña",
@@ -9119,9 +9119,9 @@
     {
       "spanish": "adelgazar",
       "english": "to lose weight",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784796624,
-      "dueDate": 1749871196624
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "sugerir",
@@ -9588,9 +9588,9 @@
     {
       "spanish": "entallado",
       "english": "fitted",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870860952,
-      "dueDate": 1750043660952
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "floral",
@@ -9699,9 +9699,9 @@
     {
       "spanish": "combinar",
       "english": "to go with",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749616469342,
+      "dueDate": 1749702869342
     },
     {
       "spanish": "secar",
@@ -9727,9 +9727,9 @@
     {
       "spanish": "rasgar",
       "english": "to tear",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749615599526,
+      "dueDate": 1749701999526
     },
     {
       "spanish": "estirar",
@@ -9993,8 +9993,8 @@
       "spanish": "a bordo",
       "english": "on board",
       "leitnerBox": 1,
-      "lastReviewed": 1749737330329,
-      "dueDate": 1749823730329
+      "lastReviewed": 1749616593223,
+      "dueDate": 1749702993223
     },
     {
       "spanish": "retrasado",
@@ -10528,8 +10528,8 @@
       "spanish": "la extraordinaria",
       "english": "bonus pay",
       "leitnerBox": 1,
-      "lastReviewed": 1749783868802,
-      "dueDate": 1749870268802
+      "lastReviewed": 1749615635578,
+      "dueDate": 1749702035578
     },
     {
       "spanish": "el plus",
@@ -10569,9 +10569,9 @@
     {
       "spanish": "deber",
       "english": "to owe",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784973643,
-      "dueDate": 1749871373643
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el debe",
@@ -10730,9 +10730,9 @@
         "ranch"
       ],
       "category": "",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869855451,
-      "dueDate": 1749956255451
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el trust",
@@ -10934,9 +10934,9 @@
     {
       "spanish": "cobrar",
       "english": "to charge",
-      "leitnerBox": 1,
-      "lastReviewed": 1749699433213,
-      "dueDate": 1749785833213
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el dinero",
@@ -10955,9 +10955,9 @@
     {
       "spanish": "la trucha",
       "english": "trout",
-      "leitnerBox": 1,
-      "lastReviewed": 1749870943988,
-      "dueDate": 1749957343988
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la ternera",
@@ -11012,8 +11012,8 @@
       "spanish": "la almeja",
       "english": "clam",
       "leitnerBox": 1,
-      "lastReviewed": 1749783497903,
-      "dueDate": 1749869897903
+      "lastReviewed": 1749614144303,
+      "dueDate": 1749700544303
     },
     {
       "spanish": "el pollo frito",
@@ -11096,9 +11096,9 @@
       "synonyms_spanish": [],
       "synonyms_english": [],
       "category": "Verbs, Hobbies",
-      "leitnerBox": 1,
-      "lastReviewed": 1749870415393,
-      "dueDate": 1749956815393
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "surfear",
@@ -11275,9 +11275,9 @@
         "cup"
       ],
       "category": "",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870825678,
-      "dueDate": 1750043625678
+      "leitnerBox": 1,
+      "lastReviewed": 1749616417965,
+      "dueDate": 1749702817965
     },
     {
       "spanish": "el plato",
@@ -11544,9 +11544,9 @@
     {
       "spanish": "el expresionismo",
       "english": "expressionism",
-      "leitnerBox": 2,
-      "lastReviewed": 1749869730138,
-      "dueDate": 1750042530138
+      "leitnerBox": 1,
+      "lastReviewed": 1749615556560,
+      "dueDate": 1749701956560
     },
     {
       "spanish": "la arquitectura",
@@ -11607,9 +11607,9 @@
     {
       "spanish": "el natural",
       "english": "life",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869878836,
-      "dueDate": 1749956278836
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el cuadro abstracto",
@@ -11832,9 +11832,9 @@
     {
       "spanish": "modelar",
       "english": "to model",
-      "leitnerBox": 2,
-      "lastReviewed": 1749869992851,
-      "dueDate": 1750042792851
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el museo",
@@ -11860,9 +11860,9 @@
     {
       "spanish": "la muestra de arte",
       "english": "art show",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749615552994,
+      "dueDate": 1749701952994
     },
     {
       "spanish": "la exposición",
@@ -12141,9 +12141,9 @@
     {
       "spanish": "a la vuelta de la esquina",
       "english": "around the corner",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869886611,
-      "dueDate": 1749956286611
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "ir por",
@@ -12366,8 +12366,8 @@
       "spanish": "el vagón",
       "english": "freight car",
       "leitnerBox": 1,
-      "lastReviewed": 1749870292886,
-      "dueDate": 1749956692886
+      "lastReviewed": 1749614962825,
+      "dueDate": 1749701362825
     },
     {
       "spanish": "el mofle",
@@ -12554,16 +12554,16 @@
     {
       "spanish": "marinero",
       "english": "seaworthy",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784542412,
-      "dueDate": 1749870942412
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el maletero",
       "english": "trunk",
       "leitnerBox": 1,
-      "lastReviewed": 1749698181192,
-      "dueDate": 1749784581192
+      "lastReviewed": 1749438903110,
+      "dueDate": 1749525303110
     },
     {
       "spanish": "el velamen",
@@ -13366,9 +13366,9 @@
     {
       "spanish": "el transporte",
       "english": "transportation",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870914629,
-      "dueDate": 1750043714629
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el transporte",
@@ -13497,9 +13497,9 @@
     {
       "spanish": "la narración de cuentos",
       "english": "storytelling",
-      "leitnerBox": 1,
-      "lastReviewed": 1749870523139,
-      "dueDate": 1749956923139
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la hipérbole",
@@ -13511,9 +13511,9 @@
     {
       "spanish": "la mitología",
       "english": "mythology",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870838990,
-      "dueDate": 1750043638990
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la aliteración",
@@ -13718,9 +13718,9 @@
     {
       "spanish": "el borrador",
       "english": "draft",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869797231,
-      "dueDate": 1749956197231
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el lector",
@@ -13732,9 +13732,9 @@
     {
       "spanish": "el libro de texto",
       "english": "textbook",
-      "leitnerBox": 2,
-      "lastReviewed": 1749696702050,
-      "dueDate": 1749869502050
+      "leitnerBox": 1,
+      "lastReviewed": 1749439754348,
+      "dueDate": 1749526154348
     },
     {
       "spanish": "la referencia bibliográfica",
@@ -13789,8 +13789,8 @@
       "spanish": "el humor",
       "english": "humour",
       "leitnerBox": 1,
-      "lastReviewed": 1749698355652,
-      "dueDate": 1749784755652
+      "lastReviewed": 1749492240128,
+      "dueDate": 1749578640128
     },
     {
       "spanish": "la fábula",
@@ -13942,9 +13942,9 @@
     {
       "spanish": "el/la protagonista",
       "english": "protagonist",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870178833,
-      "dueDate": 1750042978833
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la estrofa",
@@ -14226,9 +14226,9 @@
     {
       "spanish": "la cinematografía",
       "english": "cinematography",
-      "leitnerBox": 2,
-      "lastReviewed": 1749698351450,
-      "dueDate": 1749871151450
+      "leitnerBox": 1,
+      "lastReviewed": 1749413105455,
+      "dueDate": 1749499505455
     },
     {
       "spanish": "el/la extra",
@@ -14457,9 +14457,9 @@
     {
       "spanish": "el talk show",
       "english": "talk show",
-      "leitnerBox": 2,
-      "lastReviewed": 1749698319282,
-      "dueDate": 1749871119282
+      "leitnerBox": 1,
+      "lastReviewed": 1749413797957,
+      "dueDate": 1749500197957
     },
     {
       "spanish": "el concurso de televisión",
@@ -14514,8 +14514,8 @@
       "spanish": "doblar",
       "english": "to dub",
       "leitnerBox": 1,
-      "lastReviewed": 1749870259591,
-      "dueDate": 1749956659591
+      "lastReviewed": 1749615471880,
+      "dueDate": 1749701871880
     },
     {
       "spanish": "el animador",
@@ -15082,9 +15082,9 @@
     {
       "spanish": "la luna de miel",
       "english": "honeymoon",
-      "leitnerBox": 2,
-      "lastReviewed": 1749871334842,
-      "dueDate": 1750044134842
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la excursión",
@@ -15194,9 +15194,9 @@
     {
       "spanish": "de niebla",
       "english": "foggy",
-      "leitnerBox": 2,
-      "lastReviewed": 1749696691692,
-      "dueDate": 1749869491692
+      "leitnerBox": 1,
+      "lastReviewed": 1749439299743,
+      "dueDate": 1749525699743
     },
     {
       "spanish": "brumoso",
@@ -15215,9 +15215,9 @@
     {
       "spanish": "el despegue",
       "english": "takeoff",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870154651,
-      "dueDate": 1750042954651
+      "leitnerBox": 1,
+      "lastReviewed": 1749439404235,
+      "dueDate": 1749525804235
     },
     {
       "spanish": "el boleto de avión",
@@ -15324,9 +15324,9 @@
       "synonyms_spanish": [],
       "synonyms_english": [],
       "category": "Things, Travel",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784548756,
-      "dueDate": 1749870948756
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el aeroplano",
@@ -15526,9 +15526,9 @@
     {
       "spanish": "la pista de aterrizaje",
       "english": "runway",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749439099467,
+      "dueDate": 1749525499467
     },
     {
       "spanish": "la tasa",
@@ -15653,9 +15653,9 @@
     {
       "spanish": "puntual",
       "english": "on time",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784528129,
-      "dueDate": 1749870928129
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "a su hora",
@@ -15887,8 +15887,8 @@
       "spanish": "el servicio regular de enlace",
       "english": "shuttle",
       "leitnerBox": 1,
-      "lastReviewed": 1749870023136,
-      "dueDate": 1749956423136
+      "lastReviewed": 1749439003842,
+      "dueDate": 1749525403842
     },
     {
       "spanish": "el restaurante",
@@ -15983,9 +15983,9 @@
     {
       "spanish": "el pueblo",
       "english": "town",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784640387,
-      "dueDate": 1749871040387
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el panorama",
@@ -16709,9 +16709,9 @@
     {
       "spanish": "el marco",
       "english": "goalposts",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869821018,
-      "dueDate": 1749956221018
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el ace",
@@ -16723,9 +16723,9 @@
     {
       "spanish": "la pegada",
       "english": "punch",
-      "leitnerBox": 1,
-      "lastReviewed": 1749870712388,
-      "dueDate": 1749957112388
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "batear",
@@ -16931,9 +16931,9 @@
     {
       "spanish": "deportista",
       "english": "sporty",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784544142,
-      "dueDate": 1749870944142
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el/la deportista",
@@ -17289,9 +17289,9 @@
     {
       "spanish": "el penalty",
       "english": "penalty",
-      "leitnerBox": 2,
-      "lastReviewed": 1749785038437,
-      "dueDate": 1749957838437
+      "leitnerBox": 1,
+      "lastReviewed": 1749616533631,
+      "dueDate": 1749702933631
     },
     {
       "spanish": "el tiempo extra",
@@ -17575,9 +17575,9 @@
     {
       "spanish": "el puck",
       "english": "puck",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870063950,
-      "dueDate": 1750042863950
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el/la reserva",
@@ -17617,9 +17617,9 @@
     {
       "spanish": "el puntapié inicial",
       "english": "kick-off",
-      "leitnerBox": 1,
-      "lastReviewed": 1749870805559,
-      "dueDate": 1749957205559
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el zaguero",
@@ -18056,9 +18056,9 @@
     {
       "spanish": "el rafting",
       "english": "rafting",
-      "leitnerBox": 2,
-      "lastReviewed": 1749785130924,
-      "dueDate": 1749957930924
+      "leitnerBox": 1,
+      "lastReviewed": 1749615530218,
+      "dueDate": 1749701930218
     },
     {
       "spanish": "la lucha libre",
@@ -18155,8 +18155,8 @@
       "spanish": "la portería",
       "english": "goal",
       "leitnerBox": 1,
-      "lastReviewed": 1749869419338,
-      "dueDate": 1749955819338
+      "lastReviewed": 1749616561001,
+      "dueDate": 1749702961001
     },
     {
       "spanish": "el tenis",
@@ -18419,8 +18419,8 @@
       "spanish": "deprimido",
       "english": "depressed",
       "leitnerBox": 1,
-      "lastReviewed": 1749783721952,
-      "dueDate": 1749870121952
+      "lastReviewed": 1749615039758,
+      "dueDate": 1749701439758
     },
     {
       "spanish": "el reto",
@@ -18568,9 +18568,9 @@
     {
       "spanish": "la sonrisa",
       "english": "smile",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869342767,
-      "dueDate": 1749955742767
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "soportar",
@@ -18638,9 +18638,9 @@
     {
       "spanish": "perfecto",
       "english": "perfect",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870693632,
-      "dueDate": 1750043493632
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "fomentar",
@@ -18698,9 +18698,9 @@
     {
       "spanish": "adivinar",
       "english": "to guess",
-      "leitnerBox": 2,
-      "lastReviewed": 1749784070394,
-      "dueDate": 1749956870394
+      "leitnerBox": 1,
+      "lastReviewed": 1749616438058,
+      "dueDate": 1749702838058
     },
     {
       "spanish": "influir",
@@ -18720,8 +18720,8 @@
       "spanish": "la bañera",
       "english": "bathtub",
       "leitnerBox": 1,
-      "lastReviewed": 1749870547346,
-      "dueDate": 1749956947346
+      "lastReviewed": 1749615414114,
+      "dueDate": 1749701814114
     },
     {
       "spanish": "el tornado",
@@ -18747,9 +18747,9 @@
     {
       "spanish": "los celos",
       "english": "jealousy",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784586848,
-      "dueDate": 1749870986848
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "organizar",
@@ -18915,9 +18915,9 @@
     {
       "spanish": "reparar",
       "english": "to repair",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783709956,
-      "dueDate": 1749956509956
+      "leitnerBox": 1,
+      "lastReviewed": 1749615486207,
+      "dueDate": 1749701886207
     },
     {
       "spanish": "el letrero",
@@ -18929,9 +18929,9 @@
     {
       "spanish": "apetecer",
       "english": "to feel like",
-      "leitnerBox": 1,
-      "lastReviewed": 1749871197359,
-      "dueDate": 1749957597359
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el aparato",
@@ -19252,9 +19252,9 @@
     {
       "spanish": "la papelería",
       "english": "stationery store",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869596640,
-      "dueDate": 1749955996640
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "acogedor",
@@ -19466,16 +19466,16 @@
     {
       "spanish": "dar una caminata",
       "english": "to take a walk",
-      "leitnerBox": 1,
-      "lastReviewed": 1749871219848,
-      "dueDate": 1749957619848
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la colonia",
       "english": "colony",
-      "leitnerBox": 2,
-      "lastReviewed": 1749698161708,
-      "dueDate": 1749870961708
+      "leitnerBox": 1,
+      "lastReviewed": 1749438713542,
+      "dueDate": 1749525113542
     },
     {
       "spanish": "examinar",
@@ -19767,9 +19767,9 @@
     {
       "spanish": "las ruinas",
       "english": "ruins",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784576281,
-      "dueDate": 1749870976281
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el gel",
@@ -19886,9 +19886,9 @@
     {
       "spanish": "aventurero",
       "english": "adventurous",
-      "leitnerBox": 1,
-      "lastReviewed": 1749931015925,
-      "dueDate": 1750017415925
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el contenedor",
@@ -19926,8 +19926,8 @@
       "spanish": "esculpir",
       "english": "to sculpt",
       "leitnerBox": 1,
-      "lastReviewed": 1749871167169,
-      "dueDate": 1749957567169
+      "lastReviewed": 1749614177024,
+      "dueDate": 1749700577024
     },
     {
       "spanish": "el aire acondicionado",
@@ -20060,9 +20060,9 @@
     {
       "spanish": "la patata frita",
       "english": "french fry",
-      "leitnerBox": 2,
-      "lastReviewed": 1749869308584,
-      "dueDate": 1750042108584
+      "leitnerBox": 1,
+      "lastReviewed": 1749615620086,
+      "dueDate": 1749702020086
     },
     {
       "spanish": "el narrador",
@@ -20172,9 +20172,9 @@
     {
       "spanish": "la cooperación",
       "english": "cooperation",
-      "leitnerBox": 2,
-      "lastReviewed": 1749869524271,
-      "dueDate": 1750042324271
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "recomendable",
@@ -20220,9 +20220,9 @@
     {
       "spanish": "la civilización",
       "english": "civilization",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870224625,
-      "dueDate": 1750043024625
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la dirección electrónica",
@@ -20380,9 +20380,9 @@
     {
       "spanish": "entrar",
       "english": "to enter",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784483204,
-      "dueDate": 1749870883204
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "cumplir",
@@ -20668,9 +20668,9 @@
     {
       "spanish": "el/la sartén",
       "english": "frying pan",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784559773,
-      "dueDate": 1749870959773
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "firmar",
@@ -20759,9 +20759,9 @@
     {
       "spanish": "el lobo",
       "english": "wolf",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784623599,
-      "dueDate": 1749871023599
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "surgir",
@@ -20815,9 +20815,9 @@
     {
       "spanish": "la firma",
       "english": "signature",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869987485,
-      "dueDate": 1749956387485
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "lastimarse",
@@ -21144,9 +21144,9 @@
     {
       "spanish": "ruidoso",
       "english": "noisy",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784596607,
-      "dueDate": 1749870996607
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "contribuir",
@@ -21329,9 +21329,9 @@
     {
       "spanish": "el colchón",
       "english": "mattress",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784430427,
-      "dueDate": 1749870830427
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la colina",
@@ -21385,16 +21385,16 @@
         "sponsor"
       ],
       "category": "",
-      "leitnerBox": 2,
-      "lastReviewed": 1749698491914,
-      "dueDate": 1749871291914
+      "leitnerBox": 1,
+      "lastReviewed": 1749492190432,
+      "dueDate": 1749578590432
     },
     {
       "spanish": "la ternura",
       "english": "tenderness",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749413745288,
+      "dueDate": 1749500145288
     },
     {
       "spanish": "la noticia",
@@ -21676,9 +21676,9 @@
     {
       "spanish": "el zumo",
       "english": "juice",
-      "leitnerBox": 2,
-      "lastReviewed": 1749866906831,
-      "dueDate": 1750039706831
+      "leitnerBox": 1,
+      "lastReviewed": 1749615524520,
+      "dueDate": 1749701924520
     },
     {
       "spanish": "la limpieza",
@@ -21983,9 +21983,9 @@
     {
       "spanish": "registrar",
       "english": "to search",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869900326,
-      "dueDate": 1749956300326
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "jubilado",
@@ -22171,9 +22171,9 @@
     {
       "spanish": "la mercancía",
       "english": "merchandise",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784491064,
-      "dueDate": 1749870891064
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la linterna",
@@ -22192,9 +22192,9 @@
     {
       "spanish": "el avance",
       "english": "advance",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783997525,
-      "dueDate": 1749956797525
+      "leitnerBox": 1,
+      "lastReviewed": 1749615616971,
+      "dueDate": 1749702016971
     },
     {
       "spanish": "la madurez",
@@ -22346,9 +22346,9 @@
     {
       "spanish": "manifestar",
       "english": "to declare",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784717545,
-      "dueDate": 1749871117545
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "abrazarse",
@@ -22431,8 +22431,8 @@
       "spanish": "la dulzura",
       "english": "sweetness",
       "leitnerBox": 1,
-      "lastReviewed": 1749870271730,
-      "dueDate": 1749956671730
+      "lastReviewed": 1749614297772,
+      "dueDate": 1749700697772
     },
     {
       "spanish": "el resultado",
@@ -22549,9 +22549,9 @@
     {
       "spanish": "emocionarse",
       "english": "to be moved",
-      "leitnerBox": 1,
-      "lastReviewed": 1749699412970,
-      "dueDate": 1749785812970
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la psicología",
@@ -22750,8 +22750,8 @@
       "spanish": "el electrodoméstico",
       "english": "electrical appliance",
       "leitnerBox": 1,
-      "lastReviewed": 1749784006888,
-      "dueDate": 1749870406888
+      "lastReviewed": 1749616550590,
+      "dueDate": 1749702950590
     },
     {
       "spanish": "tratarse de",
@@ -23150,9 +23150,9 @@
     {
       "spanish": "los derechos humanos",
       "english": "human rights",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783759043,
-      "dueDate": 1749956559043
+      "leitnerBox": 1,
+      "lastReviewed": 1749616572979,
+      "dueDate": 1749702972979
     },
     {
       "spanish": "de mal humor",
@@ -23171,9 +23171,9 @@
     {
       "spanish": "la prosa",
       "english": "prose",
-      "leitnerBox": 1,
-      "lastReviewed": 1749699176810,
-      "dueDate": 1749785576810
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la disciplina",
@@ -23463,8 +23463,8 @@
       "synonyms_english": [],
       "category": "Emotion, Behavior",
       "leitnerBox": 1,
-      "lastReviewed": 1749870679709,
-      "dueDate": 1749957079709
+      "lastReviewed": 1749615249462,
+      "dueDate": 1749701649462
     },
     {
       "spanish": "poner una inyección",
@@ -23497,9 +23497,9 @@
     {
       "spanish": "motivado",
       "english": "motivated",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869400735,
-      "dueDate": 1749955800735
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "pasear en bicicleta",
@@ -23971,8 +23971,8 @@
       "spanish": "solamente",
       "english": "only",
       "leitnerBox": 1,
-      "lastReviewed": 1749871017547,
-      "dueDate": 1749957417547
+      "lastReviewed": 1749615398205,
+      "dueDate": 1749701798205
     },
     {
       "spanish": "el fondo",
@@ -24130,9 +24130,9 @@
     {
       "spanish": "la cueva",
       "english": "cave",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869976839,
-      "dueDate": 1749956376839
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la cirugía",
@@ -24214,9 +24214,9 @@
     {
       "spanish": "aplicar",
       "english": "to apply",
-      "leitnerBox": 2,
-      "lastReviewed": 1749869606554,
-      "dueDate": 1750042406554
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "físico",
@@ -24498,9 +24498,9 @@
     {
       "spanish": "incluir",
       "english": "to include",
-      "leitnerBox": 2,
-      "lastReviewed": 1749869504707,
-      "dueDate": 1750042304707
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la parte",
@@ -25398,9 +25398,9 @@
     {
       "spanish": "la oscuridad",
       "english": "obscurity",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870870441,
-      "dueDate": 1750043670441
+      "leitnerBox": 1,
+      "lastReviewed": 1749615217948,
+      "dueDate": 1749701617948
     },
     {
       "spanish": "raza mixta",
@@ -25545,9 +25545,9 @@
     {
       "spanish": "el contacto",
       "english": "contact",
-      "leitnerBox": 2,
-      "lastReviewed": 1749869510438,
-      "dueDate": 1750042310438
+      "leitnerBox": 1,
+      "lastReviewed": 1749615490753,
+      "dueDate": 1749701890753
     },
     {
       "spanish": "el veterinario",
@@ -25608,9 +25608,9 @@
     {
       "spanish": "la fémina",
       "english": "female",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749439063255,
+      "dueDate": 1749525463255
     },
     {
       "spanish": "el varón",
@@ -26284,9 +26284,9 @@
     {
       "spanish": "la morena",
       "english": "brunette",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783988110,
-      "dueDate": 1749956788110
+      "leitnerBox": 1,
+      "lastReviewed": 1749616608937,
+      "dueDate": 1749703008937
     },
     {
       "spanish": "el rubio",
@@ -26773,9 +26773,9 @@
     {
       "spanish": "nadie",
       "english": "nobody",
-      "leitnerBox": 2,
-      "lastReviewed": 1749784225612,
-      "dueDate": 1749957025612
+      "leitnerBox": 1,
+      "lastReviewed": 1749615905417,
+      "dueDate": 1749702305417
     },
     {
       "spanish": "el quídam",
@@ -26801,9 +26801,9 @@
     {
       "spanish": "el millonario",
       "english": "millionaire",
-      "leitnerBox": 2,
-      "lastReviewed": 1749871001416,
-      "dueDate": 1750043801416
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el mendigo",
@@ -27654,9 +27654,9 @@
     {
       "spanish": "el trol",
       "english": "troll",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783902576,
-      "dueDate": 1749956702576
+      "leitnerBox": 1,
+      "lastReviewed": 1749615458682,
+      "dueDate": 1749701858682
     },
     {
       "spanish": "el ogro",
@@ -27815,9 +27815,9 @@
     {
       "spanish": "la ventisca",
       "english": "blizzard",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869914101,
-      "dueDate": 1749956314101
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la bota",
@@ -28142,8 +28142,8 @@
       "spanish": "el arco iris",
       "english": "rainbow",
       "leitnerBox": 1,
-      "lastReviewed": 1749870213625,
-      "dueDate": 1749956613625
+      "lastReviewed": 1749616406220,
+      "dueDate": 1749702806220
     },
     {
       "spanish": "el renacimiento",
@@ -28169,9 +28169,9 @@
     {
       "spanish": "el sol",
       "english": "sunshine",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784630782,
-      "dueDate": 1749871030782
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "las vacaciones de primavera",
@@ -28302,9 +28302,9 @@
     {
       "spanish": "la tarta de calabaza",
       "english": "pumpkin pie",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870120053,
-      "dueDate": 1750042920053
+      "leitnerBox": 1,
+      "lastReviewed": 1749613499560,
+      "dueDate": 1749699899560
     },
     {
       "spanish": "la bellota",
@@ -28455,9 +28455,9 @@
     {
       "spanish": "la tijereta",
       "english": "earwig",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749614255120,
+      "dueDate": 1749700655120
     },
     {
       "spanish": "la mariquita",
@@ -28735,9 +28735,9 @@
     {
       "spanish": "la liebre",
       "english": "hare",
-      "leitnerBox": 1,
-      "lastReviewed": 1749871356594,
-      "dueDate": 1749957756594
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la ardilla listada",
@@ -28924,9 +28924,9 @@
     {
       "spanish": "la luciérnaga",
       "english": "lightning bug",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784506473,
-      "dueDate": 1749870906473
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el ácaro",
@@ -29016,8 +29016,8 @@
       "spanish": "el saltamontes",
       "english": "grasshopper",
       "leitnerBox": 1,
-      "lastReviewed": 1749698640857,
-      "dueDate": 1749785040857
+      "lastReviewed": 1749439423365,
+      "dueDate": 1749525823365
     },
     {
       "spanish": "el chapulín",
@@ -29252,9 +29252,9 @@
     {
       "spanish": "el bagre",
       "english": "catfish",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784562290,
-      "dueDate": 1749870962290
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el arenque",
@@ -29651,8 +29651,8 @@
       "spanish": "el collar",
       "english": "collar",
       "leitnerBox": 1,
-      "lastReviewed": 1749698235877,
-      "dueDate": 1749784635877
+      "lastReviewed": 1749439558028,
+      "dueDate": 1749525958028
     },
     {
       "spanish": "la caja de arena",
@@ -29671,9 +29671,9 @@
     {
       "spanish": "la casa del perro",
       "english": "doghouse",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870600949,
-      "dueDate": 1750043400949
+      "leitnerBox": 1,
+      "lastReviewed": 1749616529366,
+      "dueDate": 1749702929366
     },
     {
       "spanish": "la tortuga",
@@ -29825,16 +29825,16 @@
     {
       "spanish": "el hámster",
       "english": "hamster",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870515035,
-      "dueDate": 1750043315035
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la rata",
       "english": "rat",
-      "leitnerBox": 2,
-      "lastReviewed": 1749785154267,
-      "dueDate": 1749957954267
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el ratón",
@@ -29993,9 +29993,9 @@
     {
       "spanish": "la mantarraya",
       "english": "manta ray",
-      "leitnerBox": 1,
-      "lastReviewed": 1749699451826,
-      "dueDate": 1749785851826
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el bisonte",
@@ -30266,9 +30266,9 @@
     {
       "spanish": "bosque lluvioso",
       "english": "rainforest",
-      "leitnerBox": 1,
-      "lastReviewed": 1749698843774,
-      "dueDate": 1749785243774
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "purificar",
@@ -30385,9 +30385,9 @@
     {
       "spanish": "la catástrofe",
       "english": "catastrophe",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869989602,
-      "dueDate": 1749956389602
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la biosfera",
@@ -30476,9 +30476,9 @@
     {
       "spanish": "biodegradable",
       "english": "biodegradable",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870652452,
-      "dueDate": 1750043452452
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el incentivo",
@@ -30588,9 +30588,9 @@
     {
       "spanish": "el diluvio",
       "english": "deluge",
-      "leitnerBox": 2,
-      "lastReviewed": 1749784200759,
-      "dueDate": 1749957000759
+      "leitnerBox": 1,
+      "lastReviewed": 1749615412796,
+      "dueDate": 1749701812796
     },
     {
       "spanish": "el terremoto",
@@ -30644,9 +30644,9 @@
     {
       "spanish": "la poza",
       "english": "pool",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749615157608,
+      "dueDate": 1749701557608
     },
     {
       "spanish": "ácido",
@@ -30853,9 +30853,9 @@
     {
       "spanish": "Sudáfrica",
       "english": "South Africa",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783765096,
-      "dueDate": 1749956565096
+      "leitnerBox": 1,
+      "lastReviewed": 1749615614169,
+      "dueDate": 1749702014169
     },
     {
       "spanish": "la Bermudas",
@@ -31126,9 +31126,9 @@
     {
       "spanish": "el campo de golf",
       "english": "golf course",
-      "leitnerBox": 2,
-      "lastReviewed": 1749784089523,
-      "dueDate": 1749956889523
+      "leitnerBox": 1,
+      "lastReviewed": 1749614583432,
+      "dueDate": 1749700983432
     },
     {
       "spanish": "la bolera",
@@ -31294,8 +31294,8 @@
       "spanish": "el puesto",
       "english": "stand",
       "leitnerBox": 1,
-      "lastReviewed": 1749698393393,
-      "dueDate": 1749784793393
+      "lastReviewed": 1749412934975,
+      "dueDate": 1749499334975
     },
     {
       "spanish": "el extremo",
@@ -31415,9 +31415,9 @@
     {
       "spanish": "la bodega",
       "english": "wine cellar",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784373236,
-      "dueDate": 1749870773236
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la bodega",
@@ -31569,9 +31569,9 @@
     {
       "spanish": "el albergue",
       "english": "shelter",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784402988,
-      "dueDate": 1749870802988
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la tierra",
@@ -31611,9 +31611,9 @@
     {
       "spanish": "la escalera",
       "english": "staircase",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783979545,
-      "dueDate": 1749956779545
+      "leitnerBox": 1,
+      "lastReviewed": 1749615593063,
+      "dueDate": 1749701993063
     },
     {
       "spanish": "lejos",
@@ -31963,9 +31963,9 @@
     {
       "spanish": "la tienda de comestibles",
       "english": "grocery store",
-      "leitnerBox": 2,
-      "lastReviewed": 1749784265638,
-      "dueDate": 1749957065638
+      "leitnerBox": 1,
+      "lastReviewed": 1749615475129,
+      "dueDate": 1749701875129
     },
     {
       "spanish": "el supermercado",
@@ -32054,9 +32054,9 @@
     {
       "spanish": "forrado",
       "english": "lined",
-      "leitnerBox": 2,
-      "lastReviewed": 1749698191561,
-      "dueDate": 1749870991561
+      "leitnerBox": 1,
+      "lastReviewed": 1749439570490,
+      "dueDate": 1749525970490
     },
     {
       "spanish": "plisado",
@@ -32164,9 +32164,9 @@
     {
       "spanish": "el mocasín",
       "english": "loafer",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749615623303,
+      "dueDate": 1749702023303
     },
     {
       "spanish": "el chanclo",
@@ -32695,8 +32695,8 @@
       "spanish": "la capota",
       "english": "bonnet",
       "leitnerBox": 1,
-      "lastReviewed": 1749870537230,
-      "dueDate": 1749956937230
+      "lastReviewed": 1749615560110,
+      "dueDate": 1749701960110
     },
     {
       "spanish": "la chistera",
@@ -32812,9 +32812,9 @@
     {
       "spanish": "el zapato de tenis",
       "english": "tennis shoe",
-      "leitnerBox": 2,
-      "lastReviewed": 1749871072046,
-      "dueDate": 1750043872046
+      "leitnerBox": 1,
+      "lastReviewed": 1749614186060,
+      "dueDate": 1749700586060
     },
     {
       "spanish": "la pantalla",
@@ -33000,9 +33000,9 @@
     {
       "spanish": "la angora",
       "english": "angora",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869888059,
-      "dueDate": 1749956288059
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el poliéster",
@@ -33181,9 +33181,9 @@
     {
       "spanish": "el vestido",
       "english": "dress",
-      "leitnerBox": 2,
-      "lastReviewed": 1749698646409,
-      "dueDate": 1749871446409
+      "leitnerBox": 1,
+      "lastReviewed": 1749439534822,
+      "dueDate": 1749525934822
     },
     {
       "spanish": "el vestido largo",
@@ -33262,8 +33262,8 @@
       "spanish": "la pajarita",
       "english": "bow tie",
       "leitnerBox": 1,
-      "lastReviewed": 1749870979353,
-      "dueDate": 1749957379353
+      "lastReviewed": 1749616579009,
+      "dueDate": 1749702979009
     },
     {
       "spanish": "la corbata",
@@ -33398,9 +33398,9 @@
     {
       "spanish": "la chimenea",
       "english": "chimney",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870278050,
-      "dueDate": 1750043078050
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la mesilla",
@@ -33426,9 +33426,9 @@
     {
       "spanish": "en el piso de abajo",
       "english": "downstairs",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870235692,
-      "dueDate": 1750043035692
+      "leitnerBox": 1,
+      "lastReviewed": 1749615808161,
+      "dueDate": 1749702208161
     },
     {
       "spanish": "arriba",
@@ -33706,9 +33706,9 @@
     {
       "spanish": "la mesa de centro",
       "english": "coffee table",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869966445,
-      "dueDate": 1749956366445
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la coqueta",
@@ -33849,9 +33849,9 @@
     {
       "spanish": "el escritorio",
       "english": "desk",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870147867,
-      "dueDate": 1750042947867
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el empapelado",
@@ -34198,8 +34198,8 @@
       "spanish": "las normas de convivencia",
       "english": "house rules",
       "leitnerBox": 1,
-      "lastReviewed": 1749784300103,
-      "dueDate": 1749870700103
+      "lastReviewed": 1749615686139,
+      "dueDate": 1749702086139
     },
     {
       "spanish": "mi habitación",
@@ -34253,9 +34253,9 @@
     {
       "spanish": "el tramo",
       "english": "flight",
-      "leitnerBox": 1,
-      "lastReviewed": 1749699390415,
-      "dueDate": 1749785790415
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "ordenado",
@@ -34316,9 +34316,9 @@
     {
       "spanish": "el cortacésped",
       "english": "lawnmower",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870833185,
-      "dueDate": 1750043633185
+      "leitnerBox": 1,
+      "lastReviewed": 1749615539547,
+      "dueDate": 1749701939547
     },
     {
       "spanish": "la luna",
@@ -34656,8 +34656,8 @@
       "spanish": "¿Me trae la cuenta, por favor?",
       "english": "Can I get the bill, please?",
       "leitnerBox": 1,
-      "lastReviewed": 1749783678045,
-      "dueDate": 1749870078045
+      "lastReviewed": 1749614709677,
+      "dueDate": 1749701109677
     },
     {
       "spanish": "el entrante",
@@ -34995,9 +34995,9 @@
     {
       "spanish": "la cacerola",
       "english": "saucepan",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869583177,
-      "dueDate": 1749955983177
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el cazo",
@@ -35024,8 +35024,8 @@
       "spanish": "la tetera",
       "english": "teapot",
       "leitnerBox": 1,
-      "lastReviewed": 1749870504197,
-      "dueDate": 1749956904197
+      "lastReviewed": 1749438775585,
+      "dueDate": 1749525175585
     },
     {
       "spanish": "el régimen",
@@ -35106,9 +35106,9 @@
     {
       "spanish": "¿Qué vas a pedir de postre?",
       "english": "What are you having for dessert?",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869650820,
-      "dueDate": 1749956050820
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "que aproveche",
@@ -35120,9 +35120,9 @@
     {
       "spanish": "tráigame",
       "english": "bring me",
-      "leitnerBox": 1,
-      "lastReviewed": 1749870746812,
-      "dueDate": 1749957146812
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "¿Me trae la cuenta, por favor?",
@@ -35339,8 +35339,8 @@
       "spanish": "el pan de masa fermentada",
       "english": "sourdough bread",
       "leitnerBox": 1,
-      "lastReviewed": 1749870720260,
-      "dueDate": 1749957120260
+      "lastReviewed": 1749615631447,
+      "dueDate": 1749702031447
     },
     {
       "spanish": "el guisado de carne",
@@ -35513,9 +35513,9 @@
     {
       "spanish": "la leche condensada",
       "english": "condensed milk",
-      "leitnerBox": 2,
-      "lastReviewed": 1749698362786,
-      "dueDate": 1749871162786
+      "leitnerBox": 1,
+      "lastReviewed": 1749413438642,
+      "dueDate": 1749499838642
     },
     {
       "spanish": "la leche en polvo",
@@ -36142,8 +36142,8 @@
       "spanish": "fundir",
       "english": "to melt",
       "leitnerBox": 1,
-      "lastReviewed": 1749870571366,
-      "dueDate": 1749956971366
+      "lastReviewed": 1749616312443,
+      "dueDate": 1749702712443
     },
     {
       "spanish": "la batidora",
@@ -36232,9 +36232,9 @@
     {
       "spanish": "la salsa macha",
       "english": "salsa macha",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749615425961,
+      "dueDate": 1749701825961
     },
     {
       "spanish": "la salsa verde",
@@ -36253,9 +36253,9 @@
     {
       "spanish": "el laurel",
       "english": "bay leaf",
-      "leitnerBox": 2,
-      "lastReviewed": 1749784312796,
-      "dueDate": 1749957112796
+      "leitnerBox": 1,
+      "lastReviewed": 1749615024660,
+      "dueDate": 1749701424660
     },
     {
       "spanish": "la cayena",
@@ -36440,9 +36440,9 @@
     {
       "spanish": "el ruibarbo",
       "english": "rhubarb",
-      "leitnerBox": 2,
-      "lastReviewed": 1749785056595,
-      "dueDate": 1749957856595
+      "leitnerBox": 1,
+      "lastReviewed": 1749616517082,
+      "dueDate": 1749702917082
     },
     {
       "spanish": "la chirivía",
@@ -36649,8 +36649,8 @@
       "spanish": "sin gas",
       "english": "still",
       "leitnerBox": 1,
-      "lastReviewed": 1749869348555,
-      "dueDate": 1749955748555
+      "lastReviewed": 1749614332862,
+      "dueDate": 1749700732862
     },
     {
       "spanish": "insípido",
@@ -36676,9 +36676,9 @@
     {
       "spanish": "un poco más",
       "english": "a little more",
-      "leitnerBox": 2,
-      "lastReviewed": 1749698220917,
-      "dueDate": 1749871020917
+      "leitnerBox": 1,
+      "lastReviewed": 1749438961810,
+      "dueDate": 1749525361810
     },
     {
       "spanish": "el tabernero",
@@ -37004,9 +37004,9 @@
     {
       "spanish": "la toma",
       "english": "feed",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869780920,
-      "dueDate": 1749956180920
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la manteca de cerdo",
@@ -37088,9 +37088,9 @@
     {
       "spanish": "quemado",
       "english": "burnt",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749616632654,
+      "dueDate": 1749703032654
     },
     {
       "spanish": "crudo",
@@ -37144,9 +37144,9 @@
     {
       "spanish": "el pimiento verde",
       "english": "green pepper",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784605188,
-      "dueDate": 1749871005188
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la batata",
@@ -37404,9 +37404,9 @@
     {
       "spanish": "el mordisco",
       "english": "bite",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784649637,
-      "dueDate": 1749871049637
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el riñón",
@@ -37445,9 +37445,9 @@
     {
       "spanish": "el cava",
       "english": "cava",
-      "leitnerBox": 2,
-      "lastReviewed": 1749871046495,
-      "dueDate": 1750043846495
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el champán",
@@ -37728,8 +37728,8 @@
       "spanish": "poco hecho",
       "english": "rare",
       "leitnerBox": 1,
-      "lastReviewed": 1749870587074,
-      "dueDate": 1749956987074
+      "lastReviewed": 1749614084088,
+      "dueDate": 1749700484088
     },
     {
       "spanish": "repetir",
@@ -37749,8 +37749,8 @@
       "spanish": "el bitute",
       "english": "chow",
       "leitnerBox": 1,
-      "lastReviewed": 1749698525461,
-      "dueDate": 1749784925461
+      "lastReviewed": 1749439065491,
+      "dueDate": 1749525465491
     },
     {
       "spanish": "la tostada",
@@ -37797,9 +37797,9 @@
     {
       "spanish": "las papas fritas",
       "english": "fries",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749616547875,
+      "dueDate": 1749702947875
     },
     {
       "spanish": "la carne de ave",
@@ -38112,16 +38112,16 @@
     {
       "spanish": "la legumbre",
       "english": "legume",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869980823,
-      "dueDate": 1749956380823
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el melón",
       "english": "cantaloupe",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870781554,
-      "dueDate": 1750043581554
+      "leitnerBox": 1,
+      "lastReviewed": 1749412895522,
+      "dueDate": 1749499295522
     },
     {
       "spanish": "la cuchara sopera",
@@ -38147,9 +38147,9 @@
     {
       "spanish": "el azafrán",
       "english": "saffron",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869842091,
-      "dueDate": 1749956242091
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el pimiento",
@@ -38578,9 +38578,9 @@
     {
       "spanish": "el ajo",
       "english": "garlic",
-      "leitnerBox": 2,
-      "lastReviewed": 1749784243355,
-      "dueDate": 1749957043355
+      "leitnerBox": 1,
+      "lastReviewed": 1749615612238,
+      "dueDate": 1749702012238
     },
     {
       "spanish": "la hierba",
@@ -38626,9 +38626,9 @@
     {
       "spanish": "probar",
       "english": "to try",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783742847,
-      "dueDate": 1749956542847
+      "leitnerBox": 1,
+      "lastReviewed": 1749613964005,
+      "dueDate": 1749700364005
     },
     {
       "spanish": "magro",
@@ -38640,9 +38640,9 @@
     {
       "spanish": "grasiento",
       "english": "greasy",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784615883,
-      "dueDate": 1749871015883
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "comida rápida",
@@ -38676,8 +38676,8 @@
       "spanish": "la col",
       "english": "cabbage",
       "leitnerBox": 1,
-      "lastReviewed": 1749870619972,
-      "dueDate": 1749957019972
+      "lastReviewed": 1749438645082,
+      "dueDate": 1749525045082
     },
     {
       "spanish": "la lechuga",
@@ -38773,9 +38773,9 @@
     {
       "spanish": "la clementina",
       "english": "clementine",
-      "leitnerBox": 2,
-      "lastReviewed": 1749785161469,
-      "dueDate": 1749957961469
+      "leitnerBox": 1,
+      "lastReviewed": 1749615566390,
+      "dueDate": 1749701966390
     },
     {
       "spanish": "satisfecho",
@@ -38973,9 +38973,9 @@
     {
       "spanish": "la naranja",
       "english": "orange",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869789218,
-      "dueDate": 1749956189218
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la comida",
@@ -39195,16 +39195,16 @@
     {
       "spanish": "violentar",
       "english": "to break into",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784860164,
-      "dueDate": 1749871260164
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "forense",
       "english": "forensic",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783827940,
-      "dueDate": 1749956627940
+      "leitnerBox": 1,
+      "lastReviewed": 1749615532700,
+      "dueDate": 1749701932700
     },
     {
       "spanish": "sobornar",
@@ -39712,9 +39712,9 @@
     {
       "spanish": "el remedio",
       "english": "choice",
-      "leitnerBox": 1,
-      "lastReviewed": 1749871060711,
-      "dueDate": 1749957460711
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "estallar",
@@ -39770,16 +39770,16 @@
         "Drop"
       ],
       "category": "",
-      "leitnerBox": 2,
-      "lastReviewed": 1749699506757,
-      "dueDate": 1749872306757
+      "leitnerBox": 1,
+      "lastReviewed": 1749616498667,
+      "dueDate": 1749702898667
     },
     {
       "spanish": "el suspenso",
       "english": "F",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749615525904,
+      "dueDate": 1749701925904
     },
     {
       "spanish": "zurrar",
@@ -40046,16 +40046,16 @@
     {
       "spanish": "el acercamiento",
       "english": "approach",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749412626497,
+      "dueDate": 1749499026497
     },
     {
       "spanish": "el inconveniente",
       "english": "problem",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869996668,
-      "dueDate": 1749956396668
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la mancha",
@@ -40178,9 +40178,9 @@
     {
       "spanish": "la pila",
       "english": "battery",
-      "leitnerBox": 2,
-      "lastReviewed": 1749869362767,
-      "dueDate": 1750042162767
+      "leitnerBox": 1,
+      "lastReviewed": 1749615538148,
+      "dueDate": 1749701938148
     },
     {
       "spanish": "la carta",
@@ -40283,8 +40283,8 @@
       "spanish": "el cartero",
       "english": "postman",
       "leitnerBox": 1,
-      "lastReviewed": 1749784272537,
-      "dueDate": 1749870672537
+      "lastReviewed": 1749615534584,
+      "dueDate": 1749701934584
     },
     {
       "spanish": "el escritor",
@@ -40443,9 +40443,9 @@
     {
       "spanish": "recomendar",
       "english": "to recommend",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869991269,
-      "dueDate": 1749956391269
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el carretero",
@@ -40749,9 +40749,9 @@
     {
       "spanish": "tiempo completo",
       "english": "full time",
-      "leitnerBox": 2,
-      "lastReviewed": 1749871101300,
-      "dueDate": 1750043901300
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "media jornada",
@@ -41144,9 +41144,9 @@
         "run"
       ],
       "category": "",
-      "leitnerBox": 2,
-      "lastReviewed": 1749698187324,
-      "dueDate": 1749870987324
+      "leitnerBox": 1,
+      "lastReviewed": 1749438939004,
+      "dueDate": 1749525339004
     },
     {
       "spanish": "los útiles",
@@ -41263,9 +41263,9 @@
     {
       "spanish": "pues nada",
       "english": "well",
-      "leitnerBox": 1,
-      "lastReviewed": 1749871110170,
-      "dueDate": 1749957510170
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "¡Venga!",
@@ -41278,8 +41278,8 @@
       "spanish": "¡Oye!",
       "english": "Hey!",
       "leitnerBox": 1,
-      "lastReviewed": 1749871086384,
-      "dueDate": 1749957486384
+      "lastReviewed": 1749413902762,
+      "dueDate": 1749500302762
     },
     {
       "spanish": "o sea",
@@ -42059,9 +42059,9 @@
     {
       "spanish": "el pene",
       "english": "penis",
-      "leitnerBox": 2,
-      "lastReviewed": 1749698519672,
-      "dueDate": 1749871319672
+      "leitnerBox": 1,
+      "lastReviewed": 1749439694040,
+      "dueDate": 1749526094040
     },
     {
       "spanish": "el poto",
@@ -42284,8 +42284,8 @@
       "spanish": "por dónde",
       "english": "which way",
       "leitnerBox": 1,
-      "lastReviewed": 1749869443213,
-      "dueDate": 1749955843213
+      "lastReviewed": 1749615489105,
+      "dueDate": 1749701889105
     },
     {
       "spanish": "hace cuánto",
@@ -42333,8 +42333,8 @@
       "spanish": "hacia dónde",
       "english": "where",
       "leitnerBox": 1,
-      "lastReviewed": 1749870733517,
-      "dueDate": 1749957133517
+      "lastReviewed": 1749615716158,
+      "dueDate": 1749702116158
     },
     {
       "spanish": "a quién",
@@ -42395,9 +42395,9 @@
     {
       "spanish": "cómo",
       "english": "how",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870955202,
-      "dueDate": 1750043755202
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "por qué",
@@ -42627,8 +42627,8 @@
       "spanish": "IVU",
       "english": "sales tax",
       "leitnerBox": 0,
-      "lastReviewed": 1749696657880,
-      "dueDate": 1749696657880
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la alcabala",
@@ -42675,9 +42675,9 @@
     {
       "spanish": "razonable",
       "english": "reasonable",
-      "leitnerBox": 2,
-      "lastReviewed": 1749871148053,
-      "dueDate": 1750043948053
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "asequible",
@@ -42864,8 +42864,8 @@
       "spanish": "siéntese, por favor",
       "english": "sit down, please",
       "leitnerBox": 1,
-      "lastReviewed": 1749869453152,
-      "dueDate": 1749955853152
+      "lastReviewed": 1749616564760,
+      "dueDate": 1749702964760
     },
     {
       "spanish": "ve a la pizarra",
@@ -43323,9 +43323,9 @@
     {
       "spanish": "el delineador",
       "english": "lip liner",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783960634,
-      "dueDate": 1749956760634
+      "leitnerBox": 1,
+      "lastReviewed": 1749615344805,
+      "dueDate": 1749701744805
     },
     {
       "spanish": "la meditación",
@@ -43494,16 +43494,16 @@
     {
       "spanish": "corte de pelo",
       "english": "haircut",
-      "leitnerBox": 2,
-      "lastReviewed": 1749785141833,
-      "dueDate": 1749957941833
+      "leitnerBox": 1,
+      "lastReviewed": 1749616600455,
+      "dueDate": 1749703000455
     },
     {
       "spanish": "la mascarilla",
       "english": "face mask",
-      "leitnerBox": 1,
-      "lastReviewed": 1749870006518,
-      "dueDate": 1749956406518
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el rulo",
@@ -43575,9 +43575,9 @@
     {
       "spanish": "la salud",
       "english": "health",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870385369,
-      "dueDate": 1750043185369
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "bañarse",
@@ -43757,9 +43757,9 @@
     {
       "spanish": "la maquinilla",
       "english": "razor",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749438749506,
+      "dueDate": 1749525149506
     },
     {
       "spanish": "la psicoterapia",
@@ -44058,8 +44058,8 @@
       "spanish": "la crisis",
       "english": "attack",
       "leitnerBox": 1,
-      "lastReviewed": 1749870084286,
-      "dueDate": 1749956484286
+      "lastReviewed": 1749615334641,
+      "dueDate": 1749701734641
     },
     {
       "spanish": "crítico",
@@ -44344,9 +44344,9 @@
     {
       "spanish": "navegar por",
       "english": "to surf",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869924016,
-      "dueDate": 1749956324016
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "pulsar",
@@ -45084,9 +45084,9 @@
     {
       "spanish": "¿Qué estás esperando?",
       "english": "What are you waiting for?",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869925915,
-      "dueDate": 1749956325915
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "No estás solo.",
@@ -45390,9 +45390,9 @@
     {
       "spanish": "sacar los trapos sucios",
       "english": "dig up dirt",
-      "leitnerBox": 2,
-      "lastReviewed": 1749698515756,
-      "dueDate": 1749871315756
+      "leitnerBox": 1,
+      "lastReviewed": 1749438625197,
+      "dueDate": 1749525025197
     },
     {
       "spanish": "se dice en la calle",
@@ -45419,8 +45419,8 @@
       "spanish": "Mantén los ojos abiertos.",
       "english": "Keep your ear to the ground.",
       "leitnerBox": 1,
-      "lastReviewed": 1749784047130,
-      "dueDate": 1749870447130
+      "lastReviewed": 1749616020766,
+      "dueDate": 1749702420766
     },
     {
       "spanish": "soltar la lengua",
@@ -45520,9 +45520,9 @@
     {
       "spanish": "¿Hay una farmacia cerca?",
       "english": "Is there a pharmacy nearby?",
-      "leitnerBox": 2,
-      "lastReviewed": 1749866921269,
-      "dueDate": 1750039721269
+      "leitnerBox": 1,
+      "lastReviewed": 1749614651423,
+      "dueDate": 1749701051423
     },
     {
       "spanish": "ataque al corazón",
@@ -45591,8 +45591,8 @@
       "spanish": "entregar",
       "english": "submit",
       "leitnerBox": 0,
-      "lastReviewed": 1749696657880,
-      "dueDate": 1749696657880
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "canal",
@@ -45803,9 +45803,9 @@
         "for"
       ],
       "category": "Phrase",
-      "leitnerBox": 1,
-      "lastReviewed": 1749870368762,
-      "dueDate": 1749956768762
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "por otro lado",
@@ -45964,9 +45964,9 @@
     {
       "spanish": "broncear",
       "english": "get a tan",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784997153,
-      "dueDate": 1749871397153
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "bronceado",
@@ -45992,9 +45992,9 @@
     {
       "spanish": "¿Viste las noticias?",
       "english": "Did you catch the news today?",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749615062018,
+      "dueDate": 1749701462018
     },
     {
       "spanish": "¡Qué padre!",
@@ -46491,8 +46491,8 @@
       "english": "pedal boat",
       "spanish": "El hidropedal",
       "leitnerBox": 1,
-      "lastReviewed": 1749871350225,
-      "dueDate": 1749957750225
+      "lastReviewed": 1749438969280,
+      "dueDate": 1749525369280
     },
     {
       "english": "swimming trunks",
@@ -46519,22 +46519,22 @@
       "english": "sun bed",
       "spanish": "La tumbona",
       "leitnerBox": 1,
-      "lastReviewed": 1749870925682,
-      "dueDate": 1749957325682
+      "lastReviewed": 1749613539303,
+      "dueDate": 1749699939303
     },
     {
       "english": "umbrella (for the sun)",
       "spanish": "La sombrilla",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749614164763,
+      "dueDate": 1749700564763
     },
     {
       "english": "cool box",
       "spanish": "La nevera",
       "leitnerBox": 0,
-      "lastReviewed": 1749696657880,
-      "dueDate": 1749696657880
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "english": "sunscreen",
@@ -46804,8 +46804,8 @@
       "english": "... more water",
       "spanish": "... más agua",
       "leitnerBox": 0,
-      "lastReviewed": 1749696657880,
-      "dueDate": 1749696657880
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "english": "... otra copa de vino",
@@ -47003,9 +47003,9 @@
     {
       "english": "very small dish",
       "spanish": "La tapa",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749615257211,
+      "dueDate": 1749701657211
     },
     {
       "english": "olives",
@@ -47147,9 +47147,9 @@
     {
       "english": "still water",
       "spanish": "El agua sin gas",
-      "leitnerBox": 1,
-      "lastReviewed": 1749930784495,
-      "dueDate": 1750017184495
+      "leitnerBox": 0,
+      "lastReviewed": 1749412573299,
+      "dueDate": 1749412573299
     },
     {
       "english": "bottle of red wine",
@@ -47309,8 +47309,8 @@
       "english": "... con buenas vistas.",
       "spanish": "... with a good view.",
       "leitnerBox": 0,
-      "lastReviewed": 1749696657880,
-      "dueDate": 1749696657880
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "english": "... con vista al mar.",
@@ -47348,8 +47348,8 @@
       "english": "May I see the room?",
       "spanish": "¿Puedo ver la habitación?",
       "leitnerBox": 1,
-      "lastReviewed": 1749869719887,
-      "dueDate": 1749956119887
+      "lastReviewed": 1749616135785,
+      "dueDate": 1749702535785
     },
     {
       "english": "It's fine, I'll take it.",
@@ -47526,9 +47526,9 @@
     {
       "english": "The ... is broken.",
       "spanish": "El ... está roto.",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749616588191,
+      "dueDate": 1749702988191
     },
     {
       "english": "I am leaving today / tomorrow.",
@@ -47589,9 +47589,9 @@
     {
       "english": "a reservation",
       "spanish": "una reserva",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784518218,
-      "dueDate": 1749870918218
+      "leitnerBox": 0,
+      "lastReviewed": 1749412573299,
+      "dueDate": 1749412573299
     },
     {
       "english": "con cama individual",
@@ -47840,8 +47840,8 @@
       "english": "otolaryngologist",
       "spanish": "el otorrinolaringólogo",
       "leitnerBox": 0,
-      "lastReviewed": 1749696657880,
-      "dueDate": 1749696657880
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "english": "orthopedist",
@@ -48483,9 +48483,9 @@
       ],
       "synonyms_english": [],
       "category": "",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784907531,
-      "dueDate": 1749871307531
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "english": "Do it yourself, DIY",
@@ -48567,9 +48567,9 @@
     {
       "english": "Clamp",
       "spanish": "Abrazadera",
-      "leitnerBox": 2,
-      "lastReviewed": 1749696707436,
-      "dueDate": 1749869507436
+      "leitnerBox": 1,
+      "lastReviewed": 1749413495606,
+      "dueDate": 1749499895606
     },
     {
       "english": "Wire",
@@ -48680,8 +48680,8 @@
       "english": "Eyebrows",
       "spanish": "Cejas",
       "leitnerBox": 1,
-      "lastReviewed": 1749784190509,
-      "dueDate": 1749870590509
+      "lastReviewed": 1749616505200,
+      "dueDate": 1749702905200
     },
     {
       "english": "Nostrils",
@@ -48750,8 +48750,8 @@
       "english": "First-aid Kit",
       "spanish": "Botiquín",
       "leitnerBox": 1,
-      "lastReviewed": 1749785068595,
-      "dueDate": 1749871468595
+      "lastReviewed": 1749614985569,
+      "dueDate": 1749701385569
     },
     {
       "english": "Hiking",
@@ -49105,9 +49105,9 @@
     {
       "english": "Unease",
       "spanish": "Zozobra",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749615448835,
+      "dueDate": 1749701848835
     },
     {
       "english": "Impulsive",
@@ -49328,8 +49328,8 @@
       "english": "Purpose",
       "spanish": "Propósito",
       "leitnerBox": 1,
-      "lastReviewed": 1749870400452,
-      "dueDate": 1749956800452
+      "lastReviewed": 1749615522704,
+      "dueDate": 1749701922704
     },
     {
       "english": "Bulge",
@@ -49460,9 +49460,9 @@
     {
       "english": "Irritated",
       "spanish": "Irritado / Irritada",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870688711,
-      "dueDate": 1750043488711
+      "leitnerBox": 1,
+      "lastReviewed": 1749413147667,
+      "dueDate": 1749499547667
     },
     {
       "english": "Horrified",
@@ -49597,16 +49597,16 @@
     {
       "english": "Empirical",
       "spanish": "Empírico / Empírica",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784601191,
-      "dueDate": 1749871001191
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "english": "Underlying",
       "spanish": "Subyacente",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784609052,
-      "dueDate": 1749871009052
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "english": "Coherence",
@@ -49695,9 +49695,9 @@
     {
       "english": "Intelligence",
       "spanish": "La inteligencia",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870031026,
-      "dueDate": 1750042831026
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "english": "Furthermore",
@@ -50051,9 +50051,9 @@
     {
       "english": "Modernism",
       "spanish": "El modernismo",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783918238,
-      "dueDate": 1749956718238
+      "leitnerBox": 1,
+      "lastReviewed": 1749615615655,
+      "dueDate": 1749702015655
     },
     {
       "english": "Muralism",
@@ -50496,9 +50496,9 @@
     {
       "english": "Nuclear energy",
       "spanish": "La energía nuclear",
-      "leitnerBox": 2,
-      "lastReviewed": 1749871174587,
-      "dueDate": 1750043974587
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "english": "Hydraulic energy",
@@ -50573,9 +50573,9 @@
     {
       "english": "Expedition",
       "spanish": "La expedición",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870037578,
-      "dueDate": 1750042837578
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "english": "Travel insurance",
@@ -50636,8 +50636,8 @@
       "english": "a clap of thunder, a thunderclap",
       "spanish": "un trueno",
       "leitnerBox": 1,
-      "lastReviewed": 1749870594047,
-      "dueDate": 1749956994047
+      "lastReviewed": 1749614720135,
+      "dueDate": 1749701120135
     },
     {
       "english": "un cielo/día despejado",
@@ -50748,8 +50748,8 @@
       "english": "un día tormentoso",
       "spanish": "a stormy day",
       "leitnerBox": 0,
-      "lastReviewed": 1749696657880,
-      "dueDate": 1749696657880
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "english": "a streak of lightning",
@@ -50888,9 +50888,9 @@
     {
       "english": "hot",
       "spanish": "cálido",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749438845940,
+      "dueDate": 1749525245940
     },
     {
       "english": "I dont like the look of the weather",
@@ -51266,8 +51266,8 @@
       "english": "to bomb\nto bomb / to plant a bomb in",
       "spanish": "bombardear (from air)\ncolocar una bomba en",
       "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "lastReviewed": 1749412573299,
+      "dueDate": 1749412573299
     },
     {
       "spanish": "Un coche bomba",
@@ -51368,16 +51368,16 @@
     {
       "english": "a regime",
       "spanish": "régimen",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784598475,
-      "dueDate": 1749870998475
+      "leitnerBox": 0,
+      "lastReviewed": 1749412573299,
+      "dueDate": 1749412573299
     },
     {
       "english": "the twin towers",
       "spanish": "las torres gemelas",
-      "leitnerBox": 1,
-      "lastReviewed": 1749699442003,
-      "dueDate": 1749785842003
+      "leitnerBox": 0,
+      "lastReviewed": 1749412573299,
+      "dueDate": 1749412573299
     },
     {
       "english": "to foil a terrorist attack",
@@ -51537,8 +51537,8 @@
       "english": "a ceasefire",
       "spanish": "un alto el fuego",
       "leitnerBox": 1,
-      "lastReviewed": 1749698173700,
-      "dueDate": 1749784573700
+      "lastReviewed": 1749439745007,
+      "dueDate": 1749526145007
     },
     {
       "english": "guerra santa",
@@ -51613,9 +51613,9 @@
     {
       "english": "Operation Enduring Freedom",
       "spanish": "La Operación Libertad Duradera",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869875103,
-      "dueDate": 1749956275103
+      "leitnerBox": 0,
+      "lastReviewed": 1749412573299,
+      "dueDate": 1749412573299
     },
     {
       "english": "he denies being involved in the attack",
@@ -51979,8 +51979,8 @@
       "english": "asignar",
       "spanish": "to cast",
       "leitnerBox": 0,
-      "lastReviewed": 1749696657880,
-      "dueDate": 1749696657880
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "english": "to learn ones lines",
@@ -52020,9 +52020,9 @@
     {
       "english": "the orchestra pit",
       "spanish": "el foso orquestal",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749438911318,
+      "dueDate": 1749525311318
     },
     {
       "english": "an orchestra stall",
@@ -52215,16 +52215,16 @@
     {
       "english": "un / una acomodador/a",
       "spanish": "an usher",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749439082187,
+      "dueDate": 1749525482187
     },
     {
       "english": "argumento, trama",
       "spanish": "the plot",
       "leitnerBox": 0,
-      "lastReviewed": 1749696657880,
-      "dueDate": 1749696657880
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "english": "blanco y negro",
@@ -52286,9 +52286,9 @@
     {
       "english": "camera crew",
       "spanish": "los camarógrafos",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749439716512,
+      "dueDate": 1749526116512
     },
     {
       "english": "subtitular",
@@ -52342,9 +52342,9 @@
     {
       "english": "supporting actress",
       "spanish": "una actriz secundaria",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784235973,
-      "dueDate": 1749870635973
+      "leitnerBox": 0,
+      "lastReviewed": 1749412573299,
+      "dueDate": 1749412573299
     },
     {
       "english": "a ticket",
@@ -52392,8 +52392,8 @@
       "english": "action replay",
       "spanish": "una repetición f de la jugada",
       "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "lastReviewed": 1749412573299,
+      "dueDate": 1749412573299
     },
     {
       "english": "an advert, a commercial",
@@ -52577,15 +52577,15 @@
       "english": "a tv series",
       "spanish": "una serie",
       "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "lastReviewed": 1749412573299,
+      "dueDate": 1749412573299
     },
     {
       "english": "a soap opera",
       "spanish": "un culebrón, una telenovela",
       "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "lastReviewed": 1749412573299,
+      "dueDate": 1749412573299
     },
     {
       "english": "transmitter",
@@ -53009,9 +53009,9 @@
     {
       "spanish": "el presentimiento",
       "english": "premonition",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784366473,
-      "dueDate": 1749870766473
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el prójimo",
@@ -53078,9 +53078,9 @@
     {
       "spanish": "la vanidad",
       "english": "vanity",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783697525,
-      "dueDate": 1749956497525
+      "leitnerBox": 1,
+      "lastReviewed": 1749616574460,
+      "dueDate": 1749702974460
     },
     {
       "spanish": "yacer",
@@ -53114,8 +53114,8 @@
       "spanish": "el agrado",
       "english": "pleasure",
       "leitnerBox": 1,
-      "lastReviewed": 1749785149917,
-      "dueDate": 1749871549917
+      "lastReviewed": 1749614825877,
+      "dueDate": 1749701225877
     },
     {
       "spanish": "atorarse",
@@ -53321,9 +53321,9 @@
     {
       "spanish": "la escolta",
       "english": "escort",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869938944,
-      "dueDate": 1749956338944
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "vedar",
@@ -53426,9 +53426,9 @@
     {
       "spanish": "deparar",
       "english": "to have in store",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749438805942,
+      "dueDate": 1749525205942
     },
     {
       "spanish": "el folleto",
@@ -53633,9 +53633,9 @@
     {
       "spanish": "el remolque",
       "english": "trailer",
-      "leitnerBox": 1,
-      "lastReviewed": 1749870704484,
-      "dueDate": 1749957104484
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el amago",
@@ -53661,9 +53661,9 @@
     {
       "spanish": "enfilar",
       "english": "to line up",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869802095,
-      "dueDate": 1749956202095
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la primera plana",
@@ -53696,9 +53696,9 @@
     {
       "spanish": "rollizo",
       "english": "plump",
-      "leitnerBox": 1,
-      "lastReviewed": 1749699431628,
-      "dueDate": 1749785831628
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el dorso",
@@ -53753,8 +53753,8 @@
       "spanish": "extasiado",
       "english": "in raptures",
       "leitnerBox": 1,
-      "lastReviewed": 1749869530708,
-      "dueDate": 1749955930708
+      "lastReviewed": 1749615049704,
+      "dueDate": 1749701449704
     },
     {
       "spanish": "el fulgor",
@@ -53814,9 +53814,9 @@
         "to link"
       ],
       "category": "",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749615495034,
+      "dueDate": 1749701895034
     },
     {
       "spanish": "conferir",
@@ -53835,9 +53835,9 @@
     {
       "spanish": "silvestre",
       "english": "wild",
-      "leitnerBox": 2,
-      "lastReviewed": 1749784140328,
-      "dueDate": 1749956940328
+      "leitnerBox": 1,
+      "lastReviewed": 1749615558843,
+      "dueDate": 1749701958843
     },
     {
       "spanish": "desplazarse",
@@ -54579,8 +54579,8 @@
       "spanish": "la tira",
       "english": "strip",
       "leitnerBox": 1,
-      "lastReviewed": 1749869488449,
-      "dueDate": 1749955888449
+      "lastReviewed": 1749616562867,
+      "dueDate": 1749702962867
     },
     {
       "spanish": "el proveedor",
@@ -54676,9 +54676,9 @@
     {
       "spanish": "el arrendamiento",
       "english": "renting",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869942109,
-      "dueDate": 1749956342109
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la sucursal",
@@ -54789,9 +54789,9 @@
         "protection"
       ],
       "category": "",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869943425,
-      "dueDate": 1749956343425
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "despeinado",
@@ -54803,9 +54803,9 @@
     {
       "spanish": "asombroso",
       "english": "amazing",
-      "leitnerBox": 1,
-      "lastReviewed": 1749699453576,
-      "dueDate": 1749785853576
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "asustado",
@@ -54824,9 +54824,9 @@
     {
       "spanish": "agudo",
       "english": "witty",
-      "leitnerBox": 1,
-      "lastReviewed": 1749699434947,
-      "dueDate": 1749785834947
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la zanja",
@@ -54994,8 +54994,8 @@
       "spanish": "lacio",
       "english": "straight",
       "leitnerBox": 1,
-      "lastReviewed": 1749784024816,
-      "dueDate": 1749870424816
+      "lastReviewed": 1749614341860,
+      "dueDate": 1749700741860
     },
     {
       "spanish": "olfatear",
@@ -55563,9 +55563,9 @@
     {
       "spanish": "floreciente",
       "english": "blooming",
-      "leitnerBox": 1,
-      "lastReviewed": 1749699088949,
-      "dueDate": 1749785488949
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "alucinar",
@@ -55682,9 +55682,9 @@
     {
       "spanish": "rezar",
       "english": "to pray",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870932234,
-      "dueDate": 1750043732234
+      "leitnerBox": 1,
+      "lastReviewed": 1749614737919,
+      "dueDate": 1749701137919
     },
     {
       "spanish": "haz los cambios necesarios",
@@ -55864,9 +55864,9 @@
     {
       "spanish": "reunir",
       "english": "to gather",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784767911,
-      "dueDate": 1749871167911
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "levantarse",
@@ -56248,9 +56248,9 @@
         "summary"
       ],
       "category": "",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870014387,
-      "dueDate": 1750042814387
+      "leitnerBox": 1,
+      "lastReviewed": 1749616604571,
+      "dueDate": 1749703004571
     },
     {
       "spanish": "trazar",
@@ -56276,9 +56276,9 @@
     {
       "spanish": "sintetizar",
       "english": "to put together",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869995652,
-      "dueDate": 1749956395652
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "sintetizar",
@@ -56318,9 +56318,9 @@
         "thickness"
       ],
       "category": "",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749614441100,
+      "dueDate": 1749700841100
     },
     {
       "spanish": "el espesor",
@@ -56661,9 +56661,9 @@
     {
       "spanish": "la complejidad",
       "english": "complexity",
-      "leitnerBox": 1,
-      "lastReviewed": 1749698991335,
-      "dueDate": 1749785391335
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el conjunto",
@@ -56927,9 +56927,9 @@
     {
       "spanish": "agudo",
       "english": "sharp",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784358127,
-      "dueDate": 1749870758127
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el ladrillo",
@@ -57197,9 +57197,9 @@
     {
       "spanish": "alardear",
       "english": "to brag",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869827882,
-      "dueDate": 1749956227882
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el puñado",
@@ -57253,9 +57253,9 @@
     {
       "spanish": "el requiebro",
       "english": "flirtatious remark",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869912369,
-      "dueDate": 1749956312369
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "aflojarse",
@@ -58080,9 +58080,9 @@
     {
       "spanish": "la cadena perpetua",
       "english": "life sentence",
-      "leitnerBox": 2,
-      "lastReviewed": 1749784324861,
-      "dueDate": 1749957124861
+      "leitnerBox": 1,
+      "lastReviewed": 1749615409015,
+      "dueDate": 1749701809015
     },
     {
       "spanish": "la cámara",
@@ -58171,9 +58171,9 @@
     {
       "spanish": "la admisión",
       "english": "admission",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783847903,
-      "dueDate": 1749956647903
+      "leitnerBox": 1,
+      "lastReviewed": 1749616429111,
+      "dueDate": 1749702829111
     },
     {
       "spanish": "la advertencia",
@@ -58227,9 +58227,9 @@
     {
       "spanish": "fichar",
       "english": "to file",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749439020422,
+      "dueDate": 1749525420422
     },
     {
       "spanish": "obligar",
@@ -58886,8 +58886,8 @@
       "spanish": "la tiña",
       "english": "ringworm",
       "leitnerBox": 1,
-      "lastReviewed": 1749870422962,
-      "dueDate": 1749956822962
+      "lastReviewed": 1749615390525,
+      "dueDate": 1749701790525
     },
     {
       "spanish": "la trombosis",
@@ -59189,9 +59189,9 @@
     {
       "spanish": "el avance",
       "english": "preview",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869894594,
-      "dueDate": 1749956294594
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la tragedia",
@@ -59323,9 +59323,9 @@
     {
       "spanish": "el espectador",
       "english": "member of the audience",
-      "leitnerBox": 1,
-      "lastReviewed": 1749870317100,
-      "dueDate": 1749956717100
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la acotación",
@@ -59496,9 +59496,9 @@
     {
       "spanish": "la plataforma",
       "english": "platform",
-      "leitnerBox": 2,
-      "lastReviewed": 1749698368321,
-      "dueDate": 1749871168321
+      "leitnerBox": 1,
+      "lastReviewed": 1749439476662,
+      "dueDate": 1749525876662
     },
     {
       "spanish": "centralizar",
@@ -59650,9 +59650,9 @@
     {
       "spanish": "costear",
       "english": "to pay for",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784816970,
-      "dueDate": 1749871216970
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la reventa",
@@ -59726,9 +59726,9 @@
     {
       "spanish": "la técnica de ventas",
       "english": "sales pitch",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869970596,
-      "dueDate": 1749956370596
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la credibilidad",
@@ -60471,9 +60471,9 @@
     {
       "spanish": "perdón",
       "english": "excuse me",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783785929,
-      "dueDate": 1749956585929
+      "leitnerBox": 1,
+      "lastReviewed": 1749616577261,
+      "dueDate": 1749702977261
     },
     {
       "spanish": "sabroso",
@@ -60566,9 +60566,9 @@
     {
       "spanish": "las esposas",
       "english": "handcuffs",
-      "leitnerBox": 1,
-      "lastReviewed": 1749699532426,
-      "dueDate": 1749785932426
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el francotirador",
@@ -60630,8 +60630,8 @@
       "spanish": "desaparecido",
       "english": "missing",
       "leitnerBox": 1,
-      "lastReviewed": 1749870472816,
-      "dueDate": 1749956872816
+      "lastReviewed": 1749616077319,
+      "dueDate": 1749702477319
     },
     {
       "spanish": "la desaparición",
@@ -60864,9 +60864,9 @@
     {
       "spanish": "la estación de policía",
       "english": "police station",
-      "leitnerBox": 1,
-      "lastReviewed": 1749698813587,
-      "dueDate": 1749785213587
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el filo",
@@ -60900,8 +60900,8 @@
       "spanish": "seguir la pista",
       "english": "to follow the trail",
       "leitnerBox": 1,
-      "lastReviewed": 1749869615992,
-      "dueDate": 1749956015992
+      "lastReviewed": 1749616566265,
+      "dueDate": 1749702966265
     },
     {
       "spanish": "reventar",
@@ -60949,8 +60949,8 @@
       "spanish": "la aseguranza",
       "english": "insurance",
       "leitnerBox": 1,
-      "lastReviewed": 1749870078335,
-      "dueDate": 1749956478335
+      "lastReviewed": 1749616281682,
+      "dueDate": 1749702681682
     },
     {
       "spanish": "la licencia",
@@ -61130,9 +61130,9 @@
     {
       "spanish": "la bobina",
       "english": "coil",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784634598,
-      "dueDate": 1749871034598
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el cortocircuito",
@@ -61214,9 +61214,9 @@
     {
       "spanish": "el distribuidor de encendido",
       "english": "distributor",
-      "leitnerBox": 1,
-      "lastReviewed": 1749699284094,
-      "dueDate": 1749785684094
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el parachoques",
@@ -61291,9 +61291,9 @@
     {
       "spanish": "el talón",
       "english": "rim",
-      "leitnerBox": 1,
-      "lastReviewed": 1749698819341,
-      "dueDate": 1749785219341
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el vástago",
@@ -61563,9 +61563,9 @@
     {
       "spanish": "adaptarse a",
       "english": "to adapt to",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783558419,
-      "dueDate": 1749956358419
+      "leitnerBox": 1,
+      "lastReviewed": 1749615392591,
+      "dueDate": 1749701792591
     },
     {
       "spanish": "cruzar la frontera",
@@ -62396,9 +62396,9 @@
     {
       "spanish": "casarse",
       "english": "to get married",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784569688,
-      "dueDate": 1749870969688
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "la querida",
@@ -62466,9 +62466,9 @@
     {
       "spanish": "salir en citas",
       "english": "dating",
-      "leitnerBox": 2,
-      "lastReviewed": 1749696679389,
-      "dueDate": 1749869479389
+      "leitnerBox": 1,
+      "lastReviewed": 1749439017802,
+      "dueDate": 1749525417802
     },
     {
       "spanish": "me gustas",
@@ -62647,9 +62647,9 @@
     {
       "spanish": "clasificar",
       "english": "to classify",
-      "leitnerBox": 2,
-      "lastReviewed": 1749785093247,
-      "dueDate": 1749957893247
+      "leitnerBox": 1,
+      "lastReviewed": 1749616570997,
+      "dueDate": 1749702970997
     },
     {
       "spanish": "el clon",
@@ -62675,9 +62675,9 @@
     {
       "spanish": "el eclipse",
       "english": "eclipse",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869907636,
-      "dueDate": 1749956307636
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "Plutón",
@@ -63074,9 +63074,9 @@
     {
       "spanish": "el experimento",
       "english": "experiment",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784620934,
-      "dueDate": 1749871020934
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "menguar",
@@ -63207,9 +63207,9 @@
     {
       "spanish": "el olfato",
       "english": "smell",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783833772,
-      "dueDate": 1749956633772
+      "leitnerBox": 1,
+      "lastReviewed": 1749616531778,
+      "dueDate": 1749702931778
     },
     {
       "spanish": "la audición",
@@ -63410,9 +63410,9 @@
     {
       "spanish": "eres fuerte",
       "english": "you're strong",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749616511518,
+      "dueDate": 1749702911518
     },
     {
       "spanish": "te ves genial",
@@ -63921,9 +63921,9 @@
     {
       "spanish": "¿Cómo eres físicamente?",
       "english": "What do you look like?",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783938687,
-      "dueDate": 1749956738687
+      "leitnerBox": 1,
+      "lastReviewed": 1749614676734,
+      "dueDate": 1749701076734
     },
     {
       "spanish": "cómo eres tú",
@@ -64159,9 +64159,9 @@
     {
       "spanish": "¿Cuánto dinero tienes?",
       "english": "How much money do you have?",
-      "leitnerBox": 3,
-      "lastReviewed": 1749699401293,
-      "dueDate": 1750045001293
+      "leitnerBox": 2,
+      "lastReviewed": 1749615672474,
+      "dueDate": 1749788472474
     },
     {
       "spanish": "quieres decir",
@@ -64205,9 +64205,9 @@
       "synonyms_spanish": [],
       "synonyms_english": [],
       "category": "Phrase",
-      "leitnerBox": 2,
-      "lastReviewed": 1749784182843,
-      "dueDate": 1749956982843
+      "leitnerBox": 1,
+      "lastReviewed": 1749614848455,
+      "dueDate": 1749701248455
     },
     {
       "spanish": "cuánto cuesta",
@@ -64282,16 +64282,16 @@
     {
       "spanish": "quieres que",
       "english": "do you want",
-      "leitnerBox": 1,
-      "lastReviewed": 1749870100192,
-      "dueDate": 1749956500192
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "¿Cuándo vienes?",
       "english": "When are you coming?",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783889413,
-      "dueDate": 1749956689413
+      "leitnerBox": 1,
+      "lastReviewed": 1749615547596,
+      "dueDate": 1749701947596
     },
     {
       "spanish": "¿Quién eres?",
@@ -64360,9 +64360,9 @@
     {
       "spanish": "¿Cuándo es tu cumpleaños?",
       "english": "When is your birthday?",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783805093,
-      "dueDate": 1749956605093
+      "leitnerBox": 1,
+      "lastReviewed": 1749615385587,
+      "dueDate": 1749701785587
     },
     {
       "spanish": "¿Cuál es tu nombre?",
@@ -64403,8 +64403,8 @@
       "spanish": "el examen tipo test",
       "english": "multiple-choice exam",
       "leitnerBox": 1,
-      "lastReviewed": 1749870288185,
-      "dueDate": 1749956688185
+      "lastReviewed": 1749615727084,
+      "dueDate": 1749702127084
     },
     {
       "spanish": "contestar",
@@ -64501,8 +64501,8 @@
       "spanish": "de ningún modo",
       "english": "no way",
       "leitnerBox": 1,
-      "lastReviewed": 1749785063477,
-      "dueDate": 1749871463477
+      "lastReviewed": 1749614689932,
+      "dueDate": 1749701089932
     },
     {
       "spanish": "nada de eso",
@@ -64771,8 +64771,8 @@
       "spanish": "por suerte",
       "english": "luckily",
       "leitnerBox": 1,
-      "lastReviewed": 1749869496287,
-      "dueDate": 1749955896287
+      "lastReviewed": 1749615178373,
+      "dueDate": 1749701578373
     },
     {
       "spanish": "de mala gana",
@@ -64812,9 +64812,9 @@
     {
       "spanish": "en realidad",
       "english": "actually",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749438836551,
+      "dueDate": 1749525236551
     },
     {
       "spanish": "de una vez por todas",
@@ -64840,9 +64840,9 @@
     {
       "spanish": "de noche",
       "english": "at night",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870961538,
-      "dueDate": 1750043761538
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "de memoria",
@@ -64916,9 +64916,9 @@
     {
       "spanish": "a diario",
       "english": "every day",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749613974715,
+      "dueDate": 1749700374715
     },
     {
       "spanish": "al principio",
@@ -65031,15 +65031,15 @@
       "spanish": "algo",
       "english": "a little",
       "leitnerBox": 1,
-      "lastReviewed": 1749870160651,
-      "dueDate": 1749956560651
+      "lastReviewed": 1749615779796,
+      "dueDate": 1749702179796
     },
     {
       "spanish": "menos",
       "english": "less",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870428365,
-      "dueDate": 1750043228365
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "semanalmente",
@@ -65114,9 +65114,9 @@
     {
       "spanish": "usualmente",
       "english": "usually",
-      "leitnerBox": 2,
-      "lastReviewed": 1749784063945,
-      "dueDate": 1749956863945
+      "leitnerBox": 1,
+      "lastReviewed": 1749613945646,
+      "dueDate": 1749700345646
     },
     {
       "spanish": "en este momento",
@@ -65430,8 +65430,8 @@
       "spanish": "en punto",
       "english": "sharp",
       "leitnerBox": 1,
-      "lastReviewed": 1749696686409,
-      "dueDate": 1749783086409
+      "lastReviewed": 1749491837197,
+      "dueDate": 1749578237197
     },
     {
       "spanish": "claro",
@@ -65751,9 +65751,9 @@
     {
       "spanish": "con frecuencia",
       "english": "often",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869768158,
-      "dueDate": 1749956168158
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "tampoco",
@@ -65765,9 +65765,9 @@
     {
       "spanish": "ahora",
       "english": "now",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784448268,
-      "dueDate": 1749870848268
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "diariamente",
@@ -65841,9 +65841,9 @@
     {
       "spanish": "ayer",
       "english": "yesterday",
-      "leitnerBox": 2,
-      "lastReviewed": 1749698286271,
-      "dueDate": 1749871086271
+      "leitnerBox": 1,
+      "lastReviewed": 1749439087091,
+      "dueDate": 1749525487091
     },
     {
       "spanish": "bastante",
@@ -65932,9 +65932,9 @@
     {
       "spanish": "por ese motivo",
       "english": "for that reason",
-      "leitnerBox": 2,
-      "lastReviewed": 1749784218822,
-      "dueDate": 1749957018822
+      "leitnerBox": 1,
+      "lastReviewed": 1749616205761,
+      "dueDate": 1749702605761
     },
     {
       "spanish": "consecuentemente",
@@ -66226,15 +66226,15 @@
       "spanish": "de lo contrario",
       "english": "otherwise",
       "leitnerBox": 1,
-      "lastReviewed": 1749870878879,
-      "dueDate": 1749957278879
+      "lastReviewed": 1749615967175,
+      "dueDate": 1749702367175
     },
     {
       "spanish": "al contrario",
       "english": "on the contrary",
       "leitnerBox": 1,
-      "lastReviewed": 1749869371876,
-      "dueDate": 1749955771876
+      "lastReviewed": 1749615468863,
+      "dueDate": 1749701868863
     },
     {
       "spanish": "empero",
@@ -66429,8 +66429,8 @@
       "spanish": "para terminar",
       "english": "lastly",
       "leitnerBox": 1,
-      "lastReviewed": 1749869426677,
-      "dueDate": 1749955826677
+      "lastReviewed": 1749616540878,
+      "dueDate": 1749702940878
     },
     {
       "spanish": "sin duda",
@@ -66590,16 +66590,16 @@
     {
       "spanish": "cualquier",
       "english": "any",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869316808,
-      "dueDate": 1749955716808
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "demasiado",
       "english": "too much",
-      "leitnerBox": 1,
-      "lastReviewed": 1749699444790,
-      "dueDate": 1749785844790
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el montón",
@@ -66681,9 +66681,9 @@
     {
       "spanish": "ningún",
       "english": "none of",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784476955,
-      "dueDate": 1749870876955
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "ambos",
@@ -67136,8 +67136,8 @@
       "spanish": "saludarse",
       "english": "to greet one another",
       "leitnerBox": 1,
-      "lastReviewed": 1749870357644,
-      "dueDate": 1749956757644
+      "lastReviewed": 1749439412157,
+      "dueDate": 1749525812157
     },
     {
       "spanish": "ser feliz",
@@ -67268,9 +67268,9 @@
     {
       "spanish": "binar",
       "english": "to hoe again",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784585383,
-      "dueDate": 1749870985383
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "remediar",
@@ -67430,9 +67430,9 @@
     {
       "spanish": "escribir a máquina",
       "english": "to type",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870304085,
-      "dueDate": 1750043104085
+      "leitnerBox": 1,
+      "lastReviewed": 1749614365687,
+      "dueDate": 1749700765687
     },
     {
       "spanish": "teclear",
@@ -67556,9 +67556,9 @@
     {
       "spanish": "ir en bicicleta",
       "english": "to ride a bicycle",
-      "leitnerBox": 2,
-      "lastReviewed": 1749869742858,
-      "dueDate": 1750042542858
+      "leitnerBox": 1,
+      "lastReviewed": 1749614613900,
+      "dueDate": 1749701013900
     },
     {
       "spanish": "dar la casualidad de que",
@@ -67794,9 +67794,9 @@
     {
       "spanish": "abdicar",
       "english": "to abdicate",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749616586007,
+      "dueDate": 1749702986007
     },
     {
       "spanish": "determinar",
@@ -67956,9 +67956,9 @@
     {
       "spanish": "tomar por asalto",
       "english": "to storm",
-      "leitnerBox": 2,
-      "lastReviewed": 1749785125557,
-      "dueDate": 1749957925557
+      "leitnerBox": 1,
+      "lastReviewed": 1749615818906,
+      "dueDate": 1749702218906
     },
     {
       "spanish": "bañar",
@@ -68442,9 +68442,9 @@
     {
       "spanish": "acarrear",
       "english": "to carry",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784611136,
-      "dueDate": 1749871011136
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "llevar encima",
@@ -69332,9 +69332,9 @@
     {
       "spanish": "descodificar",
       "english": "to decode",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869883864,
-      "dueDate": 1749956283864
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "descifrar",
@@ -69347,8 +69347,8 @@
       "spanish": "reasumir",
       "english": "to reassume",
       "leitnerBox": 1,
-      "lastReviewed": 1749870252907,
-      "dueDate": 1749956652907
+      "lastReviewed": 1749615493419,
+      "dueDate": 1749701893419
     },
     {
       "spanish": "pintarse",
@@ -69423,8 +69423,8 @@
       "spanish": "gozar",
       "english": "to enjoy oneself",
       "leitnerBox": 1,
-      "lastReviewed": 1749698226104,
-      "dueDate": 1749784626104
+      "lastReviewed": 1749439115830,
+      "dueDate": 1749525515830
     },
     {
       "spanish": "abrevar",
@@ -69669,8 +69669,8 @@
       "spanish": "largarse",
       "english": "to leave",
       "leitnerBox": 1,
-      "lastReviewed": 1749870171417,
-      "dueDate": 1749956571417
+      "lastReviewed": 1749615454801,
+      "dueDate": 1749701854801
     },
     {
       "spanish": "causar",
@@ -69682,9 +69682,9 @@
     {
       "spanish": "salpicar",
       "english": "to splash",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784942393,
-      "dueDate": 1749871342393
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "acribillar",
@@ -69911,8 +69911,8 @@
       "spanish": "pasarle la factura a",
       "english": "to invoice",
       "leitnerBox": 1,
-      "lastReviewed": 1749870848047,
-      "dueDate": 1749957248047
+      "lastReviewed": 1749438864542,
+      "dueDate": 1749525264542
     },
     {
       "spanish": "enfadarse",
@@ -69974,8 +69974,8 @@
       "spanish": "subirse a",
       "english": "to get on",
       "leitnerBox": 1,
-      "lastReviewed": 1749784288084,
-      "dueDate": 1749870688084
+      "lastReviewed": 1749614108985,
+      "dueDate": 1749700508985
     },
     {
       "spanish": "embarcarse",
@@ -70022,9 +70022,9 @@
     {
       "spanish": "alterar",
       "english": "to alter",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784617150,
-      "dueDate": 1749871017150
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "ofender",
@@ -70506,8 +70506,8 @@
       "spanish": "disfrazar",
       "english": "to disguise as",
       "leitnerBox": 1,
-      "lastReviewed": 1749870986825,
-      "dueDate": 1749957386825
+      "lastReviewed": 1749615770148,
+      "dueDate": 1749702170148
     },
     {
       "spanish": "mejorar",
@@ -70791,9 +70791,9 @@
     {
       "spanish": "nevar",
       "english": "to snow",
-      "leitnerBox": 2,
-      "lastReviewed": 1749869460356,
-      "dueDate": 1750042260356
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "fijar",
@@ -70855,9 +70855,9 @@
     {
       "spanish": "equipar",
       "english": "to equip",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870266996,
-      "dueDate": 1750043066996
+      "leitnerBox": 1,
+      "lastReviewed": 1749616590057,
+      "dueDate": 1749702990057
     },
     {
       "spanish": "disfrutar",
@@ -71227,9 +71227,9 @@
     {
       "spanish": "parar",
       "english": "to stop",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783855668,
-      "dueDate": 1749956655668
+      "leitnerBox": 1,
+      "lastReviewed": 1749616584674,
+      "dueDate": 1749702984674
     },
     {
       "spanish": "acostarse",
@@ -71332,9 +71332,9 @@
     {
       "spanish": "rasguñar",
       "english": "to scratch",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784836934,
-      "dueDate": 1749871236934
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "cometer",
@@ -71381,9 +71381,9 @@
     {
       "spanish": "aprender",
       "english": "to learn",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784780543,
-      "dueDate": 1749871180543
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "entender",
@@ -71472,9 +71472,9 @@
     {
       "spanish": "hacer los deberes",
       "english": "to do homework",
-      "leitnerBox": 1,
-      "lastReviewed": 1749871210663,
-      "dueDate": 1749957610663
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "ir a la escuela",
@@ -71627,8 +71627,8 @@
       "spanish": "traducir",
       "english": "to translate",
       "leitnerBox": 1,
-      "lastReviewed": 1749870579523,
-      "dueDate": 1749956979523
+      "lastReviewed": 1749615434323,
+      "dueDate": 1749701834323
     },
     {
       "spanish": "caer",
@@ -72007,9 +72007,9 @@
     {
       "spanish": "domesticado",
       "english": "tame",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784613953,
-      "dueDate": 1749871013953
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "larguirucho",
@@ -72279,9 +72279,9 @@
     {
       "spanish": "jugoso",
       "english": "juicy",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749412603267,
+      "dueDate": 1749499003267
     },
     {
       "spanish": "jugado",
@@ -72727,9 +72727,9 @@
     {
       "spanish": "huido",
       "english": "fugitive",
-      "leitnerBox": 1,
-      "lastReviewed": 1749699392884,
-      "dueDate": 1749785792884
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "huesudo",
@@ -72761,9 +72761,9 @@
     {
       "spanish": "hostil",
       "english": "hostile",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870059850,
-      "dueDate": 1750042859850
+      "leitnerBox": 1,
+      "lastReviewed": 1749439011898,
+      "dueDate": 1749525411898
     },
     {
       "spanish": "huérfano",
@@ -72811,9 +72811,9 @@
     {
       "spanish": "heterogéneo",
       "english": "heterogeneous",
-      "leitnerBox": 2,
-      "lastReviewed": 1749869555995,
-      "dueDate": 1750042355995
+      "leitnerBox": 1,
+      "lastReviewed": 1749616299882,
+      "dueDate": 1749702699882
     },
     {
       "spanish": "hondureño",
@@ -72853,9 +72853,9 @@
     {
       "spanish": "hispanoparlante",
       "english": "Spanish-speaking",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870335610,
-      "dueDate": 1750043135610
+      "leitnerBox": 1,
+      "lastReviewed": 1749614320352,
+      "dueDate": 1749700720352
     },
     {
       "spanish": "habitado",
@@ -73105,9 +73105,9 @@
     {
       "spanish": "morado",
       "english": "purple",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784643078,
-      "dueDate": 1749871043078
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "móvil",
@@ -73140,9 +73140,9 @@
     {
       "spanish": "mórbido",
       "english": "morbid",
-      "leitnerBox": 3,
-      "lastReviewed": 1749784595593,
-      "dueDate": 1750130195593
+      "leitnerBox": 2,
+      "lastReviewed": 1749615692704,
+      "dueDate": 1749788492704
     },
     {
       "spanish": "máximo",
@@ -73526,8 +73526,8 @@
       "spanish": "febril",
       "english": "feverish",
       "leitnerBox": 1,
-      "lastReviewed": 1749870605902,
-      "dueDate": 1749957005902
+      "lastReviewed": 1749615744095,
+      "dueDate": 1749702144095
     },
     {
       "spanish": "fecundo",
@@ -73679,9 +73679,9 @@
     {
       "spanish": "emparentado",
       "english": "related by marriage",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784564374,
-      "dueDate": 1749870964374
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "encinta",
@@ -73910,9 +73910,9 @@
     {
       "spanish": "dejado",
       "english": "careless",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784647724,
-      "dueDate": 1749871047724
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "delator",
@@ -74113,9 +74113,9 @@
     {
       "spanish": "díscolo",
       "english": "unruly",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869473007,
-      "dueDate": 1749955873007
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "duro",
@@ -74429,8 +74429,8 @@
       "spanish": "bailador",
       "english": "dancing",
       "leitnerBox": 0,
-      "lastReviewed": 1749696657880,
-      "dueDate": 1749696657880
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "barbudo",
@@ -74464,8 +74464,8 @@
       "spanish": "bordado",
       "english": "embroidered",
       "leitnerBox": 1,
-      "lastReviewed": 1749785031301,
-      "dueDate": 1749871431301
+      "lastReviewed": 1749614622213,
+      "dueDate": 1749701022213
     },
     {
       "spanish": "bohemio",
@@ -74499,8 +74499,8 @@
       "spanish": "brioso",
       "english": "spirited",
       "leitnerBox": 1,
-      "lastReviewed": 1749869519371,
-      "dueDate": 1749955919371
+      "lastReviewed": 1749614528026,
+      "dueDate": 1749700928026
     },
     {
       "spanish": "bruto",
@@ -74635,8 +74635,8 @@
       "spanish": "aborrecido",
       "english": "loathed",
       "leitnerBox": 1,
-      "lastReviewed": 1749870854300,
-      "dueDate": 1749957254300
+      "lastReviewed": 1749614327196,
+      "dueDate": 1749700727196
     },
     {
       "spanish": "abovedado",
@@ -74789,8 +74789,8 @@
       "spanish": "encerrado",
       "english": "shut in",
       "leitnerBox": 1,
-      "lastReviewed": 1749784329844,
-      "dueDate": 1749870729844
+      "lastReviewed": 1749615947993,
+      "dueDate": 1749702347993
     },
     {
       "spanish": "antipático",
@@ -74844,9 +74844,9 @@
     {
       "spanish": "bullicioso",
       "english": "noisy",
-      "leitnerBox": 2,
-      "lastReviewed": 1749783951448,
-      "dueDate": 1749956751448
+      "leitnerBox": 1,
+      "lastReviewed": 1749614955808,
+      "dueDate": 1749701355808
     },
     {
       "spanish": "contemporáneo",
@@ -75054,9 +75054,9 @@
     {
       "spanish": "astuto",
       "english": "shrewd",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869848988,
-      "dueDate": 1749956248988
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "antiguo",
@@ -75524,9 +75524,9 @@
     {
       "spanish": "indiscutido",
       "english": "undisputed",
-      "leitnerBox": 1,
-      "lastReviewed": 1749871188802,
-      "dueDate": 1749957588802
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "pendenciero",
@@ -75601,9 +75601,9 @@
     {
       "spanish": "abrumado",
       "english": "overwhelmed",
-      "leitnerBox": 1,
-      "lastReviewed": 1749870450782,
-      "dueDate": 1749956850782
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "tabú",
@@ -75753,9 +75753,9 @@
     {
       "spanish": "tieso",
       "english": "stiff",
-      "leitnerBox": 1,
-      "lastReviewed": 1749870611504,
-      "dueDate": 1749957011504
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "avisado",
@@ -76381,8 +76381,8 @@
       "spanish": "antagonista",
       "english": "antagonistic",
       "leitnerBox": 1,
-      "lastReviewed": 1749870772514,
-      "dueDate": 1749957172514
+      "lastReviewed": 1749615518708,
+      "dueDate": 1749701918708
     },
     {
       "spanish": "oxidado",
@@ -76723,8 +76723,8 @@
       "spanish": "global",
       "english": "overall",
       "leitnerBox": 1,
-      "lastReviewed": 1749870341859,
-      "dueDate": 1749956741859
+      "lastReviewed": 1749439434389,
+      "dueDate": 1749525834389
     },
     {
       "spanish": "avergonzado",
@@ -77487,9 +77487,9 @@
     {
       "spanish": "encima de",
       "english": "on top of",
-      "leitnerBox": 1,
-      "lastReviewed": 1749699536580,
-      "dueDate": 1749785936580
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "el millón",
@@ -77529,8 +77529,8 @@
       "spanish": "es gratis",
       "english": "is free",
       "leitnerBox": 1,
-      "lastReviewed": 1749698695350,
-      "dueDate": 1749785095350
+      "lastReviewed": 1749438885294,
+      "dueDate": 1749525285294
     },
     {
       "spanish": "ninguno",
@@ -77801,8 +77801,8 @@
       "spanish": "por eso",
       "english": "for that reason",
       "leitnerBox": 1,
-      "lastReviewed": 1749869660533,
-      "dueDate": 1749956060533
+      "lastReviewed": 1749615437322,
+      "dueDate": 1749701837322
     },
     {
       "spanish": "Tengo mucho que hacer.",
@@ -77829,8 +77829,8 @@
       "spanish": "no tengo ganas",
       "english": "I don't feel like it",
       "leitnerBox": 1,
-      "lastReviewed": 1749870478797,
-      "dueDate": 1749956878797
+      "lastReviewed": 1749616412084,
+      "dueDate": 1749702812084
     },
     {
       "spanish": "quisquilloso",
@@ -77842,9 +77842,9 @@
     {
       "spanish": "el abanico",
       "english": "fan",
-      "leitnerBox": 1,
-      "lastReviewed": 1749784458930,
-      "dueDate": 1749870858930
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "con antelación",
@@ -77948,8 +77948,8 @@
       "spanish": "castigar",
       "english": "to punish",
       "leitnerBox": 1,
-      "lastReviewed": 1749871078283,
-      "dueDate": 1749957478283
+      "lastReviewed": 1749614386649,
+      "dueDate": 1749700786649
     },
     {
       "spanish": "lograr",
@@ -78492,8 +78492,8 @@
       "spanish": "el portal",
       "english": "front door",
       "leitnerBox": 1,
-      "lastReviewed": 1749870818438,
-      "dueDate": 1749957218438
+      "lastReviewed": 1749615462033,
+      "dueDate": 1749701862033
     },
     {
       "spanish": "la hilada",
@@ -78806,9 +78806,9 @@
     {
       "spanish": "posarse",
       "english": "to perch",
-      "leitnerBox": 0,
-      "lastReviewed": null,
-      "dueDate": null
+      "leitnerBox": 1,
+      "lastReviewed": 1749615601026,
+      "dueDate": 1749702001026
     },
     {
       "spanish": "la grapa",
@@ -78873,9 +78873,9 @@
     {
       "spanish": "la lapicera",
       "english": "pen",
-      "leitnerBox": 2,
-      "lastReviewed": 1749870442534,
-      "dueDate": 1750043242534
+      "leitnerBox": 1,
+      "lastReviewed": 1749614377434,
+      "dueDate": 1749700777434
     },
     {
       "spanish": "el líquido corrector",
@@ -79073,9 +79073,9 @@
     {
       "spanish": "hablamos pronto",
       "english": "talk to you soon",
-      "leitnerBox": 1,
-      "lastReviewed": 1749870435719,
-      "dueDate": 1749956835719
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "puedo hablar con",
@@ -79210,9 +79210,9 @@
     {
       "spanish": "atender",
       "english": "to answer",
-      "leitnerBox": 1,
-      "lastReviewed": 1749869978723,
-      "dueDate": 1749956378723
+      "leitnerBox": 0,
+      "lastReviewed": null,
+      "dueDate": null
     },
     {
       "spanish": "trono",
