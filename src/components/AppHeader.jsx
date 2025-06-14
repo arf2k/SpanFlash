@@ -4,7 +4,8 @@ const AppHeader = ({
   currentDataVersion, 
   isInHardWordsMode, 
   isAnyGameActive,
-  onSettingsClick 
+  onSettingsClick,
+  onStatsClick  // ADD THIS
 }) => {
   const showHardModeIndicator = isInHardWordsMode && !isAnyGameActive;
 
@@ -35,6 +36,25 @@ const AppHeader = ({
             {showHardModeIndicator && "(Hard Mode)"}
           </p>
         )}
+        {/* ADD STATS BUTTON */}
+        <button
+          onClick={onStatsClick}
+          title="Session Stats"
+          style={{
+            background: "none",
+            border: "none",
+            fontSize: "1.3em",
+            cursor: "pointer",
+            color: "var(--text-muted)",
+            padding: "0",
+            marginRight: "10px",
+          }}
+          disabled={isAnyGameActive}
+        >
+          <span role="img" aria-label="stats icon">
+            📊
+          </span>
+        </button>
         <button
           onClick={onSettingsClick}
           title="Settings"
