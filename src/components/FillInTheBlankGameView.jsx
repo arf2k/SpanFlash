@@ -2,7 +2,7 @@ import React, { useEffect, memo } from 'react';
 import { useFillInTheBlankGame } from '../hooks/useFillInTheBlankGame';
 import './FillInTheBlankGameView.css'; 
 
-const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame, onWordsUpdated }) => { 
+const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame, onWordsUpdated, recordAnswer }) => { 
     const {
         currentQuestion,
         isLoading,
@@ -14,7 +14,7 @@ const FillInTheBlankGameView = ({ wordList, numChoices = 4, onExitGame, onWordsU
         fetchNewQuestion,
         lastUpdatedWords,   
         clearLastUpdatedWords, 
-    } = useFillInTheBlankGame(wordList, numChoices);
+    } = useFillInTheBlankGame(wordList, numChoices, recordAnswer);
     
  
     useEffect(() => {

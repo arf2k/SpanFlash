@@ -3,7 +3,7 @@ import { shuffleArray, updateWordLeitnerData } from "../utils/gameUtils";
 import { db } from "../db";
 import { getTatoebaExamples } from "../services/tatoebaServices.js";
 
-export function useFillInTheBlankGame(wordList = [], numChoices = 4) {
+export function useFillInTheBlankGame(wordList = [], numChoices = 4, recordAnswer = null) {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [gameMessage, setGameMessage] = useState("");
@@ -102,6 +102,9 @@ export function useFillInTheBlankGame(wordList = [], numChoices = 4) {
         chosenWord.toLowerCase().trim() ===
         currentQuestion.correctAnswer.toLowerCase().trim();
       setGameScore(isCorrect ? (prev) => prev + 1 : 0);
+      if (recordAnswer) {
+  recordAnswer(isCorrect, 'fillInBlank');
+}
       setFeedback({
         message: isCorrect
           ? "Correct!"

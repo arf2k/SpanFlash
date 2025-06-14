@@ -491,12 +491,12 @@ function App() {
         >
           <FillInTheBlankGameView
             wordList={mainWordList}
-            numChoices={4} // Or your desired number
+            numChoices={4} 
             onExitGame={handleToggleFillInTheBlankMode}
+            recordAnswer={recordAnswer}
           />
         </div>
       ) : (
-        // Original Flashcard/HardWordsView display
         <>
           {isLoadingData && !currentPair && (
             <p>Loading word list and preparing first card...</p>
