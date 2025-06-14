@@ -654,6 +654,14 @@ function App() {
             onToggleTheme={handleToggleTheme}
             onTriggerAddWordModal={handleOpenAddWordModalFromSettings}
           />
+          <StatsModal
+            isOpen={isStatsModalOpen}
+            onClose={() => setIsStatsModalOpen(false)}
+            sessionStats={sessionStats}
+            getSessionAccuracy={getSessionAccuracy}
+            getSessionDuration={getSessionDuration}
+            onNewSession={startNewSession}
+          />
         </>
       )}
     </div>
