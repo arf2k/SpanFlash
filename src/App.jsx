@@ -470,6 +470,7 @@ function App() {
           <VerbConjugationGameView
             wordList={mainWordList}
             onExitGame={handleToggleVerbConjugationGame}
+            recordAnswer={recordAnswer}
           />
         </div>
       ) : isMatchingGameModeActive ? (
