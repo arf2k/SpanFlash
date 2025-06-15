@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { analyzeVocabularyFrequency } from '../data/spanishFrequency.js';
+
 import './SearchModal.css'; 
 import './VocabularyAnalysisModal.css';
 
@@ -44,21 +44,24 @@ const VocabularyAnalysisModal = ({
   }, [isOpen, wordList]);
 
   const runAnalysis = async () => {
-    setIsAnalyzing(true);
-    try {
-      // Add small delay to show loading state
-      await new Promise(resolve => setTimeout(resolve, 300));
-      
-      const result = analyzeVocabularyFrequency(wordList);
-      setAnalysis(result);
-      setAnalysisDate(new Date());
-    } catch (error) {
-      console.error('Failed to analyze vocabulary:', error);
-      setAnalysis(null);
-    } finally {
-      setIsAnalyzing(false);
-    }
-  };
+  setIsAnalyzing(true);
+  try {
+    // Add small delay to show loading state
+    await new Promise(resolve => setTimeout(resolve, 300));
+    
+    // Dynamic import - only load when needed
+    const { analyzeVocabularyFrequency } = await import('../data/spanishFrequency.js');
+    
+    const result = analyzeVocabularyFrequency(wordList);
+    setAnalysis(result);
+    setAnalysisDate(new Date());
+  } catch (error) {
+    console.error('Failed to analyze vocabulary:', error);
+    setAnalysis(null);
+  } finally {
+    setIsAnalyzing(false);
+  }
+};
 
   const formatDate = (date) => {
     return date.toLocaleDateString('en-US', { 
