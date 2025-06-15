@@ -2,6 +2,8 @@
 import { useState, useCallback, useEffect } from 'react';
 import { db } from '../db';
 import { shuffleArray } from '../utils/gameUtils';
+import { StudyListService } from '../services/studyListService';
+
 
 const MAX_LEITNER_BOX = 7;
 const LEITNER_SCHEDULE_IN_DAYS = [0, 1, 2, 4, 8, 16, 32, 90];

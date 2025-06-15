@@ -68,33 +68,46 @@ export class StudyListService {
   // ENHANCED: Generate list for flashcards (familiar words, no context clues)
   generateFlashcardsList(maxWords = 20) {
     try {
-      // Get words that have some exposure but aren't mastered
-      const flashcardWords = this.wordList.filter(word => {
+      // PRIMARY: Use your curated scraped words
+      const scrapedWords = this.getWordsBySource(['scraped']);
+      
+      // Get words that have some exposure but aren't mastered or known
+      const eligibleScrapedWords = scrapedWords.filter(word => {
         const exposureLevel = word.exposureLevel || 'new';
         return ['learning', 'familiar'].includes(exposureLevel);
       });
       
-      // Mix of struggling words + frequency-based selection
-      const strugglingWords = flashcardWords.filter(word => {
-        const accuracy = word.timesStudied > 0 ? (word.timesCorrect / word.timesStudied) : 0;
-        return word.timesStudied > 2 && accuracy < 0.7;
+      // If we have enough scraped words, use those
+      if (eligibleScrapedWords.length >= maxWords) {
+        return {
+          id: 'flashcard_words',
+          name: 'Flashcard Practice',
+          description: 'Your curated vocabulary for recall practice',
+          words: eligibleScrapedWords.slice(0, maxWords),
+          algorithmUsed: 'scraped_words_primary',
+          sourceBreakdown: this.getSourceBreakdown(eligibleScrapedWords.slice(0, maxWords)),
+          gameRecommendation: ['flashcards'],
+          targetExposureLevel: ['learning', 'familiar']
+        };
+      }
+      
+      // SUPPLEMENT: Only use frequency words to fill gaps if needed
+      const frequencyWords = this.getWordsBySource(['frequency_top1000', 'frequency_top3000', 'frequency_top5000']);
+      const eligibleFrequencyWords = frequencyWords.filter(word => {
+        const exposureLevel = word.exposureLevel || 'new';
+        return ['learning', 'familiar'].includes(exposureLevel);
       });
       
-      const frequencyWords = flashcardWords
-        .filter(word => !strugglingWords.includes(word))
-        .sort((a, b) => (getWordFrequencyRank(a.spanish) || 99999) - (getWordFrequencyRank(b.spanish) || 99999));
-      
-      const mixedList = [
-        ...strugglingWords.slice(0, Math.floor(maxWords * 0.4)),
-        ...frequencyWords.slice(0, maxWords - Math.floor(maxWords * 0.4))
-      ];
+      const combinedWords = [...eligibleScrapedWords, ...eligibleFrequencyWords];
+      const finalWords = combinedWords.slice(0, maxWords);
 
       return {
         id: 'flashcard_words',
         name: 'Flashcard Practice',
-        description: 'Words for recall practice (no context clues)',
-        words: mixedList.slice(0, maxWords),
-        algorithmUsed: 'struggling_plus_frequency',
+        description: 'Your curated vocabulary (supplemented if needed)',
+        words: finalWords,
+        algorithmUsed: 'scraped_primary_frequency_supplement',
+        sourceBreakdown: this.getSourceBreakdown(finalWords),
         gameRecommendation: ['flashcards'],
         targetExposureLevel: ['learning', 'familiar']
       };
@@ -350,6 +363,23 @@ export class StudyListService {
     }
     
     return word;
+  }
+
+  // NEW: Get words by source type
+  getWordsBySource(sources = ['scraped']) {
+    return this.wordList.filter(word => 
+      sources.includes(word.source || 'scraped')
+    );
+  }
+
+  // NEW: Show source breakdown for debugging/analysis
+  getSourceBreakdown(words) {
+    const breakdown = {};
+    words.forEach(word => {
+      const source = word.source || 'scraped';
+      breakdown[source] = (breakdown[source] || 0) + 1;
+    });
+    return breakdown;
   }
 
   createEmptyList(id, name) {
