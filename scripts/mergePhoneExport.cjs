@@ -1,13 +1,25 @@
 const fs = require('fs');
 const path = require('path');
+const readline = require('readline');
 
 // Helper function to create a normalized key for matching words
 function createWordKey(spanish, english) {
     return `${spanish.toLowerCase().trim()}|${english.toLowerCase().trim()}`;
 }
 
-async function mergePhoneExportWithMaster() {
-    console.log('=== Phone Export Merge Tool ===\n');
+// Helper for user confirmation
+function askConfirmation(question) {
+    const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+    return new Promise(resolve => {
+        rl.question(question, answer => {
+            rl.close();
+            resolve(answer.toLowerCase());
+        });
+    });
+}
+
+async function enhancedMergePhoneExportWithMaster() {
+    console.log('=== Enhanced Phone Export Merge Tool (PHONE IS SOURCE OF TRUTH) ===\n');
     
     // File paths
     const exportPath = path.join(__dirname, '..', 'public', 'phone_export.json');
@@ -30,121 +42,184 @@ async function mergePhoneExportWithMaster() {
         const masterData = JSON.parse(fs.readFileSync(masterPath, 'utf-8'));
         console.log(`   Found ${masterData.words.length} words in master`);
         
-        // Step 2: Create Leitner data map from phone export
-        console.log('\n🧠 Building Leitner progress map...');
+        // Step 2: Create maps for analysis
+        console.log('\n🔍 Analyzing differences...');
+        
+        const phoneWordsMap = new Map();
         const leitnerMap = new Map();
         let progressCount = 0;
         
         phoneExport.words.forEach(word => {
             const key = createWordKey(word.spanish, word.english);
+            phoneWordsMap.set(key, word);
             leitnerMap.set(key, {
                 leitnerBox: word.leitnerBox || 0,
                 lastReviewed: word.lastReviewed || null,
                 dueDate: word.dueDate || null
             });
-            
             if (word.leitnerBox > 0) progressCount++;
+        });
+        
+        const masterWordsMap = new Map();
+        masterData.words.forEach(word => {
+            const key = createWordKey(word.spanish, word.english);
+            masterWordsMap.set(key, word);
         });
         
         console.log(`   ${progressCount} words have learning progress (Box > 0)`);
         
-        // Step 3: Create a map of all phone export words for tracking
-        const phoneWordsMap = new Map();
-        phoneExport.words.forEach(word => {
-            const key = createWordKey(word.spanish, word.english);
-            phoneWordsMap.set(key, word);
+        // Step 3: Identify changes (PHONE IS SOURCE OF TRUTH)
+        const phoneAdditions = []; // Words in phone but not in master
+        const phoneDeletions = []; // Words in master but not in phone  
+        const phoneUpdates = [];   // Words in both, but phone has changes
+        const masterOnlyWords = []; // Words only in master (new laptop additions)
+        
+        // Find phone additions
+        phoneWordsMap.forEach((phoneWord, key) => {
+            if (!masterWordsMap.has(key)) {
+                phoneAdditions.push(phoneWord);
+            }
         });
         
-        // Step 4: Merge process
-        console.log('\n🔄 Merging data...');
-        const mergedWords = [];
-        let preservedProgressCount = 0;
-        let newFromMasterCount = 0;
-        let updatedCount = 0;
-        
-        // Process all words from master file
-        masterData.words.forEach(masterWord => {
-            const key = createWordKey(masterWord.spanish, masterWord.english);
-            const leitnerData = leitnerMap.get(key);
-            const phoneWord = phoneWordsMap.get(key);
-            
-            if (leitnerData) {
-                // Word exists in both - merge with Leitner data preserved
-                const mergedWord = {
-                    ...masterWord, // Start with master (has latest edits)
-                    ...leitnerData // Overlay Leitner progress
-                };
+        // Find deletions and updates
+        masterWordsMap.forEach((masterWord, key) => {
+            if (!phoneWordsMap.has(key)) {
+                // Word deleted on phone
+                phoneDeletions.push(masterWord);
+            } else {
+                // Word exists in both - check for updates
+                const phoneWord = phoneWordsMap.get(key);
                 
-                // Check if master has updates (like new synonyms)
-                if (phoneWord) {
-                    const masterSynEng = (masterWord.synonyms_english || []).sort().join(',');
-                    const phoneSynEng = (phoneWord.synonyms_english || []).sort().join(',');
-                    if (masterSynEng !== phoneSynEng) {
-                        updatedCount++;
+                // Check if phone has updates (synonyms, notes, etc.)
+                const masterSynEng = JSON.stringify((masterWord.synonyms_english || []).sort());
+                const phoneSynEng = JSON.stringify((phoneWord.synonyms_english || []).sort());
+                const masterSynSpa = JSON.stringify((masterWord.synonyms_spanish || []).sort());
+                const phoneSynSpa = JSON.stringify((phoneWord.synonyms_spanish || []).sort());
+                const masterNotes = (masterWord.notes || '').trim();
+                const phoneNotes = (phoneWord.notes || '').trim();
+                const masterCategory = (masterWord.category || '').trim();
+                const phoneCategory = (phoneWord.category || '').trim();
+                
+                if (masterSynEng !== phoneSynEng || masterSynSpa !== phoneSynSpa || 
+                    masterNotes !== phoneNotes || masterCategory !== phoneCategory) {
+                    phoneUpdates.push({ masterWord, phoneWord });
+                }
+            }
+        });
+        
+        // Report findings
+        console.log('\n📊 Analysis Results:');
+        console.log(`   📝 Phone additions (new words): ${phoneAdditions.length}`);
+        console.log(`   🗑️  Phone deletions (removed words): ${phoneDeletions.length}`);
+        console.log(`   ✏️  Phone updates (modified words): ${phoneUpdates.length}`);
+        
+        // Step 4: Show deletions and updates (auto-applied)
+        if (phoneDeletions.length > 0) {
+            console.log('\n🗑️  Words to DELETE from master (phone removed these):');
+            phoneDeletions.slice(0, 5).forEach(w => {
+                console.log(`   - "${w.spanish}" - "${w.english}"`);
+            });
+            if (phoneDeletions.length > 5) {
+                console.log(`   ... and ${phoneDeletions.length - 5} more`);
+            }
+        }
+        
+        if (phoneUpdates.length > 0) {
+            console.log('\n✏️  Words to UPDATE from phone (phone has newer data):');
+            phoneUpdates.slice(0, 3).forEach(({ masterWord, phoneWord }) => {
+                console.log(`   - "${phoneWord.spanish}" - "${phoneWord.english}"`);
+            });
+            if (phoneUpdates.length > 3) {
+                console.log(`   ... and ${phoneUpdates.length - 3} more`);
+            }
+        }
+        
+        // Step 5: Review phone additions
+        let additionsToInclude = [];
+        
+        if (phoneAdditions.length > 0) {
+            console.log('\n📝 Phone additions found:');
+            phoneAdditions.forEach((word, index) => {
+                console.log(`   ${index + 1}. "${word.spanish}" - "${word.english}"`);
+            });
+            
+            const addChoice = await askConfirmation(
+                `\nAdd all ${phoneAdditions.length} new words? (y=yes all / n=no all / r=review individually): `
+            );
+            
+            if (addChoice === 'y' || addChoice === 'yes') {
+                additionsToInclude = [...phoneAdditions];
+                console.log('✅ All phone additions will be included');
+            } else if (addChoice === 'r' || addChoice === 'review') {
+                for (const word of phoneAdditions) {
+                    const includeWord = await askConfirmation(
+                        `Include "${word.spanish}" - "${word.english}"? (y/n): `
+                    );
+                    if (includeWord === 'y' || includeWord === 'yes') {
+                        additionsToInclude.push(word);
                     }
                 }
-                
-                mergedWords.push(mergedWord);
-                if (leitnerData.leitnerBox > 0) preservedProgressCount++;
+                console.log(`✅ ${additionsToInclude.length} of ${phoneAdditions.length} additions will be included`);
             } else {
-                // Word only in master (new word)
-                mergedWords.push({
+                console.log('❌ No phone additions will be included');
+            }
+        }
+        
+        // Step 6: Build final word list
+        console.log('\n🔄 Building merged word list...');
+        const finalWords = [];
+        let preservedProgressCount = 0;
+        
+        // Add all phone words (existing + approved additions)
+        phoneWordsMap.forEach((phoneWord, key) => {
+            if (masterWordsMap.has(key) || additionsToInclude.includes(phoneWord)) {
+                finalWords.push(phoneWord);
+                if (phoneWord.leitnerBox > 0) preservedProgressCount++;
+            }
+        });
+        
+        // Add master-only words (new laptop additions) with fresh Leitner data
+        masterWordsMap.forEach((masterWord, key) => {
+            if (!phoneWordsMap.has(key)) {
+                finalWords.push({
                     ...masterWord,
                     leitnerBox: 0,
                     lastReviewed: null,
                     dueDate: null
                 });
-                newFromMasterCount++;
             }
         });
         
-        // Check for words that were in phone but not in master (deleted)
-        const deletedWords = [];
-        phoneExport.words.forEach(phoneWord => {
-            const key = createWordKey(phoneWord.spanish, phoneWord.english);
-            const existsInMaster = masterData.words.some(w => 
-                createWordKey(w.spanish, w.english) === key
-            );
-            if (!existsInMaster) {
-                deletedWords.push(phoneWord);
-            }
-        });
+        // Step 7: Show final summary and confirm
+        console.log('\n📋 Final Summary:');
+        console.log(`   Total words in merged file: ${finalWords.length}`);
+        console.log(`   Words with preserved progress: ${preservedProgressCount}`);
+        console.log(`   Phone additions included: ${additionsToInclude.length}`);
+        console.log(`   Phone deletions applied: ${phoneDeletions.length}`);
+        console.log(`   Phone updates applied: ${phoneUpdates.length}`);
         
-        // Step 5: Create backup
+        const proceedChoice = await askConfirmation('\nProceed with merge? (y/n): ');
+        
+        if (proceedChoice !== 'y' && proceedChoice !== 'yes') {
+            console.log('❌ Merge cancelled');
+            return;
+        }
+        
+        // Step 8: Create backup and save
         console.log('\n💾 Creating backup...');
         fs.copyFileSync(masterPath, backupPath);
         console.log(`   Backup saved to: ${backupPath}`);
         
-        // Step 6: Save merged result
         const mergedData = {
-            version: masterData.version, // Keep master version, you'll update manually
-            words: mergedWords
+            version: masterData.version, // Keep master version, update manually if needed
+            words: finalWords
         };
         
         fs.writeFileSync(outputPath, JSON.stringify(mergedData, null, 2), 'utf-8');
         
-        // Step 7: Report
-        console.log('\n✅ Merge Complete!\n');
-        console.log('📊 Summary:');
-        console.log(`   Total words in merged file: ${mergedWords.length}`);
-        console.log(`   Words with preserved progress: ${preservedProgressCount}`);
-        console.log(`   New words from master: ${newFromMasterCount}`);
-        console.log(`   Words with updated content: ${updatedCount}`);
-        console.log(`   Words deleted (not in master): ${deletedWords.length}`);
-        
-        if (deletedWords.length > 0) {
-            console.log('\n⚠️  Deleted words (these had Leitner progress but were removed from master):');
-            deletedWords.slice(0, 5).forEach(w => {
-                console.log(`   - "${w.spanish}" (was in Box ${w.leitnerBox})`);
-            });
-            if (deletedWords.length > 5) {
-                console.log(`   ... and ${deletedWords.length - 5} more`);
-            }
-        }
-        
-        // Box distribution
+        // Step 9: Box distribution
         const boxDist = {};
-        mergedWords.forEach(w => {
+        finalWords.forEach(w => {
             const box = w.leitnerBox || 0;
             boxDist[box] = (boxDist[box] || 0) + 1;
         });
@@ -154,16 +229,18 @@ async function mergePhoneExportWithMaster() {
             console.log(`   Box ${box}: ${count} words`);
         });
         
-        console.log('\n📝 Next steps:');
+        console.log('\n✅ Enhanced Merge Complete!\n');
+        console.log('📝 Next steps:');
         console.log('1. Check the merged file: public/scrapedSpan411_merged.json');
-        console.log('2. Update the version number in the file');
+        console.log('2. Update the version number in the file if needed');
         console.log('3. Rename it to scrapedSpan411.json when ready');
         console.log('4. Delete phone_export.json to avoid confusion');
+        console.log('5. Optionally run cleanMasterList.cjs --fix to deduplicate');
         
     } catch (error) {
-        console.error('\n❌ Error during merge:', error.message);
+        console.error('\n❌ Error during enhanced merge:', error.message);
     }
 }
 
-// Run the merge
-mergePhoneExportWithMaster();
+// Run the enhanced merge
+enhancedMergePhoneExportWithMaster();
