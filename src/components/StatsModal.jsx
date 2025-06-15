@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useRef } from "react";
+import React, { useEffect, useCallback, useRef, useState } from "react";
 import "./SearchModal.css";
 import { db } from "../db";
 
@@ -36,24 +36,24 @@ const StatsModal = ({
   }, [isOpen, handleEscapeKey]);
 
   // Load today's stats when modal opens
-useEffect(() => {
-  if (isOpen) {
-    const loadTodaysStats = async () => {
-      setIsLoadingTodaysStats(true);
-      try {
-        const today = new Date().toISOString().split('T')[0];
-        const todayData = await db.dailyStats.get(today);
-        setTodaysStats(todayData || null);
-      } catch (error) {
-        console.error('Failed to load today\'s stats:', error);
-        setTodaysStats(null);
-      } finally {
-        setIsLoadingTodaysStats(false);
-      }
-    };
-    loadTodaysStats();
-  }
-}, [isOpen]);
+  useEffect(() => {
+    if (isOpen) {
+      const loadTodaysStats = async () => {
+        setIsLoadingTodaysStats(true);
+        try {
+          const today = new Date().toISOString().split("T")[0];
+          const todayData = await db.dailyStats.get(today);
+          setTodaysStats(todayData || null);
+        } catch (error) {
+          console.error("Failed to load today's stats:", error);
+          setTodaysStats(null);
+        } finally {
+          setIsLoadingTodaysStats(false);
+        }
+      };
+      loadTodaysStats();
+    }
+  }, [isOpen]);
 
   const handleClickOutside = useCallback(
     (event) => {
@@ -89,34 +89,108 @@ useEffect(() => {
         </div>
 
         <div style={{ padding: "20px", lineHeight: "1.6" }}>
-          {/* Session Overview */}
-          <div style={{ marginBottom: "25px" }}>
-            <h3 style={{ margin: "0 0 15px 0", color: "var(--color-primary)" }}>
-              Current Session
-            </h3>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: "15px",
-                marginBottom: "15px",
-              }}
-            >
-              <div>
-                <strong>Duration:</strong> {getSessionDuration()}
-              </div>
-              <div>
-                <strong>Cards Reviewed:</strong> {sessionStats.cardsReviewed}
-              </div>
-              <div>
-                <strong>Accuracy:</strong> {getSessionAccuracy()}%
-              </div>
-              <div>
-                <strong>Total Answers:</strong> {totalAnswers}
+
+          {/* Enhanced Session Overview - Current Session + Today's Total */}
+          
+          <div className="stats-section">
+            <h3 className="stats-section-title">Session & Daily Progress</h3>
+
+            {/* Current Session Row */}
+            <div style={{ marginBottom: "15px" }}>
+              <h4
+                style={{
+                  margin: "0 0 10px 0",
+                  fontSize: "1rem",
+                  color: "var(--color-primary)",
+                }}
+              >
+                Current Session
+              </h4>
+              <div className="stats-overview-grid">
+                <div className="stats-metric">
+                  <strong className="stats-metric-label">Duration:</strong>
+                  <span className="stats-metric-value">
+                    {getSessionDuration()}
+                  </span>
+                </div>
+                <div className="stats-metric">
+                  <strong className="stats-metric-label">Cards:</strong>
+                  <span className="stats-metric-value">
+                    {sessionStats.cardsReviewed}
+                  </span>
+                </div>
+                <div className="stats-metric">
+                  <strong className="stats-metric-label">Accuracy:</strong>
+                  <span className="stats-metric-value">
+                    {getSessionAccuracy()}%
+                  </span>
+                </div>
+                <div className="stats-metric">
+                  <strong className="stats-metric-label">Answers:</strong>
+                  <span className="stats-metric-value">{totalAnswers}</span>
+                </div>
               </div>
             </div>
-          </div>
 
+            {/* Today's Total Row */}
+            <div>
+              <h4
+                style={{
+                  margin: "0 0 10px 0",
+                  fontSize: "1rem",
+                  color: "var(--color-success)",
+                }}
+              >
+                Today's Total
+              </h4>
+              {isLoadingTodaysStats ? (
+                <p style={{ fontStyle: "italic", color: "var(--text-muted)" }}>
+                  Loading today's stats...
+                </p>
+              ) : todaysStats ? (
+                <div className="stats-overview-grid">
+                  <div className="stats-metric">
+                    <strong className="stats-metric-label">Total Cards:</strong>
+                    <span className="stats-metric-value">
+                      {todaysStats.cardsReviewed}
+                    </span>
+                  </div>
+                  <div className="stats-metric">
+                    <strong className="stats-metric-label">Correct:</strong>
+                    <span className="stats-metric-value">
+                      {todaysStats.correctAnswers}
+                    </span>
+                  </div>
+                  <div className="stats-metric">
+                    <strong className="stats-metric-label">
+                      Daily Accuracy:
+                    </strong>
+                    <span className="stats-metric-value">
+                      {todaysStats.cardsReviewed > 0
+                        ? Math.round(
+                            (todaysStats.correctAnswers /
+                              (todaysStats.correctAnswers +
+                                todaysStats.incorrectAnswers)) *
+                              100
+                          )
+                        : 0}
+                      %
+                    </span>
+                  </div>
+                  <div className="stats-metric">
+                    <strong className="stats-metric-label">Incorrect:</strong>
+                    <span className="stats-metric-value">
+                      {todaysStats.incorrectAnswers}
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <p style={{ fontStyle: "italic", color: "var(--text-muted)" }}>
+                  No practice today yet
+                </p>
+              )}
+            </div>
+          </div>
           {/* Answer Breakdown */}
           {totalAnswers > 0 && (
             <div style={{ marginBottom: "25px" }}>
