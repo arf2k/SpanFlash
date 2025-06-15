@@ -36,14 +36,22 @@ export class StudyListService {
   // ENHANCED: Generate lists for harder games (matching, fill-in-blank) 
   generateNewWordsList(maxWords = 20) {
     try {
-      // Get words that need learning (not mastered or known)
-      const learningWords = this.wordList.filter(word => {
-        const exposureLevel = word.exposureLevel || 'new';
-        return !['mastered', 'known'].includes(exposureLevel);
+      // Work with current Leitner data until migration
+      const newWords = this.wordList.filter(word => {
+        const leitnerBox = word.leitnerBox || 0;
+        const exposureLevel = word.exposureLevel;
+        
+        // If has exposureLevel, use it; otherwise use Leitner conversion
+        if (exposureLevel) {
+          return !['mastered', 'known'].includes(exposureLevel);
+        } else {
+          // Leitner boxes 0-2 are good for new word games (need context clues)
+          return leitnerBox <= 2;
+        }
       });
       
       // Prefer high-frequency words for learning
-      const rankedWords = learningWords
+      const rankedWords = newWords
         .map(word => ({
           ...word,
           frequencyRank: getWordFrequencyRank(word.spanish) || 99999
@@ -55,7 +63,7 @@ export class StudyListService {
         name: 'New & Learning Words',
         description: 'Newer words perfect for matching and fill-in-blank games (they have context clues)',
         words: rankedWords.slice(0, maxWords),
-        algorithmUsed: 'exposure_level_frequency_sorted',
+        algorithmUsed: 'leitner_compatible_new_words',
         gameRecommendation: ['matching', 'fillInBlank'],
         targetExposureLevel: ['new', 'learning']
       };
@@ -68,45 +76,35 @@ export class StudyListService {
   // ENHANCED: Generate list for flashcards (familiar words, no context clues)
   generateFlashcardsList(maxWords = 20) {
     try {
-      // PRIMARY: Use your curated scraped words
-      const scrapedWords = this.getWordsBySource(['scraped']);
-      
-      // Get words that have some exposure but aren't mastered or known
-      const eligibleScrapedWords = scrapedWords.filter(word => {
-        const exposureLevel = word.exposureLevel || 'new';
-        return ['learning', 'familiar'].includes(exposureLevel);
+      // Work with current Leitner data until migration
+      const eligibleWords = this.wordList.filter(word => {
+        // Convert Leitner boxes to exposure logic
+        const leitnerBox = word.leitnerBox || 0;
+        const exposureLevel = word.exposureLevel;
+        
+        // If has exposureLevel, use it; otherwise use Leitner conversion
+        if (exposureLevel) {
+          return ['learning', 'familiar'].includes(exposureLevel);
+        } else {
+          // Leitner boxes 1-4 are good for flashcards (some exposure, not mastered)
+          return leitnerBox >= 1 && leitnerBox <= 4;
+        }
       });
       
-      // If we have enough scraped words, use those
-      if (eligibleScrapedWords.length >= maxWords) {
-        return {
-          id: 'flashcard_words',
-          name: 'Flashcard Practice',
-          description: 'Your curated vocabulary for recall practice',
-          words: eligibleScrapedWords.slice(0, maxWords),
-          algorithmUsed: 'scraped_words_primary',
-          sourceBreakdown: this.getSourceBreakdown(eligibleScrapedWords.slice(0, maxWords)),
-          gameRecommendation: ['flashcards'],
-          targetExposureLevel: ['learning', 'familiar']
-        };
+      // If not enough eligible words, include some new words (box 0)
+      if (eligibleWords.length < maxWords) {
+        const newWords = this.wordList.filter(word => (word.leitnerBox || 0) === 0);
+        eligibleWords.push(...newWords.slice(0, maxWords - eligibleWords.length));
       }
-      
-      // SUPPLEMENT: Only use frequency words to fill gaps if needed
-      const frequencyWords = this.getWordsBySource(['frequency_top1000', 'frequency_top3000', 'frequency_top5000']);
-      const eligibleFrequencyWords = frequencyWords.filter(word => {
-        const exposureLevel = word.exposureLevel || 'new';
-        return ['learning', 'familiar'].includes(exposureLevel);
-      });
-      
-      const combinedWords = [...eligibleScrapedWords, ...eligibleFrequencyWords];
-      const finalWords = combinedWords.slice(0, maxWords);
+
+      const finalWords = eligibleWords.slice(0, maxWords);
 
       return {
         id: 'flashcard_words',
         name: 'Flashcard Practice',
-        description: 'Your curated vocabulary (supplemented if needed)',
+        description: 'Words for recall practice (current data structure)',
         words: finalWords,
-        algorithmUsed: 'scraped_primary_frequency_supplement',
+        algorithmUsed: 'leitner_compatible',
         sourceBreakdown: this.getSourceBreakdown(finalWords),
         gameRecommendation: ['flashcards'],
         targetExposureLevel: ['learning', 'familiar']

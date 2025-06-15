@@ -379,7 +379,7 @@ function App() {
       );
     }
   }, [lastReviewedCard, setWordList]);
-
+  
   // === Event Handlers ===
   const handleToggleTheme = toggleTheme;
 

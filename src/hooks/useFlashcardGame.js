@@ -1,12 +1,6 @@
-// src/hooks/useFlashcardGame.js
 import { useState, useCallback, useEffect } from 'react';
 import { db } from '../db';
-import { shuffleArray } from '../utils/gameUtils';
 import { StudyListService } from '../services/studyListService';
-
-
-const MAX_LEITNER_BOX = 7;
-const LEITNER_SCHEDULE_IN_DAYS = [0, 1, 2, 4, 8, 16, 32, 90];
 
 
 export function useFlashcardGame(wordList = [], initialCard = null, recordAnswer = null) {
@@ -22,68 +16,38 @@ export function useFlashcardGame(wordList = [], initialCard = null, recordAnswer
     useEffect(() => {
         setCurrentPair(initialCard);
     }, [initialCard]);
+const selectNewPairCard = useCallback(async () => {
+    console.log("useFlashcardGame: Selecting next card...");
+    setGameError(null);
+    setShowFeedback(false);
+    setFeedbackSignal(null);
+    setLastCorrectAnswer("");
 
-    const selectNewPairCard = useCallback(async () => {
-        console.log("useFlashcardGame: Selecting next card based on Leitner schedule...");
-        setGameError(null);
-        setShowFeedback(false);
-        setFeedbackSignal(null);
-        setLastCorrectAnswer("");
+    if (!wordList || wordList.length === 0) {
+        setGameError("The current word list is empty.");
+        setCurrentPair(null);
+        return;
+    }
 
-        if (!wordList || wordList.length === 0) {
-            setGameError("The current word list is empty.");
+    try {
+        const listService = new StudyListService(wordList);
+        const flashcardList = listService.generateFlashcardsList(50);
+        
+        if (flashcardList.words && flashcardList.words.length > 0) {
+            const randomCard = flashcardList.words[Math.floor(Math.random() * flashcardList.words.length)];
+            console.log(`Selected "${randomCard.spanish}" from flashcard list`);
+            setCurrentPair(randomCard);
+        } else {
             setCurrentPair(null);
-            return;
+            setGameError("No suitable words available for flashcard practice.");
         }
-
-        try {
-            const now = Date.now();
-            const activeListIds = new Set(wordList.map(p => p.id));
-            let cardToReview = null;
-
-            // --- Priority 1: Find a card due for scheduled review (Boxes 1-7) ---
-            for (let box = 1; box <= MAX_LEITNER_BOX; box++) {
-                const dueInBox = await db.allWords
-                    .where({ leitnerBox: box })
-                    .and(item => item.dueDate <= now)
-                    .toArray();
-                
-                const relevantDueCards = dueInBox.filter(card => activeListIds.has(card.id));
-
-                if (relevantDueCards.length > 0) {
-                    cardToReview = shuffleArray(relevantDueCards)[0];
-                    console.log(`Leitner: Found due card in Box ${box}. Selecting: "${cardToReview.spanish}"`);
-                    break; 
-                }
-            }
-
-            // --- Priority 2: If no scheduled reviews are due, introduce a new card from Box 0 ---
-            if (!cardToReview) {
-                console.log("Leitner: No scheduled reviews due. Checking for new cards in Box 0.");
-                const newCards = await db.allWords.where({ leitnerBox: 0 }).toArray();
-                const relevantNewCards = newCards.filter(card => activeListIds.has(card.id));
-
-                if (relevantNewCards.length > 0) {
-                    cardToReview = shuffleArray(relevantNewCards)[0];
-                    console.log(`Leitner: Introducing new card from Box 0: "${cardToReview.spanish}"`);
-                }
-            }
-
-            if (cardToReview) {
-                setCurrentPair(cardToReview);
-            } else {
-                // This state now means there are no cards due AND no new cards to learn.
-                console.log("Leitner: No cards due and no new cards to learn. All words mastered!");
-                setCurrentPair(null);
-                setGameError("Congratulations! You've reviewed all available cards for this mode.");
-            }
-        } catch (err) {
-            console.error("useFlashcardGame: Error fetching due cards from DB:", err);
-            setGameError("Failed to get review cards from the database.");
-            setCurrentPair(null);
-        }
-    }, [wordList]);
-
+    } catch (err) {
+        console.error("Error selecting flashcard:", err);
+        setGameError("Failed to select a card.");
+        setCurrentPair(null);
+    }
+}, [wordList]);
+    
     const loadSpecificCard = useCallback((pairToLoad) => {
         if (pairToLoad && pairToLoad.spanish && pairToLoad.english) {
             setCurrentPair(pairToLoad);
