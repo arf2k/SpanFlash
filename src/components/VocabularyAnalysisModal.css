@@ -1,0 +1,348 @@
+
+
+.vocab-analysis-modal-content {
+  max-width: 600px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.3s ease;
+}
+
+.vocab-analysis-scrollable-area {
+  overflow-y: auto;
+  flex-grow: 1;
+  padding: 15px 20px;
+  line-height: 1.5;
+  color: var(--text-body);
+  transition: color 0.3s ease;
+}
+
+/* Loading State */
+.vocab-analysis-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.vocab-analysis-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--color-border);
+  border-top: 3px solid var(--color-primary);
+  border-radius: 50%;
+  animation: vocab-spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes vocab-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.vocab-analysis-loading p {
+  color: var(--text-muted);
+  font-style: italic;
+  transition: color 0.3s ease;
+}
+
+/* Analysis Header */
+.vocab-analysis-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--color-border-light);
+  transition: border-bottom-color 0.3s ease;
+}
+
+.vocab-analysis-title h3 {
+  margin: 0 0 5px 0;
+  color: var(--text-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+.vocab-analysis-date {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+}
+
+.fluency-level-badge {
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  background-color: var(--bg-hint);
+  border-radius: 20px;
+  border: 1px solid var(--color-border);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Analysis Sections */
+.vocab-analysis-section {
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px dotted var(--color-border-light);
+  transition: border-bottom-color 0.3s ease;
+}
+
+.vocab-analysis-section:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.vocab-analysis-section h4 {
+  margin: 0 0 15px 0;
+  color: var(--color-primary);
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+/* Coverage Grid */
+.coverage-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.coverage-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.coverage-label {
+  min-width: 80px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+}
+
+.coverage-bar {
+  flex-grow: 1;
+  height: 20px;
+  background-color: var(--color-border);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+}
+
+.coverage-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-success) 0%, var(--color-primary) 100%);
+  border-radius: 10px;
+  transition: width 0.5s ease-out;
+}
+
+.coverage-stats {
+  min-width: 100px;
+  text-align: right;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-body);
+  transition: color 0.3s ease;
+}
+
+/* Insights */
+.insights-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.insight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px;
+  background-color: var(--bg-hint);
+  border-radius: 6px;
+  border-left: 3px solid var(--color-primary);
+  transition: background-color 0.3s ease, border-left-color 0.3s ease;
+}
+
+.insight-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.insight-text {
+  font-size: 0.9rem;
+  color: var(--text-body);
+  line-height: 1.4;
+  transition: color 0.3s ease;
+}
+
+/* Learning Suggestions */
+.suggestions-intro {
+  margin: 0 0 15px 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+}
+
+.suggestions-preview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.suggestion-rank {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.suggestion-word {
+  font-weight: 600;
+  color: var(--text-body);
+  transition: color 0.3s ease;
+}
+
+.suggestion-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  background-color: var(--bg-hint);
+  border: 1px dashed var(--color-border);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-style: italic;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Error State */
+.vocab-analysis-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.vocab-analysis-error p {
+  color: var(--color-danger);
+  margin-bottom: 20px;
+  transition: color 0.3s ease;
+}
+
+.retry-button {
+  background-color: var(--color-primary);
+  color: var(--text-button);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.retry-button:hover {
+  background-color: var(--color-primary-darker);
+}
+
+/* Modal Actions */
+.vocab-analysis-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 20px;
+  border-top: 1px solid var(--color-border-light);
+  flex-shrink: 0;
+  background-color: var(--bg-container);
+  transition: background-color 0.3s ease, border-top-color 0.3s ease;
+}
+
+.refresh-button {
+  background-color: var(--color-success);
+  color: var(--text-button);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.refresh-button:hover:not(:disabled) {
+  background-color: var(--color-success-darker);
+}
+
+.refresh-button:disabled {
+  background-color: var(--color-disabled-bg);
+  color: var(--color-disabled-text);
+  cursor: not-allowed;
+}
+
+.close-button {
+  background-color: var(--color-secondary);
+  color: var(--text-button);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.close-button:hover {
+  background-color: var(--color-secondary-darker);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .vocab-analysis-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  
+  .coverage-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  
+  .coverage-label {
+    min-width: auto;
+  }
+  
+  .coverage-bar {
+    width: 100%;
+  }
+  
+  .suggestions-preview {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .vocab-analysis-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
