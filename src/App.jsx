@@ -26,6 +26,7 @@ import AppHeader from "./components/AppHeader";
 import GameControls from "./components/GameControls";
 import { useSessionStats } from "./hooks/useSessionStats";
 import StatsModal from "./components/StatsModal";
+import VocabularyAnalysisModal from "./components/VocabularyAnalysisModal";
 
 function App() {
   // === App-specific State Variables ===
@@ -51,7 +52,7 @@ function App() {
     toggleAdminMode,
   } = useAppSettings();
 
-    const {
+  const {
     sessionStats,
     recordAnswer,
     startNewSession,
@@ -86,6 +87,8 @@ function App() {
     setIsSettingsModalOpen,
     isStatsModalOpen,
     setIsStatsModalOpen,
+    isVocabAnalysisModalOpen,
+    setIsVocabAnalysisModalOpen,
   } = useModalState();
 
   const {
@@ -116,8 +119,6 @@ function App() {
     loadSpecificCard,
     lastReviewedCard,
   } = useFlashcardGame(listForFlashcardGame, initialCard, recordAnswer);
-
-
 
   // === Refs ===
   const incorrectScoreRef = useRef(null);
@@ -397,14 +398,13 @@ function App() {
   return (
     <div className="App">
       {" "}
-      {/* Single top-level div for the component */}
-      {/* Header Section (Title, Version, Settings Button) */}
       <AppHeader
         currentDataVersion={currentDataVersion}
         isInHardWordsMode={isInHardWordsMode}
         isAnyGameActive={isAnyGameActive}
         onSettingsClick={() => setIsSettingsModalOpen(true)}
         onStatsClick={() => setIsStatsModalOpen(true)}
+        onVocabAnalysisClick={() => setIsVocabAnalysisModalOpen(true)}
       />
       {/* Score Stacks - Conditionally Rendered */}
       {!isMatchingGameModeActive &&
@@ -492,7 +492,7 @@ function App() {
         >
           <FillInTheBlankGameView
             wordList={mainWordList}
-            numChoices={4} 
+            numChoices={4}
             onExitGame={handleToggleFillInTheBlankMode}
             recordAnswer={recordAnswer}
           />
@@ -665,6 +665,11 @@ function App() {
             getSessionAccuracy={getSessionAccuracy}
             getSessionDuration={getSessionDuration}
             onNewSession={startNewSession}
+          />
+          <VocabularyAnalysisModal
+            isOpen={isVocabAnalysisModalOpen}
+            onClose={() => setIsVocabAnalysisModalOpen(false)}
+            wordList={mainWordList}
           />
         </>
       )}
