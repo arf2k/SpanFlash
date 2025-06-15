@@ -51,7 +51,7 @@ export function useWordData() {
 
         if (!localVersion || remoteVersion !== localVersion) {
           console.log(
-            `useWordData: Smart merging to version '${remoteVersion}' while preserving Leitner progress...`
+            `useWordData: Updating to version '${remoteVersion}' while preserving learning progress...`
           );
 
           await db.appState.put({ id: "dataUpdateInProgress", value: true });
@@ -92,26 +92,39 @@ export function useWordData() {
                 const existingWord = existingWordsMap.get(key);
 
                 if (existingWord) {
+                  // Preserve all existing learning data
                   deduplicatedWords.push({
                     ...newWord,
                     id: existingWord.id,
+                    // Preserve existing exposure tracking
+                    exposureLevel: existingWord.exposureLevel,
+                    timesStudied: existingWord.timesStudied,
+                    timesCorrect: existingWord.timesCorrect,
+                    lastStudied: existingWord.lastStudied,
+                    gamePerformance: existingWord.gamePerformance,
+                    // Preserve legacy Leitner data for migration
                     leitnerBox: existingWord.leitnerBox,
                     lastReviewed: existingWord.lastReviewed,
                     dueDate: existingWord.dueDate,
                   });
                   console.log(
-                    `Merged existing word: "${newWord.spanish}" (preserving Box ${existingWord.leitnerBox})`
+                    `Merged existing word: "${newWord.spanish}" (preserving learning progress)`
                   );
                 } else {
+                  // New word with default values
                   deduplicatedWords.push({
                     ...newWord,
+                    exposureLevel: "new",
+                    timesStudied: 0,
+                    timesCorrect: 0,
+                    lastStudied: null,
+                    source: "scraped",
+                    // Legacy Leitner data for backward compatibility
                     leitnerBox: 0,
                     lastReviewed: now,
                     dueDate: now,
                   });
-                  console.log(
-                    `Added new word: "${newWord.spanish}" (starting in Box 0)`
-                  );
+                  console.log(`Added new word: "${newWord.spanish}"`);
                 }
               }
             });
@@ -148,12 +161,14 @@ export function useWordData() {
               await db.appState.delete("dataUpdateInProgress");
             });
 
+            const wordsWithProgress = deduplicatedWords.filter(
+              (w) =>
+                (w.exposureLevel && w.exposureLevel !== "new") ||
+                w.leitnerBox > 0
+            ).length;
+
             console.log(
-              `useWordData: Successfully merged ${
-                deduplicatedWords.length
-              } words (${
-                deduplicatedWords.filter((w) => w.leitnerBox > 0).length
-              } with preserved progress)`
+              `useWordData: Successfully merged ${deduplicatedWords.length} words (${wordsWithProgress} with existing progress)`
             );
           } else {
             await db.transaction("rw", db.allWords, db.appState, async () => {
@@ -176,38 +191,11 @@ export function useWordData() {
         setWordList(finalWords);
 
         if (finalWords.length > 0) {
-          const now = Date.now();
-          const dueCards = await db.allWords
-            .where("dueDate")
-            .belowOrEqual(now)
-            .toArray();
-
+          // No longer need initial card - StudyListService handles card selection
           console.log(
-            `useWordData: Found ${dueCards.length} cards due for review.`
+            "useWordData: Word data loaded, card selection handled by StudyListService"
           );
-
-          if (dueCards.length > 0) {
-            const firstCard = shuffleArray(dueCards)[0];
-            console.log(
-              `useWordData: Setting initial card to: "${firstCard.spanish}"`
-            );
-            setInitialCard(firstCard);
-          } else {
-            const newCards = await db.allWords
-              .where("leitnerBox")
-              .equals(0)
-              .toArray();
-            if (newCards.length > 0) {
-              const firstNewCard = shuffleArray(newCards)[0];
-              console.log(
-                `useWordData: No due cards, introducing new card: "${firstNewCard.spanish}"`
-              );
-              setInitialCard(firstNewCard);
-            } else {
-              console.log("useWordData: No cards due for review right now.");
-              setInitialCard(null);
-            }
-          }
+          setInitialCard(null);
         }
 
         const finalVersionState = await db.appState.get("dataVersion");
