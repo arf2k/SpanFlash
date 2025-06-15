@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 export function useModalState() {
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
@@ -6,7 +6,9 @@ export function useModalState() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
-  const [isStatsModalOpen, setIsStatsModalOpen] = useState(false); 
+  const [isStatsModalOpen, setIsStatsModalOpen] = useState(false);
+  const [isVocabAnalysisModalOpen, setIsVocabAnalysisModalOpen] =
+    useState(false);
 
   const closeAllModals = () => {
     setIsSearchModalOpen(false);
@@ -14,7 +16,8 @@ export function useModalState() {
     setIsEditModalOpen(false);
     setIsDetailsModalOpen(false);
     setIsSettingsModalOpen(false);
-    setIsStatsModalOpen(false); 
+    setIsStatsModalOpen(false);
+    setIsVocabAnalysisModalOpen(false);
   };
 
   return {
@@ -23,13 +26,17 @@ export function useModalState() {
     isEditModalOpen,
     isDetailsModalOpen,
     isSettingsModalOpen,
-    isStatsModalOpen, 
+    isStatsModalOpen,
+    isVocabAnalysisModalOpen,
+
     setIsSearchModalOpen,
     setIsAddWordModalOpen,
     setIsEditModalOpen,
     setIsDetailsModalOpen,
     setIsSettingsModalOpen,
-    setIsStatsModalOpen, 
+    setIsStatsModalOpen,
+    setIsVocabAnalysisModalOpen,
+
     closeAllModals,
   };
 }
