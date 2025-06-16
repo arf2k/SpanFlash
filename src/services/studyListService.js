@@ -74,41 +74,94 @@ export class StudyListService {
     }
   }
 
-  // ENHANCED: Generate list for flashcards (familiar words, no context clues)
+  // FIXED: Generate list for flashcards with proper randomization
   generateFlashcardsList(maxWords = 20) {
     try {
-      // Work with current Leitner data until migration
-      const eligibleWords = this.wordList.filter(word => {
-        // Convert Leitner boxes to exposure logic
-        const leitnerBox = word.leitnerBox || 0;
-        const exposureLevel = word.exposureLevel;
-        
-        // If has exposureLevel, use it; otherwise use Leitner conversion
-        if (exposureLevel) {
-          return ['learning', 'familiar'].includes(exposureLevel);
-        } else {
-          // Leitner boxes 1-4 are good for flashcards (some exposure, not mastered)
-          return leitnerBox >= 1 && leitnerBox <= 4;
-        }
-      });
+      console.log(`Generating flashcard list for ${maxWords} words...`);
       
-      // If not enough eligible words, include some new words (box 0)
-      if (eligibleWords.length < maxWords) {
-        const newWords = this.wordList.filter(word => (word.leitnerBox || 0) === 0);
-        eligibleWords.push(...newWords.slice(0, maxWords - eligibleWords.length));
+      // Since ALL words are currently 'new' and box 0, let's work with that reality
+      let eligibleWords = [];
+      
+      // First priority: Words that have been studied but need review
+      const studiedWords = this.wordList.filter(word => 
+        (word.timesStudied > 0 || word.lastStudied) && 
+        word.exposureLevel !== 'known'
+      );
+      
+      if (studiedWords.length > 0) {
+        console.log(`Found ${studiedWords.length} previously studied words`);
+        eligibleWords = shuffleArray(studiedWords);
       }
-
-      const finalWords = eligibleWords.slice(0, maxWords);
+      
+      // If we need more words, add unstudied words
+      if (eligibleWords.length < maxWords) {
+        const unstudiedWords = this.wordList.filter(word => 
+          !word.timesStudied && 
+          !word.lastStudied &&
+          word.exposureLevel !== 'known'
+        );
+        
+        console.log(`Adding from ${unstudiedWords.length} unstudied words`);
+        
+        // CRITICAL: Shuffle BEFORE taking a slice
+        const shuffledUnstudied = shuffleArray(unstudiedWords);
+        const needed = maxWords - eligibleWords.length;
+        eligibleWords = [...eligibleWords, ...shuffledUnstudied.slice(0, needed)];
+      }
+      
+      // Ensure final list is also shuffled
+      const finalWords = shuffleArray(eligibleWords).slice(0, maxWords);
+      
+      console.log(`Returning ${finalWords.length} words for flashcards`);
+      console.log('First 3 words:', finalWords.slice(0, 3).map(w => w.spanish));
 
       return {
         id: 'flashcard_words',
         name: 'Flashcard Practice',
-        description: 'Words for recall practice (current data structure)',
+        description: 'Random selection from your vocabulary',
         words: finalWords,
-        algorithmUsed: 'leitner_compatible',
+        algorithmUsed: 'random_selection_with_progress_priority',
         sourceBreakdown: this.getSourceBreakdown(finalWords),
-        gameRecommendation: ['flashcards'],
-        targetExposureLevel: ['learning', 'familiar']
+        composition: {
+          studied: finalWords.filter(w => w.timesStudied > 0).length,
+          new: finalWords.filter(w => !w.timesStudied).length
+        }
+      };
+    } catch (error) {
+      console.error('Failed to generate flashcard list:', error);
+      return this.createEmptyList('flashcard_words', 'Flashcard Practice');
+    }
+  }
+
+  // NEW: Generate flashcards with session exclusions to prevent repeats
+  generateFlashcardsListWithExclusions(maxWords = 20, excludeIds = new Set()) {
+    try {
+      console.log(`Generating ${maxWords} words, excluding ${excludeIds.size} already shown`);
+      
+      // Filter out already shown words
+      const availableWords = this.wordList.filter(word => 
+        !excludeIds.has(word.id) && 
+        word.exposureLevel !== 'known'
+      );
+      
+      if (availableWords.length === 0) {
+        console.log('No more words available in this session');
+        return this.createEmptyList('flashcard_words', 'All words seen this session');
+      }
+      
+      // Shuffle and select
+      const shuffled = shuffleArray(availableWords);
+      const selected = shuffled.slice(0, maxWords);
+      
+      console.log(`Selected ${selected.length} from ${availableWords.length} available words`);
+      
+      return {
+        id: 'flashcard_words',
+        name: 'Flashcard Practice',
+        description: 'Random selection (no repeats this session)',
+        words: selected,
+        algorithmUsed: 'random_selection_no_repeats',
+        remainingInSession: availableWords.length - selected.length
       };
     } catch (error) {
       console.error('Failed to generate flashcard list:', error);
@@ -149,83 +202,35 @@ export class StudyListService {
   async markWordAsKnown(wordId) {
     try {
       const word = await db.allWords.get(wordId);
-      if (!word) {
-        console.error('Word not found:', wordId);
-        return null;
+      if (word) {
+        word.exposureLevel = 'known';
+        word.timesStudied = word.timesStudied || 1;
+        word.timesCorrect = word.timesCorrect || 1;
+        word.lastStudied = Date.now();
+        await db.allWords.put(word);
+        console.log(`Marked "${word.spanish}" as known`);
+        return true;
       }
-
-      const updatedWord = {
-        ...word,
-        exposureLevel: 'known',
-        lastStudied: Date.now(),
-        userPriority: 'low' // Known words get low priority
-      };
-
-      await db.allWords.put(updatedWord);
-      console.log(`Word "${word.spanish}" marked as known`);
-      return updatedWord;
+      return false;
     } catch (error) {
       console.error('Failed to mark word as known:', error);
-      return null;
+      return false;
     }
   }
 
-  // NEW: Update word exposure after game/study session
-  async updateWordExposure(wordId, isCorrect, gameType = 'flashcards') {
-    try {
-      const word = await db.allWords.get(wordId);
-      if (!word) return null;
-
-      const updatedWord = StudyListService.enhanceWord(word);
-      
-      // Update study tracking
-      updatedWord.timesStudied++;
-      updatedWord.lastStudied = Date.now();
-      if (isCorrect) updatedWord.timesCorrect++;
-      
-      // Update game-specific performance
-      if (updatedWord.gamePerformance[gameType]) {
-        updatedWord.gamePerformance[gameType].total++;
-        if (isCorrect) updatedWord.gamePerformance[gameType].correct++;
-      }
-      
-      // Calculate new exposure level
-      updatedWord.exposureLevel = this.calculateExposureLevel(updatedWord);
-      
-      await db.allWords.put(updatedWord);
-      console.log(`Updated word "${word.spanish}" exposure to ${updatedWord.exposureLevel}`);
-      return updatedWord;
-    } catch (error) {
-      console.error('Failed to update word exposure:', error);
-      return null;
-    }
-  }
-
-  // Helper: Calculate exposure level based on performance
-  calculateExposureLevel(word) {
-    if (word.exposureLevel === 'known') return 'known'; // Don't change known words
-    
-    const accuracy = word.timesStudied > 0 ? (word.timesCorrect / word.timesStudied) : 0;
-    const timesStudied = word.timesStudied || 0;
-    
-    if (timesStudied === 0) return 'new';
-    if (timesStudied < 3 || accuracy < 0.5) return 'learning';
-    if (timesStudied < 8 || accuracy < 0.8) return 'familiar';
-    return 'mastered';
-  }
-
-  // Helper methods for list generation
-  getWordsByExposure(exposureLevel, count) {
+  // NEW: Get words by exposure level
+  getWordsByExposure(level, count) {
     return this.wordList
-      .filter(word => (word.exposureLevel || 'new') === exposureLevel)
-      .sort((a, b) => (getWordFrequencyRank(a.spanish) || 99999) - (getWordFrequencyRank(b.spanish) || 99999))
+      .filter(word => (word.exposureLevel || 'new') === level)
+      .sort(() => 0.5 - Math.random())
       .slice(0, count);
   }
 
+  // NEW: Get struggling words (poor accuracy)
   getStrugglingWords(count) {
-    return this.wordList
-      .filter(word => {
-        const accuracy = word.timesStudied > 0 ? (word.timesCorrect / word.timesStudied) : 1;
+    return this.wordList.filter(word => {
+        const accuracy = word.timesStudied > 0 ? 
+          (word.timesCorrect / word.timesStudied) : 1;
         return word.timesStudied > 2 && accuracy < 0.6;
       })
       .sort((a, b) => {
@@ -330,7 +335,7 @@ export class StudyListService {
       (word.exposureLevel || 'new') !== 'known'
     );
     
- const shuffled = shuffleArray(eligibleWords);
+    const shuffled = [...activeWords].sort(() => 0.5 - Math.random());
     
     return {
       id: 'maintenance_sample',

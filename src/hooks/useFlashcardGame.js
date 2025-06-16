@@ -15,6 +15,10 @@ export function useFlashcardGame(
   const [feedbackSignal, setFeedbackSignal] = useState(null);
   const [gameError, setGameError] = useState(null);
   const [lastReviewedCard, setLastReviewedCard] = useState(null);
+  
+  // NEW: Session tracking to prevent repeats
+  const [sessionShownIds, setSessionShownIds] = useState(new Set());
+  const [sessionWordPool, setSessionWordPool] = useState([]);
 
   useEffect(() => {
     setCurrentPair(initialCard);
@@ -34,26 +38,51 @@ export function useFlashcardGame(
     }
 
     try {
-      const listService = new StudyListService(wordList);
-      const flashcardList = listService.generateFlashcardsList(50);
-
-      if (flashcardList.words && flashcardList.words.length > 0) {
-        const randomCard =
-          flashcardList.words[
-            Math.floor(Math.random() * flashcardList.words.length)
-          ];
-        console.log(`Selected "${randomCard.spanish}" from flashcard list`);
+      // If we've shown all words in the pool, get a new pool
+      if (sessionWordPool.length === 0 || 
+          sessionWordPool.every(w => sessionShownIds.has(w.id))) {
+        
+        console.log('Fetching new word pool...');
+        const listService = new StudyListService(wordList);
+        
+        // Use the exclusion method to avoid repeats
+        const flashcardList = listService.generateFlashcardsListWithExclusions(
+          200, // Large pool
+          sessionShownIds
+        );
+        
+        if (!flashcardList.words || flashcardList.words.length === 0) {
+          // All words seen - reset session
+          console.log('All words seen this session, resetting...');
+          setSessionShownIds(new Set());
+          const freshList = listService.generateFlashcardsList(200);
+          setSessionWordPool(freshList.words || []);
+        } else {
+          setSessionWordPool(flashcardList.words);
+        }
+      }
+      
+      // Select a random word from the pool that hasn't been shown
+      const unseenWords = sessionWordPool.filter(w => !sessionShownIds.has(w.id));
+      
+      if (unseenWords.length > 0) {
+        const randomCard = unseenWords[Math.floor(Math.random() * unseenWords.length)];
+        console.log(`Selected "${randomCard.spanish}" (${unseenWords.length - 1} remaining in pool)`);
+        
+        // Mark as shown
+        setSessionShownIds(prev => new Set([...prev, randomCard.id]));
         setCurrentPair(randomCard);
       } else {
-        setCurrentPair(null);
-        setGameError("No suitable words available for flashcard practice.");
+        console.log('No unseen words in current pool');
+        setSessionWordPool([]); // Force refresh on next call
       }
+      
     } catch (err) {
       console.error("Error selecting flashcard:", err);
       setGameError("Failed to select a card.");
       setCurrentPair(null);
     }
-  }, [wordList]);
+  }, [wordList, sessionShownIds, sessionWordPool]);
 
   useEffect(() => {
     // Auto-select first card when wordList becomes available
@@ -154,6 +183,15 @@ export function useFlashcardGame(
     selectNewPairCard();
   }, [selectNewPairCard]);
 
+  // NEW: Reset session function (useful for "New Session" button)
+  const resetSession = useCallback(() => {
+    console.log('Resetting flashcard session');
+    setSessionShownIds(new Set());
+    setSessionWordPool([]);
+    setScore({ correct: 0, incorrect: 0 });
+    selectNewPairCard();
+  }, [selectNewPairCard]);
+
   return {
     currentPair,
     languageDirection,
@@ -170,5 +208,11 @@ export function useFlashcardGame(
     setShowFeedback,
     loadSpecificCard,
     lastReviewedCard,
+    resetSession, // NEW
+    sessionStats: { // NEW
+      shown: sessionShownIds.size,
+      poolSize: sessionWordPool.length,
+      remaining: sessionWordPool.filter(w => !sessionShownIds.has(w.id)).length
+    }
   };
 }
