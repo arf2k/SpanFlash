@@ -1,5 +1,6 @@
 import { getWordFrequencyRank } from '../data/spanishFrequency.js';
 import { db } from '../db.js';
+import { shuffleArray } from '../utils/gameUtils.js';
 
 export class StudyListService {
   constructor(wordList = []) {
