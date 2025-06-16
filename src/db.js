@@ -93,4 +93,30 @@ db.version(6).stores({
     const count = await tx.table('allWords').count();
     console.log(`Database upgrade to version 7 successful. Migrated ${count} words to exposure system.`);
 });
+db.version(8).stores({
+    appState: 'id',
+    hardWords: '[spanish+english]',
+    allWords: '++id, spanish, english, category, dueDate, leitnerBox, exposureLevel',
+    dailyStats: 'date' 
+}).upgrade(async (tx) => {
+    console.log("Fixing exposure level access - making all vocabulary available...");
+    
+    await tx.table('allWords').toCollection().modify(word => {
+        const box = word.leitnerBox || 0;
+        
+        if (box === 0) {
+            word.exposureLevel = 'new';
+        } else {
+            // Everything else becomes 'learning' - accessible to all games
+            word.exposureLevel = 'learning';
+        }
+        
+        // Conservative exposure tracking
+        word.timesStudied = Math.max(box, 0);
+        word.timesCorrect = Math.max(Math.floor(box * 0.8), 0);
+    });
+
+    const count = await tx.table('allWords').count();
+    console.log(`Fixed access for ${count} words - full vocabulary now available`);
+});
 
