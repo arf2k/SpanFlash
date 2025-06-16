@@ -6,7 +6,6 @@ const AppHeader = ({
   isAnyGameActive,
   onSettingsClick,
   onStatsClick,
-  onVocabAnalysisClick  
 }) => {
   const showHardModeIndicator = isInHardWordsMode && !isAnyGameActive;
 
@@ -37,25 +36,7 @@ const AppHeader = ({
             {showHardModeIndicator && "(Hard Mode)"}
           </p>
         )}
-        {/*  VOCABULARY ANALYSIS BUTTON */}
-        <button
-          onClick={onVocabAnalysisClick}
-          title="Vocabulary Analysis"
-          style={{
-            background: "none",
-            border: "none",
-            fontSize: "1.3em",
-            cursor: "pointer",
-            color: "var(--text-muted)",
-            padding: "0",
-            marginRight: "10px",
-          }}
-          disabled={isAnyGameActive}
-        >
-          <span role="img" aria-label="vocabulary analysis icon">
-            📚
-          </span>
-        </button>
+       
         {/* STATS BUTTON */}
         <button
           onClick={onStatsClick}

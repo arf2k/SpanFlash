@@ -379,7 +379,7 @@ function App() {
       );
     }
   }, [lastReviewedCard, setWordList]);
-  
+
   // === Event Handlers ===
   const handleToggleTheme = toggleTheme;
 
@@ -404,7 +404,6 @@ function App() {
         isAnyGameActive={isAnyGameActive}
         onSettingsClick={() => setIsSettingsModalOpen(true)}
         onStatsClick={() => setIsStatsModalOpen(true)}
-        onVocabAnalysisClick={() => setIsVocabAnalysisModalOpen(true)}
       />
       {/* Score Stacks - Conditionally Rendered */}
       {!isMatchingGameModeActive &&
@@ -523,8 +522,6 @@ function App() {
             <>
               {!isLoadingData && !dataError && !gameError && currentPair && (
                 <div className="flashcard-area">
-               
-
                   <Flashcard
                     pair={currentPair}
                     direction={languageDirection}
@@ -659,6 +656,7 @@ function App() {
             currentTheme={currentTheme}
             onToggleTheme={handleToggleTheme}
             onTriggerAddWordModal={handleOpenAddWordModalFromSettings}
+            onVocabAnalysisClick={() => setIsVocabAnalysisModalOpen(true)}
           />
           <StatsModal
             isOpen={isStatsModalOpen}
