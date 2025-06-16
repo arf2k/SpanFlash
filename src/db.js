@@ -62,4 +62,35 @@ db.version(6).stores({
     hardWords: '[spanish+english]',
     allWords: '++id, spanish, english, category, dueDate, leitnerBox',
     dailyStats: 'date' 
+});db.version(7).stores({
+    appState: 'id',
+    hardWords: '[spanish+english]',
+    allWords: '++id, spanish, english, category, dueDate, leitnerBox, exposureLevel',
+    dailyStats: 'date' 
+}).upgrade(async (tx) => {
+    console.log("Upgrading database to version 7: Adding exposure tracking system...");
+    
+    await tx.table('allWords').toCollection().modify(word => {
+        // Convert Leitner box to exposure level
+        if (word.leitnerBox === 0) word.exposureLevel = 'new';
+        else if (word.leitnerBox <= 2) word.exposureLevel = 'learning';
+        else if (word.leitnerBox <= 4) word.exposureLevel = 'familiar';
+        else word.exposureLevel = 'mastered';
+        
+        // Add exposure tracking fields
+        word.timesStudied = Math.max(word.leitnerBox || 0, 0);
+        word.timesCorrect = Math.max(Math.floor((word.leitnerBox || 0) * 0.7), 0);
+        word.lastStudied = word.lastReviewed || null;
+        word.source = 'scraped';
+        word.gamePerformance = {
+            flashcards: { correct: 0, total: 0 },
+            matching: { correct: 0, total: 0 },
+            fillInBlank: { correct: 0, total: 0 },
+            conjugation: { correct: 0, total: 0 }
+        };
+    });
+
+    const count = await tx.table('allWords').count();
+    console.log(`Database upgrade to version 7 successful. Migrated ${count} words to exposure system.`);
 });
+
