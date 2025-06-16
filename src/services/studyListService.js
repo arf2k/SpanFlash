@@ -330,7 +330,7 @@ export class StudyListService {
       (word.exposureLevel || 'new') !== 'known'
     );
     
-    const shuffled = [...activeWords].sort(() => 0.5 - Math.random());
+ const shuffled = shuffleArray(eligibleWords);
     
     return {
       id: 'maintenance_sample',
