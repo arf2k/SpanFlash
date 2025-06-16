@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { db } from "../db";
-import { shuffleArray, updateWordLeitnerData } from "../utils/gameUtils";
+import { updateWordExposure, shuffleArray } from "../utils/gameUtils";
 
 export function useMatchingGame(
   fullWordList = [],
@@ -167,10 +166,10 @@ export function useMatchingGame(
       }
 
       if (originalPairForSpanish) {
-        const updatedWord = await updateWordLeitnerData(
+        const updatedWord = await updateWordExposure(
           originalPairForSpanish,
           isCorrectMatch,
-          "Matching"
+          "matching"
         );
         setLastUpdatedWords((prev) => [...prev, updatedWord]);
       }

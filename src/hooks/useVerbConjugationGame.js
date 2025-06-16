@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ConjugationService } from '../services/conjugationService.js';
-import { updateWordLeitnerData, shuffleArray } from '../utils/gameUtils';
+import { updateWordExposure, shuffleArray } from '../utils/gameUtils';
 import { normalizeForAnswerCheck } from '../utils/textUtils.js';
 
 export function useVerbConjugationGame(wordList, recordAnswer = null) {
@@ -90,14 +90,12 @@ export function useVerbConjugationGame(wordList, recordAnswer = null) {
     });
     setShowAnswer(true);
     
-    // Update Leitner data using existing function
     try {
-      await updateWordLeitnerData(currentQuestion.word, isCorrect, "Conjugation");
+  await updateWordExposure(currentQuestion.word, isCorrect, "conjugation");
     } catch (error) {
       console.error('Failed to update Leitner data:', error);
     }
     
-    // Update local score
     if (isCorrect) {
       setScore(prev => ({ ...prev, correct: prev.correct + 1 }));
     } else {

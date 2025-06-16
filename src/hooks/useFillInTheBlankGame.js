@@ -112,7 +112,7 @@ export function useFillInTheBlankGame(wordList = [], numChoices = 4, recordAnswe
       });
 
       if (currentQuestion.targetPair) {
-        const updatedWord = await updateWordLeitnerData(
+        const updatedWord = await updateWordExposure(
           currentQuestion.targetPair,
           isCorrect,
           "Fill-in-Blank"
