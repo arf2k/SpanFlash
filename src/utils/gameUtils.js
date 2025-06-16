@@ -65,4 +65,4 @@ function calculateExposureLevel(word) {
   return 'mastered';
 }
 
-export const updateWordLeitnerData = updateWordExposure;
+
