@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
-import { db } from "../db";
 import { StudyListService } from "../services/studyListService";
+import { updateWordExposure } from "../utils/gameUtils";
 
 export function useFlashcardGame(
   wordList = [],
@@ -19,7 +19,7 @@ export function useFlashcardGame(
   useEffect(() => {
     setCurrentPair(initialCard);
   }, [initialCard]);
-  
+
   const selectNewPairCard = useCallback(async () => {
     console.log("useFlashcardGame: Selecting next card...");
     setGameError(null);
@@ -58,10 +58,10 @@ export function useFlashcardGame(
   useEffect(() => {
     // Auto-select first card when wordList becomes available
     if (wordList && wordList.length > 0 && !currentPair) {
-        console.log("useFlashcardGame: Auto-selecting initial card...");
-        selectNewPairCard();
+      console.log("useFlashcardGame: Auto-selecting initial card...");
+      selectNewPairCard();
     }
-}, [wordList, currentPair, selectNewPairCard]);
+  }, [wordList, currentPair, selectNewPairCard]);
 
   const loadSpecificCard = useCallback((pairToLoad) => {
     if (pairToLoad && pairToLoad.spanish && pairToLoad.english) {
@@ -87,6 +87,7 @@ export function useFlashcardGame(
       let isCorrect =
         normalizedUserAnswer === correctAnswerExpected.toLowerCase().trim();
 
+      // Check synonyms for spa-eng direction
       if (
         !isCorrect &&
         languageDirection === "spa-eng" &&
@@ -97,6 +98,7 @@ export function useFlashcardGame(
         );
       }
 
+      // Check synonyms for eng-spa direction
       if (
         !isCorrect &&
         languageDirection === "eng-spa" &&
@@ -107,24 +109,24 @@ export function useFlashcardGame(
         );
       }
 
+      // Update word exposure
       try {
-        const listService = new StudyListService();
-        const updatedWord = await listService.updateWordExposure(
-          currentPair.id,
+        const updatedWord = await updateWordExposure(
+          currentPair,
           isCorrect,
           "flashcards"
         );
-        if (updatedWord) {
-          setLastReviewedCard(updatedWord);
-        }
+        setLastReviewedCard(updatedWord);
       } catch (error) {
         console.error("Failed to update word exposure:", error);
       }
 
+      // Record for session stats
       if (recordAnswer) {
         recordAnswer(isCorrect, "flashcards");
       }
 
+      // Update UI feedback
       if (isCorrect) {
         setScore((prev) => ({ ...prev, correct: prev.correct + 1 }));
         setFeedbackSignal("correct");
