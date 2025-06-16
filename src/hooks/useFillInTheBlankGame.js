@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { shuffleArray, updateWordLeitnerData } from "../utils/gameUtils";
-import { db } from "../db";
+import { shuffleArray, updateWordExposure } from "../utils/gameUtils";
 import { getTatoebaExamples } from "../services/tatoebaServices.js";
 
 export function useFillInTheBlankGame(wordList = [], numChoices = 4, recordAnswer = null) {

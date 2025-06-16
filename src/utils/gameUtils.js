@@ -64,3 +64,5 @@ function calculateExposureLevel(word) {
   if (timesStudied < 8 || accuracy < 0.8) return 'familiar';
   return 'mastered';
 }
+
+export const updateWordLeitnerData = updateWordExposure;
