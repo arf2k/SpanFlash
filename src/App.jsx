@@ -523,6 +523,8 @@ function App() {
             <>
               {!isLoadingData && !dataError && !gameError && currentPair && (
                 <div className="flashcard-area">
+               
+
                   <Flashcard
                     pair={currentPair}
                     direction={languageDirection}

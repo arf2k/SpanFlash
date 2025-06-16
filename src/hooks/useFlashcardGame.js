@@ -19,6 +19,7 @@ export function useFlashcardGame(
   useEffect(() => {
     setCurrentPair(initialCard);
   }, [initialCard]);
+  
   const selectNewPairCard = useCallback(async () => {
     console.log("useFlashcardGame: Selecting next card...");
     setGameError(null);
@@ -53,6 +54,14 @@ export function useFlashcardGame(
       setCurrentPair(null);
     }
   }, [wordList]);
+
+  useEffect(() => {
+    // Auto-select first card when wordList becomes available
+    if (wordList && wordList.length > 0 && !currentPair) {
+        console.log("useFlashcardGame: Auto-selecting initial card...");
+        selectNewPairCard();
+    }
+}, [wordList, currentPair, selectNewPairCard]);
 
   const loadSpecificCard = useCallback((pairToLoad) => {
     if (pairToLoad && pairToLoad.spanish && pairToLoad.english) {
