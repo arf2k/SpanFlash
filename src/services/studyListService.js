@@ -20,7 +20,8 @@ export class StudyListService {
       lastStudied: word.lastStudied || null,
 
       // NEW: Algorithmic metadata
-      frequencyRank: word.frequencyRank || getWordFrequencyRank(word.spanish) || 99999,
+      frequencyRank: word
+        .frequencyRank || getWordFrequencyRank(word.spanish) || 99999,
       source: word.source || 'scraped', // 'scraped', 'frequency', 'user_added'
       userPriority: word.userPriority || 'normal', // 'high', 'normal', 'low'
 
