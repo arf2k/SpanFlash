@@ -18,6 +18,24 @@ function askConfirmation(question) {
     });
 }
 
+// Helper to check if word has learning progress
+function hasLearningProgress(word) {
+    return (word.timesStudied > 0) || 
+           (word.exposureLevel && word.exposureLevel !== 'new') ||
+           (word.leitnerBox > 0); // Keep backward compatibility
+}
+
+// Helper to get progress summary for display
+function getProgressSummary(word) {
+    if (word.timesStudied > 0) {
+        const accuracy = Math.round((word.timesCorrect / word.timesStudied) * 100);
+        return `${word.exposureLevel} (${word.timesStudied} attempts, ${accuracy}% accuracy)`;
+    } else if (word.leitnerBox > 0) {
+        return `Leitner Box ${word.leitnerBox}`;
+    }
+    return 'no progress';
+}
+
 async function enhancedMergePhoneExportWithMaster() {
     console.log('=== Enhanced Phone Export Merge Tool (PHONE IS SOURCE OF TRUTH) ===\n');
     
@@ -36,7 +54,7 @@ async function enhancedMergePhoneExportWithMaster() {
             return;
         }
         const phoneExport = JSON.parse(fs.readFileSync(exportPath, 'utf-8'));
-        console.log(`   Found ${phoneExport.words.length} words with Leitner data`);
+        console.log(`   Found ${phoneExport.words.length} words with learning data`);
         
         console.log('\n📄 Reading master file...');
         const masterData = JSON.parse(fs.readFileSync(masterPath, 'utf-8'));
@@ -46,18 +64,16 @@ async function enhancedMergePhoneExportWithMaster() {
         console.log('\n🔍 Analyzing differences...');
         
         const phoneWordsMap = new Map();
-        const leitnerMap = new Map();
         let progressCount = 0;
         
         phoneExport.words.forEach(word => {
             const key = createWordKey(word.spanish, word.english);
             phoneWordsMap.set(key, word);
-            leitnerMap.set(key, {
-                leitnerBox: word.leitnerBox || 0,
-                lastReviewed: word.lastReviewed || null,
-                dueDate: word.dueDate || null
-            });
-            if (word.leitnerBox > 0) progressCount++;
+            
+            // Count words with learning progress (NEW - checks exposure system)
+            if (hasLearningProgress(word)) {
+                progressCount++;
+            }
         });
         
         const masterWordsMap = new Map();
@@ -66,13 +82,12 @@ async function enhancedMergePhoneExportWithMaster() {
             masterWordsMap.set(key, word);
         });
         
-        console.log(`   ${progressCount} words have learning progress (Box > 0)`);
+        console.log(`   ${progressCount} words have learning progress`);
         
         // Step 3: Identify changes (PHONE IS SOURCE OF TRUTH)
         const phoneAdditions = []; // Words in phone but not in master
         const phoneDeletions = []; // Words in master but not in phone  
         const phoneUpdates = [];   // Words in both, but phone has changes
-        const masterOnlyWords = []; // Words only in master (new laptop additions)
         
         // Find phone additions
         phoneWordsMap.forEach((phoneWord, key) => {
@@ -140,7 +155,8 @@ async function enhancedMergePhoneExportWithMaster() {
         if (phoneAdditions.length > 0) {
             console.log('\n📝 Phone additions found:');
             phoneAdditions.forEach((word, index) => {
-                console.log(`   ${index + 1}. "${word.spanish}" - "${word.english}"`);
+                const progress = hasLearningProgress(word) ? ` [${getProgressSummary(word)}]` : '';
+                console.log(`   ${index + 1}. "${word.spanish}" - "${word.english}"${progress}`);
             });
             
             const addChoice = await askConfirmation(
@@ -152,8 +168,9 @@ async function enhancedMergePhoneExportWithMaster() {
                 console.log('✅ All phone additions will be included');
             } else if (addChoice === 'r' || addChoice === 'review') {
                 for (const word of phoneAdditions) {
+                    const progress = hasLearningProgress(word) ? ` [${getProgressSummary(word)}]` : '';
                     const includeWord = await askConfirmation(
-                        `Include "${word.spanish}" - "${word.english}"? (y/n): `
+                        `Include "${word.spanish}" - "${word.english}"${progress}? (y/n): `
                     );
                     if (includeWord === 'y' || includeWord === 'yes') {
                         additionsToInclude.push(word);
@@ -174,15 +191,26 @@ async function enhancedMergePhoneExportWithMaster() {
         phoneWordsMap.forEach((phoneWord, key) => {
             if (masterWordsMap.has(key) || additionsToInclude.includes(phoneWord)) {
                 finalWords.push(phoneWord);
-                if (phoneWord.leitnerBox > 0) preservedProgressCount++;
+                
+                // Count preserved progress (NEW - checks exposure system)
+                if (hasLearningProgress(phoneWord)) {
+                    preservedProgressCount++;
+                }
             }
         });
         
-        // Add master-only words (new laptop additions) with fresh Leitner data
+        // Add master-only words (new laptop additions) with fresh data
         masterWordsMap.forEach((masterWord, key) => {
             if (!phoneWordsMap.has(key)) {
                 finalWords.push({
                     ...masterWord,
+                    // Reset to new state for master-only words
+                    exposureLevel: 'new',
+                    timesStudied: 0,
+                    timesCorrect: 0,
+                    lastStudied: null,
+                    source: 'scraped',
+                    // Legacy Leitner data for backward compatibility
                     leitnerBox: 0,
                     lastReviewed: null,
                     dueDate: null
@@ -217,17 +245,36 @@ async function enhancedMergePhoneExportWithMaster() {
         
         fs.writeFileSync(outputPath, JSON.stringify(mergedData, null, 2), 'utf-8');
         
-        // Step 9: Box distribution
-        const boxDist = {};
+        // Step 9: Progress distribution (NEW - shows exposure levels instead of Leitner boxes)
+        const exposureDist = {};
+        const progressDist = {};
+        
         finalWords.forEach(w => {
-            const box = w.leitnerBox || 0;
-            boxDist[box] = (boxDist[box] || 0) + 1;
+            // Exposure level distribution
+            const level = w.exposureLevel || 'new';
+            exposureDist[level] = (exposureDist[level] || 0) + 1;
+            
+            // Progress attempts distribution
+            const attempts = w.timesStudied || 0;
+            if (attempts > 0) {
+                const bracket = attempts <= 2 ? '1-2' : 
+                               attempts <= 5 ? '3-5' : 
+                               attempts <= 10 ? '6-10' : '10+';
+                progressDist[bracket] = (progressDist[bracket] || 0) + 1;
+            }
         });
         
-        console.log('\n📦 Leitner Box Distribution:');
-        Object.entries(boxDist).sort((a, b) => a[0] - b[0]).forEach(([box, count]) => {
-            console.log(`   Box ${box}: ${count} words`);
+        console.log('\n📊 Exposure Level Distribution:');
+        Object.entries(exposureDist).sort().forEach(([level, count]) => {
+            console.log(`   ${level}: ${count} words`);
         });
+        
+        if (Object.keys(progressDist).length > 0) {
+            console.log('\n📈 Study Attempts Distribution:');
+            Object.entries(progressDist).forEach(([bracket, count]) => {
+                console.log(`   ${bracket} attempts: ${count} words`);
+            });
+        }
         
         console.log('\n✅ Enhanced Merge Complete!\n');
         console.log('📝 Next steps:');
