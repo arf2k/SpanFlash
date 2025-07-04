@@ -6,7 +6,9 @@ export const createModalHandlers = (
   setIsLoadingTatoebaExamples,
   setIsDetailsModalOpen,
   setIsAddWordModalOpen,
-  setIsSettingsModalOpen
+  setIsSettingsModalOpen,
+  setAddWordFromSearch,     
+  setIsSearchModalOpen  
 ) => {
   const openEditModal = (wordToEdit) => {
     if (!wordToEdit || wordToEdit.id == null) {
@@ -39,6 +41,13 @@ export const createModalHandlers = (
     setIsAddWordModalOpen(true);
     setIsSettingsModalOpen(false);
   };
+  const handleAddWordFromSearch = (searchTerm) => {
+    console.log("ModalHandlers: Adding word from search:", searchTerm);
+    setAddWordFromSearch(searchTerm);
+    setIsSearchModalOpen(false);
+    setIsAddWordModalOpen(true);
+  };
+
 
   return {
     openEditModal,
@@ -46,5 +55,6 @@ export const createModalHandlers = (
     handleShowDetailsModal,
     handleCloseDetailsModal,
     handleOpenAddWordModalFromSettings,
+    handleAddWordFromSearch,
   };
 };

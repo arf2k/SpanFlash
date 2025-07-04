@@ -9,6 +9,7 @@ export function useModalState() {
   const [isStatsModalOpen, setIsStatsModalOpen] = useState(false);
   const [isVocabAnalysisModalOpen, setIsVocabAnalysisModalOpen] =
     useState(false);
+  const [addWordFromSearch, setAddWordFromSearch] = useState(null);
 
   const closeAllModals = () => {
     setIsSearchModalOpen(false);
@@ -28,6 +29,7 @@ export function useModalState() {
     isSettingsModalOpen,
     isStatsModalOpen,
     isVocabAnalysisModalOpen,
+    addWordFromSearch,
 
     setIsSearchModalOpen,
     setIsAddWordModalOpen,
@@ -36,7 +38,7 @@ export function useModalState() {
     setIsSettingsModalOpen,
     setIsStatsModalOpen,
     setIsVocabAnalysisModalOpen,
-
+    setAddWordFromSearch,
     closeAllModals,
   };
 }

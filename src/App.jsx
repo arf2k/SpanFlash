@@ -42,6 +42,7 @@ function App() {
     useState(false);
   const [tatoebaError, setTatoebaError] = useState(null);
 
+
   // === Custom Hooks ===
   const {
     isAdminMode,
@@ -616,6 +617,8 @@ function App() {
             onClose={() => setIsSearchModalOpen(false)}
             wordList={mainWordList}
             onSelectResult={handleSelectWordFromSearch}
+            onAddWord={handleAddWordFromSearch}
+            isAdminMode={isAdminMode}
           />
           <AddWordModal
             isOpen={isAddWordModalOpen}
