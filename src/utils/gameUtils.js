@@ -1,6 +1,5 @@
 import { db } from "../db";
 
-// Shared shuffle function (unchanged)
 export function shuffleArray(array) {
   const newArray = [...array];
   for (let i = newArray.length - 1; i > 0; i--) {
@@ -10,7 +9,7 @@ export function shuffleArray(array) {
   return newArray;
 }
 
-//  Update word exposure (replaces updateWordLeitnerData)
+
 export const updateWordExposure = async (word, isCorrect, gameType = "flashcards") => {
   try {
     // Update study tracking
@@ -36,7 +35,7 @@ export const updateWordExposure = async (word, isCorrect, gameType = "flashcards
       if (isCorrect) updatedWord.gamePerformance[gameType].correct++;
     }
 
-    // Calculate exposure level
+   
     updatedWord.exposureLevel = calculateExposureLevel(updatedWord);
 
     await db.allWords.put(updatedWord);
@@ -60,9 +59,7 @@ function calculateExposureLevel(word) {
   const timesStudied = word.timesStudied || 0;
   
   if (timesStudied === 0) return 'new';
-  if (timesStudied < 3 || accuracy < 0.5) return 'learning';
-if (timesStudied < 5 || accuracy < 0.8) return 'familiar';
+  if (timesStudied < 2 || accuracy < 0.5) return 'learning';  // 2 attempts to graduate from learning
+  if (timesStudied < 4 || accuracy < 0.8) return 'familiar';  // 4 attempts to graduate to mastered
   return 'mastered';
 }
-
-
