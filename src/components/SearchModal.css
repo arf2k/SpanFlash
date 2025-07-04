@@ -149,3 +149,42 @@
   font-style: italic;
   transition: color 0.3s ease;
 }
+
+/* NEW: Styles for admin add word functionality */
+.search-no-results-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.add-word-from-search-btn {
+  background-color: var(--color-primary);
+  color: var(--text-button, white);
+  border: 1px solid var(--color-primary-darker, var(--color-primary));
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-top: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, transform 0.1s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.add-word-from-search-btn:hover {
+  background-color: var(--color-primary-darker, var(--color-primary));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.add-word-from-search-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.add-word-from-search-btn:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
