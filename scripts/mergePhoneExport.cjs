@@ -70,7 +70,7 @@ async function enhancedMergePhoneExportWithMaster() {
             const key = createWordKey(word.spanish, word.english);
             phoneWordsMap.set(key, word);
             
-            // Count words with learning progress (NEW - checks exposure system)
+            // Count words with learning progress 
             if (hasLearningProgress(word)) {
                 progressCount++;
             }
@@ -192,7 +192,7 @@ async function enhancedMergePhoneExportWithMaster() {
             if (masterWordsMap.has(key) || additionsToInclude.includes(phoneWord)) {
                 finalWords.push(phoneWord);
                 
-                // Count preserved progress (NEW - checks exposure system)
+                // Count preserved progress 
                 if (hasLearningProgress(phoneWord)) {
                     preservedProgressCount++;
                 }
@@ -245,7 +245,7 @@ async function enhancedMergePhoneExportWithMaster() {
         
         fs.writeFileSync(outputPath, JSON.stringify(mergedData, null, 2), 'utf-8');
         
-        // Step 9: Progress distribution (NEW - shows exposure levels instead of Leitner boxes)
+        // Step 9: Progress distribution (shows exposure levels instead of Leitner boxes)
         const exposureDist = {};
         const progressDist = {};
         

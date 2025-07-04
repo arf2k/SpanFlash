@@ -7,19 +7,18 @@ export class StudyListService {
     this.wordList = wordList;
   }
 
-  // NEW: Enhanced word data structure (replaces Leitner)
+
   static enhanceWord(word) {
     return {
       // Existing core data
       ...word,
 
-      // NEW: Exposure tracking (replaces Leitner boxes)
+     
       exposureLevel: word.exposureLevel || 'new', // 'new', 'learning', 'familiar', 'mastered', 'known'
       timesStudied: word.timesStudied || 0,
       timesCorrect: word.timesCorrect || 0,
       lastStudied: word.lastStudied || null,
 
-      // NEW: Algorithmic metadata
       frequencyRank: word
         .frequencyRank || getWordFrequencyRank(word.spanish) || 99999,
       source: word.source || 'scraped', // 'scraped', 'frequency', 'user_added'
@@ -35,7 +34,7 @@ export class StudyListService {
     };
   }
 
-  // ENHANCED: Generate lists for harder games (matching, fill-in-blank)
+
   generateNewWordsList(maxWords = 20) {
     try {
       // Work with current Leitner data until migration
@@ -75,7 +74,7 @@ export class StudyListService {
     }
   }
 
-  // UPDATED WITH SMART SELECTION - THIS IS THE KEY CHANGE
+
   generateFlashcardsList(maxWords = 200) {
     try {
       console.log(`Generating flashcard list using learning data...`);
