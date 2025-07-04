@@ -7,8 +7,8 @@ export const createModalHandlers = (
   setIsDetailsModalOpen,
   setIsAddWordModalOpen,
   setIsSettingsModalOpen,
-  setAddWordFromSearch,     
-  setIsSearchModalOpen  
+  setAddWordFromSearch,
+  setIsSearchModalOpen
 ) => {
   const openEditModal = (wordToEdit) => {
     if (!wordToEdit || wordToEdit.id == null) {
@@ -47,7 +47,6 @@ export const createModalHandlers = (
     setIsSearchModalOpen(false);
     setIsAddWordModalOpen(true);
   };
-
 
   return {
     openEditModal,

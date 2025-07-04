@@ -42,7 +42,6 @@ function App() {
     useState(false);
   const [tatoebaError, setTatoebaError] = useState(null);
 
-
   // === Custom Hooks ===
   const {
     isAdminMode,
@@ -622,8 +621,12 @@ function App() {
           />
           <AddWordModal
             isOpen={isAddWordModalOpen}
-            onClose={() => setIsAddWordModalOpen(false)}
+            onClose={() => {
+              setIsAddWordModalOpen(false);
+              setAddWordFromSearch(null);
+            }}
             onAddWord={handleAddWord}
+            initialSpanish={addWordFromSearch || ""}
           />
           <WordEditModal
             isOpen={isEditModalOpen}
