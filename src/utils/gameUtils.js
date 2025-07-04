@@ -52,7 +52,7 @@ export const updateWordExposure = async (word, isCorrect, gameType = "flashcards
   }
 };
 
-// Helper: Calculate exposure level based on performance
+
 function calculateExposureLevel(word) {
   if (word.exposureLevel === 'known') return 'known'; 
   
@@ -61,7 +61,7 @@ function calculateExposureLevel(word) {
   
   if (timesStudied === 0) return 'new';
   if (timesStudied < 3 || accuracy < 0.5) return 'learning';
-  if (timesStudied < 8 || accuracy < 0.8) return 'familiar';
+if (timesStudied < 5 || accuracy < 0.8) return 'familiar';
   return 'mastered';
 }
 
