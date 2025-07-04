@@ -89,6 +89,8 @@ function App() {
     setIsStatsModalOpen,
     isVocabAnalysisModalOpen,
     setIsVocabAnalysisModalOpen,
+    addWordFromSearch,
+    setAddWordFromSearch,
   } = useModalState();
 
   const {
@@ -151,6 +153,7 @@ function App() {
     handleShowDetailsModal,
     handleCloseDetailsModal,
     handleOpenAddWordModalFromSettings,
+    handleAddWordFromSearch,
   } = createModalHandlers(
     setWordCurrentlyBeingEdited,
     setIsEditModalOpen,
@@ -159,7 +162,9 @@ function App() {
     setIsLoadingTatoebaExamples,
     setIsDetailsModalOpen,
     setIsAddWordModalOpen,
-    setIsSettingsModalOpen
+    setIsSettingsModalOpen,
+    setAddWordFromSearch,
+    setIsSearchModalOpen
   );
 
   const {
