@@ -2,7 +2,7 @@
 
 .stats-modal-content {
   max-width: 500px;
-  max-height: 80vh;
+  max-height: 70vh;
   display: flex;
   flex-direction: column;
   transition: background-color 0.3s ease;
