@@ -104,7 +104,6 @@ function App() {
   const {
     currentPair,
     languageDirection,
-    score,
     showFeedback,
     lastCorrectAnswer,
     feedbackSignal,
@@ -113,7 +112,6 @@ function App() {
     submitAnswer,
     switchDirection,
     switchToNextCard,
-    setScore,
     setShowFeedback: setGameShowFeedback,
     loadSpecificCard,
     lastReviewedCard,
@@ -239,38 +237,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const loadAppSpecificData = async () => {
-      if (!db || !db.appState || !db.hardWords) {
-        console.error(
-          "App.jsx: Database not initialized or missing required stores."
-        );
-        return;
-      }
-      try {
-        const savedScoreState = await db.appState.get("userScore");
-        if (savedScoreState) {
-          setScore(savedScoreState);
-        } else {
-          const initialScore = { correct: 0, incorrect: 0 };
-          await db.appState.put({ id: "userScore", ...initialScore });
-          setScore(initialScore);
-        }
-      } catch (err) {
-        console.error("Failed to load/initialize score:", err);
-      }
-
-      try {
-        const loadedHardWords = await db.hardWords.toArray();
-        setHardWordsList(loadedHardWords || []);
-      } catch (err) {
-        console.error("Failed to load hard words:", err);
-      }
-      isInitialMountApp.current = false;
-    };
-    loadAppSpecificData();
-  }, [setScore]);
-
-  useEffect(() => {
     setHintData(null);
     setIsHintLoading(false);
     setApiSuggestions(null);
@@ -283,53 +249,24 @@ function App() {
     isFillInTheBlankModeActive,
     isVerbConjugationGameActive,
   ]);
-
   useEffect(() => {
-    if (currentDataVersion !== null) {
-      if (previousDataVersionRef.current === null) {
-        previousDataVersionRef.current = currentDataVersion;
-      } else if (currentDataVersion !== previousDataVersionRef.current) {
-        if (isInitialMountApp.current === false) {
-          const newScore = { correct: 0, incorrect: 0 };
-          setScore(newScore);
-          db.appState
-            .put({ id: "userScore", ...newScore })
-            .catch((err) =>
-              console.error("App.jsx: Failed to save reset score to DB", err)
-            );
-        }
-        previousDataVersionRef.current = currentDataVersion;
+    const loadAppSpecificData = async () => {
+      if (!db || !db.hardWords) {
+        console.error(
+          "App.jsx: Database not initialized or missing required stores."
+        );
+        return;
       }
-    }
-  }, [currentDataVersion, setScore]);
-
-  useEffect(() => {
-    if (isInitialMountApp.current) return;
-    const saveScoreToDB = async () => {
       try {
-        const scoreToSave = score || { correct: 0, incorrect: 0 };
-        await db.appState.put({ id: "userScore", ...scoreToSave });
+        const loadedHardWords = await db.hardWords.toArray();
+        setHardWordsList(loadedHardWords || []);
       } catch (err) {
-        console.error("Failed to save score to DB:", err);
+        console.error("Failed to load hard words:", err);
       }
+      isInitialMountApp.current = false;
     };
-    saveScoreToDB();
-  }, [score]);
-
-  useEffect(() => {
-    if (isInitialMountApp.current) return;
-    if (score.incorrect > 0 && incorrectScoreRef.current) {
-      const element = incorrectScoreRef.current;
-      if (!element.classList.contains("score-flash-incorrect")) {
-        element.classList.add("score-flash-incorrect");
-        setTimeout(() => {
-          if (incorrectScoreRef.current) {
-            incorrectScoreRef.current.classList.remove("score-flash-incorrect");
-          }
-        }, 1000);
-      }
-    }
-  }, [score.incorrect]);
+    loadAppSpecificData();
+  }, []);
 
   useEffect(() => {
     if (isMatchingGameModeActive && matchingGameContainerRef.current) {
@@ -415,13 +352,13 @@ function App() {
             <ScoreStack
               type="correct"
               label="Correct"
-              count={sessionStats?.correctAnswers || 0} 
+              count={sessionStats?.correctAnswers || 0}
               icon="✅"
             />
             <ScoreStack
               type="incorrect"
               label="Incorrect"
-             count={sessionStats?.incorrectAnswers || 0} 
+              count={sessionStats?.incorrectAnswers || 0}
               icon="❌"
               flashRef={incorrectScoreRef}
             />
@@ -673,7 +610,6 @@ function App() {
             getSessionDuration={getSessionDuration}
             onNewSession={startNewSession}
           />
-        
         </>
       )}
     </div>
