@@ -2,14 +2,14 @@
 
 .stats-modal-content {
   max-width: 500px;
-  max-height: 70vh;
   display: flex;
   flex-direction: column;
+  background-color: var(--bg-container); 
   transition: background-color 0.3s ease;
 }
 
 .stats-modal-scrollable-area {
-  overflow-y: auto;
+  overflow-y: auto !important;
   flex-grow: 1;
   padding: 15px 20px;
   line-height: 1.6;
@@ -92,8 +92,9 @@
 /* Answer Breakdown */
 .stats-answer-breakdown {
   display: flex;
-  gap: 40px;
+  gap: 20px !important;
   justify-content: center;
+  margin: 10px 0 !important;
 }
 
 .stats-answer-item {
@@ -104,12 +105,12 @@
 }
 
 .stats-answer-icon {
-  font-size: 2rem;
+  font-size: 1.2rem !important;
   line-height: 1;
 }
 
 .stats-answer-count {
-  font-size: 1.5rem;
+  font-size: 1.3rem !important;
   font-weight: 700;
   color: var(--text-body);
   transition: color 0.3s ease;
@@ -141,7 +142,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px;
+  padding: 8px 12px;
   background-color: var(--bg-hint);
   border-radius: 6px;
   border: 1px solid var(--color-border-light);
@@ -218,21 +219,21 @@
     grid-template-columns: 1fr;
     gap: 12px;
   }
-  
+
   .stats-answer-breakdown {
     gap: 30px;
   }
-  
+
   .stats-modal-actions {
     flex-direction: column;
     gap: 10px;
   }
-  
+
   .stats-new-session-button,
   .stats-close-button {
     width: 100%;
   }
-  
+
   .stats-game-item {
     flex-direction: column;
     text-align: center;

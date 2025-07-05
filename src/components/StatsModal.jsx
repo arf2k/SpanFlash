@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback, useRef, useState } from "react";
 import "./SearchModal.css";
+import "./StatsModal.css";
 import { db } from "../db";
 
 const StatsModal = ({
@@ -77,7 +78,7 @@ const StatsModal = ({
   return (
     <div className="search-modal-overlay" onClick={handleClickOutside}>
       <div
-        className="search-modal-content"
+        className="stats-modal-content"
         ref={modalDialogRef}
         onClick={(e) => e.stopPropagation()}
       >
@@ -88,10 +89,9 @@ const StatsModal = ({
           </button>
         </div>
 
-        <div style={{ padding: "20px", lineHeight: "1.6" }}>
-
+        <div className="stats-modal-scrollable-area">
           {/* Enhanced Session Overview - Current Session + Today's Total */}
-          
+
           <div className="stats-section">
             <h3 className="stats-section-title">Session & Daily Progress</h3>
 
@@ -199,42 +199,20 @@ const StatsModal = ({
               >
                 Answer Breakdown
               </h3>
-              <div
-                style={{
-                  display: "flex",
-                  gap: "20px",
-                  justifyContent: "center",
-                }}
-              >
-                <div style={{ textAlign: "center" }}>
-                  <div
-                    style={{ fontSize: "2rem", color: "var(--color-success)" }}
-                  >
-                    ✅
+              <div className="stats-answer-breakdown">
+                <div className="stats-answer-item correct">
+                  <div className="stats-answer-icon">✅</div>
+                  <div className="stats-answer-count">
+                    {sessionStats.correctAnswers}
                   </div>
-                  <div>
-                    <strong>{sessionStats.correctAnswers}</strong>
-                  </div>
-                  <div
-                    style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}
-                  >
-                    Correct
-                  </div>
+                  <div className="stats-answer-label">Correct</div>
                 </div>
-                <div style={{ textAlign: "center" }}>
-                  <div
-                    style={{ fontSize: "2rem", color: "var(--color-danger)" }}
-                  >
-                    ❌
+                <div className="stats-answer-item incorrect">
+                  <div className="stats-answer-icon">❌</div>
+                  <div className="stats-answer-count">
+                    {sessionStats.incorrectAnswers}
                   </div>
-                  <div>
-                    <strong>{sessionStats.incorrectAnswers}</strong>
-                  </div>
-                  <div
-                    style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}
-                  >
-                    Incorrect
-                  </div>
+                  <div className="stats-answer-label">Incorrect</div>
                 </div>
               </div>
             </div>
