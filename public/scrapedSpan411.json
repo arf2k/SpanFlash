@@ -105389,8 +105389,8 @@
       "source": "scraped"
     },
     {
-      "english": "... para dos personas.",
-      "spanish": "... for 2 people",
+      "english": "de viernes a domingo",
+      "spanish": "from Friday to Sunday",
       "leitnerBox": 0,
       "lastReviewed": 1750284216808,
       "dueDate": 1750284216808,
@@ -105401,32 +105401,8 @@
       "source": "scraped"
     },
     {
-      "english": "… para dos noches.",
-      "spanish": "… for 2 nights.",
-      "leitnerBox": 0,
-      "lastReviewed": 1750284216808,
-      "dueDate": 1750284216808,
-      "exposureLevel": "new",
-      "timesStudied": 0,
-      "timesCorrect": 0,
-      "lastStudied": null,
-      "source": "scraped"
-    },
-    {
-      "english": "… de viernes a domingo.",
-      "spanish": "… from Friday to Sunday.",
-      "leitnerBox": 0,
-      "lastReviewed": 1750284216808,
-      "dueDate": 1750284216808,
-      "exposureLevel": "new",
-      "timesStudied": 0,
-      "timesCorrect": 0,
-      "lastStudied": null,
-      "source": "scraped"
-    },
-    {
-      "english": "… del 25 de julio al 5 de agosto.",
-      "spanish": "… from July 25 to August 5.",
+      "english": "del 25 de julio al 5 de agosto",
+      "spanish": "from July 25 to August 5",
       "leitnerBox": 0,
       "lastReviewed": 1750284216808,
       "dueDate": 1750284216808,
@@ -105449,8 +105425,8 @@
       "source": "scraped"
     },
     {
-      "english": "... con vista al mar.",
-      "spanish": "... with a sea view.",
+      "english": "con vista al mar",
+      "spanish": "with a sea view",
       "leitnerBox": 0,
       "lastReviewed": 1750284216808,
       "dueDate": 1750284216808,
@@ -105462,7 +105438,7 @@
     },
     {
       "spanish": "Llegaremos a las dos de la tarde.",
-      "english": "We’ll arrive at 2 PM",
+      "english": "We'll arrive at 2 PM",
       "notes": "",
       "synonyms_spanish": [],
       "synonyms_english": [],
@@ -134413,18 +134389,6 @@
     {
       "spanish": "qué hace",
       "english": "what...is doing",
-      "leitnerBox": 0,
-      "lastReviewed": 1750284216808,
-      "dueDate": 1750284216808,
-      "exposureLevel": "new",
-      "timesStudied": 0,
-      "timesCorrect": 0,
-      "lastStudied": null,
-      "source": "scraped"
-    },
-    {
-      "spanish": "cuándo y dónde ocurrió",
-      "english": "when and where did it happen",
       "leitnerBox": 0,
       "lastReviewed": 1750284216808,
       "dueDate": 1750284216808,
@@ -171292,22 +171256,6 @@
       "timesCorrect": 0,
       "lastStudied": null,
       "source": "scraped"
-    },
-    {
-      "spanish": "bombardear (from air)\ncolocar una bomba en",
-      "english": "to bomb / to plant a bomb in",
-      "notes": "",
-      "synonyms_spanish": [],
-      "synonyms_english": [],
-      "category": "",
-      "exposureLevel": "new",
-      "timesStudied": 0,
-      "timesCorrect": 0,
-      "lastStudied": null,
-      "source": "scraped",
-      "leitnerBox": 0,
-      "lastReviewed": 1750284216808,
-      "dueDate": 1750284216808
     },
     {
       "english": "un / una acomodador/a",
