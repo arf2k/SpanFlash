@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
 
-
+// --- CORRECTED --- The '..' navigates up from /scripts to the project root
 const jsonFilePath = path.join(__dirname, '..', 'public', 'scrapedSpan411.json');
 const backupFilePath = jsonFilePath + '.bak';
 
@@ -17,7 +17,7 @@ function askConfirmation(question) {
     });
 }
 
-
+// --- Normalization and Scoring Functions ---
 function normalizeText(text) {
     if (typeof text !== 'string') return '';
     let normalized = text.trim().toLowerCase();
@@ -47,15 +47,27 @@ function stripEnglishArticlesAndTo(text) {
     return processedText.trim();
 }
 
-// ENHANCED: Prioritize words with learning progress
+// ENHANCED: Prioritize words with learning progress AND preferred formats
 function getItemCompletenessScore(item) {
     let score = 0;
     
-    // NEW: High priority for words with learning progress
+    // Highest priority: Learning progress (always preserved)
     if (item.timesStudied > 0) score += 10;
     if (item.exposureLevel && item.exposureLevel !== 'new') score += 5;
     
-    // Existing scoring
+    // NEW: Prefer "to" versions for English verbs (strong preference to compete with learning progress)
+    const englishText = (item.english || '').toLowerCase().trim();
+    if (englishText.startsWith('to ')) {
+        score += 8; // Strong preference for "to feel" over "feel"
+    }
+    
+    // NEW: Prefer articles for Spanish nouns (strong preference to compete with learning progress)
+    const spanishText = (item.spanish || '').toLowerCase().trim();
+    if (/^(el|la|los|las|un|una|unos|unas)\s+/.test(spanishText)) {
+        score += 6; // Strong preference for "la entrada" over "entrada"
+    }
+    
+    // Existing metadata scoring
     if (item.notes && item.notes.trim() !== '') score += 2;
     if (item.synonyms_spanish && Array.isArray(item.synonyms_spanish) && item.synonyms_spanish.length > 0) score += 1;
     if (item.synonyms_english && Array.isArray(item.synonyms_english) && item.synonyms_english.length > 0) score += 1;
@@ -65,7 +77,7 @@ function getItemCompletenessScore(item) {
     return score;
 }
 
-
+// --- Language Likelihood Heuristics (no changes) ---
 function containsSpanishChars(text) {
     if (typeof text !== 'string') return false;
     return /[ñáéíóúü¡¿]/i.test(text);
@@ -102,10 +114,15 @@ function showUsage() {
     console.log('  --fix             Apply all detected changes (requires confirmation)');
     console.log('  --verbose         Show detailed duplicate detection information');
     console.log('  --help            Show this help message');
+    console.log('\nPreferences (built-in):');
+    console.log('  • Always preserves learning progress (timesStudied > 0)');
+    console.log('  • Prefers "to" versions for English verbs ("to feel" > "feel")');
+    console.log('  • Prefers Spanish words with articles ("la entrada" > "entrada")');
+    console.log('  • Prefers more complete entries (notes, synonyms, categories)');
     console.log('\nExamples:');
-    console.log('  node scripts/cleanMasterList.cjs --dry-run --conservative');
+    console.log('  node scripts/cleanMasterList.cjs --dry-run --verbose');
+    console.log('  node scripts/cleanMasterList.cjs --conservative --fix');
     console.log('  node scripts/cleanMasterList.cjs --fix-swapped --fix');
-    console.log('  node scripts/cleanMasterList.cjs --verbose --dry-run');
 }
 
 // --- Main Validation and Cleaning Logic ---
