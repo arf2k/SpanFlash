@@ -5,7 +5,7 @@
   max-height: 80vh;
   display: flex;
   flex-direction: column;
-  background-color: var(--bg-container); 
+  background-color: var(--bg-container);
   transition: background-color 0.3s ease;
 }
 
@@ -217,12 +217,24 @@
 /* Responsive Design */
 @media (max-width: 480px) {
   .stats-overview-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
+    grid-template-columns: 1fr 1fr; /* KEEP 2 columns on mobile instead of 1 */
+    gap: 8px; /* REDUCE gap for tighter spacing */
+  }
+
+  .stats-metric {
+    gap: 2px; /* REDUCE internal spacing */
+  }
+
+  .stats-metric-label {
+    font-size: 0.8rem; /* SMALLER label text */
+  }
+
+  .stats-metric-value {
+    font-size: 0.95rem; /* SLIGHTLY smaller values */
   }
 
   .stats-answer-breakdown {
-    gap: 30px;
+    gap: 20px; /* KEEP this spacing for answer breakdown */
   }
 
   .stats-modal-actions {
