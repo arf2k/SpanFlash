@@ -53,6 +53,9 @@ function App() {
 
   const {
     sessionStats,
+    todaysStats,
+    viewMode,
+    toggleViewMode,
     recordAnswer,
     startNewSession,
     getSessionAccuracy,
@@ -606,6 +609,9 @@ function App() {
             isOpen={isStatsModalOpen}
             onClose={() => setIsStatsModalOpen(false)}
             sessionStats={sessionStats}
+            todaysStats={todaysStats}
+            viewMode={viewMode}
+            toggleViewMode={toggleViewMode}
             getSessionAccuracy={getSessionAccuracy}
             getSessionDuration={getSessionDuration}
             onNewSession={startNewSession}

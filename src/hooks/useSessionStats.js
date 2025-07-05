@@ -60,6 +60,31 @@ export function useSessionStats() {
     }
   }, []);
 
+  useEffect(() => {
+  const loadTodaysStats = async () => {
+    try {
+      const today = new Date().toISOString().split("T")[0];
+      const todayData = await db.dailyStats.get(today);
+      setTodaysStats(todayData || {
+        date: today,
+        cardsReviewed: 0,
+        correctAnswers: 0,
+        incorrectAnswers: 0,
+        gameTypeStats: {
+          flashcards: { correct: 0, incorrect: 0 },
+          matching: { correct: 0, incorrect: 0 },
+          fillInBlank: { correct: 0, incorrect: 0 },
+          conjugation: { correct: 0, incorrect: 0 },
+        },
+      });
+    } catch (error) {
+      console.error("Failed to load today's stats:", error);
+    }
+  };
+  
+  loadTodaysStats();
+}, []);
+
   const startNewSession = () => {
     const now = Date.now();
     const newSession = {

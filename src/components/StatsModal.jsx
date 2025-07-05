@@ -7,14 +7,16 @@ const StatsModal = ({
   isOpen,
   onClose,
   sessionStats,
+  todaysStats,
+  viewMode,
+  toggleViewMode,
   getSessionAccuracy,
   getSessionDuration,
   onNewSession,
 }) => {
   const modalDialogRef = useRef(null);
 
-  const [todaysStats, setTodaysStats] = useState(null);
-  const [isLoadingTodaysStats, setIsLoadingTodaysStats] = useState(true);
+ 
 
   const handleEscapeKey = useCallback(
     (event) => {
@@ -36,26 +38,7 @@ const StatsModal = ({
     };
   }, [isOpen, handleEscapeKey]);
 
-  // Load today's stats when modal opens
-  useEffect(() => {
-    if (isOpen) {
-      const loadTodaysStats = async () => {
-        setIsLoadingTodaysStats(true);
-        try {
-          const today = new Date().toISOString().split("T")[0];
-          const todayData = await db.dailyStats.get(today);
-          setTodaysStats(todayData || null);
-        } catch (error) {
-          console.error("Failed to load today's stats:", error);
-          setTodaysStats(null);
-        } finally {
-          setIsLoadingTodaysStats(false);
-        }
-      };
-      loadTodaysStats();
-    }
-  }, [isOpen]);
-
+ 
   const handleClickOutside = useCallback(
     (event) => {
       if (
