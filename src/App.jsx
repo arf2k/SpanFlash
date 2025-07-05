@@ -415,13 +415,13 @@ function App() {
             <ScoreStack
               type="correct"
               label="Correct"
-              count={score.correct}
+              count={sessionStats.correctAnswers}
               icon="✅"
             />
             <ScoreStack
               type="incorrect"
               label="Incorrect"
-              count={score.incorrect}
+              count={sessionStats.incorrectAnswers}
               icon="❌"
               flashRef={incorrectScoreRef}
             />

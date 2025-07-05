@@ -9,7 +9,6 @@ export function useFlashcardGame(
 ) {
   const [currentPair, setCurrentPair] = useState(initialCard);
   const [languageDirection, setLanguageDirection] = useState("spa-eng");
-  const [score, setScore] = useState({ correct: 0, incorrect: 0 });
   const [showFeedback, setShowFeedback] = useState(false);
   const [lastCorrectAnswer, setLastCorrectAnswer] = useState("");
   const [feedbackSignal, setFeedbackSignal] = useState(null);
@@ -172,10 +171,8 @@ export function useFlashcardGame(
 
       // Update UI feedback
       if (isCorrect) {
-        setScore((prev) => ({ ...prev, correct: prev.correct + 1 }));
         setFeedbackSignal("correct");
       } else {
-        setScore((prev) => ({ ...prev, incorrect: prev.incorrect + 1 }));
         setLastCorrectAnswer(correctAnswerExpected);
         setFeedbackSignal("incorrect");
       }
@@ -202,14 +199,12 @@ export function useFlashcardGame(
   const resetSession = useCallback(() => {
     console.log('Resetting flashcard session');
     setSessionShownIds(new Set());
-    setScore({ correct: 0, incorrect: 0 });
     selectNewPairCard();
   }, [selectNewPairCard]);
 
   return {
     currentPair,
     languageDirection,
-    score,
     showFeedback,
     lastCorrectAnswer,
     feedbackSignal,
@@ -218,7 +213,6 @@ export function useFlashcardGame(
     submitAnswer,
     switchDirection,
     switchToNextCard,
-    setScore,
     setShowFeedback,
     loadSpecificCard,
     lastReviewedCard,
