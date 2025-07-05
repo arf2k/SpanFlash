@@ -26,7 +26,6 @@ import AppHeader from "./components/AppHeader";
 import GameControls from "./components/GameControls";
 import { useSessionStats } from "./hooks/useSessionStats";
 import StatsModal from "./components/StatsModal";
-import VocabularyAnalysisModal from "./components/VocabularyAnalysisModal";
 
 function App() {
   // === App-specific State Variables ===
@@ -87,8 +86,6 @@ function App() {
     setIsSettingsModalOpen,
     isStatsModalOpen,
     setIsStatsModalOpen,
-    isVocabAnalysisModalOpen,
-    setIsVocabAnalysisModalOpen,
     addWordFromSearch,
     setAddWordFromSearch,
   } = useModalState();
@@ -667,7 +664,6 @@ function App() {
             currentTheme={currentTheme}
             onToggleTheme={handleToggleTheme}
             onTriggerAddWordModal={handleOpenAddWordModalFromSettings}
-            onVocabAnalysisClick={() => setIsVocabAnalysisModalOpen(true)}
           />
           <StatsModal
             isOpen={isStatsModalOpen}
@@ -677,11 +673,7 @@ function App() {
             getSessionDuration={getSessionDuration}
             onNewSession={startNewSession}
           />
-          <VocabularyAnalysisModal
-            isOpen={isVocabAnalysisModalOpen}
-            onClose={() => setIsVocabAnalysisModalOpen(false)}
-            wordList={mainWordList}
-          />
+        
         </>
       )}
     </div>

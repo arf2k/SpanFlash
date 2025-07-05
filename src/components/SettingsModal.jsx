@@ -11,7 +11,6 @@ const SettingsModal = ({
   currentTheme,
   onToggleTheme,
   onTriggerAddWordModal,
-  onVocabAnalysisClick,
 }) => {
   const modalDialogRef = useRef(null);
 
@@ -107,20 +106,6 @@ const SettingsModal = ({
               </strong>
               {/* Add New Word Button */}
               <div className="setting-item">
-                <button
-                  onClick={onVocabAnalysisClick}
-                  className="button-export-settings"
-                  title="Vocabulary Analysis (admin only - data may be inaccurate)"
-                >
-                  <span role="img" aria-label="vocabulary analysis">
-                    📚
-                  </span>{" "}
-                  Vocabulary Analysis
-                </button>
-                <p className="setting-description">
-                  Note: Analysis assumes words in list are "known" which may not
-                  be accurate.
-                </p>
                 <button
                   onClick={onTriggerAddWordModal}
                   className="button-add-word-settings"
