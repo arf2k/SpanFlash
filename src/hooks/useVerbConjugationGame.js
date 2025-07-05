@@ -13,6 +13,7 @@ export function useVerbConjugationGame(wordList, recordAnswer = null) {
   const [verbWords, setVerbWords] = useState([]);
   const [showAnswer, setShowAnswer] = useState(false);
   const [gameCompleted, setGameCompleted] = useState(false);
+  const [score, setScore] = useState({ correct: 0, incorrect: 0 });
 
   const initializeGame = async () => {
     setIsLoading(true);
@@ -105,6 +106,12 @@ export function useVerbConjugationGame(wordList, recordAnswer = null) {
       console.error("Failed to update Leitner data:", error);
     }
 
+    if (isCorrect) {
+      setScore((prev) => ({ ...prev, correct: prev.correct + 1 }));
+    } else {
+      setScore((prev) => ({ ...prev, incorrect: prev.incorrect + 1 }));
+    }
+
     setQuestionsAnswered((prev) => prev + 1);
   };
 
@@ -120,6 +127,7 @@ export function useVerbConjugationGame(wordList, recordAnswer = null) {
     setGameCompleted(false);
     setQuestionsAnswered(0);
     generateNewQuestion();
+    setScore({ correct: 0, incorrect: 0 });
   };
 
   const updateUserAnswer = (value) => {
@@ -143,6 +151,7 @@ export function useVerbConjugationGame(wordList, recordAnswer = null) {
     verbWords,
     showAnswer,
     gameCompleted,
+    score,
 
     // Actions
     checkAnswer,
