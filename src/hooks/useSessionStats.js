@@ -28,6 +28,8 @@ export function useSessionStats() {
     },
   });
 
+  const [viewMode, setViewMode] = useState('session');
+
   const sessionInitialized = useRef(false);
 
   const shouldStartNewSession = () => {
@@ -146,8 +148,15 @@ export function useSessionStats() {
     return minutes > 0 ? `${minutes} min` : `${seconds} sec`;
   };
 
+  const toggleViewMode = (mode) => {
+  setViewMode(mode);
+};
+
+
   return {
     sessionStats,
+     todaysStats,
+     viewMode,
     recordAnswer,
     startNewSession,
     getSessionAccuracy,
