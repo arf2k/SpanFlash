@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
 
-// --- CORRECTED --- The '..' navigates up from /scripts to the project root
+
 const jsonFilePath = path.join(__dirname, '..', 'public', 'scrapedSpan411.json');
 const backupFilePath = jsonFilePath + '.bak';
 
@@ -17,7 +17,7 @@ function askConfirmation(question) {
     });
 }
 
-// --- Normalization and Scoring Functions (no changes) ---
+
 function normalizeText(text) {
     if (typeof text !== 'string') return '';
     let normalized = text.trim().toLowerCase();
@@ -36,22 +36,36 @@ function stripEnglishArticlesAndTo(text) {
     if (typeof text !== 'string') return '';
     let processedText = text;
     const articles = /^(the|a|an)\b\s*/i;
-    const toVerb = /^to\s+/i;
     processedText = processedText.replace(articles, "");
-    processedText = processedText.replace(toVerb, "");
+    
+    // NEW: Only strip "to" if NOT in conservative mode
+    const conservativeMode = process.argv.includes('--conservative');
+    if (!conservativeMode) {
+        const toVerb = /^to\s+/i;
+        processedText = processedText.replace(toVerb, "");
+    }
     return processedText.trim();
 }
 
+// ENHANCED: Prioritize words with learning progress
 function getItemCompletenessScore(item) {
     let score = 0;
+    
+    // NEW: High priority for words with learning progress
+    if (item.timesStudied > 0) score += 10;
+    if (item.exposureLevel && item.exposureLevel !== 'new') score += 5;
+    
+    // Existing scoring
     if (item.notes && item.notes.trim() !== '') score += 2;
     if (item.synonyms_spanish && Array.isArray(item.synonyms_spanish) && item.synonyms_spanish.length > 0) score += 1;
     if (item.synonyms_english && Array.isArray(item.synonyms_english) && item.synonyms_english.length > 0) score += 1;
     if (item.category && item.category.trim() !== '') score += 1;
+    if (item.frequencyRank && item.frequencyRank < 99999) score += 1;
+    
     return score;
 }
 
-// --- Language Likelihood Heuristics (no changes) ---
+
 function containsSpanishChars(text) {
     if (typeof text !== 'string') return false;
     return /[ñáéíóúü¡¿]/i.test(text);
@@ -77,13 +91,42 @@ function isLikelyEnglish(text) {
     return (containsCommonEnglishArticles(text) || !containsSpanishChars(text)) && !containsCommonSpanishArticles(text);
 }
 
+// NEW: Display usage information
+function showUsage() {
+    console.log('\n--- Enhanced cleanMasterList.cjs Usage ---');
+    console.log('node scripts/cleanMasterList.cjs [options]');
+    console.log('\nOptions:');
+    console.log('  --dry-run         Show what would be changed without making changes');
+    console.log('  --conservative    Preserve "to" verb distinctions (less aggressive)');
+    console.log('  --fix-swapped     Automatically fix swapped Spanish/English entries');
+    console.log('  --fix             Apply all detected changes (requires confirmation)');
+    console.log('  --verbose         Show detailed duplicate detection information');
+    console.log('  --help            Show this help message');
+    console.log('\nExamples:');
+    console.log('  node scripts/cleanMasterList.cjs --dry-run --conservative');
+    console.log('  node scripts/cleanMasterList.cjs --fix-swapped --fix');
+    console.log('  node scripts/cleanMasterList.cjs --verbose --dry-run');
+}
+
 // --- Main Validation and Cleaning Logic ---
 async function validateAndCleanJson() {
-    // --- NEW --- Added a flag for automatically fixing swapped entries
+    // NEW: Check for help flag
+    if (process.argv.includes('--help')) {
+        showUsage();
+        return;
+    }
+
+    // Parse command line flags
     const fixSwappedMode = process.argv.includes('--fix-swapped');
     const fixMode = process.argv.includes('--fix');
+    const dryRunMode = process.argv.includes('--dry-run');
+    const conservativeMode = process.argv.includes('--conservative');
+    const verboseMode = process.argv.includes('--verbose');
 
+    // NEW: Show mode information
     console.log(`Attempting to process JSON file: ${jsonFilePath}`);
+    console.log(`Mode: ${dryRunMode ? 'DRY RUN' : 'ANALYSIS'} | Conservative: ${conservativeMode} | Verbose: ${verboseMode}`);
+    
     try {
         if (!fs.existsSync(jsonFilePath)) {
             console.error(`File not found: ${jsonFilePath}`);
@@ -99,11 +142,10 @@ async function validateAndCleanJson() {
         const originalWordsArray = originalJsonData.words;
         console.log(`JSON parsed. Version "${originalJsonData.version}". Found ${originalWordsArray.length} entries in "words" array.`);
 
-        console.log('--- Pass 1: Checking for Invalid, and Fixing Swapped Languages ---');
+        console.log('\n--- Pass 1: Checking for Invalid, and Fixing Swapped Languages ---');
         const invalidEntries = [];
         const swappedAndFixedEntries = [];
         const potentiallySwappedButNotFixed = [];
-        // --- MODIFIED --- This array will hold the result of the first pass (with swaps corrected).
         const wordsAfterSwapPass = [];
 
         originalWordsArray.forEach((currentItem, index) => {
@@ -124,7 +166,6 @@ async function validateAndCleanJson() {
             if (isLikelyEnglish(spaLower) && isLikelySpanish(engLower) && spaLower !== engLower) {
                 // Swap is detected!
                 if (fixSwappedMode) {
-                    // --- NEW --- Swap the fields and create a new object
                     itemToProcess = {
                         ...currentItem,
                         spanish: currentItem.english, // Swapped
@@ -139,13 +180,12 @@ async function validateAndCleanJson() {
             wordsAfterSwapPass.push(itemToProcess);
         });
         
-        console.log('--- Pass 2: Finding and Removing Duplicates from Processed List ---');
+        console.log('\n--- Pass 2: Finding and Removing Duplicates from Processed List ---');
         const duplicateReportEntries = [];
         const bestItemsMap = new Map();
 
-        // --- MODIFIED --- We now iterate over the CLEANED array from the first pass.
         wordsAfterSwapPass.forEach((currentItem, index) => {
-            const spanishRaw = currentItem.spanish; // We know these exist from the first pass
+            const spanishRaw = currentItem.spanish;
             const englishRaw = currentItem.english;
 
             const normalizedSpanish = normalizeText(spanishRaw);
@@ -157,11 +197,31 @@ async function validateAndCleanJson() {
             if (bestItemsMap.has(normalizedPairKey)) {
                 const existingEntry = bestItemsMap.get(normalizedPairKey);
                 
-                if (getItemCompletenessScore(currentItem) > getItemCompletenessScore(existingEntry.item)) {
+                // NEW: Enhanced duplicate reporting
+                if (verboseMode) {
+                    console.log(`DUPLICATE FOUND: "${currentItem.spanish}" → "${currentItem.english}" matches existing "${existingEntry.item.spanish}" → "${existingEntry.item.english}"`);
+                }
+                
+                const currentScore = getItemCompletenessScore(currentItem);
+                const existingScore = getItemCompletenessScore(existingEntry.item);
+                
+                if (currentScore > existingScore) {
                     bestItemsMap.set(normalizedPairKey, { item: currentItem });
-                    duplicateReportEntries.push({ discardedItem: existingEntry.item, keptItem: currentItem, reason: `Replaced by more complete version.` });
+                    duplicateReportEntries.push({ 
+                        discardedItem: existingEntry.item, 
+                        keptItem: currentItem, 
+                        reason: `Replaced by more complete version (score: ${currentScore} vs ${existingScore})`,
+                        currentScore: currentScore,
+                        existingScore: existingScore
+                    });
                 } else {
-                    duplicateReportEntries.push({ discardedItem: currentItem, keptItem: existingEntry.item, reason: `Duplicate of better/earlier version.` });
+                    duplicateReportEntries.push({ 
+                        discardedItem: currentItem, 
+                        keptItem: existingEntry.item, 
+                        reason: `Duplicate of better/earlier version (score: ${existingScore} vs ${currentScore})`,
+                        currentScore: currentScore,
+                        existingScore: existingScore
+                    });
                 }
             } else {
                 bestItemsMap.set(normalizedPairKey, { item: currentItem });
@@ -170,32 +230,66 @@ async function validateAndCleanJson() {
 
         const uniqueWordsOutputArray = Array.from(bestItemsMap.values()).map(entry => entry.item);
         
+        // NEW: Enhanced reporting section
         console.log('\n--- Validation & Cleaning Report ---');
-        // Report on invalid entries (unchanged)
+        
+        // Report on invalid entries
         if (invalidEntries.length > 0) {
             console.warn(`\nWARNING: Found ${invalidEntries.length} entries with missing/invalid/empty fields (these were ignored):`);
-            invalidEntries.forEach(entry => console.warn(` - Entry #${entry.index}: ${JSON.stringify(entry.item)}`));
+            if (verboseMode) {
+                invalidEntries.forEach(entry => console.warn(` - Entry #${entry.index}: ${JSON.stringify(entry.item)}`));
+            } else {
+                console.warn(` - Use --verbose to see details`);
+            }
         }
 
-        // --- MODIFIED --- New and improved reporting for swaps
+        // Report on swapped entries
         if (swappedAndFixedEntries.length > 0) {
             console.log(`\nINFO: Automatically corrected ${swappedAndFixedEntries.length} entries with swapped languages (due to --fix-swapped flag):`);
-            swappedAndFixedEntries.forEach(entry => {
-                console.log(` - Original Entry #${entry.index}: Swapped ${JSON.stringify(entry.originalItem.spanish)} and ${JSON.stringify(entry.originalItem.english)}`);
-            });
-        }
-        if (potentiallySwappedButNotFixed.length > 0) {
-            console.warn(`\nWARNING: Found ${potentiallySwappedButNotFixed.length} entries that might have SWAPPED content:`);
-            potentiallySwappedButNotFixed.forEach(entry => console.warn(` - Entry #${entry.index}: ${JSON.stringify(entry.item)}`));
-            console.log("   (Run with --fix-swapped to fix these automatically)");
+            if (verboseMode) {
+                swappedAndFixedEntries.forEach(entry => {
+                    console.log(` - Entry #${entry.index}: Swapped "${entry.originalItem.spanish}" ↔ "${entry.originalItem.english}"`);
+                });
+            } else {
+                console.log(` - Use --verbose to see details`);
+            }
         }
         
-        // Report on duplicates (mostly unchanged)
+        if (potentiallySwappedButNotFixed.length > 0) {
+            console.warn(`\nWARNING: Found ${potentiallySwappedButNotFixed.length} entries that might have SWAPPED content:`);
+            if (verboseMode) {
+                potentiallySwappedButNotFixed.forEach(entry => console.warn(` - Entry #${entry.index}: ${JSON.stringify(entry.item)}`));
+            } else {
+                console.warn(` - Use --verbose to see details, --fix-swapped to fix automatically`);
+            }
+        }
+        
+        // Enhanced duplicate reporting
         if (duplicateReportEntries.length > 0) {
-            console.log(`\nINFO: Found and removed ${duplicateReportEntries.length} duplicate entries (keeping the best version):`);
-            duplicateReportEntries.forEach(entry => {
-                console.log(` - Discarded: ${JSON.stringify(entry.discardedItem)} (was duplicate of ${JSON.stringify(entry.keptItem)})`);
-            });
+            console.log(`\nINFO: Found and would remove ${duplicateReportEntries.length} duplicate entries (keeping the best version):`);
+            
+            // NEW: Show learning progress preservation stats
+            const learningProgressPreserved = duplicateReportEntries.filter(entry => 
+                entry.keptItem.timesStudied > 0 && entry.discardedItem.timesStudied === 0
+            ).length;
+            
+            if (learningProgressPreserved > 0) {
+                console.log(`      ${learningProgressPreserved} duplicates preserved learning progress`);
+            }
+            
+            if (verboseMode) {
+                duplicateReportEntries.slice(0, 10).forEach(entry => {
+                    const learningInfo = entry.keptItem.timesStudied > 0 ? ` [${entry.keptItem.timesStudied} attempts]` : '';
+                    console.log(` - Discard: "${entry.discardedItem.spanish}" → "${entry.discardedItem.english}"`);
+                    console.log(`   Keep:    "${entry.keptItem.spanish}" → "${entry.keptItem.english}"${learningInfo}`);
+                    console.log(`   Reason:  ${entry.reason}`);
+                });
+                if (duplicateReportEntries.length > 10) {
+                    console.log(` - ... and ${duplicateReportEntries.length - 10} more duplicates`);
+                }
+            } else {
+                console.log(` - Use --verbose to see details`);
+            }
         }
         
         if (invalidEntries.length === 0 && potentiallySwappedButNotFixed.length === 0 && duplicateReportEntries.length === 0) {
@@ -205,12 +299,27 @@ async function validateAndCleanJson() {
         console.log(`\n--------------------------------------`);
         console.log(`Original count: ${originalWordsArray.length}`);
         console.log(`Final count:    ${uniqueWordsOutputArray.length}`);
+        console.log(`Reduction:      ${originalWordsArray.length - uniqueWordsOutputArray.length} words (${Math.round(((originalWordsArray.length - uniqueWordsOutputArray.length) / originalWordsArray.length) * 100)}%)`);
+        console.log(`Conservative:   ${conservativeMode ? 'YES (preserving "to" verb variants)' : 'NO (aggressive deduplication)'}`);
         console.log(`--------------------------------------`);
 
-        // --- MODIFIED --- Update the fix logic to account for all changes
         const changesMade = swappedAndFixedEntries.length > 0 || duplicateReportEntries.length > 0;
         
-        if (fixMode && changesMade) {
+        // NEW: Enhanced decision logic
+        if (dryRunMode && changesMade) {
+            console.log('\n--- DRY RUN COMPLETE ---');
+            console.log('This was a dry run - no changes were made to your vocabulary file.');
+            console.log(`Would reduce vocabulary from ${originalWordsArray.length} to ${uniqueWordsOutputArray.length} words.`);
+            console.log('\nTo apply these changes:');
+            if (conservativeMode) {
+                console.log('  node scripts/cleanMasterList.cjs --conservative --fix');
+            } else {
+                console.log('  node scripts/cleanMasterList.cjs --fix');
+            }
+            if (swappedAndFixedEntries.length > 0) {
+                console.log('  (Add --fix-swapped to also fix language swaps)');
+            }
+        } else if (fixMode && changesMade) {
             console.log('\n--- Applying Fixes ---');
             try {
                 fs.copyFileSync(jsonFilePath, backupFilePath);
@@ -227,11 +336,13 @@ async function validateAndCleanJson() {
                 const newJsonData = { version: originalJsonData.version, words: uniqueWordsOutputArray };
                 fs.writeFileSync(jsonFilePath, JSON.stringify(newJsonData, null, 2), 'utf-8');
                 console.log(`\nSUCCESS: File updated and saved.`);
+                console.log(`Vocabulary reduced from ${originalWordsArray.length} to ${uniqueWordsOutputArray.length} words.`);
             } else {
                 console.log("\nAborted. No changes were saved.");
             }
-        } else if (changesMade && !fixMode) {
+        } else if (changesMade && !fixMode && !dryRunMode) {
              console.log("\nACTION NEEDED: To apply these changes, run the script again with the --fix flag.");
+             console.log("Or use --dry-run to see detailed analysis without making changes.");
         } else if (invalidEntries.length > 0 || potentiallySwappedButNotFixed.length > 0) {
             console.log("\nACTION NEEDED: Review warnings above. Manual changes may be required.");
         }
