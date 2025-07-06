@@ -30,6 +30,10 @@ export function useSessionStats() {
 
   const [viewMode, setViewMode] = useState('session');
 
+  const [allTimeStats, setAllTimeStats] = useState(null);
+const [isLoadingAllTimeStats, setIsLoadingAllTimeStats] = useState(false);
+
+
   const sessionInitialized = useRef(false);
 
   const shouldStartNewSession = () => {
@@ -173,6 +177,43 @@ export function useSessionStats() {
     return minutes > 0 ? `${minutes} min` : `${seconds} sec`;
   };
 
+  const loadAllTimeStats = async () => {
+  setIsLoadingAllTimeStats(true);
+  try {
+    // Get all daily stats
+    const allDailyStats = await db.dailyStats.toArray();
+    
+    // Calculate totals
+    let totalCards = 0;
+    let totalCorrect = 0;
+    let totalIncorrect = 0;
+    let daysStudied = allDailyStats.length;
+    
+    allDailyStats.forEach(day => {
+      totalCards += day.cardsReviewed || 0;
+      totalCorrect += day.correctAnswers || 0;
+      totalIncorrect += day.incorrectAnswers || 0;
+    });
+    
+    const overallAccuracy = totalCards > 0 ? Math.round((totalCorrect / totalCards) * 100) : 0;
+    
+    setAllTimeStats({
+      totalCards,
+      totalCorrect,
+      totalIncorrect,
+      overallAccuracy,
+      daysStudied,
+      lastUpdated: Date.now()
+    });
+  } catch (error) {
+    console.error("Failed to load all-time stats:", error);
+    setAllTimeStats(null);
+  } finally {
+    setIsLoadingAllTimeStats(false);
+  }
+};
+
+
   const toggleViewMode = (mode) => {
   setViewMode(mode);
 };
@@ -181,6 +222,9 @@ export function useSessionStats() {
   return {
     sessionStats,
      todaysStats,
+     allTimeStats,
+     isLoadingAllTimeStats,
+     loadAllTimeStats,
      viewMode,
      toggleViewMode,
     recordAnswer,
