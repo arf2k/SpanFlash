@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { db } from "../db";
 
 export function useSessionStats() {
@@ -28,11 +28,10 @@ export function useSessionStats() {
     },
   });
 
-  const [viewMode, setViewMode] = useState('session');
+  const [viewMode, setViewMode] = useState("session");
 
   const [allTimeStats, setAllTimeStats] = useState(null);
-const [isLoadingAllTimeStats, setIsLoadingAllTimeStats] = useState(false);
-
+  const [isLoadingAllTimeStats, setIsLoadingAllTimeStats] = useState(false);
 
   const sessionInitialized = useRef(false);
 
@@ -65,29 +64,31 @@ const [isLoadingAllTimeStats, setIsLoadingAllTimeStats] = useState(false);
   }, []);
 
   useEffect(() => {
-  const loadTodaysStats = async () => {
-    try {
-      const today = new Date().toISOString().split("T")[0];
-      const todayData = await db.dailyStats.get(today);
-      setTodaysStats(todayData || {
-        date: today,
-        cardsReviewed: 0,
-        correctAnswers: 0,
-        incorrectAnswers: 0,
-        gameTypeStats: {
-          flashcards: { correct: 0, incorrect: 0 },
-          matching: { correct: 0, incorrect: 0 },
-          fillInBlank: { correct: 0, incorrect: 0 },
-          conjugation: { correct: 0, incorrect: 0 },
-        },
-      });
-    } catch (error) {
-      console.error("Failed to load today's stats:", error);
-    }
-  };
-  
-  loadTodaysStats();
-}, []);
+    const loadTodaysStats = async () => {
+      try {
+        const today = new Date().toISOString().split("T")[0];
+        const todayData = await db.dailyStats.get(today);
+        setTodaysStats(
+          todayData || {
+            date: today,
+            cardsReviewed: 0,
+            correctAnswers: 0,
+            incorrectAnswers: 0,
+            gameTypeStats: {
+              flashcards: { correct: 0, incorrect: 0 },
+              matching: { correct: 0, incorrect: 0 },
+              fillInBlank: { correct: 0, incorrect: 0 },
+              conjugation: { correct: 0, incorrect: 0 },
+            },
+          }
+        );
+      } catch (error) {
+        console.error("Failed to load today's stats:", error);
+      }
+    };
+
+    loadTodaysStats();
+  }, []);
 
   const startNewSession = () => {
     const now = Date.now();
@@ -177,56 +178,65 @@ const [isLoadingAllTimeStats, setIsLoadingAllTimeStats] = useState(false);
     return minutes > 0 ? `${minutes} min` : `${seconds} sec`;
   };
 
-  const loadAllTimeStats = async () => {
-  setIsLoadingAllTimeStats(true);
-  try {
-    // Get all daily stats
-    const allDailyStats = await db.dailyStats.toArray();
-    
-    // Calculate totals
-    let totalCards = 0;
-    let totalCorrect = 0;
-    let totalIncorrect = 0;
-    let daysStudied = allDailyStats.length;
-    
-    allDailyStats.forEach(day => {
-      totalCards += day.cardsReviewed || 0;
-      totalCorrect += day.correctAnswers || 0;
-      totalIncorrect += day.incorrectAnswers || 0;
-    });
-    
-    const overallAccuracy = totalCards > 0 ? Math.round((totalCorrect / totalCards) * 100) : 0;
-    
-    setAllTimeStats({
-      totalCards,
-      totalCorrect,
-      totalIncorrect,
-      overallAccuracy,
-      daysStudied,
-      lastUpdated: Date.now()
-    });
-  } catch (error) {
-    console.error("Failed to load all-time stats:", error);
-    setAllTimeStats(null);
-  } finally {
-    setIsLoadingAllTimeStats(false);
-  }
-};
+  const loadAllTimeStats = useCallback(async () => {
+    console.log("loadAllTimeStats called");
+    setIsLoadingAllTimeStats(true);
+    try {
+      // Get all daily stats
+      console.log("Fetching daily stats from database...");
+      const allDailyStats = await db.dailyStats.toArray();
+      console.log("Found daily stats:", allDailyStats.length, "days");
 
+      // Calculate totals
+      let totalCards = 0;
+      let totalCorrect = 0;
+      let totalIncorrect = 0;
+      let daysStudied = allDailyStats.length;
+
+      allDailyStats.forEach((day) => {
+        totalCards += day.cardsReviewed || 0;
+        totalCorrect += day.correctAnswers || 0;
+        totalIncorrect += day.incorrectAnswers || 0;
+      });
+
+      const overallAccuracy =
+        totalCards > 0 ? Math.round((totalCorrect / totalCards) * 100) : 0;
+
+      console.log("Calculated all-time stats:", {
+        totalCards,
+        totalCorrect,
+        overallAccuracy,
+        daysStudied,
+      });
+
+      setAllTimeStats({
+        totalCards,
+        totalCorrect,
+        totalIncorrect,
+        overallAccuracy,
+        daysStudied,
+        lastUpdated: Date.now(),
+      });
+    } catch (error) {
+      console.error("Failed to load all-time stats:", error);
+      setAllTimeStats(null);
+    } finally {
+      setIsLoadingAllTimeStats(false);
+    }
+  }, []);
 
   const toggleViewMode = (mode) => {
-  setViewMode(mode);
-};
-
+    setViewMode(mode);
+  };
 
   return {
     sessionStats,
-     todaysStats,
-     allTimeStats,
-     isLoadingAllTimeStats,
-     loadAllTimeStats,
-     viewMode,
-     toggleViewMode,
+    todaysStats,
+    allTimeStats,
+    isLoadingAllTimeStats,
+    loadAllTimeStats,
+    viewMode,
+    toggleViewMode,
     recordAnswer,
     startNewSession,
     getSessionAccuracy,

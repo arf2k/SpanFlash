@@ -40,7 +40,11 @@ const StatsModal = ({
   }, [isOpen, handleEscapeKey]);
 
   useEffect(() => {
+       console.log('StatsModal useEffect triggered:', { isOpen, viewMode, allTimeStats: !!allTimeStats });
+
     if (isOpen && viewMode === "alltime" && !allTimeStats) {
+         console.log('Loading all-time stats...');
+
       loadAllTimeStats();
     }
   }, [isOpen, viewMode, allTimeStats, loadAllTimeStats]);
@@ -326,14 +330,47 @@ const StatsModal = ({
               </div>
             </>
           )}
-
-          {viewMode === "alltime" && (
-            <div style={{ padding: "40px 20px", textAlign: "center" }}>
-              <p style={{ color: "var(--text-muted)", fontStyle: "italic" }}>
-                All-time stats coming soon...
-              </p>
-            </div>
+ {viewMode === 'alltime' && (
+            <>
+              {isLoadingAllTimeStats ? (
+                <div style={{ padding: "40px 20px", textAlign: "center" }}>
+                  <p style={{ color: "var(--text-muted)", fontStyle: "italic" }}>
+                    Loading all-time stats...
+                  </p>
+                </div>
+              ) : allTimeStats ? (
+                <div className="stats-section">
+                  <h3 className="stats-section-title">📈 All-Time Progress</h3>
+                  
+                  <div className="stats-overview-grid">
+                    <div className="stats-metric">
+                      <strong className="stats-metric-label">Total Cards:</strong>
+                      <span className="stats-metric-value">{allTimeStats.totalCards}</span>
+                    </div>
+                    <div className="stats-metric">
+                      <strong className="stats-metric-label">Days Studied:</strong>
+                      <span className="stats-metric-value">{allTimeStats.daysStudied}</span>
+                    </div>
+                    <div className="stats-metric">
+                      <strong className="stats-metric-label">Overall Accuracy:</strong>
+                      <span className="stats-metric-value">{allTimeStats.overallAccuracy}%</span>
+                    </div>
+                    <div className="stats-metric">
+                      <strong className="stats-metric-label">Correct Answers:</strong>
+                      <span className="stats-metric-value">{allTimeStats.totalCorrect}</span>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div style={{ padding: "40px 20px", textAlign: "center" }}>
+                  <p style={{ color: "var(--text-muted)", fontStyle: "italic" }}>
+                    No all-time data available yet
+                  </p>
+                </div>
+              )}
+            </>
           )}
+   
         </div>
       </div>
     </div>
