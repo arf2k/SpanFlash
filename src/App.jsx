@@ -54,6 +54,9 @@ function App() {
   const {
     sessionStats,
     todaysStats,
+    allTimeStats,
+    isLoadingAllTimeStats,
+    loadAllTimeStats,
     viewMode,
     toggleViewMode,
     recordAnswer,
@@ -610,6 +613,9 @@ function App() {
             onClose={() => setIsStatsModalOpen(false)}
             sessionStats={sessionStats}
             todaysStats={todaysStats}
+            allTimeStats={allTimeStats}
+            isLoadingAllTimeStats={isLoadingAllTimeStats}
+            loadAllTimeStats={loadAllTimeStats}
             viewMode={viewMode}
             toggleViewMode={toggleViewMode}
             getSessionAccuracy={getSessionAccuracy}
