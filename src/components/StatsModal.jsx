@@ -8,6 +8,9 @@ const StatsModal = ({
   onClose,
   sessionStats,
   todaysStats,
+  allTimeStats,
+  isLoadingAllTimeStats,
+  loadAllTimeStats,
   viewMode,
   toggleViewMode,
   getSessionAccuracy,
@@ -35,6 +38,12 @@ const StatsModal = ({
       document.removeEventListener("keydown", handleEscapeKey);
     };
   }, [isOpen, handleEscapeKey]);
+
+  useEffect(() => {
+    if (isOpen && viewMode === "alltime" && !allTimeStats) {
+      loadAllTimeStats();
+    }
+  }, [isOpen, viewMode, allTimeStats, loadAllTimeStats]);
 
   const handleClickOutside = useCallback(
     (event) => {
