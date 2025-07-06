@@ -16,8 +16,6 @@ const StatsModal = ({
 }) => {
   const modalDialogRef = useRef(null);
 
- 
-
   const handleEscapeKey = useCallback(
     (event) => {
       if (event.key === "Escape") {
@@ -38,7 +36,6 @@ const StatsModal = ({
     };
   }, [isOpen, handleEscapeKey]);
 
- 
   const handleClickOutside = useCallback(
     (event) => {
       if (
@@ -65,13 +62,25 @@ const StatsModal = ({
         ref={modalDialogRef}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="search-modal-header">
-          <h2>📊 Session Stats</h2>
-          <button onClick={onClose} className="search-modal-close-btn">
-            &times;
+        <div className="search-modal-header"></div>
+        <div className="stats-view-toggle">
+          <button
+            className={`stats-toggle-btn ${
+              viewMode === "session" ? "active" : ""
+            }`}
+            onClick={() => toggleViewMode("session")}
+          >
+            Session Stats
+          </button>
+          <button
+            className={`stats-toggle-btn ${
+              viewMode === "alltime" ? "active" : ""
+            }`}
+            onClick={() => toggleViewMode("alltime")}
+          >
+            All-Time Stats
           </button>
         </div>
-
         <div className="stats-modal-scrollable-area">
           {/* Enhanced Session Overview - Current Session + Today's Total */}
 
@@ -126,11 +135,7 @@ const StatsModal = ({
               >
                 Today's Total
               </h4>
-              {isLoadingTodaysStats ? (
-                <p style={{ fontStyle: "italic", color: "var(--text-muted)" }}>
-                  Loading today's stats...
-                </p>
-              ) : todaysStats ? (
+              {todaysStats ? (
                 <div className="stats-overview-grid">
                   <div className="stats-metric">
                     <strong className="stats-metric-label">Total Cards:</strong>

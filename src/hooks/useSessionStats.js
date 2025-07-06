@@ -182,6 +182,7 @@ export function useSessionStats() {
     sessionStats,
      todaysStats,
      viewMode,
+     toggleViewMode,
     recordAnswer,
     startNewSession,
     getSessionAccuracy,

@@ -18,6 +18,40 @@
   transition: color 0.3s ease;
 }
 
+/* Add this section to StatsModal.css after the .stats-modal-scrollable-area rule */
+
+/* Toggle Buttons */
+.stats-view-toggle {
+  display: flex;
+  border-bottom: 1px solid var(--color-border-light);
+  background-color: var(--bg-container);
+  transition: background-color 0.3s ease, border-bottom-color 0.3s ease;
+}
+
+.stats-toggle-btn {
+  flex: 1;
+  padding: 12px 20px;
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.stats-toggle-btn:hover {
+  color: var(--text-body);
+  background-color: var(--bg-hint);
+}
+
+.stats-toggle-btn.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+  background-color: var(--bg-hint);
+}
+
 /* Empty State Styles */
 .stats-empty-state {
   display: flex;
@@ -251,5 +285,9 @@
     flex-direction: column;
     text-align: center;
     gap: 8px;
+  }
+  .stats-toggle-btn {
+    padding: 10px 15px;
+    font-size: 0.85rem;
   }
 }
