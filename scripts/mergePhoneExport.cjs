@@ -199,24 +199,6 @@ async function enhancedMergePhoneExportWithMaster() {
             }
         });
         
-        // Add master-only words (new laptop additions) with fresh data
-        masterWordsMap.forEach((masterWord, key) => {
-            if (!phoneWordsMap.has(key)) {
-                finalWords.push({
-                    ...masterWord,
-                    // Reset to new state for master-only words
-                    exposureLevel: 'new',
-                    timesStudied: 0,
-                    timesCorrect: 0,
-                    lastStudied: null,
-                    source: 'scraped',
-                    // Legacy Leitner data for backward compatibility
-                    leitnerBox: 0,
-                    lastReviewed: null,
-                    dueDate: null
-                });
-            }
-        });
         
         // Step 7: Show final summary and confirm
         console.log('\n📋 Final Summary:');
