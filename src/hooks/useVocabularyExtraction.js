@@ -190,6 +190,37 @@ export function useVocabularyExtraction(existingVocabulary = []) {
     ]);
     return commonWords.has(word);
   };
+  const handleReflexiveVerb = (word, vocabularySet) => {
+    // Check if word ends with reflexive pronouns
+    const reflexivePronouns = ["me", "te", "se", "nos", "os"];
+
+    for (const pronoun of reflexivePronouns) {
+      if (word.endsWith(pronoun) && word.length > pronoun.length + 2) {
+        // Strip the reflexive pronoun to get base verb
+        const baseVerb = word.slice(0, -pronoun.length);
+
+        // Check if reflexive infinitive form exists (baseVerb + "se")
+        const reflexiveInfinitive = baseVerb + "se";
+
+        if (vocabularySet.has(reflexiveInfinitive)) {
+          return {
+            isKnown: true,
+            suggestedForm: reflexiveInfinitive,
+            resolvedForm: reflexiveInfinitive,
+          };
+        } else {
+          // Reflexive infinitive not in vocabulary - suggest it
+          return {
+            isKnown: false,
+            suggestedForm: reflexiveInfinitive,
+            resolvedForm: reflexiveInfinitive,
+          };
+        }
+      }
+    }
+
+    return null; // Not a reflexive verb
+  };
 
   const analyzeWords = async (words, vocabularySet) => {
     const unknownWords = [];
@@ -215,17 +246,30 @@ export function useVocabularyExtraction(existingVocabulary = []) {
         isKnown = true;
         knownWords += count;
       } else {
-        // Check if it's a conjugated verb
-        const infinitive = spanishVerbLemmatizer.getInfinitive(word);
-        if (infinitive && vocabularySet.has(infinitive)) {
-          isKnown = true;
-          knownWords += count;
-          conjugatedVerbsResolved += count;
-          resolvedForm = infinitive;
-        } else if (infinitive && !vocabularySet.has(infinitive)) {
-          // Conjugated verb but infinitive not in vocabulary - suggest infinitive instead
-          wordToSuggest = infinitive;
-          resolvedForm = infinitive;
+        const reflexiveResult = handleReflexiveVerb(word, vocabularySet);
+
+        if (reflexiveResult) {
+          // Handle reflexive verb
+          if (reflexiveResult.isKnown) {
+            isKnown = true;
+            knownWords += count;
+            conjugatedVerbsResolved += count;
+          }
+          wordToSuggest = reflexiveResult.suggestedForm;
+          resolvedForm = reflexiveResult.resolvedForm;
+        } else {
+          // Check if it's a regular conjugated verb
+          const infinitive = spanishVerbLemmatizer.getInfinitive(word);
+          if (infinitive && vocabularySet.has(infinitive)) {
+            isKnown = true;
+            knownWords += count;
+            conjugatedVerbsResolved += count;
+            resolvedForm = infinitive;
+          } else if (infinitive && !vocabularySet.has(infinitive)) {
+            // Conjugated verb but infinitive not in vocabulary - suggest infinitive instead
+            wordToSuggest = infinitive;
+            resolvedForm = infinitive;
+          }
         }
       }
 
