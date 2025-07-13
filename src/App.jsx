@@ -28,6 +28,7 @@ import { useSessionStats } from "./hooks/useSessionStats";
 import StatsModal from "./components/StatsModal";
 import VocabularyExtractionModal from "./components/VocabularyExtractionModal.jsx";
 import ReviewExtractedWordsModal from "./components/ReviewExtractedWordsModal.jsx";
+import { createVocabularyExtractionHandlers} from "./handlers/vocabularyExtractionHandlers.js";
 
 function App() {
   // === App-specific State Variables ===
@@ -225,6 +226,17 @@ function App() {
     setTatoebaError,
     setTatoebaExamples
   );
+
+  const {
+  handleAddExtractedWords,
+  handleVocabExtractionComplete,
+  getIncompleteWords,
+  handleCompleteWord,
+  handleDeleteIncompleteWord
+} = createVocabularyExtractionHandlers(
+  setIsVocabExtractionModalOpen,
+  setIsReviewExtractedModalOpen
+);
 
   // === Effects ===
   useEffect(() => {
