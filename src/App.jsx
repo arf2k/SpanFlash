@@ -28,7 +28,7 @@ import { useSessionStats } from "./hooks/useSessionStats";
 import StatsModal from "./components/StatsModal";
 import VocabularyExtractionModal from "./components/VocabularyExtractionModal.jsx";
 import ReviewExtractedWordsModal from "./components/ReviewExtractedWordsModal.jsx";
-import { createVocabularyExtractionHandlers} from "./handlers/vocabularyExtractionHandlers.js";
+import { createVocabularyExtractionHandlers } from "./handlers/vocabularyExtractionHandlers.js";
 
 function App() {
   // === App-specific State Variables ===
@@ -43,6 +43,7 @@ function App() {
   const [isLoadingTatoebaExamples, setIsLoadingTatoebaExamples] =
     useState(false);
   const [tatoebaError, setTatoebaError] = useState(null);
+  const [incompleteWords, setIncompleteWords] = useState([]);
 
   // === Custom Hooks ===
   const {
@@ -100,7 +101,7 @@ function App() {
     isVocabExtractionModalOpen,
     setIsVocabExtractionModalOpen,
     isReviewExtractedModalOpen,
-    setIsReviewExtractedModalOpen,  
+    setIsReviewExtractedModalOpen,
   } = useModalState();
 
   const {
@@ -228,15 +229,15 @@ function App() {
   );
 
   const {
-  handleAddExtractedWords,
-  handleVocabExtractionComplete,
-  getIncompleteWords,
-  handleCompleteWord,
-  handleDeleteIncompleteWord
-} = createVocabularyExtractionHandlers(
-  setIsVocabExtractionModalOpen,
-  setIsReviewExtractedModalOpen
-);
+    handleAddExtractedWords,
+    handleVocabExtractionComplete,
+    getIncompleteWords,
+    handleCompleteWord,
+    handleDeleteIncompleteWord,
+  } = createVocabularyExtractionHandlers(
+    setIsVocabExtractionModalOpen,
+    setIsReviewExtractedModalOpen
+  );
 
   // === Effects ===
   useEffect(() => {
@@ -645,6 +646,18 @@ function App() {
             isOpen={isVocabExtractionModalOpen}
             onClose={() => setIsVocabExtractionModalOpen(false)}
             existingVocabulary={mainWordList}
+            onAddWords={handleVocabExtractionComplete}
+          />
+          <ReviewExtractedWordsModal
+            isOpen={isReviewExtractedModalOpen}
+            onClose={() => setIsReviewExtractedModalOpen(false)}
+            incompleteWords={incompleteWords}
+            onCompleteWord={handleCompleteWord}
+            onDeleteWord={handleDeleteIncompleteWord}
+            onRefreshIncompleteWords={async () => {
+              const words = await getIncompleteWords();
+              setIncompleteWords(words);
+            }}
           />
         </>
       )}
