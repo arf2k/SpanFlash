@@ -134,14 +134,9 @@ const Flashcard = ({
       ) : (
         <p>No card data.</p>
       )}
-
       {/* Answer Form: Only shown if not showing feedback AND a pair exists */}
       {pair && !showFeedback && (
-        <form
-          onSubmit={handleSubmit}
-          className="answer-form"
-          style={{ marginTop: "10px" }}
-        >
+        <form onSubmit={handleSubmit} className="answer-form">
           <input
             type="text"
             value={answer}
@@ -150,31 +145,30 @@ const Flashcard = ({
             className="answer-input"
             autoFocus
             required
-            style={{ marginRight: "10px" }}
           />
-          <button
-            type="submit"
-            className="submit-button"
-            disabled={!answer.trim()}
-          >
-            Check Answer
-          </button>
-          <button
-            type="button"
-            onClick={onGetHint}
-            className="hint-button"
-            disabled={
-              isHintLoading ||
-              (hint && hint.type !== "error") ||
-              (showFeedback && feedbackSignal === "incorrect")
-            }
-            style={{ marginLeft: "10px" }}
-          >
-            {isHintLoading ? "Getting Hint..." : "Synonyms"}
-          </button>
+          <div className="answer-form-buttons">
+            <button
+              type="submit"
+              className="submit-button"
+              disabled={!answer.trim()}
+            >
+              Check Answer
+            </button>
+            <button
+              type="button"
+              onClick={onGetHint}
+              className="hint-button"
+              disabled={
+                isHintLoading ||
+                (hint && hint.type !== "error") ||
+                (showFeedback && feedbackSignal === "incorrect")
+              }
+            >
+              {isHintLoading ? "Getting Hint..." : "Synonyms"}
+            </button>
+          </div>
         </form>
       )}
-
       {/* Merriam-Webster Hint Display Area */}
       {(isHintLoading || hint) && (
         <div className="hint-display">
