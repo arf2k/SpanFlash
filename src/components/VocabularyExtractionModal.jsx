@@ -1,13 +1,15 @@
-import React, { useEffect, useRef } from 'react';
-import { useVocabularyExtraction } from '../hooks/useVocabularyExtraction';
-import './VocabularyExtractionModal.css';
+import React, { useState, useEffect, useRef } from "react";
+import { useVocabularyExtraction } from "../hooks/useVocabularyExtraction";
+import "./VocabularyExtractionModal.css";
 
-const VocabularyExtractionModal = ({ 
-  isOpen, 
-  onClose, 
+const VocabularyExtractionModal = ({
+  isOpen,
+  onClose,
   existingVocabulary = [],
-  onAddWords = null 
+  onAddWords = null,
 }) => {
+  const [sourceCategory, setSourceCategory] = useState("");
+
   const {
     inputText,
     isAnalyzing,
@@ -20,9 +22,9 @@ const VocabularyExtractionModal = ({
     toggleWordSelection,
     selectAllWords,
     clearSelection,
-    clearAll
+    clearAll,
   } = useVocabularyExtraction(existingVocabulary);
-  
+
   const textareaRef = useRef(null);
   const modalRef = useRef(null);
 
@@ -36,14 +38,14 @@ const VocabularyExtractionModal = ({
   // Handle escape key to close modal
   useEffect(() => {
     const handleEscape = (e) => {
-      if (e.key === 'Escape' && isOpen) {
+      if (e.key === "Escape" && isOpen) {
         onClose();
       }
     };
 
     if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      return () => document.removeEventListener('keydown', handleEscape);
+      document.addEventListener("keydown", handleEscape);
+      return () => document.removeEventListener("keydown", handleEscape);
     }
   }, [isOpen, onClose]);
 
@@ -54,7 +56,7 @@ const VocabularyExtractionModal = ({
       <div className="vocab-extraction-modal" ref={modalRef}>
         <div className="vocab-extraction-header">
           <h2>📰 Extract Vocabulary</h2>
-          <button 
+          <button
             onClick={onClose}
             className="vocab-extraction-close"
             aria-label="Close"
@@ -76,22 +78,51 @@ const VocabularyExtractionModal = ({
               className="vocab-text-input"
               rows={8}
             />
-            
+
             <div className="vocab-input-actions">
-              <button 
+              <button
                 onClick={analyzeText}
-                disabled={!inputText.trim() || isAnalyzing || !isLemmatizerReady}
+                disabled={
+                  !inputText.trim() || isAnalyzing || !isLemmatizerReady
+                }
                 className="vocab-analyze-btn"
               >
-                {isAnalyzing ? 'Analyzing...' : !isLemmatizerReady ? 'Loading...' : 'Find Unknown Words'}
+                {isAnalyzing
+                  ? "Analyzing..."
+                  : !isLemmatizerReady
+                  ? "Loading..."
+                  : "Find Unknown Words"}
               </button>
-              <button 
-                onClick={clearAll}
+              <button
+                onClick={() => {
+                  clearAll();
+                  setSourceCategory("");
+                }}
                 className="vocab-clear-btn"
                 disabled={!inputText.trim() && unknownWords.length === 0}
               >
                 Clear
               </button>
+            </div>
+
+            {/* Source Category Input */}
+            <div className="vocab-category-section">
+              <label htmlFor="source-category">
+                Article Category (optional):
+              </label>
+              <input
+                id="source-category"
+                type="text"
+                value={sourceCategory}
+                onChange={(e) => setSourceCategory(e.target.value)}
+                placeholder="e.g., business, technology, sports..."
+                className="vocab-text-input"
+                style={{
+                  height: "auto",
+                  padding: "8px 12px",
+                  marginTop: "8px",
+                }}
+              />
             </div>
           </div>
 
@@ -101,20 +132,30 @@ const VocabularyExtractionModal = ({
               <h3>📊 Analysis Results</h3>
               <div className="vocab-stats-grid">
                 <div className="vocab-stat">
-                  <span className="vocab-stat-value">{analysisStats.totalWords}</span>
+                  <span className="vocab-stat-value">
+                    {analysisStats.totalWords}
+                  </span>
                   <span className="vocab-stat-label">Total Words</span>
                 </div>
                 <div className="vocab-stat">
-                  <span className="vocab-stat-value">{analysisStats.unknownWordsCount}</span>
+                  <span className="vocab-stat-value">
+                    {analysisStats.unknownWordsCount}
+                  </span>
                   <span className="vocab-stat-label">Unknown Words</span>
                 </div>
                 <div className="vocab-stat">
-                  <span className="vocab-stat-value">{analysisStats.conjugatedVerbsResolved}</span>
+                  <span className="vocab-stat-value">
+                    {analysisStats.conjugatedVerbsResolved}
+                  </span>
                   <span className="vocab-stat-label">Verbs Resolved</span>
                 </div>
                 <div className="vocab-stat">
                   <span className="vocab-stat-value">
-                    {Math.round((analysisStats.knownWords / analysisStats.totalWords) * 100)}%
+                    {Math.round(
+                      (analysisStats.knownWords / analysisStats.totalWords) *
+                        100
+                    )}
+                    %
                   </span>
                   <span className="vocab-stat-label">Comprehension</span>
                 </div>
@@ -131,7 +172,10 @@ const VocabularyExtractionModal = ({
                   <button onClick={selectAllWords} className="vocab-select-all">
                     Select All
                   </button>
-                  <button onClick={clearSelection} className="vocab-clear-selection">
+                  <button
+                    onClick={clearSelection}
+                    className="vocab-clear-selection"
+                  >
                     Clear Selection
                   </button>
                 </div>
@@ -141,7 +185,9 @@ const VocabularyExtractionModal = ({
                 {unknownWords.map(({ word, count }) => (
                   <div
                     key={word}
-                    className={`vocab-word-item ${selectedWords.has(word) ? 'selected' : ''}`}
+                    className={`vocab-word-item ${
+                      selectedWords.has(word) ? "selected" : ""
+                    }`}
                     onClick={() => toggleWordSelection(word)}
                   >
                     <div className="vocab-word-main">
@@ -157,13 +203,32 @@ const VocabularyExtractionModal = ({
               {selectedWords.size > 0 && (
                 <div className="vocab-action-section">
                   <div className="vocab-selected-count">
-                    {selectedWords.size} word{selectedWords.size !== 1 ? 's' : ''} selected
+                    {selectedWords.size} word
+                    {selectedWords.size !== 1 ? "s" : ""} selected
                   </div>
-                  <button 
+                  <button
                     className="vocab-add-selected"
-                    onClick={() => {
-                      // This will be implemented when we add the word addition feature
-                      console.log('Selected words for addition:', Array.from(selectedWords));
+                    onClick={async () => {
+                      if (onAddWords && selectedWords.size > 0) {
+                        const extractionContext = {
+                          sourceText: inputText.substring(0, 200),
+                          sourceCategory: sourceCategory.trim(),
+                          sourceLength: analysisStats?.totalWords || 0,
+                          comprehensionLevel: analysisStats
+                            ? Math.round(
+                                (analysisStats.knownWords /
+                                  analysisStats.totalWords) *
+                                  100
+                              )
+                            : 0,
+                          unknownWordCount: unknownWords.length,
+                        };
+
+                        await onAddWords(
+                          Array.from(selectedWords),
+                          extractionContext
+                        );
+                      }
                     }}
                   >
                     Add Selected Words →
@@ -178,7 +243,10 @@ const VocabularyExtractionModal = ({
             <div className="vocab-empty-state">
               <div className="vocab-empty-icon">🎉</div>
               <h3>Excellent comprehension!</h3>
-              <p>No unknown words found in this text. You already know all the vocabulary!</p>
+              <p>
+                No unknown words found in this text. You already know all the
+                vocabulary!
+              </p>
             </div>
           )}
         </div>
