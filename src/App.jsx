@@ -352,6 +352,7 @@ function App() {
         isAnyGameActive={isAnyGameActive}
         onSettingsClick={() => setIsSettingsModalOpen(true)}
         onStatsClick={() => setIsStatsModalOpen(true)}
+        setIsVocabExtractionModalOpen={setIsVocabExtractionModalOpen}
       />
       {/* Score Stacks - Conditionally Rendered */}
       {!isMatchingGameModeActive &&
