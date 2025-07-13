@@ -27,6 +27,7 @@ import GameControls from "./components/GameControls";
 import { useSessionStats } from "./hooks/useSessionStats";
 import StatsModal from "./components/StatsModal";
 import VocabularyExtractionModal from "./components/VocabularyExtractionModal.jsx";
+import ReviewExtractedWordsModal from "./components/ReviewExtractedWordsModal.jsx";
 
 function App() {
   // === App-specific State Variables ===
@@ -97,6 +98,8 @@ function App() {
     setAddWordFromSearch,
     isVocabExtractionModalOpen,
     setIsVocabExtractionModalOpen,
+    isReviewExtractedModalOpen,
+    setIsReviewExtractedModalOpen,  
   } = useModalState();
 
   const {
