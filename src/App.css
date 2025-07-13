@@ -87,8 +87,6 @@ body[data-theme="dark"] {
   --text-button: #FFFFFF;
 }
 
-
-
 /* ================================== */
 /* Base HTML & Body Styles */
 /* ================================== */
@@ -226,7 +224,6 @@ h1 {
 .hard-words-stack .stack-count {
   color: var(--color-warning);
 }
-
 
 /* === Controls Styling === */
 .controls {
@@ -396,32 +393,6 @@ button:focus-visible {
   }
 }
 
-.feedback-area button {
-  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-darker) 100%);
-  color: var(--text-button);
-  border: none;
-  padding: 12px 24px;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
-  min-width: 120px;
-  margin-top: 8px;
-}
-
-.feedback-area button:hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  background: linear-gradient(135deg, var(--color-secondary-darker) 0%, var(--color-secondary) 100%);
-}
-
-.feedback-area button:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-}
-
 /* Remove Button in Hard Words List */
 .hard-words-view li button {
   display: inline-block;
@@ -449,41 +420,7 @@ button:focus-visible {
   box-shadow: 0 0 0 0.25rem rgba(217, 4, 41, 0.5);
 }
 
-/* === Input Styling === */
-.answer-input {
-  display: block;
-  width: 100%;
-  max-width: 400px;
-  padding: 16px 20px;
-  font-size: 1.3rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: var(--text-body);
-  background-color: var(--bg-card);
-  background-clip: padding-box;
-  border: 2px solid var(--color-border);
-  appearance: none;
-  border-radius: 8px;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-  flex-grow: 1;
-  min-width: 200px;
-  margin: 0 auto;
-  text-align: center;
-}
 
-.answer-input:focus {
-  color: var(--text-body);
-  background-color: var(--bg-card);
-  border-color: var(--color-primary);
-  outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.5);
-}
-
-.answer-input::placeholder {
-  color: var(--text-muted);
-  opacity: 0.7;
-  transition: color 0.3s ease;
-}
 
 /* === Status Message Styling === */
 .App>p {
@@ -512,216 +449,6 @@ button:focus-visible {
   margin: 0 0 10px 0;
   font-weight: bold;
 }
-
-/* === Flashcard Area Styling === */
-.flashcard-area {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-}
-
-.flashcard {
-  border: 2px solid var(--color-border);
-  padding: 35px 40px;
-  background-color: var(--bg-card);
-  border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-  margin: 0;
-  text-align: center;
-  transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out, box-shadow 0.3s ease;
-  width: 100%;
-  max-width: 580px;
-  min-height: 300px;
-  position: relative;
-  box-sizing: border-box;
-}
-
-.flashcard-word {
-  font-size: 2.8rem;
-  font-weight: 700;
-  margin: 20px 0 25px 0;
-  color: var(--text-heading);
-  min-height: 1.3em;
-  transition: color 0.3s ease;
-  line-height: 1.2;
-  word-wrap: break-word;
-}
-
-.answer-form {
-  margin-top: 25px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 18px;
-  width: 100%;
-  max-width: 420px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.answer-form-buttons {
-  display: flex;
-  gap: 12px;
-  width: 100%;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-@media (max-width: 480px) {
-  .answer-form-buttons {
-    flex-direction: column;
-    gap: 14px;
-    width: 100%;
-  }
-  
-  .answer-form {
-    gap: 20px;
-    max-width: 100%;
-  }
-}
-
-.hint-display {
-  margin-top: 20px;
-  padding: 12px 15px;
-  background-color: var(--bg-hint);
-  border-radius: 4px;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  text-align: left;
-  min-height: 1.5em;
-  border-top: 1px solid var(--color-border);
-  font-style: normal;
-  transition: background-color 0.3s ease, color 0.3s ease, border-top-color 0.3s ease;
-}
-
-.hint-display strong {
-  font-weight: 700;
-  color: var(--text-body);
-  transition: color 0.3s ease;
-}
-
-/* Ensure strong text is themed */
-.hint-display em {
-  color: var(--text-muted);
-  margin: 0 3px;
-  font-style: italic;
-  transition: color 0.3s ease;
-}
-
-.hint-display span[style*="color:orange"] {
-  color: var(--color-warning);
-  font-weight: bold;
-}
-
-/* This specific inline style will override a theme change for this element */
-
-.feedback-area {
-  margin-top: 0;
-  padding: 10px 15px;
-  border-radius: 4px;
-  width: 100%;
-  max-width: 500px;
-  box-sizing: border-box;
-  text-align: center;
-  background-color: var(--bg-feedback-incorrect);
-  /* This is for incorrect, correct uses inline style with vars */
-  border: 1px solid var(--color-danger);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-
-.feedback-area p {
-  /* This selector applies to both incorrect and correct p tags in feedback */
-  /* color is set by --text-feedback-incorrect or inline style for correct */
-  font-weight: 700;
-  margin: 0 0 8px 0;
-  font-size: 0.95rem;
-  transition: color 0.3s ease;
-}
-
-
-
-/* === Visual Feedback Styles (Flashcard Animation) === */
-/* Keyframes use variables like --bg-card, --color-success, --text-body, --text-button.
-   These should adapt correctly when the theme changes the variable values. */
-.flashcard--correct {
-  animation: flash-correct-vivid 0.6s ease-out;
-  border-color: var(--color-success);
-}
-
-.flashcard--incorrect {
-  animation: flash-incorrect 0.6s ease-out;
-  border-color: var(--color-danger);
-}
-
-@keyframes flash-correct-vivid {
-
-  0%,
-  100% {
-    background-color: var(--bg-card);
-    border-color: var(--color-success);
-    color: var(--text-body);
-  }
-
-  50% {
-    background-color: var(--color-success);
-    color: var(--text-button);
-    border-color: var(--color-success);
-  }
-}
-
-@keyframes flash-incorrect {
-
-  0%,
-  100% {
-    background-color: var(--bg-card);
-    border-color: var(--color-danger);
-  }
-
-  50% {
-    background-color: var(--bg-feedback-incorrect);
-    border-color: var(--color-danger);
-  }
-}
-
-
-/* flashcard-details-revealed styles (from your provided CSS) */
-.flashcard-details-revealed {
-  margin-top: 20px;
-  padding-top: 15px;
-  border-top: 1px solid var(--color-border-light);
-  text-align: left;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  transition: color 0.3s ease, border-top-color 0.3s ease;
-}
-
-.flashcard-details-revealed .detail-item {
-  margin-bottom: 10px;
-}
-
-.flashcard-details-revealed .detail-item strong {
-  color: var(--text-body);
-  margin-right: 5px;
-  transition: color 0.3s ease;
-}
-
-.flashcard-details-revealed .notes-detail p {
-  margin-top: 2px;
-  margin-bottom: 0;
-  white-space: pre-wrap;
-  line-height: 1.4;
-  background-color: var(--bg-hint);
-  padding: 8px;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-}
-
-.flashcard-details-revealed .category-detail {
-  font-style: italic;
-}
-
 
 /* === Hard Words View Styling === */
 
@@ -924,73 +651,4 @@ button:focus-visible {
   border-color: var(--color-primary);
   box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
   outline: none;
-}
-.flashcard-side-buttons {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  z-index: 10;
-}
-
-.flashcard-side-button {
-  background: var(--bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: 6px;
-  padding: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-size: 1.3em;
-  line-height: 1;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.flashcard-side-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  border-color: var(--color-primary);
-}
-
-.flashcard-side-button:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Specific button colors */
-.flashcard-side-button.mark-hard {
-  color: #ffc107;
-}
-
-.flashcard-side-button.mark-hard.marked {
-  color: #28a745;
-  background: var(--bg-hint);
-}
-
-.flashcard-side-button.edit-word {
-  color: var(--text-muted);
-}
-
-.flashcard-side-button.show-details {
-  color: var(--text-muted);
-}
-
-@media (max-width: 480px) {
-  .flashcard-side-buttons {
-    top: 10px;
-    right: 10px;
-    gap: 6px;
-  }
-  
-  .flashcard-side-button {
-    width: 36px;
-    height: 36px;
-    font-size: 1.2em;
-  }
 }
