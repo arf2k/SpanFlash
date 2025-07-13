@@ -9,6 +9,9 @@ export function useModalState() {
   const [isStatsModalOpen, setIsStatsModalOpen] = useState(false);
   const [addWordFromSearch, setAddWordFromSearch] = useState(null);
   const [isVocabExtractionModalOpen, setIsVocabExtractionModalOpen] = useState(false);
+  const [isReviewExtractedModalOpen, setIsReviewExtractedModalOpen] = useState(false);
+
+
 
 
 
@@ -20,6 +23,7 @@ export function useModalState() {
     setIsSettingsModalOpen(false);
     setIsStatsModalOpen(false);
     setIsVocabExtractionModalOpen(false);
+    setIsReviewExtractedModalOpen(false);
   };
 
   return {
@@ -31,6 +35,7 @@ export function useModalState() {
     isStatsModalOpen,
     addWordFromSearch,
     isVocabExtractionModalOpen,
+    isReviewExtractedModalOpen,
 
     setIsSearchModalOpen,
     setIsAddWordModalOpen,
@@ -40,6 +45,7 @@ export function useModalState() {
     setIsStatsModalOpen,
     setAddWordFromSearch,
     setIsVocabExtractionModalOpen,
+    setIsReviewExtractedModalOpen,
     closeAllModals,
   };
 }
