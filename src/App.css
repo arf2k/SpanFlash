@@ -284,7 +284,6 @@ button:focus-visible {
 .controls button:first-of-type,
 .hint-button,
 .error-area button,
-.feedback-area button,
 .hard-words-view>button {
   background-color: var(--color-secondary);
   border-color: var(--color-secondary);
@@ -293,7 +292,6 @@ button:focus-visible {
 .controls button:first-of-type:hover:not(:disabled),
 .hint-button:hover:not(:disabled),
 .error-area button:hover:not(:disabled),
-.feedback-area button:hover:not(:disabled),
 .hard-words-view>button:hover {
   background-color: var(--color-secondary-darker);
   border-color: var(--color-secondary-darker);
@@ -302,7 +300,6 @@ button:focus-visible {
 .controls button:first-of-type:focus-visible,
 .hint-button:focus-visible,
 .error-area button:focus-visible,
-.feedback-area button:focus-visible,
 .hard-words-view>button:focus-visible {
   box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.5);
 }
@@ -643,9 +640,7 @@ button:focus-visible {
   transition: color 0.3s ease;
 }
 
-.feedback-area button {
-  margin-top: 0;
-}
+
 
 /* === Visual Feedback Styles (Flashcard Animation) === */
 /* Keyframes use variables like --bg-card, --color-success, --text-body, --text-button.
