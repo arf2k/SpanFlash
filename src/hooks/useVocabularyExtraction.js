@@ -25,13 +25,12 @@ export function useVocabularyExtraction(existingVocabulary = []) {
       const verbData = await response.json();
       await spanishVerbLemmatizer.initialize(verbData);
       setIsLemmatizerReady(true);
-      console.log("Verb lemmatizer initialized for vocabulary extraction");
+      console.log("✅ Hybrid verb lemmatizer initialized (JSON + Rules)");
     } catch (error) {
       console.error("Failed to initialize verb lemmatizer:", error);
       setIsLemmatizerReady(false);
     }
   };
-
   const extractWordsFromText = (text) => {
     return text
       .toLowerCase()
