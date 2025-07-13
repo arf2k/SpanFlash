@@ -925,3 +925,72 @@ button:focus-visible {
   box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
   outline: none;
 }
+.flashcard-side-buttons {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 10;
+}
+
+.flashcard-side-button {
+  background: var(--bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 1.3em;
+  line-height: 1;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flashcard-side-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  border-color: var(--color-primary);
+}
+
+.flashcard-side-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Specific button colors */
+.flashcard-side-button.mark-hard {
+  color: #ffc107;
+}
+
+.flashcard-side-button.mark-hard.marked {
+  color: #28a745;
+  background: var(--bg-hint);
+}
+
+.flashcard-side-button.edit-word {
+  color: var(--text-muted);
+}
+
+.flashcard-side-button.show-details {
+  color: var(--text-muted);
+}
+
+@media (max-width: 480px) {
+  .flashcard-side-buttons {
+    top: 10px;
+    right: 10px;
+    gap: 6px;
+  }
+  
+  .flashcard-side-button {
+    width: 36px;
+    height: 36px;
+    font-size: 1.2em;
+  }
+}
