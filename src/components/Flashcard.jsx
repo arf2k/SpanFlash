@@ -1,5 +1,6 @@
 // src/components/Flashcard.jsx
 import React, { useState, useEffect } from "react";
+import "./Flashcard.css";
 
 const Flashcard = ({
   pair,
@@ -45,7 +46,6 @@ const Flashcard = ({
     feedbackSignal ? `flashcard--${feedbackSignal}` : ""
   }`.trim();
   const markIcon = isMarkedHard ? "★" : "☆";
-  const markColor = isMarkedHard ? "#28a745" : "#ffc107";
   const markTitle = isMarkedHard
     ? "Word is marked as hard"
     : "Mark this word as hard";
@@ -53,87 +53,45 @@ const Flashcard = ({
   return (
     <div className={cardClassName}>
       {pair ? (
-        <div style={{ marginBottom: "10px" }}>
-          <div
-            style={{
-              position: "relative",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <p
-              className="flashcard-word"
-              style={{ marginRight: "60px" /* Ensure space for all buttons */ }}
+        <div>
+          <p className="flashcard-word">{wordToShow}</p>
+
+          {/* Action Buttons - Bottom Right Horizontal */}
+          <div className="flashcard-action-buttons">
+            <button
+              onClick={() => onMarkHard(pair)}
+              title={markTitle}
+              className={`flashcard-action-button mark-hard ${
+                isMarkedHard ? "marked" : ""
+              }`}
             >
-              {wordToShow}
-            </p>
-            <div
-              style={{
-                position: "absolute",
-                top: "0px",
-                right: "0px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "8px",
-              }}
-            >
+              {markIcon}
+            </button>
+            {onEdit && (
               <button
-                onClick={() => onMarkHard(pair)}
-                title={markTitle}
-                style={{
-                  background: "none",
-                  border: "none",
-                  fontSize: "1.8em",
-                  lineHeight: "1",
-                  padding: "0 5px",
-                  cursor: "pointer",
-                  color: markColor,
-                }}
+                onClick={onEdit}
+                title="Edit this word"
+                className="flashcard-action-button edit-word"
               >
-                {markIcon}
+                ✏️
               </button>
-              {onEdit && (
-                <button
-                  onClick={onEdit}
-                  title="Edit this word"
-                  style={{
-                    background: "none",
-                    border: "none",
-                    fontSize: "1.3em",
-                    lineHeight: "1",
-                    padding: "0 5px",
-                    cursor: "pointer",
-                    color: "var(--text-muted)",
-                  }}
-                >
-                  ✏️
-                </button>
-              )}
-              {/* "Show Details" Button - visible if a pair exists, not dependent on feedback state */}
-              {pair && onShowDetails && (
-                <button
-                  onClick={onShowDetails}
-                  title="Show more details & examples"
-                  style={{
-                    background: "none",
-                    border: "none",
-                    fontSize: "1.3em",
-                    lineHeight: "1",
-                    padding: "0 5px",
-                    cursor: "pointer",
-                    color: "var(--text-muted)",
-                  }}
-                >
-                  📖 {/* Book Icon */}
-                </button>
-              )}
-            </div>
+            )}
+            {/* "Show Details" Button - visible if a pair exists, not dependent on feedback state */}
+            {pair && onShowDetails && (
+              <button
+                onClick={onShowDetails}
+                title="Show more details & examples"
+                className="flashcard-action-button show-details"
+              >
+                📖 {/* Book Icon */}
+              </button>
+            )}
           </div>
         </div>
       ) : (
         <p>No card data.</p>
       )}
+
       {/* Answer Form: Only shown if not showing feedback AND a pair exists */}
       {pair && !showFeedback && (
         <form onSubmit={handleSubmit} className="answer-form">
@@ -169,6 +127,7 @@ const Flashcard = ({
           </div>
         </form>
       )}
+
       {/* Merriam-Webster Hint Display Area */}
       {(isHintLoading || hint) && (
         <div className="hint-display">
