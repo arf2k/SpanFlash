@@ -1,11 +1,12 @@
-import React from 'react';
+import React from "react";
 
-const AppHeader = ({ 
-  currentDataVersion, 
-  isInHardWordsMode, 
+const AppHeader = ({
+  currentDataVersion,
+  isInHardWordsMode,
   isAnyGameActive,
   onSettingsClick,
   onStatsClick,
+  setIsVocabExtractionModalOpen,
 }) => {
   const showHardModeIndicator = isInHardWordsMode && !isAnyGameActive;
 
@@ -32,11 +33,28 @@ const AppHeader = ({
               marginRight: "15px",
             }}
           >
-            Data v: {currentDataVersion}{" "}
-            {showHardModeIndicator && "(Hard Mode)"}
+            v: {currentDataVersion} {showHardModeIndicator && "(Hard Mode)"}
           </p>
         )}
-       
+        {/* VOCABULARY EXTRACTION BUTTON */}
+        <button
+          onClick={() => setIsVocabExtractionModalOpen(true)}
+          title="Extract vocabulary from text"
+          style={{
+            background: "none",
+            border: "none",
+            fontSize: "1.3em",
+            cursor: "pointer",
+            color: "var(--text-muted)",
+            padding: "0",
+            marginRight: "10px",
+          }}
+          disabled={isAnyGameActive}
+        >
+          <span role="img" aria-label="vocabulary extraction icon">
+            📰
+          </span>
+        </button>
         {/* STATS BUTTON */}
         <button
           onClick={onStatsClick}
