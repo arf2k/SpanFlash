@@ -26,6 +26,7 @@ import AppHeader from "./components/AppHeader";
 import GameControls from "./components/GameControls";
 import { useSessionStats } from "./hooks/useSessionStats";
 import StatsModal from "./components/StatsModal";
+import VocabularyExtractionModal from "./components/VocabularyExtractionModal.jsx";
 
 function App() {
   // === App-specific State Variables ===
@@ -94,6 +95,8 @@ function App() {
     setIsStatsModalOpen,
     addWordFromSearch,
     setAddWordFromSearch,
+    isVocabExtractionModalOpen,
+    setIsVocabExtractionModalOpen,
   } = useModalState();
 
   const {
@@ -621,6 +624,11 @@ function App() {
             getSessionAccuracy={getSessionAccuracy}
             getSessionDuration={getSessionDuration}
             onNewSession={startNewSession}
+          />
+          <VocabularyExtractionModal
+            isOpen={isVocabExtractionModalOpen}
+            onClose={() => setIsVocabExtractionModalOpen(false)}
+            existingVocabulary={mainWordList}
           />
         </>
       )}
