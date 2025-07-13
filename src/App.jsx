@@ -358,10 +358,8 @@ function App() {
       console.log("Admin mode disabled (localStorage removed).");
     }
   };
-
   return (
     <div className="App">
-      {" "}
       <AppHeader
         currentDataVersion={currentDataVersion}
         isInHardWordsMode={isInHardWordsMode}
@@ -370,7 +368,10 @@ function App() {
         onStatsClick={() => setIsStatsModalOpen(true)}
         setIsVocabExtractionModalOpen={setIsVocabExtractionModalOpen}
       />
-      {/* Score Stacks - Conditionally Rendered */}
+
+      {/* Score Stacks - COMMENTED OUT FOR STEP 1 LAYOUT CLEANUP */}
+      {/* Will be preserved for Games Modal in Step 3 */}
+      {/*
       {!isMatchingGameModeActive &&
         !isFillInTheBlankModeActive &&
         !isVerbConjugationGameActive && (
@@ -396,10 +397,12 @@ function App() {
               onClick={handleToggleHardWordsView}
             />
           </div>
-        )} 
+        )}
+      */}
+
       {/* Controls Section */}
       {/* TEMPORARILY COMMENTED OUT FOR STEP 1 TESTING */}
-{/*
+      {/*
 {!isAnyGameActive && (
   <GameControls
     onFillInBlankToggle={handleToggleFillInTheBlankMode}
@@ -420,7 +423,7 @@ function App() {
   />
 )}
 */}
-     
+
       {/* Mode Change Message - This goes before the main content switcher */}
       {modeChangeMessage && (
         <p
@@ -429,6 +432,7 @@ function App() {
           {modeChangeMessage}
         </p>
       )}
+
       {/* Main Content Area: Game OR Flashcard/HardWords View */}
       {isVerbConjugationGameActive ? (
         <div
