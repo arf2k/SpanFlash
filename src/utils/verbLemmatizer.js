@@ -1,3 +1,10 @@
+import { spanishConjugationRules } from './spanishConjugationRules';
+
+/**
+ * Hybrid Spanish Verb Lemmatizer
+ * 1. First checks conjugations.json 
+ * 2. Falls back to rule-based patterns (catches missing regular verbs)
+ */
 class SpanishVerbLemmatizer {
   constructor() {
     this.conjugationToInfinitive = new Map();
@@ -6,17 +13,17 @@ class SpanishVerbLemmatizer {
   }
 
   /**
-   * Initialize the lemmatizer with verb conjugation data
+   * Initialize the lemmatizer with conjugation data + rule fallback
    * @param {Object} verbData - The conjugation database from ellaverbs
    */
   async initialize(verbData) {
     if (this.isInitialized) return;
 
-    console.log("Building Spanish verb reverse lookup table...");
+    console.log("Building hybrid Spanish verb lemmatizer (JSON + Rules)...");
     let totalConjugations = 0;
     let duplicateCount = 0;
 
-    // Process each verb in the database
+    // Process JSON database first (existing logic)
     Object.entries(verbData.verbs).forEach(([verbKey, verbInfo]) => {
       const infinitive = verbInfo.verb;
       this.infinitives.add(infinitive);
@@ -24,7 +31,7 @@ class SpanishVerbLemmatizer {
       // Process all tenses for this verb
       Object.entries(verbInfo.tenses).forEach(
         ([tenseName, tenseConjugations]) => {
-          // Skip complex tenses that contain multiple words (e.g., "he sido", "estoy siendo")
+          // Skip complex tenses that contain multiple words
           if (this.isCompoundTense(tenseName)) {
             return;
           }
@@ -35,12 +42,11 @@ class SpanishVerbLemmatizer {
               const cleanConjugation = this.cleanConjugation(conjugation);
 
               if (cleanConjugation && cleanConjugation !== infinitive) {
-                // Check for duplicates (some forms appear in multiple verbs)
+                // Check for duplicates
                 if (this.conjugationToInfinitive.has(cleanConjugation)) {
                   const existingInfinitive =
                     this.conjugationToInfinitive.get(cleanConjugation);
                   if (existingInfinitive !== infinitive) {
-                    // Handle ambiguous forms (e.g., "era" could be "ser" or "estar")
                     this.handleAmbiguousForm(
                       cleanConjugation,
                       existingInfinitive,
@@ -62,9 +68,10 @@ class SpanishVerbLemmatizer {
       );
     });
 
-    console.log(`✅ Verb lemmatizer initialized:`);
-    console.log(`   - ${this.infinitives.size} base verbs processed`);
+    console.log(`✅ Hybrid verb lemmatizer initialized:`);
+    console.log(`   - ${this.infinitives.size} base verbs from JSON`);
     console.log(`   - ${totalConjugations} unique conjugations mapped`);
+    console.log(`   - Rule-based fallback ready for missing patterns`);
     console.log(`   - ${duplicateCount} ambiguous forms handled`);
 
     this.isInitialized = true;
@@ -94,13 +101,12 @@ class SpanishVerbLemmatizer {
   isValidConjugation(conjugation) {
     if (!conjugation || typeof conjugation !== "string") return false;
 
-    // Skip empty, dash, or multi-word forms
     return (
       conjugation.trim() !== "" &&
       conjugation !== "-" &&
       !conjugation.includes(" ") &&
       !conjugation.includes("no ")
-    ); // Skip negative imperatives
+    );
   }
 
   /**
@@ -110,14 +116,13 @@ class SpanishVerbLemmatizer {
     return conjugation
       .toLowerCase()
       .trim()
-      .replace(/[¿¡.,;:!?"'()]/g, ""); // Remove punctuation but keep accents
+      .replace(/[¿¡.,;:!?'()]/g, ""); // Remove punctuation but keep accents
   }
 
   /**
    * Handle forms that could belong to multiple verbs
    */
   handleAmbiguousForm(conjugation, existing, newInfinitive) {
-    // Prefer more common verbs for ambiguous forms
     const commonVerbs = [
       "ser",
       "estar",
@@ -143,14 +148,11 @@ class SpanishVerbLemmatizer {
     ) {
       // Replace with the more common verb
       this.conjugationToInfinitive.set(conjugation, newInfinitive);
-    } else {
-      // For equally common/uncommon verbs, keep the first one found
-      // Could be enhanced with frequency data later
     }
   }
 
   /**
-   * Get the infinitive form of a conjugated verb
+   * Get the infinitive form of a conjugated verb - HYBRID APPROACH
    * @param {string} word - The potentially conjugated verb
    * @returns {string|null} - The infinitive form, or null if not found
    */
@@ -162,13 +164,24 @@ class SpanishVerbLemmatizer {
 
     const cleanWord = this.cleanConjugation(word);
 
-    // Check if it's already an infinitive
+    // 1. Check if it's already an infinitive
     if (this.infinitives.has(cleanWord)) {
       return cleanWord;
     }
 
-    // Look up conjugated form
-    return this.conjugationToInfinitive.get(cleanWord) || null;
+    // 2. Check JSON database first 
+    const jsonResult = this.conjugationToInfinitive.get(cleanWord);
+    if (jsonResult) {
+      return jsonResult;
+    }
+
+    // 3. Fallback to rule-based patterns for missing regular verbs
+    const ruleResult = spanishConjugationRules.getInfinitive(cleanWord);
+    if (ruleResult) {
+      return ruleResult;
+    }
+
+    return null;
   }
 
   /**
@@ -184,15 +197,19 @@ class SpanishVerbLemmatizer {
    * Get statistics about the lemmatizer
    */
   getStats() {
+    const ruleStats = spanishConjugationRules.getStats();
     return {
+      systemType: 'hybrid_json_plus_rules',
       totalInfinitives: this.infinitives.size,
       totalConjugations: this.conjugationToInfinitive.size,
+      irregularRuleForms: ruleStats.irregularForms,
       isInitialized: this.isInitialized,
+      coverage: 'comprehensive - JSON database + rule fallback'
     };
   }
 
   /**
-   * Export the lookup table for debugging or caching
+   * Export the lookup table for debugging
    */
   exportLookupTable() {
     if (!this.isInitialized) return null;
@@ -200,6 +217,7 @@ class SpanishVerbLemmatizer {
     return {
       conjugationToInfinitive: Object.fromEntries(this.conjugationToInfinitive),
       infinitives: Array.from(this.infinitives),
+      ruleStats: spanishConjugationRules.getStats(),
       stats: this.getStats(),
     };
   }
