@@ -14,6 +14,9 @@ export const createApiHandlers = (
   setTatoebaError,
   setTatoebaExamples
 ) => {
+  // Updated handleGetHint function for apiHandlers.js
+  // Replace the existing handleGetHint function with this version
+
   const handleGetHint = async (forceLookup = false) => {
     if (!currentPair || isHintLoading) return;
     if (
@@ -22,6 +25,7 @@ export const createApiHandlers = (
         (showFeedback && feedbackSignal === "incorrect"))
     )
       return;
+
     const wordToLookup = currentPair.spanish;
     if (!wordToLookup) {
       setHintData({
@@ -30,6 +34,7 @@ export const createApiHandlers = (
       });
       return;
     }
+
     const spanishArticleRegex = /^(el|la|los|las|un|una|unos|unas)\s+/i;
     let wordForApi = wordToLookup.replace(spanishArticleRegex, "").trim();
     if (!wordForApi) {
@@ -39,12 +44,76 @@ export const createApiHandlers = (
       });
       return;
     }
+
     setIsHintLoading(true);
     setApiSuggestions(null);
     if (forceLookup || !hintData) setHintData(null);
+
+    // Set up slow request callback
+    let hasShownSlowMessage = false;
+    const onSlowRequest = () => {
+      if (!hasShownSlowMessage) {
+        hasShownSlowMessage = true;
+        setHintData({
+          type: "slow_loading",
+          message: "Dictionary lookup is taking longer than usual...",
+          word: wordForApi,
+        });
+      }
+    };
+
     try {
-      const apiResponse = await getMwHint(wordForApi);
+      const apiResponse = await getMwHint(wordForApi, onSlowRequest);
+
+      // Handle timeout and other specific errors
+      if (apiResponse && apiResponse.error) {
+        switch (apiResponse.type) {
+          case "timeout":
+            setHintData({
+              type: "error",
+              message: `Dictionary lookup timed out. Try again?`,
+              canRetry: true,
+              word: wordForApi,
+            });
+            break;
+          case "server_error":
+            setHintData({
+              type: "error",
+              message: "Dictionary service temporarily unavailable.",
+              canRetry: true,
+              word: wordForApi,
+            });
+            break;
+          case "not_found":
+            setHintData({
+              type: "error",
+              message: `"${wordForApi}" not found in dictionary.`,
+              canRetry: false,
+              word: wordForApi,
+            });
+            break;
+          case "network_error":
+            setHintData({
+              type: "error",
+              message: "Unable to connect to dictionary service.",
+              canRetry: true,
+              word: wordForApi,
+            });
+            break;
+          default:
+            setHintData({
+              type: "error",
+              message: "Dictionary lookup failed.",
+              canRetry: true,
+              word: wordForApi,
+            });
+        }
+        return;
+      }
+
       console.log("Raw Hint Data from MW:", apiResponse);
+
+      // Parse English synonyms for suggestions (existing logic)
       let parsedEngSynonyms = [];
       if (apiResponse && Array.isArray(apiResponse) && apiResponse.length > 0) {
         const firstResult = apiResponse[0];
@@ -59,7 +128,7 @@ export const createApiHandlers = (
           parsedEngSynonyms = shortDefString
             .split(/,| or /)
             .map((s) => {
-              let cleaned = s.replace(/\(.*?\)/g, "").trim();
+              let cleaned = s.replace(/\([^)]*?\)/g, "").trim();
               if (cleaned.toLowerCase().startsWith("especially "))
                 cleaned = cleaned.substring(11).trim();
               return cleaned;
@@ -79,6 +148,7 @@ export const createApiHandlers = (
           }
         }
       }
+
       if (parsedEngSynonyms.length > 0) {
         parsedEngSynonyms = [...new Set(parsedEngSynonyms)];
         setApiSuggestions({
@@ -93,6 +163,8 @@ export const createApiHandlers = (
           currentPair.id
         );
       }
+
+      // Process definition data (existing logic)
       let definitionData = null,
         suggestionsFromApi = null;
       if (Array.isArray(apiResponse) && apiResponse.length > 0) {
@@ -112,15 +184,23 @@ export const createApiHandlers = (
         setHintData({
           type: "error",
           message: `No definition or suggestions found for "${wordForApi}".`,
+          canRetry: true,
+          word: wordForApi,
         });
       else setHintData({ type: "unknown", raw: apiResponse });
+
       if (definitionData)
         setHintData({ type: "definitions", data: definitionData });
       else if (suggestionsFromApi)
         setHintData({ type: "suggestions", suggestions: suggestionsFromApi });
     } catch (err) {
       console.error("Error in handleGetHint fetching/processing MW data:", err);
-      setHintData({ type: "error", message: "Failed to fetch hint." });
+      setHintData({
+        type: "error",
+        message: "Failed to fetch hint.",
+        canRetry: true,
+        word: wordForApi,
+      });
     } finally {
       setIsHintLoading(false);
     }
