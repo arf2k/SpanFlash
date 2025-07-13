@@ -1,4 +1,5 @@
-// src/components/Flashcard.jsx
+// Updated Flashcard.jsx - Action buttons moved above the word
+
 import React, { useState, useEffect } from "react";
 import "./Flashcard.css";
 
@@ -54,9 +55,7 @@ const Flashcard = ({
     <div className={cardClassName}>
       {pair ? (
         <div>
-          <p className="flashcard-word">{wordToShow}</p>
-
-          {/* Action Buttons - Bottom Right Horizontal */}
+          {/* Action Buttons - NOW ABOVE THE WORD */}
           <div className="flashcard-action-buttons">
             <button
               onClick={() => onMarkHard(pair)}
@@ -87,6 +86,9 @@ const Flashcard = ({
               </button>
             )}
           </div>
+
+          {/* Main Word Display */}
+          <p className="flashcard-word">{wordToShow}</p>
         </div>
       ) : (
         <p>No card data.</p>

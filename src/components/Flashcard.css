@@ -1,5 +1,3 @@
-/* src/components/Flashcard.css */
-
 /* === Flashcard Area Styling === */
 .flashcard-area {
   width: 100%;
@@ -26,26 +24,14 @@
   box-sizing: border-box;
 }
 
-.flashcard-word {
-  font-size: 2.8rem;
-  font-weight: 700;
-  margin: 20px 0 25px 0;
-  color: var(--text-heading);
-  min-height: 1.3em;
-  transition: color 0.3s ease;
-  line-height: 1.2;
-  word-wrap: break-word;
-}
-
-/* === Flashcard Action Buttons (Bottom-Right Horizontal) === */
+/* === Flashcard Action Buttons (Above Word - Horizontal Center) === */
 .flashcard-action-buttons {
-  position: absolute;
-  bottom: 15px;
-  right: 15px;
   display: flex;
   flex-direction: row;
-  gap: 8px;
-  z-index: 10;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 15px;
 }
 
 .flashcard-action-button {
@@ -92,6 +78,18 @@
 
 .flashcard-action-button.show-details {
   color: var(--text-muted);
+}
+
+/* === Flashcard Word (Adjusted margin since buttons now above) === */
+.flashcard-word {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin: 10px 0 25px 0; /* CHANGED: Reduced top margin since buttons provide spacing */
+  color: var(--text-heading);
+  min-height: 1.3em;
+  transition: color 0.3s ease;
+  line-height: 1.2;
+  word-wrap: break-word;
 }
 
 /* === Visual Feedback Styles (Flashcard Animation) === */
@@ -318,14 +316,13 @@
 /* === Mobile Responsive Styles === */
 @media (max-width: 480px) {
   .flashcard-action-buttons {
-    bottom: 10px;
-    right: 10px;
-    gap: 6px;
+    gap: 10px;
+    margin-bottom: 12px;
   }
 
   .flashcard-action-button {
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
     font-size: 1.2em;
   }
 
@@ -338,5 +335,13 @@
   .answer-form {
     gap: 20px;
     max-width: 100%;
+  }
+
+  .flashcard {
+    padding: 25px 30px;
+  }
+
+  .flashcard-word {
+    font-size: 2.4rem;
   }
 }
