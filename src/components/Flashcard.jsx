@@ -1,5 +1,3 @@
-// Enhanced Flashcard.jsx - Step 1C: Show rich content when feedback is active
-
 import React, { useState, useEffect } from "react";
 import "./Flashcard.css";
 
@@ -15,11 +13,11 @@ const Flashcard = ({
   onMarkHard,
   isMarkedHard,
   onEdit,
-  onShowDetails, // Prop to trigger showing the details modal
+  onShowDetails,
+  onNewCard,
 }) => {
   const [answer, setAnswer] = useState("");
 
-  // Effect to clear the answer input when a new card is shown or feedback appears/disappears
   useEffect(() => {
     setAnswer("");
   }, [pair, showFeedback]);
@@ -97,7 +95,9 @@ const Flashcard = ({
             <div className="flashcard-details-revealed">
               {/* Correct Translation */}
               <div className="detail-item">
-                <strong>{direction === "spa-eng" ? "English:" : "Spanish:"}</strong>
+                <strong>
+                  {direction === "spa-eng" ? "English:" : "Spanish:"}
+                </strong>
                 <span className="detail-value">{correctAnswer}</span>
               </div>
 
@@ -105,7 +105,9 @@ const Flashcard = ({
               {pair.synonyms_spanish && pair.synonyms_spanish.length > 0 && (
                 <div className="detail-item">
                   <strong>Spanish Synonyms:</strong>
-                  <span className="detail-value">{pair.synonyms_spanish.join(', ')}</span>
+                  <span className="detail-value">
+                    {pair.synonyms_spanish.join(", ")}
+                  </span>
                 </div>
               )}
 
@@ -113,7 +115,9 @@ const Flashcard = ({
               {pair.synonyms_english && pair.synonyms_english.length > 0 && (
                 <div className="detail-item">
                   <strong>English Synonyms:</strong>
-                  <span className="detail-value">{pair.synonyms_english.join(', ')}</span>
+                  <span className="detail-value">
+                    {pair.synonyms_english.join(", ")}
+                  </span>
                 </div>
               )}
 
@@ -171,11 +175,18 @@ const Flashcard = ({
             >
               {isHintLoading ? "Getting Synonyms..." : "Synonyms"}
             </button>
+            <button
+              type="button"
+              onClick={onNewCard}
+              className="new-card-button"
+            >
+              New Card
+            </button>
           </div>
         </form>
       )}
 
-      {/* Hint Display - Restored to work with existing architecture */}
+      {/* Hint Display */}
       {(isHintLoading || hint) && (
         <div className="hint-display">
           {isHintLoading && !hint && <span>Loading synonyms...</span>}
@@ -183,7 +194,8 @@ const Flashcard = ({
             <>
               {hint.type === "slow_loading" && (
                 <span style={{ color: "orange" }}>
-                  {hint.message || "Dictionary lookup is taking longer than usual..."}
+                  {hint.message ||
+                    "Dictionary lookup is taking longer than usual..."}
                 </span>
               )}
               {hint.type === "suggestions" && hint.suggestions?.length > 0 && (

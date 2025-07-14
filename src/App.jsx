@@ -516,6 +516,7 @@ function App() {
                     }
                     onEdit={() => openEditModal(currentPair)}
                     onShowDetails={handleShowDetailsModal}
+                    onNewCard={selectNewPairCard}
                   />
                   {showFeedback && feedbackSignal === "incorrect" && (
                     <div className="feedback-area">
