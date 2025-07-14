@@ -345,3 +345,52 @@
     font-size: 2.4rem;
   }
 }
+.secondary-buttons {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.secondary-buttons button {
+  flex: 1;
+  max-width: 180px;
+}
+
+.new-card-button {
+  background-color: var(--color-primary);
+  color: var(--text-button);
+  border: 1px solid var(--color-primary);
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  min-width: 120px;
+}
+
+.new-card-button:hover {
+  background-color: var(--color-primary-darker);
+  border-color: var(--color-primary-darker);
+}
+
+.new-card-button:disabled {
+  background: var(--color-disabled-bg);
+  color: var(--color-disabled-text);
+  border-color: var(--color-disabled-bg);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Mobile responsive for new layout */
+@media (max-width: 480px) {
+  .secondary-buttons button {
+    min-width: unset;
+    padding: 16px 20px;
+    font-size: 1.1rem;
+  }
+}
+

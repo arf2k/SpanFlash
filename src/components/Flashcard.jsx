@@ -145,24 +145,28 @@ const Flashcard = ({
 
       {/* Answer Form: Only shown if not showing feedback AND a pair exists */}
       {pair && !showFeedback && (
-        <form onSubmit={handleSubmit} className="answer-form">
-          <input
-            type="text"
-            value={answer}
-            onChange={(e) => setAnswer(e.target.value)}
-            placeholder={placeholderText}
-            className="answer-input"
-            autoFocus
-            required
-          />
-          <div className="answer-form-buttons">
-            <button
-              type="submit"
-              className="submit-button"
-              disabled={!answer.trim()}
-            >
-              Check Answer
-            </button>
+        <>
+          <form onSubmit={handleSubmit} className="answer-form">
+            <input
+              type="text"
+              value={answer}
+              onChange={(e) => setAnswer(e.target.value)}
+              placeholder={placeholderText}
+              className="answer-input"
+              autoFocus
+              required
+            />
+            <div className="answer-form-buttons">
+              <button
+                type="submit"
+                className="submit-button"
+                disabled={!answer.trim()}
+              >
+                Check Answer
+              </button>
+            </div>
+          </form>
+          <div className="secondary-buttons">
             <button
               type="button"
               onClick={onGetHint}
@@ -183,9 +187,8 @@ const Flashcard = ({
               New Card
             </button>
           </div>
-        </form>
+        </>
       )}
-
       {/* Hint Display */}
       {(isHintLoading || hint) && (
         <div className="hint-display">
