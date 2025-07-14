@@ -1,4 +1,4 @@
-// Updated Flashcard.jsx - Action buttons moved above the word
+// Enhanced Flashcard.jsx - Step 1C: Show rich content when feedback is active
 
 import React, { useState, useEffect } from "react";
 import "./Flashcard.css";
@@ -26,13 +26,16 @@ const Flashcard = ({
 
   let wordToShow = "";
   let placeholderText = "Type your answer...";
+  let correctAnswer = "";
 
   if (pair) {
     if (direction === "spa-eng") {
       wordToShow = pair.spanish;
+      correctAnswer = pair.english;
       placeholderText = "Type English...";
     } else {
       wordToShow = pair.english;
+      correctAnswer = pair.spanish;
       placeholderText = "Type Spanish...";
     }
   }
@@ -55,7 +58,7 @@ const Flashcard = ({
     <div className={cardClassName}>
       {pair ? (
         <div>
-          {/* Action Buttons - NOW ABOVE THE WORD */}
+          {/* Action Buttons - Above the word */}
           <div className="flashcard-action-buttons">
             <button
               onClick={() => onMarkHard(pair)}
@@ -75,20 +78,62 @@ const Flashcard = ({
                 ✏️
               </button>
             )}
-            {/* "Show Details" Button - visible if a pair exists, not dependent on feedback state */}
             {pair && onShowDetails && (
               <button
                 onClick={onShowDetails}
                 title="Show more details & examples"
                 className="flashcard-action-button show-details"
               >
-                📖 {/* Book Icon */}
+                📖
               </button>
             )}
           </div>
 
           {/* Main Word Display */}
           <p className="flashcard-word">{wordToShow}</p>
+
+          {/* Enhanced Content - Show when feedback is active (flipped card state) */}
+          {showFeedback && (
+            <div className="flashcard-details-revealed">
+              {/* Correct Translation */}
+              <div className="detail-item">
+                <strong>{direction === "spa-eng" ? "English:" : "Spanish:"}</strong>
+                <span className="detail-value">{correctAnswer}</span>
+              </div>
+
+              {/* Spanish Synonyms */}
+              {pair.synonyms_spanish && pair.synonyms_spanish.length > 0 && (
+                <div className="detail-item">
+                  <strong>Spanish Synonyms:</strong>
+                  <span className="detail-value">{pair.synonyms_spanish.join(', ')}</span>
+                </div>
+              )}
+
+              {/* English Synonyms */}
+              {pair.synonyms_english && pair.synonyms_english.length > 0 && (
+                <div className="detail-item">
+                  <strong>English Synonyms:</strong>
+                  <span className="detail-value">{pair.synonyms_english.join(', ')}</span>
+                </div>
+              )}
+
+              {/* Category */}
+              {pair.category && (
+                <div className="detail-item category-detail">
+                  <strong>Category:</strong>
+                  <span className="detail-value">{pair.category}</span>
+                </div>
+              )}
+
+              {/* Notes */}
+              {pair.notes && (
+                <div className="detail-item notes-detail">
+                  <strong>Notes:</strong>
+                  <div className="notes-content">{pair.notes}</div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       ) : (
         <p>No card data.</p>
@@ -124,54 +169,29 @@ const Flashcard = ({
                 (showFeedback && feedbackSignal === "incorrect")
               }
             >
-              {isHintLoading ? "Getting Hint..." : "Synonyms"}
+              {isHintLoading ? "Getting Hint..." : "Get Hint"}
             </button>
           </div>
         </form>
       )}
 
-      {/* Merriam-Webster Hint Display Area */}
-      {(isHintLoading || hint) && (
+      {/* Hint Display - Outside of answer form for better mobile layout */}
+      {hint && !showFeedback && (
         <div className="hint-display">
-          {isHintLoading && !hint && <span>Loading hint...</span>}
-          {hint && (
-            <>
-              {hint.type === "suggestions" && hint.suggestions?.length > 0 && (
-                <span>Did you mean: {hint.suggestions.join(", ")}?</span>
+          {hint.type === "definition" && hint.definition && (
+            <div>
+              <strong>Definition:</strong> {hint.definition}
+              {hint.suggestedWords && hint.suggestedWords.length > 0 && (
+                <div>
+                  <em>Suggestions: {hint.suggestedWords.join(", ")}</em>
+                </div>
               )}
-              {hint.type === "definitions" && hint.data ? (
-                <>
-                  <strong>Hint (MW): </strong>
-                  {hint.data.fl && (
-                    <em style={{ marginRight: "5px" }}>({hint.data.fl})</em>
-                  )}
-                  {hint.data.shortdef && hint.data.shortdef.length > 0 ? (
-                    hint.data.shortdef.map((def, index) => (
-                      <span key={index}>
-                        {index > 0 && "; "} {def}
-                      </span>
-                    ))
-                  ) : (
-                    <span style={{ fontStyle: "italic" }}>
-                      {" "}
-                      (No short definition)
-                    </span>
-                  )}
-                </>
-              ) : null}
-              {hint.type === "error" && (
-                <span style={{ color: "orange" }}>
-                  {" "}
-                  Hint Error: {hint.message || "Failed."}
-                </span>
-              )}
-              {hint.type === "unknown" && (
-                <span style={{ color: "orange" }}>
-                  {" "}
-                  Unrecognized hint format.
-                </span>
-              )}
-            </>
+            </div>
+          )}
+          {hint.type === "error" && (
+            <div style={{ color: "orange" }}>
+              <strong>Error:</strong> {hint.message}
+            </div>
           )}
         </div>
       )}
