@@ -131,30 +131,34 @@ db.version(8)
   })
   .upgrade(async (tx) => {
     console.log(
-      "Fixing exposure level access - making all vocabulary available..."
+      "Fixing exposure level access - preserving existing progress data..."
     );
 
     await tx
       .table("allWords")
       .toCollection()
       .modify((word) => {
-        const box = word.leitnerBox || 0;
+        // ONLY update words that don't already have progress data
+        if (!word.timesStudied || word.timesStudied === 0) {
+          const box = word.leitnerBox || 0;
 
-        if (box === 0) {
-          word.exposureLevel = "new";
-        } else {
-          // Everything else becomes 'learning' - accessible to all games
-          word.exposureLevel = "learning";
+          if (box === 0) {
+            word.exposureLevel = "new";
+          } else {
+            // Everything else becomes 'learning' - accessible to all games
+            word.exposureLevel = "learning";
+          }
+
+          // Conservative exposure tracking
+          word.timesStudied = Math.max(box, 0);
+          word.timesCorrect = Math.max(Math.floor(box * 0.8), 0);
         }
-
-        // Conservative exposure tracking
-        word.timesStudied = Math.max(box, 0);
-        word.timesCorrect = Math.max(Math.floor(box * 0.8), 0);
+        // If word already has timesStudied > 0, don't touch it
       });
 
     const count = await tx.table("allWords").count();
     console.log(
-      `Fixed access for ${count} words - full vocabulary now available`
+      `Fixed access for ${count} words - preserving existing progress data`
     );
   });
 db.version(9)
