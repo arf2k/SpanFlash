@@ -368,24 +368,30 @@ function App() {
         onStatsClick={() => setIsStatsModalOpen(true)}
         setIsVocabExtractionModalOpen={setIsVocabExtractionModalOpen}
       />
-        {/* TEMPORARY DEBUG INFO - REMOVE AFTER FIXING */}
+      {/* TEMPORARY DEBUG INFO - REMOVE AFTER FIXING */}
       {mainWordList.length > 0 && (
-        <div style={{
-          backgroundColor: 'orange',
-          color: 'black',
-          padding: '10px',
-          margin: '10px 0',
-          borderRadius: '5px',
-          fontSize: '12px'
-        }}>
-          <strong>DEBUG INFO:</strong><br/>
-          Total words: {mainWordList.length}<br/>
-          Words with progress: {mainWordList.filter(w => w.timesStudied > 0).length}<br/>
-          Sample progress words:<br/>
-          {mainWordList.filter(w => w.timesStudied > 0).slice(0, 3).map((word, i) => (
-            <div key={i}>• {word.spanish}: {word.timesStudied} studied, {word.exposureLevel}</div>
-          ))}
-          Current card: {currentPair ? `${currentPair.spanish} (${currentPair.timesStudied} studied)` : 'none'}
+        <div
+          style={{
+            backgroundColor: "orange",
+            color: "black",
+            padding: "10px",
+            margin: "10px 0",
+            borderRadius: "5px",
+            fontSize: "12px",
+          }}
+        >
+          <div
+            style={{
+              background: "orange",
+              color: "black",
+              padding: "10px",
+              textAlign: "center",
+              fontSize: "14px",
+            }}
+          >
+            DEBUG: {mainWordList.filter((w) => w.timesStudied > 0).length} words
+            with progress out of {mainWordList.length} total
+          </div>
         </div>
       )}
 

@@ -65,6 +65,27 @@ export function useWordData() {
               item.english.trim()
           );
 
+           console.log("=== MASTER FILE DEBUG ===");
+        console.log(`Total words in master file: ${validRemoteWords.length}`);
+        
+        // Check how many words in the master file have progress
+        const masterWordsWithProgress = validRemoteWords.filter(word => word.timesStudied > 0);
+        console.log(`Words with progress in master file: ${masterWordsWithProgress.length}`);
+        
+        if (masterWordsWithProgress.length > 0) {
+          console.log("Sample words with progress from master:");
+          masterWordsWithProgress.slice(0, 5).forEach(word => {
+            console.log(`- "${word.spanish}": ${word.timesStudied} studied, ${word.exposureLevel}`);
+          });
+        } else {
+          console.log("NO WORDS WITH PROGRESS FOUND IN MASTER FILE!");
+          console.log("Sample words from master (checking structure):");
+          validRemoteWords.slice(0, 3).forEach(word => {
+            console.log(`- "${word.spanish}": timesStudied=${word.timesStudied}, exposureLevel=${word.exposureLevel}`);
+          });
+        }
+        console.log("=== END MASTER DEBUG ===");
+
           if (validRemoteWords.length > 0) {
             const now = Date.now();
 
