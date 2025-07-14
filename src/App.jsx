@@ -368,6 +368,26 @@ function App() {
         onStatsClick={() => setIsStatsModalOpen(true)}
         setIsVocabExtractionModalOpen={setIsVocabExtractionModalOpen}
       />
+        {/* TEMPORARY DEBUG INFO - REMOVE AFTER FIXING */}
+      {mainWordList.length > 0 && (
+        <div style={{
+          backgroundColor: 'orange',
+          color: 'black',
+          padding: '10px',
+          margin: '10px 0',
+          borderRadius: '5px',
+          fontSize: '12px'
+        }}>
+          <strong>DEBUG INFO:</strong><br/>
+          Total words: {mainWordList.length}<br/>
+          Words with progress: {mainWordList.filter(w => w.timesStudied > 0).length}<br/>
+          Sample progress words:<br/>
+          {mainWordList.filter(w => w.timesStudied > 0).slice(0, 3).map((word, i) => (
+            <div key={i}>• {word.spanish}: {word.timesStudied} studied, {word.exposureLevel}</div>
+          ))}
+          Current card: {currentPair ? `${currentPair.spanish} (${currentPair.timesStudied} studied)` : 'none'}
+        </div>
+      )}
 
       {/* Score Stacks - COMMENTED OUT FOR STEP 1 LAYOUT CLEANUP */}
       {/* Will be preserved for Games Modal in Step 3 */}
