@@ -1,4 +1,5 @@
 import React from "react";
+import "./AppHeader.css";
 
 const AppHeader = ({
   currentDataVersion,
@@ -11,81 +12,42 @@ const AppHeader = ({
   const showHardModeIndicator = isInHardWordsMode && !isAnyGameActive;
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        width: "100%",
-        maxWidth: "700px",
-        marginBottom: "10px",
-      }}
-    >
-      <h1>Xan's Spans</h1>
-      <div>
+    <div className="app-header">
+      <div className="app-header-version">
         {currentDataVersion && (
-          <p
-            style={{
-              fontSize: "0.8rem",
-              color: "var(--text-muted)",
-              margin: "0",
-              display: "inline-block",
-              marginRight: "15px",
-            }}
-          >
+          <>
             v: {currentDataVersion} {showHardModeIndicator && "(Hard Mode)"}
-          </p>
+          </>
         )}
-        {/* VOCABULARY EXTRACTION BUTTON */}
+      </div>
+      
+      <div className="app-header-buttons">
         <button
           onClick={() => setIsVocabExtractionModalOpen(true)}
           title="Extract vocabulary from text"
-          style={{
-            background: "none",
-            border: "none",
-            fontSize: "1.3em",
-            cursor: "pointer",
-            color: "var(--text-muted)",
-            padding: "0",
-            marginRight: "10px",
-          }}
+          className="app-header-button extract"
           disabled={isAnyGameActive}
         >
           <span role="img" aria-label="vocabulary extraction icon">
             📰
           </span>
         </button>
-        {/* STATS BUTTON */}
+        
         <button
           onClick={onStatsClick}
           title="Session Stats"
-          style={{
-            background: "none",
-            border: "none",
-            fontSize: "1.3em",
-            cursor: "pointer",
-            color: "var(--text-muted)",
-            padding: "0",
-            marginRight: "10px",
-          }}
+          className="app-header-button stats"
           disabled={isAnyGameActive}
         >
           <span role="img" aria-label="stats icon">
             📊
           </span>
         </button>
-        {/* SETTINGS BUTTON */}
+        
         <button
           onClick={onSettingsClick}
           title="Settings"
-          style={{
-            background: "none",
-            border: "none",
-            fontSize: "1.5em",
-            cursor: "pointer",
-            color: "var(--text-muted)",
-            padding: "0",
-          }}
+          className="app-header-button settings"
           disabled={isAnyGameActive}
         >
           <span role="img" aria-label="settings icon">

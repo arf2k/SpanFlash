@@ -1,0 +1,80 @@
+/* === Compact App Header === */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+  margin-bottom: 8px; /* Reduced from 10px */
+  min-height: 32px; /* Compact height */
+}
+
+.app-header-version {
+  font-size: 0.75rem; /* Slightly smaller */
+  color: var(--text-muted);
+  margin: 0;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.app-header-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Tighter spacing */
+}
+
+.app-header-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 4px; /* Smaller touch targets */
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-header-button:hover:not(:disabled) {
+  color: var(--text-body);
+  background-color: var(--bg-hint);
+  transform: translateY(-1px);
+}
+
+.app-header-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.app-header-button.extract {
+  font-size: 1.2em;
+}
+
+.app-header-button.stats {
+  font-size: 1.2em;
+}
+
+.app-header-button.settings {
+  font-size: 1.3em;
+}
+
+/* Mobile optimization */
+@media (max-width: 480px) {
+  .app-header {
+    margin-bottom: 6px;
+    min-height: 28px;
+  }
+  
+  .app-header-version {
+    font-size: 0.7rem;
+  }
+  
+  .app-header-buttons {
+    gap: 6px;
+  }
+  
+  .app-header-button {
+    padding: 3px;
+  }
+}
