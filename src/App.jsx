@@ -671,6 +671,11 @@ function App() {
           />
         </>
       )}
+       {currentDataVersion && (
+      <div className="version-overlay">
+        v: {currentDataVersion}
+      </div>
+    )}
     </div>
   );
 }

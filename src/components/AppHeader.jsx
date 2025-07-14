@@ -2,7 +2,7 @@ import React from "react";
 import "./AppHeader.css";
 
 const AppHeader = ({
-  currentDataVersion,
+  currentDataVersion, // Keep prop for now, will remove later
   isInHardWordsMode,
   isAnyGameActive,
   onSettingsClick,
@@ -13,13 +13,12 @@ const AppHeader = ({
 
   return (
     <div className="app-header">
-      <div className="app-header-version">
-        {currentDataVersion && (
-          <>
-            v: {currentDataVersion} {showHardModeIndicator && "(Hard Mode)"}
-          </>
-        )}
-      </div>
+      {/* Removed version display - now just shows hard mode if active */}
+      {showHardModeIndicator && (
+        <div className="hard-mode-indicator">
+          Hard Mode
+        </div>
+      )}
       
       <div className="app-header-buttons">
         <button

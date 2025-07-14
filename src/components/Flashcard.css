@@ -287,6 +287,8 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   text-align: left;
   transition: all 0.3s ease;
+  max-height: 180px;
+  overflow-y: auto;
 }
 
 .flashcard-details-revealed .detail-item {
@@ -329,7 +331,11 @@
 /* Special styling for different content types */
 .flashcard-details-revealed .detail-item:first-child {
   border-left-color: var(--color-success);
-  background: linear-gradient(135deg, var(--bg-card), var(--bg-feedback-correct));
+  background: linear-gradient(
+    135deg,
+    var(--bg-card),
+    var(--bg-feedback-correct)
+  );
 }
 
 .flashcard-details-revealed .category-detail {
@@ -356,17 +362,17 @@
     padding: 16px;
     border-radius: 10px;
   }
-  
+
   .flashcard-details-revealed .detail-item {
     padding: 12px 14px;
     margin-bottom: 10px;
   }
-  
+
   .flashcard-details-revealed .detail-item strong {
     font-size: 0.8rem;
     margin-bottom: 4px;
   }
-  
+
   .flashcard-details-revealed .detail-value {
     font-size: 0.95rem;
   }
@@ -452,4 +458,3 @@
     font-size: 1.1rem;
   }
 }
-
