@@ -111,20 +111,30 @@ export function useWordData() {
                     `Merged existing word: "${newWord.spanish}" (preserving learning progress)`
                   );
                 } else {
-                  // New word with default values
+                  // Use progress data from master file if it exists, otherwise use defaults
                   deduplicatedWords.push({
                     ...newWord,
-                    exposureLevel: "new",
-                    timesStudied: 0,
-                    timesCorrect: 0,
-                    lastStudied: null,
-                    source: "scraped",
+                    exposureLevel: newWord.exposureLevel || "new",
+                    timesStudied: newWord.timesStudied || 0,
+                    timesCorrect: newWord.timesCorrect || 0,
+                    lastStudied: newWord.lastStudied || null,
+                    source: newWord.source || "scraped",
+                    gamePerformance: newWord.gamePerformance || {
+                      flashcards: { correct: 0, total: 0 },
+                      matching: { correct: 0, total: 0 },
+                      fillInBlank: { correct: 0, total: 0 },
+                      conjugation: { correct: 0, total: 0 },
+                    },
                     // Legacy Leitner data for backward compatibility
-                    leitnerBox: 0,
-                    lastReviewed: now,
-                    dueDate: now,
+                    leitnerBox: newWord.leitnerBox || 0,
+                    lastReviewed: newWord.lastReviewed || now,
+                    dueDate: newWord.dueDate || now,
                   });
-                  console.log(`Added new word: "${newWord.spanish}"`);
+                  console.log(
+                    `Added word: "${newWord.spanish}" (${
+                      newWord.timesStudied ? "with progress" : "new"
+                    })`
+                  );
                 }
               }
             });
