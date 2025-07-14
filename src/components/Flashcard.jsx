@@ -97,7 +97,9 @@ const Flashcard = ({
             <div className="flashcard-details-revealed">
               {/* Correct Translation */}
               <div className="detail-item">
-                <strong>{direction === "spa-eng" ? "English:" : "Spanish:"}</strong>
+                <strong>
+                  {direction === "spa-eng" ? "English:" : "Spanish:"}
+                </strong>
                 <span className="detail-value">{correctAnswer}</span>
               </div>
 
@@ -105,7 +107,9 @@ const Flashcard = ({
               {pair.synonyms_spanish && pair.synonyms_spanish.length > 0 && (
                 <div className="detail-item">
                   <strong>Spanish Synonyms:</strong>
-                  <span className="detail-value">{pair.synonyms_spanish.join(', ')}</span>
+                  <span className="detail-value">
+                    {pair.synonyms_spanish.join(", ")}
+                  </span>
                 </div>
               )}
 
@@ -113,7 +117,9 @@ const Flashcard = ({
               {pair.synonyms_english && pair.synonyms_english.length > 0 && (
                 <div className="detail-item">
                   <strong>English Synonyms:</strong>
-                  <span className="detail-value">{pair.synonyms_english.join(', ')}</span>
+                  <span className="detail-value">
+                    {pair.synonyms_english.join(", ")}
+                  </span>
                 </div>
               )}
 
@@ -169,7 +175,7 @@ const Flashcard = ({
                 (showFeedback && feedbackSignal === "incorrect")
               }
             >
-              {isHintLoading ? "Getting Hint..." : "Get Hint"}
+              {isHintLoading ? "Getting Synonyms..." : "Synonyms"}
             </button>
           </div>
         </form>
