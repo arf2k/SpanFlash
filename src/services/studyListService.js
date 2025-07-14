@@ -77,27 +77,7 @@ export class StudyListService {
 
   generateFlashcardsList(maxWords = 200) {
     try {
-         console.log(`=== ALGORITHM DEBUG ===`);
-      console.log(`Total wordList length: ${this.wordList.length}`);
-      
-      // Check first 5 words to see their progress data
-      console.log("Sample words with progress data:");
-      this.wordList.slice(0, 5).forEach((word, index) => {
-        console.log(`${index + 1}. "${word.spanish}" - timesStudied: ${word.timesStudied}, exposureLevel: ${word.exposureLevel}`);
-      });
-      
-      // Check how many words have progress
-      const wordsWithProgress = this.wordList.filter(word => word.timesStudied > 0);
-      console.log(`Words with timesStudied > 0: ${wordsWithProgress.length}`);
-      
-      if (wordsWithProgress.length > 0) {
-        console.log("Sample words with progress:");
-        wordsWithProgress.slice(0, 3).forEach(word => {
-          console.log(`- "${word.spanish}": ${word.timesStudied} studied, ${word.exposureLevel} level`);
-        });
-      }
-      
-      console.log(`=== END DEBUG ===`);
+         
       console.log(`Generating flashcard list using learning data...`);
 
       // Check how much data we have

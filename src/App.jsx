@@ -368,32 +368,7 @@ function App() {
         onStatsClick={() => setIsStatsModalOpen(true)}
         setIsVocabExtractionModalOpen={setIsVocabExtractionModalOpen}
       />
-      {/* TEMPORARY DEBUG INFO - REMOVE AFTER FIXING */}
-      {mainWordList.length > 0 && (
-        <div
-          style={{
-            backgroundColor: "orange",
-            color: "black",
-            padding: "10px",
-            margin: "10px 0",
-            borderRadius: "5px",
-            fontSize: "12px",
-          }}
-        >
-          <div
-            style={{
-              background: "orange",
-              color: "black",
-              padding: "10px",
-              textAlign: "center",
-              fontSize: "14px",
-            }}
-          >
-            DEBUG: {mainWordList.filter((w) => w.timesStudied > 0).length} words
-            with progress out of {mainWordList.length} total
-          </div>
-        </div>
-      )}
+  
 
       {/* Score Stacks - COMMENTED OUT FOR STEP 1 LAYOUT CLEANUP */}
       {/* Will be preserved for Games Modal in Step 3 */}
