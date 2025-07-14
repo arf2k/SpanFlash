@@ -97,9 +97,7 @@ const Flashcard = ({
             <div className="flashcard-details-revealed">
               {/* Correct Translation */}
               <div className="detail-item">
-                <strong>
-                  {direction === "spa-eng" ? "English:" : "Spanish:"}
-                </strong>
+                <strong>{direction === "spa-eng" ? "English:" : "Spanish:"}</strong>
                 <span className="detail-value">{correctAnswer}</span>
               </div>
 
@@ -107,9 +105,7 @@ const Flashcard = ({
               {pair.synonyms_spanish && pair.synonyms_spanish.length > 0 && (
                 <div className="detail-item">
                   <strong>Spanish Synonyms:</strong>
-                  <span className="detail-value">
-                    {pair.synonyms_spanish.join(", ")}
-                  </span>
+                  <span className="detail-value">{pair.synonyms_spanish.join(', ')}</span>
                 </div>
               )}
 
@@ -117,9 +113,7 @@ const Flashcard = ({
               {pair.synonyms_english && pair.synonyms_english.length > 0 && (
                 <div className="detail-item">
                   <strong>English Synonyms:</strong>
-                  <span className="detail-value">
-                    {pair.synonyms_english.join(", ")}
-                  </span>
+                  <span className="detail-value">{pair.synonyms_english.join(', ')}</span>
                 </div>
               )}
 
@@ -181,23 +175,51 @@ const Flashcard = ({
         </form>
       )}
 
-      {/* Hint Display - Outside of answer form for better mobile layout */}
-      {hint && !showFeedback && (
+      {/* Hint Display - Restored to work with existing architecture */}
+      {(isHintLoading || hint) && (
         <div className="hint-display">
-          {hint.type === "definition" && hint.definition && (
-            <div>
-              <strong>Definition:</strong> {hint.definition}
-              {hint.suggestedWords && hint.suggestedWords.length > 0 && (
-                <div>
-                  <em>Suggestions: {hint.suggestedWords.join(", ")}</em>
-                </div>
+          {isHintLoading && !hint && <span>Loading synonyms...</span>}
+          {hint && (
+            <>
+              {hint.type === "slow_loading" && (
+                <span style={{ color: "orange" }}>
+                  {hint.message || "Dictionary lookup is taking longer than usual..."}
+                </span>
               )}
-            </div>
-          )}
-          {hint.type === "error" && (
-            <div style={{ color: "orange" }}>
-              <strong>Error:</strong> {hint.message}
-            </div>
+              {hint.type === "suggestions" && hint.suggestions?.length > 0 && (
+                <span>Did you mean: {hint.suggestions.join(", ")}?</span>
+              )}
+              {hint.type === "definitions" && hint.data ? (
+                <>
+                  <strong>Hint (MW): </strong>
+                  {hint.data.fl && (
+                    <em style={{ marginRight: "5px" }}>({hint.data.fl})</em>
+                  )}
+                  {hint.data.shortdef && hint.data.shortdef.length > 0 ? (
+                    hint.data.shortdef.map((def, index) => (
+                      <span key={index}>
+                        {index > 0 && "; "} {def}
+                      </span>
+                    ))
+                  ) : (
+                    <span style={{ fontStyle: "italic" }}>
+                      (No short definition)
+                    </span>
+                  )}
+                </>
+              ) : null}
+              {hint.type === "error" && (
+                <span style={{ color: "orange" }}>
+                  Hint Error: {hint.message || "Failed."}
+                  {hint.canRetry && " Try again?"}
+                </span>
+              )}
+              {hint.type === "unknown" && (
+                <span style={{ color: "orange" }}>
+                  Unrecognized hint format.
+                </span>
+              )}
+            </>
           )}
         </div>
       )}
