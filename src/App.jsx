@@ -359,9 +359,16 @@ function App() {
     }
   };
   return (
-    <>
     <div className="App">
-      {/*App header removed from here now floating*/}
+            
+       <AppHeader
+        currentDataVersion={currentDataVersion}
+        isInHardWordsMode={isInHardWordsMode}
+        isAnyGameActive={isAnyGameActive}
+        onSettingsClick={() => setIsSettingsModalOpen(true)}
+        onStatsClick={() => setIsStatsModalOpen(true)}
+        setIsVocabExtractionModalOpen={setIsVocabExtractionModalOpen}
+      />
    
   
 
@@ -672,16 +679,7 @@ function App() {
       </div>
     )}
     </div>
-      {/* Floating App Header */}
-       <AppHeader
-        currentDataVersion={currentDataVersion}
-        isInHardWordsMode={isInHardWordsMode}
-        isAnyGameActive={isAnyGameActive}
-        onSettingsClick={() => setIsSettingsModalOpen(true)}
-        onStatsClick={() => setIsStatsModalOpen(true)}
-        setIsVocabExtractionModalOpen={setIsVocabExtractionModalOpen}
-      />
-      </>
+
   );
 }
 

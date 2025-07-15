@@ -1,122 +1,104 @@
+/* === Minimal App Header === */
 .app-header {
-  position: fixed;
-  top: 15px;
-  right: 15px;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 8px;
-  z-index: 100;
-  pointer-events: none; 
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+  margin-bottom: 6px;
+  min-height: 28px;
+  padding: 0;
 }
 
-.app-header > * {
-  pointer-events: auto; 
-}
-
+/* Hard Mode Indicator */
 .hard-mode-indicator {
   background-color: var(--bg-card);
   border: 1px solid var(--color-warning);
-  border-radius: 6px;
-  padding: 6px 12px;
-  font-size: 0.75rem;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 0.7rem;
   font-weight: 600;
   color: var(--color-warning);
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(10px);
+  margin-right: 12px;
   transition: all 0.2s ease;
 }
 
+/* Header Buttons Container */
 .app-header-buttons {
   display: flex;
   align-items: center;
-  gap: 8px;
-  background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  padding: 6px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  transition: all 0.2s ease;
+  gap: 6px;
 }
 
-.app-header-buttons:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-}
-
-/* Individual Header Buttons */
+/* Individual Header Buttons - Very Minimal */
 .app-header-button {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid var(--color-border);
-  border-radius: 6px;
+  background: none;
+  border: none;
   cursor: pointer;
   color: var(--text-muted);
-  padding: 8px;
+  padding: 6px;
+  border-radius: 4px;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  backdrop-filter: blur(5px);
+  width: 28px;
+  height: 28px;
+  opacity: 0.7;
 }
 
 .app-header-button:hover:not(:disabled) {
   color: var(--text-body);
-  background-color: rgba(255, 255, 255, 0.2);
-  transform: translateY(-1px) scale(1.05);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  border-color: var(--color-primary);
-}
-
-.app-header-button:active {
-  transform: translateY(0) scale(1);
+  background-color: var(--bg-hint);
+  opacity: 1;
+  transform: translateY(-1px);
 }
 
 .app-header-button:disabled {
-  opacity: 0.5;
+  opacity: 0.3;
   cursor: not-allowed;
-  transform: none;
 }
 
-/* Button Icons */
+/* Button Icons - Smaller */
 .app-header-button.extract {
-  font-size: 1.1em;
+  font-size: 1em;
 }
 
 .app-header-button.stats {
-  font-size: 1.1em;
+  font-size: 1em;
 }
 
 .app-header-button.settings {
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 
-/* Mobile optimization */
+/* Mobile optimization - Even more minimal */
 @media (max-width: 480px) {
   .app-header {
-    top: 10px;
-    right: 10px;
-    gap: 6px;
+    margin-bottom: 4px;
+    min-height: 24px;
   }
   
   .app-header-buttons {
-    padding: 4px;
-    gap: 6px;
+    gap: 4px;
   }
   
   .app-header-button {
-    width: 32px;
-    height: 32px;
-    padding: 6px;
-    font-size: 0.9em;
+    width: 24px;
+    height: 24px;
+    padding: 4px;
+    opacity: 0.6;
+  }
+  
+  .app-header-button:hover:not(:disabled) {
+    opacity: 0.9;
   }
   
   .hard-mode-indicator {
-    padding: 4px 8px;
-    font-size: 0.7rem;
+    padding: 3px 6px;
+    font-size: 0.65rem;
+    margin-right: 8px;
   }
 }
