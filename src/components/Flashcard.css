@@ -24,6 +24,7 @@
   box-sizing: border-box;
 }
 
+/* === Flashcard Action Buttons (Top-Right Corner) === */
 .flashcard-action-buttons {
   position: absolute;
   top: 15px;
@@ -33,7 +34,6 @@
   align-items: center;
   gap: 8px;
   z-index: 2;
-
 }
 
 .flashcard-action-button {
@@ -44,7 +44,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-size: 1.1em; 
+  font-size: 1.1em;
   line-height: 1;
   width: 36px;
   height: 36px;
@@ -66,6 +66,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Specific button colors */
 .flashcard-action-button.mark-hard {
   color: #ffc107;
 }
@@ -82,15 +83,18 @@
 .flashcard-action-button.show-details {
   color: var(--text-muted);
 }
+
+/* === Flashcard Word (Centered with corner button spacing) === */
 .flashcard-word {
   font-size: 2.8rem;
   font-weight: 700;
-  margin: 25px 60px 25px 0; 
+  margin: 25px 60px 25px 60px;
   color: var(--text-heading);
   min-height: 1.3em;
   transition: color 0.3s ease;
   line-height: 1.2;
   word-wrap: break-word;
+  text-align: center;
 }
 
 /* === Visual Feedback Styles (Flashcard Animation) === */
@@ -145,14 +149,6 @@
   margin-right: auto;
 }
 
-.answer-form-buttons {
-  display: flex;
-  gap: 12px;
-  width: 100%;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
 .answer-input {
   display: block;
   width: 100%;
@@ -187,6 +183,99 @@
   color: var(--text-muted);
   opacity: 0.7;
   transition: color 0.3s ease;
+}
+
+/* === Option B Button Layout: Check Answer top, Synonyms/New Card below === */
+.answer-form-buttons {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.secondary-buttons {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  justify-content: center;
+  margin-top: 0;
+}
+
+.secondary-buttons button {
+  flex: 1;
+  max-width: 180px;
+}
+
+/* Check Answer Button - Primary and prominent */
+.submit-button {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-primary-darker) 100%
+  );
+  color: var(--text-button);
+  border: none;
+  padding: 14px 28px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 140px;
+}
+
+.submit-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-darker) 0%,
+    var(--color-primary) 100%
+  );
+}
+
+.submit-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.submit-button:disabled {
+  background: var(--color-disabled-bg);
+  color: var(--color-disabled-text);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  opacity: 0.6;
+}
+
+/* Secondary Buttons - Synonyms and New Card */
+.new-card-button {
+  background-color: var(--color-primary);
+  color: var(--text-button);
+  border: 1px solid var(--color-primary);
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  min-width: 120px;
+}
+
+.new-card-button:hover {
+  background-color: var(--color-primary-darker);
+  border-color: var(--color-primary-darker);
+}
+
+.new-card-button:disabled {
+  background: var(--color-disabled-bg);
+  color: var(--color-disabled-text);
+  border-color: var(--color-disabled-bg);
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 /* === Hint Display === */
@@ -278,7 +367,7 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
-/* === Flashcard Details  === */
+/* === Flashcard Details === */
 .flashcard-details-revealed {
   margin-top: 25px;
   padding: 20px;
@@ -356,8 +445,61 @@
   white-space: pre-wrap;
 }
 
-/* Mobile optimizations */
+/* === Mobile Responsive Styles === */
 @media (max-width: 480px) {
+  /* Corner action buttons */
+  .flashcard-action-buttons {
+    top: 12px;
+    right: 12px;
+    gap: 6px;
+  }
+
+  .flashcard-action-button {
+    width: 32px;
+    height: 32px;
+    font-size: 1em;
+    padding: 6px;
+  }
+
+  /* Flashcard and word adjustments */
+  .flashcard {
+    padding: 25px 30px;
+  }
+
+  .flashcard-word {
+    font-size: 2.4rem;
+    margin: 20px 50px 20px 50px;
+  }
+
+  /* Answer form - maintain Option B layout */
+  .answer-form {
+    gap: 20px;
+    max-width: 100%;
+  }
+
+  .answer-form-buttons {
+    margin-bottom: 12px;
+  }
+
+  .secondary-buttons {
+    gap: 10px;
+  }
+
+  .secondary-buttons button {
+    min-width: unset;
+    padding: 16px 20px;
+    font-size: 1.1rem;
+    flex: 1;
+  }
+
+  .submit-button {
+    width: 100%;
+    min-width: unset;
+    padding: 16px 24px;
+    font-size: 1.1rem;
+  }
+
+  /* Flashcard details mobile optimization */
   .flashcard-details-revealed {
     margin-top: 20px;
     padding: 16px;
@@ -376,89 +518,5 @@
 
   .flashcard-details-revealed .detail-value {
     font-size: 0.95rem;
-  }
-}
-
-/* === Mobile Responsive Styles === */
-@media (max-width: 480px) {
-  .flashcard-action-buttons {
-    top: 12px;
-    right: 12px;
-    gap: 6px;
-  }
-
-  .flashcard-action-button {
-    width: 32px;
-    height: 32px;
-    font-size: 1em;
-    padding: 6px;
-  }
-}
-
-  .answer-form-buttons {
-    flex-direction: column;
-    gap: 14px;
-    width: 100%;
-  }
-
-  .answer-form {
-    gap: 20px;
-    max-width: 100%;
-  }
-
-  .flashcard {
-    padding: 25px 30px;
-  }
-
-  .flashcard-word {
-    font-size: 2.4rem;
-  }
-}
-.secondary-buttons {
-  display: flex;
-  gap: 12px;
-  width: 100%;
-  justify-content: center;
-  margin-top: 15px;
-}
-
-.secondary-buttons button {
-  flex: 1;
-  max-width: 180px;
-}
-
-.new-card-button {
-  background-color: var(--color-primary);
-  color: var(--text-button);
-  border: 1px solid var(--color-primary);
-  padding: 12px 24px;
-  font-size: 1rem;
-  font-weight: 500;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  min-width: 120px;
-}
-
-.new-card-button:hover {
-  background-color: var(--color-primary-darker);
-  border-color: var(--color-primary-darker);
-}
-
-.new-card-button:disabled {
-  background: var(--color-disabled-bg);
-  color: var(--color-disabled-text);
-  border-color: var(--color-disabled-bg);
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-/* Mobile responsive for new layout */
-@media (max-width: 480px) {
-  .secondary-buttons button {
-    min-width: unset;
-    padding: 16px 20px;
-    font-size: 1.1rem;
   }
 }
