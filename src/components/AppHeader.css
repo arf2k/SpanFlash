@@ -1,80 +1,122 @@
-/* === Compact App Header === */
 .app-header {
+  position: fixed;
+  top: 15px;
+  right: 15px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 700px;
-  margin-bottom: 8px; /* Reduced from 10px */
-  min-height: 32px; /* Compact height */
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  z-index: 100;
+  pointer-events: none; 
 }
 
-.app-header-version {
-  font-size: 0.75rem; /* Slightly smaller */
-  color: var(--text-muted);
-  margin: 0;
-  font-weight: 500;
-  line-height: 1.2;
+.app-header > * {
+  pointer-events: auto; 
+}
+
+.hard-mode-indicator {
+  background-color: var(--bg-card);
+  border: 1px solid var(--color-warning);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-warning);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
 }
 
 .app-header-buttons {
   display: flex;
   align-items: center;
-  gap: 8px; /* Tighter spacing */
+  gap: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
 }
 
+.app-header-buttons:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Individual Header Buttons */
 .app-header-button {
-  background: none;
-  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
   cursor: pointer;
   color: var(--text-muted);
-  padding: 4px; /* Smaller touch targets */
-  border-radius: 4px;
+  padding: 8px;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 36px;
+  height: 36px;
+  backdrop-filter: blur(5px);
 }
 
 .app-header-button:hover:not(:disabled) {
   color: var(--text-body);
-  background-color: var(--bg-hint);
-  transform: translateY(-1px);
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px) scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  border-color: var(--color-primary);
+}
+
+.app-header-button:active {
+  transform: translateY(0) scale(1);
 }
 
 .app-header-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  transform: none;
 }
 
+/* Button Icons */
 .app-header-button.extract {
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 
 .app-header-button.stats {
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 
 .app-header-button.settings {
-  font-size: 1.3em;
+  font-size: 1.2em;
 }
 
 /* Mobile optimization */
 @media (max-width: 480px) {
   .app-header {
-    margin-bottom: 6px;
-    min-height: 28px;
-  }
-  
-  .app-header-version {
-    font-size: 0.7rem;
+    top: 10px;
+    right: 10px;
+    gap: 6px;
   }
   
   .app-header-buttons {
+    padding: 4px;
     gap: 6px;
   }
   
   .app-header-button {
-    padding: 3px;
+    width: 32px;
+    height: 32px;
+    padding: 6px;
+    font-size: 0.9em;
+  }
+  
+  .hard-mode-indicator {
+    padding: 4px 8px;
+    font-size: 0.7rem;
   }
 }

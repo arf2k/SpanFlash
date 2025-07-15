@@ -359,15 +359,10 @@ function App() {
     }
   };
   return (
+    <>
     <div className="App">
-      <AppHeader
-        currentDataVersion={currentDataVersion}
-        isInHardWordsMode={isInHardWordsMode}
-        isAnyGameActive={isAnyGameActive}
-        onSettingsClick={() => setIsSettingsModalOpen(true)}
-        onStatsClick={() => setIsStatsModalOpen(true)}
-        setIsVocabExtractionModalOpen={setIsVocabExtractionModalOpen}
-      />
+      {/*App header removed from here now floating*/}
+   
   
 
       {/* Score Stacks - COMMENTED OUT FOR STEP 1 LAYOUT CLEANUP */}
@@ -677,6 +672,16 @@ function App() {
       </div>
     )}
     </div>
+      {/* Floating App Header */}
+       <AppHeader
+        currentDataVersion={currentDataVersion}
+        isInHardWordsMode={isInHardWordsMode}
+        isAnyGameActive={isAnyGameActive}
+        onSettingsClick={() => setIsSettingsModalOpen(true)}
+        onStatsClick={() => setIsStatsModalOpen(true)}
+        setIsVocabExtractionModalOpen={setIsVocabExtractionModalOpen}
+      />
+      </>
   );
 }
 
