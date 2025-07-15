@@ -23,7 +23,7 @@ import { createWordManagementHandlers } from "./handlers/wordManagementHandlers"
 import { createGameModeHandlers } from "./handlers/gameModeHandlers";
 import { createApiHandlers } from "./handlers/apiHandlers";
 import AppHeader from "./components/AppHeader";
-import GameControls from "./components/GameControls";
+import FloatingGamesButton from "./components/FloatingGamesButton.jsx";
 import { useSessionStats } from "./hooks/useSessionStats";
 import StatsModal from "./components/StatsModal";
 import VocabularyExtractionModal from "./components/VocabularyExtractionModal.jsx";
@@ -360,8 +360,7 @@ function App() {
   };
   return (
     <div className="App">
-            
-       <AppHeader
+      <AppHeader
         currentDataVersion={currentDataVersion}
         isInHardWordsMode={isInHardWordsMode}
         isAnyGameActive={isAnyGameActive}
@@ -369,8 +368,6 @@ function App() {
         onStatsClick={() => setIsStatsModalOpen(true)}
         setIsVocabExtractionModalOpen={setIsVocabExtractionModalOpen}
       />
-   
-  
 
       {/* Score Stacks - COMMENTED OUT FOR STEP 1 LAYOUT CLEANUP */}
       {/* Will be preserved for Games Modal in Step 3 */}
@@ -673,13 +670,27 @@ function App() {
           />
         </>
       )}
-       {currentDataVersion && (
-      <div className="version-overlay">
-        v: {currentDataVersion}
-      </div>
-    )}
+      <FloatingGamesButton
+        onFillInBlankToggle={handleToggleFillInTheBlankMode}
+        onMatchingGameToggle={handleToggleMatchingGameMode}
+        onVerbConjugationToggle={handleToggleVerbConjugationGame}
+        onHardModeToggle={handleToggleHardWordsMode}
+        onSearchClick={() => setIsSearchModalOpen(true)}
+        onSwitchDirection={switchDirection}
+        onNewCard={selectNewPairCard}
+        isAnyGameActive={isAnyGameActive}
+        isMatchingGameModeActive={isMatchingGameModeActive}
+        isFillInTheBlankModeActive={isFillInTheBlankModeActive}
+        isInHardWordsMode={isInHardWordsMode}
+        languageDirection={languageDirection}
+        isLoadingData={isLoadingData}
+        listForFlashcardGame={listForFlashcardGame}
+        showHardWordsView={showHardWordsView}
+      />
+      {currentDataVersion && (
+        <div className="version-overlay">v: {currentDataVersion}</div>
+      )}
     </div>
-
   );
 }
 
