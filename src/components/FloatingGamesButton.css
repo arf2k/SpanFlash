@@ -1,7 +1,7 @@
 /* === Floating Games Button Container === */
 .floating-games-container {
   position: fixed;
-  bottom: 20px;
+  bottom: 30px;
   right: 20px;
   z-index: 200;
   display: flex;
@@ -162,8 +162,8 @@
 /* === Mobile Optimization === */
 @media (max-width: 480px) {
   .floating-games-container {
-    bottom: 15px;
-    right: 15px;
+    bottom: 25px;
+    right: 20px;
   }
 
   .floating-games-button {
@@ -206,6 +206,17 @@
   }
 }
 
+@media (min-width: 769px) {
+  .floating-games-container {
+    bottom: 35px;
+    right: 25px;
+  }
+  
+  .floating-games-button {
+    width: 58px;
+    height: 58px;
+  }
+}
 /* === Accessibility === */
 @media (prefers-reduced-motion: reduce) {
   .floating-games-button,
