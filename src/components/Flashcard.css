@@ -125,13 +125,13 @@
 .flashcard-word {
   font-size: 2.8rem;
   font-weight: 700;
-  margin: 25px 45px 25px 45px; /* STEP 3: Reduced from 60px to 45px for more word space */
+  margin: 25px 30px 25px 30px; /* STEP 3: Further reduced to 30px for more word space */
   color: var(--text-heading);
   min-height: 1.3em;
   transition: color 0.3s ease;
-  line-height: 1.2;
+  line-height: 1.15; /* Slightly tighter line height */
   overflow-wrap: break-word; /* STEP 3: More modern than word-wrap */
-  hyphens: auto; /* STEP 3: Better word breaking with hyphens */
+  hyphens: none; /* STEP 3: Disable hyphens to avoid ugly breaks */
   text-align: center;
 }
 
@@ -516,7 +516,7 @@
 
   .flashcard-word {
     font-size: 2.4rem;
-    margin: 20px 35px 20px 35px; /* STEP 3: Reduced from 50px to 35px on mobile */
+    margin: 20px 25px 20px 25px; /* STEP 3: Further reduced to 25px on mobile */
   }
 
   /* Answer form - maintain Option B layout */
