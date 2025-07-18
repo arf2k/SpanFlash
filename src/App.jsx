@@ -516,6 +516,7 @@ function App() {
                     onEdit={() => openEditModal(currentPair)}
                     onShowDetails={handleShowDetailsModal}
                     onNewCard={selectNewPairCard}
+                    onSwitchDirection={switchDirection}
                   />
                   {showFeedback && feedbackSignal === "incorrect" && (
                     <div className="feedback-area">
@@ -676,7 +677,6 @@ function App() {
         onVerbConjugationToggle={handleToggleVerbConjugationGame}
         onHardModeToggle={handleToggleHardWordsMode}
         onSearchClick={() => setIsSearchModalOpen(true)}
-        onSwitchDirection={switchDirection}
         onNewCard={selectNewPairCard}
         isAnyGameActive={isAnyGameActive}
         isMatchingGameModeActive={isMatchingGameModeActive}

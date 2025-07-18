@@ -8,7 +8,6 @@ const FloatingGamesButton = ({
   onVerbConjugationToggle,
   onHardModeToggle,
   onSearchClick,
-  onSwitchDirection,
   onNewCard,
 
   // State
@@ -95,30 +94,6 @@ const FloatingGamesButton = ({
           {!showHardWordsView && (
             <>
               <div className="menu-divider"></div>
-
-              <button
-                onClick={() => handleGameAction(onSwitchDirection)}
-                className="game-menu-item flashcard-control"
-                title="Switch Language Direction"
-                disabled={isLoadingData || !listForFlashcardGame.length}
-              >
-                <span className="game-icon">🔄</span>
-                <span className="game-label">
-                  Switch ({languageDirection === "spa-eng" ? "S→E" : "E→S"})
-                </span>
-              </button>
-
-              <button
-                onClick={() => handleGameAction(onNewCard)}
-                className="game-menu-item flashcard-control"
-                title="Get New Card"
-                disabled={isLoadingData || !listForFlashcardGame.length}
-              >
-                <span className="game-icon">🎴</span>
-                <span className="game-label">
-                  {isLoadingData ? "Loading..." : "New Card"}
-                </span>
-              </button>
             </>
           )}
         </div>

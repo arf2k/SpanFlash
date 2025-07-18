@@ -15,6 +15,7 @@ const Flashcard = ({
   onEdit,
   onShowDetails,
   onNewCard,
+  onSwitchDirection,
 }) => {
   const [answer, setAnswer] = useState("");
 
@@ -56,7 +57,18 @@ const Flashcard = ({
     <div className={cardClassName}>
       {pair ? (
         <div>
-          {/* Action Buttons - Above the word */}
+          <button
+            onClick={onSwitchDirection}
+            className="flashcard-switch-button"
+            title={`Switch to ${
+              direction === "spa-eng"
+                ? "English → Spanish"
+                : "Spanish → English"
+            }`}
+            disabled={!onSwitchDirection}
+          >
+            🔄
+          </button>
           <div className="flashcard-action-buttons">
             <button
               onClick={() => onMarkHard(pair)}
