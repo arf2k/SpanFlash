@@ -8,18 +8,24 @@ const AppHeader = ({
   onSettingsClick,
   onStatsClick,
   setIsVocabExtractionModalOpen,
+  onSearchClick,
 }) => {
   const showHardModeIndicator = isInHardWordsMode && !isAnyGameActive;
 
   return (
     <div className="app-header">
-      {/* Removed version display - now just shows hard mode if active */}
+      <button
+        onClick={onSearchClick}
+        title="Search Words"
+        className="app-header-button search"
+        disabled={isAnyGameActive}
+      >
+        🔍
+      </button>
       {showHardModeIndicator && (
-        <div className="hard-mode-indicator">
-          Hard Mode
-        </div>
+        <div className="hard-mode-indicator">Hard Mode</div>
       )}
-      
+
       <div className="app-header-buttons">
         <button
           onClick={() => setIsVocabExtractionModalOpen(true)}
@@ -31,7 +37,7 @@ const AppHeader = ({
             📰
           </span>
         </button>
-        
+
         <button
           onClick={onStatsClick}
           title="Session Stats"
@@ -42,7 +48,7 @@ const AppHeader = ({
             📊
           </span>
         </button>
-        
+
         <button
           onClick={onSettingsClick}
           title="Settings"

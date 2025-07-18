@@ -367,6 +367,7 @@ function App() {
         onSettingsClick={() => setIsSettingsModalOpen(true)}
         onStatsClick={() => setIsStatsModalOpen(true)}
         setIsVocabExtractionModalOpen={setIsVocabExtractionModalOpen}
+        onSearchClick={() => setIsSearchModalOpen(true)}
       />
 
       {/* Score Stacks - COMMENTED OUT FOR STEP 1 LAYOUT CLEANUP */}

@@ -7,8 +7,6 @@ const FloatingGamesButton = ({
   onMatchingGameToggle,
   onVerbConjugationToggle,
   onHardModeToggle,
-  onSearchClick,
-  onNewCard,
 
   // State
   isAnyGameActive,
@@ -79,15 +77,6 @@ const FloatingGamesButton = ({
             <span className="game-label">
               {isInHardWordsMode ? "All Words" : "Hard Mode"}
             </span>
-          </button>
-
-          <button
-            onClick={() => handleGameAction(onSearchClick)}
-            className="game-menu-item"
-            title="Search Words"
-          >
-            <span className="game-icon">🔍</span>
-            <span className="game-label">Search</span>
           </button>
 
           {/* Flashcard Controls - Only show when not in hard words view */}
