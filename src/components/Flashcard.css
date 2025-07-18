@@ -84,16 +84,54 @@
   color: var(--text-muted);
 }
 
-/* === Flashcard Word (Centered with corner button spacing) === */
+/* === Switch Direction Button (Top-Left Corner) === */
+.flashcard-switch-button {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  padding: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 1em;
+  line-height: 1;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  z-index: 2;
+  color: var(--text-muted);
+}
+
+.flashcard-switch-button:hover {
+  transform: translateY(-1px) scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  border-color: var(--color-primary);
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--text-body);
+}
+
+.flashcard-switch-button:active {
+  transform: translateY(0) scale(1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* === Flashcard Word (STEP 3 IMPROVEMENTS) === */
 .flashcard-word {
   font-size: 2.8rem;
   font-weight: 700;
-  margin: 25px 60px 25px 60px;
+  margin: 25px 45px 25px 45px; /* STEP 3: Reduced from 60px to 45px for more word space */
   color: var(--text-heading);
   min-height: 1.3em;
   transition: color 0.3s ease;
   line-height: 1.2;
-  word-wrap: break-word;
+  overflow-wrap: break-word; /* STEP 3: More modern than word-wrap */
+  hyphens: auto; /* STEP 3: Better word breaking with hyphens */
   text-align: center;
 }
 
@@ -445,7 +483,7 @@
   white-space: pre-wrap;
 }
 
-/* === Mobile Responsive Styles === */
+/* === SINGLE CONSOLIDATED MOBILE RESPONSIVE STYLES === */
 @media (max-width: 480px) {
   /* Corner action buttons */
   .flashcard-action-buttons {
@@ -453,58 +491,21 @@
     right: 12px;
     gap: 6px;
   }
-  .flashcard-switch-button {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid var(--color-border);
-  border-radius: 50%;
-  padding: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-size: 1em;
-  line-height: 1;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(10px);
-  z-index: 2;
-  color: var(--text-muted);
-}
 
-.flashcard-switch-button:hover {
-  transform: translateY(-1px) scale(1.05);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  border-color: var(--color-primary);
-  background: rgba(255, 255, 255, 0.2);
-  color: var(--text-body);
-}
+  .flashcard-action-button {
+    width: 32px;
+    height: 32px;
+    font-size: 1em;
+    padding: 6px;
+  }
 
-.flashcard-switch-button:active {
-  transform: translateY(0) scale(1);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Mobile optimization for switch button */
-@media (max-width: 480px) {
+  /* Switch button mobile optimization */
   .flashcard-switch-button {
     top: 12px;
     left: 12px;
     width: 32px;
     height: 32px;
     font-size: 0.9em;
-    padding: 6px;
-  }
-}
-
-  .flashcard-action-button {
-    width: 32px;
-    height: 32px;
-    font-size: 1em;
     padding: 6px;
   }
 
@@ -515,7 +516,7 @@
 
   .flashcard-word {
     font-size: 2.4rem;
-    margin: 20px 50px 20px 50px;
+    margin: 20px 35px 20px 35px; /* STEP 3: Reduced from 50px to 35px on mobile */
   }
 
   /* Answer form - maintain Option B layout */
