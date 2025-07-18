@@ -361,7 +361,6 @@ function App() {
   return (
     <div className="App">
       <AppHeader
-        currentDataVersion={currentDataVersion}
         isInHardWordsMode={isInHardWordsMode}
         isAnyGameActive={isAnyGameActive}
         onSettingsClick={() => setIsSettingsModalOpen(true)}
@@ -677,8 +676,6 @@ function App() {
         onMatchingGameToggle={handleToggleMatchingGameMode}
         onVerbConjugationToggle={handleToggleVerbConjugationGame}
         onHardModeToggle={handleToggleHardWordsMode}
-        onSearchClick={() => setIsSearchModalOpen(true)}
-        onNewCard={selectNewPairCard}
         isAnyGameActive={isAnyGameActive}
         isMatchingGameModeActive={isMatchingGameModeActive}
         isFillInTheBlankModeActive={isFillInTheBlankModeActive}
