@@ -352,60 +352,212 @@
   font-weight: bold;
 }
 
-/* === Feedback Area === */
+/* === Enhanced Feedback Area === */
 .feedback-area {
-  margin-top: 0;
-  padding: 10px 15px;
-  border-radius: 4px;
+  margin-top: 20px;
+  padding: 0;
+  border-radius: 12px;
   width: 100%;
   max-width: 500px;
   box-sizing: border-box;
-  text-align: center;
-  background-color: var(--bg-feedback-incorrect);
-  border: 1px solid var(--color-danger);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  background: none;
+  border: none;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-.feedback-area p {
-  font-weight: 700;
+/* Feedback Header with Clean Typography */
+.feedback-header {
+  background: linear-gradient(135deg, var(--color-danger) 0%, var(--color-danger-darker) 100%);
+  color: var(--text-button);
+  padding: 16px 20px;
+  text-align: center;
+  position: relative;
+}
+
+.feedback-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.feedback-header * {
+  position: relative;
+  z-index: 1;
+}
+
+.feedback-title {
+  font-size: 1.1rem;
+  font-weight: 600;
   margin: 0 0 8px 0;
-  font-size: 0.95rem;
-  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.feedback-icon {
+  font-size: 1.2rem;
+}
+
+.feedback-message {
+  font-size: 0.9rem;
+  margin: 0;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+/* Correct Answer Display */
+.feedback-correct-answer {
+  background-color: var(--bg-card);
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.correct-answer-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-success);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.correct-answer-text {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin: 0;
+  padding: 8px 12px;
+  background-color: var(--bg-hint);
+  border-radius: 8px;
+  border-left: 4px solid var(--color-success);
+}
+
+/* Feedback Actions */
+.feedback-actions {
+  background-color: var(--bg-card);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .feedback-area button {
-  background: linear-gradient(
-    135deg,
-    var(--color-secondary) 0%,
-    var(--color-secondary-darker) 100%
-  );
+  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-darker) 100%);
   color: var(--text-button);
   border: none;
-  padding: 12px 24px;
+  padding: 14px 20px;
   font-size: 1rem;
   font-weight: 600;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
-  min-width: 120px;
-  margin-top: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.feedback-area button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.feedback-area button:hover::before {
+  left: 100%;
 }
 
 .feedback-area button:hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  background: linear-gradient(
-    135deg,
-    var(--color-secondary-darker) 0%,
-    var(--color-secondary) 100%
-  );
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, var(--color-secondary-darker) 0%, var(--color-secondary) 100%);
 }
 
 .feedback-area button:active {
   transform: translateY(0);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
+
+/* Primary action button (Next Card) */
+.feedback-area .next-card-button {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-darker) 100%);
+  order: 2;
+}
+
+.feedback-area .next-card-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--color-primary-darker) 0%, var(--color-primary) 100%);
+}
+
+/* Secondary action button (Show Hint) */
+.feedback-area .hint-button {
+  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-darker) 100%);
+  order: 1;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 480px) {
+  .feedback-area {
+    margin-top: 16px;
+    max-width: 100%;
+  }
+  
+  .feedback-header {
+    padding: 14px 16px;
+  }
+  
+  .feedback-title {
+    font-size: 1rem;
+  }
+  
+  .feedback-message {
+    font-size: 0.85rem;
+  }
+  
+  .feedback-correct-answer {
+    padding: 16px;
+  }
+  
+  .correct-answer-text {
+    font-size: 1.2rem;
+  }
+  
+  .feedback-actions {
+    padding: 16px;
+    gap: 10px;
+  }
+  
+  .feedback-area button {
+    padding: 12px 16px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Dark theme specific enhancements */
+body[data-theme="dark"] .feedback-header {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+body[data-theme="dark"] .feedback-area {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+body[data-theme="dark"] .feedback-area button {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
 
 /* === Flashcard Details === */
 .flashcard-details-revealed {
