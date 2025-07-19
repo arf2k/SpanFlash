@@ -16,7 +16,7 @@ export default defineConfig({
             '**/*.{js,css,html,svg,png,ico,webmanifest,json}'
         ],
         // globDirectory: 'dist', // Usually not needed
-        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 5MB limit (adjust as needed)
+        maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, 
       }
     }) 
   ], 
