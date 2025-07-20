@@ -129,6 +129,8 @@ function App() {
     setShowFeedback: setGameShowFeedback,
     loadSpecificCard,
     lastReviewedCard,
+    celebrationState,
+    clearCelebration,
   } = useFlashcardGame(listForFlashcardGame, initialCard, recordAnswer);
 
   // === Refs ===
@@ -517,65 +519,77 @@ function App() {
                     onShowDetails={handleShowDetailsModal}
                     onNewCard={selectNewPairCard}
                     onSwitchDirection={switchDirection}
+                    celebrationState={celebrationState}
+                    onCelebrationComplete={clearCelebration}
                   />
                   {showFeedback && feedbackSignal === "incorrect" && (
-  <div className="feedback-area">
-    <div className="feedback-header">
-      <div className="feedback-title">
-        <span className="feedback-icon">❌</span>
-        Incorrect
-      </div>
-      <div className="feedback-message">
-        Try again with the correct answer
-      </div>
-    </div>
-    
-    <div className="feedback-correct-answer">
-      <span className="correct-answer-label">Correct Answer</span>
-      <div className="correct-answer-text">{lastCorrectAnswer}</div>
-    </div>
-    
-    <div className="feedback-actions">
-      <button
-        onClick={() => handleGetHint(true)}
-        disabled={isHintLoading}
-        className="hint-button"
-      >
-        {isHintLoading ? "Getting Info..." : "Show Hint / Related"}
-      </button>
-      <button 
-        onClick={switchToNextCard}
-        className="next-card-button"
-      >
-        Next Card
-      </button>
-    </div>
-  </div>
-)}
-                 {showFeedback && feedbackSignal === "correct" && (
-  <div className="feedback-area">
-    <div className="feedback-header" style={{
-      background: "linear-gradient(135deg, var(--color-success) 0%, var(--color-success-darker) 100%)"
-    }}>
-      <div className="feedback-title">
-        <span className="feedback-icon">✅</span>
-        Correct!
-      </div>
-      <div className="feedback-message">
-        Great job! Keep it up
-      </div>
-    </div>
-    
-    <div className="feedback-actions">
-      <button 
-        onClick={switchToNextCard}
-        className="next-card-button"
-      >
-        Next Card
-      </button>
-    </div>
-  </div>
-)}
+                    <div className="feedback-area">
+                      <div className="feedback-header">
+                        <div className="feedback-title">
+                          <span className="feedback-icon">❌</span>
+                          Incorrect
+                        </div>
+                        <div className="feedback-message">
+                          Try again with the correct answer
+                        </div>
+                      </div>
+
+                      <div className="feedback-correct-answer">
+                        <span className="correct-answer-label">
+                          Correct Answer
+                        </span>
+                        <div className="correct-answer-text">
+                          {lastCorrectAnswer}
+                        </div>
+                      </div>
+
+                      <div className="feedback-actions">
+                        <button
+                          onClick={() => handleGetHint(true)}
+                          disabled={isHintLoading}
+                          className="hint-button"
+                        >
+                          {isHintLoading
+                            ? "Getting Info..."
+                            : "Show Hint / Related"}
+                        </button>
+                        <button
+                          onClick={switchToNextCard}
+                          className="next-card-button"
+                        >
+                          Next Card
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                  {showFeedback && feedbackSignal === "correct" && (
+                    <div className="feedback-area">
+                      <div
+                        className="feedback-header"
+                        style={{
+                          background:
+                            "linear-gradient(135deg, var(--color-success) 0%, var(--color-success-darker) 100%)",
+                        }}
+                      >
+                        <div className="feedback-title">
+                          <span className="feedback-icon">✅</span>
+                          Correct!
+                        </div>
+                        <div className="feedback-message">
+                          Great job! Keep it up
+                        </div>
+                      </div>
+
+                      <div className="feedback-actions">
+                        <button
+                          onClick={switchToNextCard}
+                          className="next-card-button"
+                        >
+                          Next Card
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
               {!isLoadingData &&
