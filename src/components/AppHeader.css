@@ -47,6 +47,7 @@
   width: 28px;
   height: 28px;
   opacity: 0.7;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .app-header-button:hover:not(:disabled) {
@@ -80,22 +81,22 @@
     margin-bottom: 4px;
     min-height: 24px;
   }
-  
+
   .app-header-buttons {
     gap: 4px;
   }
-  
+
   .app-header-button {
     width: 24px;
     height: 24px;
     padding: 4px;
     opacity: 0.6;
   }
-  
+
   .app-header-button:hover:not(:disabled) {
     opacity: 0.9;
   }
-  
+
   .hard-mode-indicator {
     padding: 3px 6px;
     font-size: 0.65rem;
@@ -106,7 +107,7 @@
   font-size: 1.2em;
   width: 32px;
   height: 32px;
-  margin-right: auto; 
+  margin-right: auto;
 }
 
 @media (max-width: 480px) {
