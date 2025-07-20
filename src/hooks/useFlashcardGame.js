@@ -14,9 +14,12 @@ export function useFlashcardGame(
   const [feedbackSignal, setFeedbackSignal] = useState(null);
   const [gameError, setGameError] = useState(null);
   const [lastReviewedCard, setLastReviewedCard] = useState(null);
-  
-  // NEW: Session tracking to prevent repeats
   const [sessionShownIds, setSessionShownIds] = useState(new Set());
+  const [celebrationState, setCelebrationState] = useState({
+    isVisible: false,
+    type: null,
+    flashcardClass: "",
+  });
 
   useEffect(() => {
     setCurrentPair(initialCard);
@@ -37,31 +40,42 @@ export function useFlashcardGame(
 
     try {
       const listService = new StudyListService(wordList);
-      
+
       // Simple approach - just get a large random pool each time
-      const flashcardList = listService.generateFlashcardsList(Math.min(200, wordList.length));
-      
+      const flashcardList = listService.generateFlashcardsList(
+        Math.min(200, wordList.length)
+      );
+
       if (!flashcardList.words || flashcardList.words.length === 0) {
-        console.error('No words returned from generateFlashcardsList');
+        console.error("No words returned from generateFlashcardsList");
         setGameError("Unable to generate word list.");
         return;
       }
-      
+
       // Filter out already shown words
-      const unseenWords = flashcardList.words.filter(w => !sessionShownIds.has(w.id));
-      
+      const unseenWords = flashcardList.words.filter(
+        (w) => !sessionShownIds.has(w.id)
+      );
+
       // If we've seen all words in this batch, reset session
       if (unseenWords.length === 0) {
-        console.log('All words in pool seen, checking if need to reset session...');
-        
+        console.log(
+          "All words in pool seen, checking if need to reset session..."
+        );
+
         // If we've seen a significant portion of total words, reset
         if (sessionShownIds.size >= wordList.length * 0.8) {
-          console.log('Resetting session - seen 80% of all words');
+          console.log("Resetting session - seen 80% of all words");
           setSessionShownIds(new Set());
           // Get fresh pool and select from it
-          const freshList = listService.generateFlashcardsList(Math.min(200, wordList.length));
+          const freshList = listService.generateFlashcardsList(
+            Math.min(200, wordList.length)
+          );
           if (freshList.words && freshList.words.length > 0) {
-            const randomCard = freshList.words[Math.floor(Math.random() * freshList.words.length)];
+            const randomCard =
+              freshList.words[
+                Math.floor(Math.random() * freshList.words.length)
+              ];
             setSessionShownIds(new Set([randomCard.id]));
             setCurrentPair(randomCard);
             console.log(`Started new session with "${randomCard.spanish}"`);
@@ -69,28 +83,37 @@ export function useFlashcardGame(
           return;
         } else {
           // Get a new batch
-          console.log('Getting new batch of words...');
-          const newBatch = listService.generateFlashcardsList(Math.min(200, wordList.length));
-          const newUnseenWords = newBatch.words.filter(w => !sessionShownIds.has(w.id));
-          
+          console.log("Getting new batch of words...");
+          const newBatch = listService.generateFlashcardsList(
+            Math.min(200, wordList.length)
+          );
+          const newUnseenWords = newBatch.words.filter(
+            (w) => !sessionShownIds.has(w.id)
+          );
+
           if (newUnseenWords.length > 0) {
-            const randomCard = newUnseenWords[Math.floor(Math.random() * newUnseenWords.length)];
-            setSessionShownIds(prev => new Set([...prev, randomCard.id]));
+            const randomCard =
+              newUnseenWords[Math.floor(Math.random() * newUnseenWords.length)];
+            setSessionShownIds((prev) => new Set([...prev, randomCard.id]));
             setCurrentPair(randomCard);
             console.log(`Selected "${randomCard.spanish}" from new batch`);
           }
           return;
         }
       }
-      
+
       // Select a random unseen word
-      const randomCard = unseenWords[Math.floor(Math.random() * unseenWords.length)];
-      console.log(`Selected "${randomCard.spanish}" (${unseenWords.length - 1} more unseen in batch)`);
-      
+      const randomCard =
+        unseenWords[Math.floor(Math.random() * unseenWords.length)];
+      console.log(
+        `Selected "${randomCard.spanish}" (${
+          unseenWords.length - 1
+        } more unseen in batch)`
+      );
+
       // Mark as shown
-      setSessionShownIds(prev => new Set([...prev, randomCard.id]));
+      setSessionShownIds((prev) => new Set([...prev, randomCard.id]));
       setCurrentPair(randomCard);
-      
     } catch (err) {
       console.error("Error selecting flashcard:", err);
       setGameError("Failed to select a card.");
@@ -160,6 +183,15 @@ export function useFlashcardGame(
           "flashcards"
         );
         setLastReviewedCard(updatedWord);
+
+        // Trigger celebration if word leveled up
+        if (updatedWord.hasLeveledUp && updatedWord.celebrationType) {
+          setCelebrationState({
+            isVisible: true,
+            type: updatedWord.celebrationType,
+            flashcardClass: `flashcard--level-up-${updatedWord.celebrationType}`,
+          });
+        }
       } catch (error) {
         console.error("Failed to update word exposure:", error);
       }
@@ -195,12 +227,19 @@ export function useFlashcardGame(
     selectNewPairCard();
   }, [selectNewPairCard]);
 
-  // NEW: Reset session function (useful for "New Session" button)
   const resetSession = useCallback(() => {
-    console.log('Resetting flashcard session');
+    console.log("Resetting flashcard session");
     setSessionShownIds(new Set());
     selectNewPairCard();
   }, [selectNewPairCard]);
+
+  const clearCelebration = useCallback(() => {
+  setCelebrationState({
+    isVisible: false,
+    type: null,
+    flashcardClass: ''
+  });
+}, []);
 
   return {
     currentPair,
@@ -216,11 +255,14 @@ export function useFlashcardGame(
     setShowFeedback,
     loadSpecificCard,
     lastReviewedCard,
-    resetSession, // NEW
-    sessionStats: { // NEW
+    resetSession, 
+    sessionStats: {
+      
       shown: sessionShownIds.size,
       totalWords: wordList.length,
-      remaining: wordList.length - sessionShownIds.size
-    }
+      remaining: wordList.length - sessionShownIds.size,
+    },
+    celebrationState,
+    clearCelebration,
   };
 }
