@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Flashcard.css";
+import WordCelebration from "./WordCelebration";
 
 const Flashcard = ({
   pair,
@@ -16,6 +17,8 @@ const Flashcard = ({
   onShowDetails,
   onNewCard,
   onSwitchDirection,
+  celebrationState,
+  onCelebrationComplete,
 }) => {
   const [answer, setAnswer] = useState("");
 
@@ -47,7 +50,7 @@ const Flashcard = ({
 
   const cardClassName = `flashcard ${
     feedbackSignal ? `flashcard--${feedbackSignal}` : ""
-  }`.trim();
+  } ${celebrationState?.flashcardClass || ""}`.trim();
   const markIcon = isMarkedHard ? "★" : "☆";
   const markTitle = isMarkedHard
     ? "Word is marked as hard"
@@ -250,6 +253,12 @@ const Flashcard = ({
           )}
         </div>
       )}
+      {/* Level-up Celebration Overlay */}
+      <WordCelebration
+        isVisible={celebrationState?.isVisible || false}
+        celebrationType={celebrationState?.type}
+        onAnimationComplete={onCelebrationComplete}
+      />
     </div>
   );
 };
