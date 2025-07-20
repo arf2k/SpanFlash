@@ -696,3 +696,184 @@ body[data-theme="dark"] .feedback-area button {
     font-size: 0.95rem;
   }
 }
+/* === WORD LEVEL-UP CELEBRATION SYSTEM === */
+
+/* New celebration colors (distinct from correct/incorrect feedback) */
+:root {
+  --celebration-learning: #ffc107;     /* Warm yellow - first breakthrough */
+  --celebration-familiar: #0d6efd;     /* Primary blue - making progress */
+  --celebration-mastered: #8b5cf6;     /* Purple - achievement! */
+  --celebration-glow: rgba(255, 255, 255, 0.8);
+}
+
+body[data-theme="dark"] {
+  --celebration-learning: #f59e0b;     /* Amber for dark theme */
+  --celebration-familiar: #3b82f6;     /* Bright blue for dark theme */
+  --celebration-mastered: #a855f7;     /* Bright purple for dark theme */
+  --celebration-glow: rgba(255, 255, 255, 0.6);
+}
+
+/* === LEVEL-UP ANIMATION TRIGGERS === */
+.flashcard--level-up-learning {
+  animation: celebrateLevelUp 2s ease-out;
+  border-color: var(--celebration-learning) !important;
+}
+
+.flashcard--level-up-familiar {
+  animation: celebrateLevelUp 2s ease-out;
+  border-color: var(--celebration-familiar) !important;
+}
+
+.flashcard--level-up-mastered {
+  animation: celebrateLevelUp 2s ease-out;
+  border-color: var(--celebration-mastered) !important;
+}
+
+/* === MAIN CELEBRATION ANIMATION === */
+@keyframes celebrateLevelUp {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+  
+  15% {
+    transform: scale(1.03);
+    box-shadow: 
+      0 0 0 4px var(--celebration-glow),
+      0 12px 24px rgba(0, 0, 0, 0.2);
+  }
+  
+  30% {
+    transform: scale(1.01);
+    box-shadow: 
+      0 0 0 8px var(--celebration-glow),
+      0 16px 32px rgba(0, 0, 0, 0.25);
+  }
+  
+  45% {
+    transform: scale(1.02);
+    box-shadow: 
+      0 0 0 4px var(--celebration-glow),
+      0 12px 24px rgba(0, 0, 0, 0.2);
+  }
+  
+  100% {
+    transform: scale(1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+}
+
+/* === MILESTONE FLASH OVERLAY === */
+.milestone-flash {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--milestone-bg-color);
+  color: var(--text-button);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 150;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  animation: milestoneFlash 2s ease-out forwards;
+}
+
+.milestone-flash--learning {
+  --milestone-bg-color: var(--celebration-learning);
+}
+
+.milestone-flash--familiar {
+  --milestone-bg-color: var(--celebration-familiar);
+}
+
+.milestone-flash--mastered {
+  --milestone-bg-color: var(--celebration-mastered);
+}
+
+/* === MILESTONE FLASH ANIMATION === */
+@keyframes milestoneFlash {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  
+  40% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+
+/* === MOBILE OPTIMIZATIONS === */
+@media (max-width: 480px) {
+  .milestone-flash {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+  
+  @keyframes celebrateLevelUp {
+    0% {
+      transform: scale(1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+    
+    15% {
+      transform: scale(1.02);
+      box-shadow: 
+        0 0 0 3px var(--celebration-glow),
+        0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    
+    30% {
+      transform: scale(1.01);
+      box-shadow: 
+        0 0 0 5px var(--celebration-glow),
+        0 12px 20px rgba(0, 0, 0, 0.25);
+    }
+    
+    100% {
+      transform: scale(1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+  }
+}
+
+/* === ACCESSIBILITY: REDUCED MOTION === */
+@media (prefers-reduced-motion: reduce) {
+  .flashcard--level-up-learning,
+  .flashcard--level-up-familiar,
+  .flashcard--level-up-mastered {
+    animation: none;
+    border-color: var(--celebration-learning) !important;
+  }
+  
+  .milestone-flash {
+    animation: milestoneFlashReduced 1s ease-out forwards;
+  }
+  
+  @keyframes milestoneFlashReduced {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+}
