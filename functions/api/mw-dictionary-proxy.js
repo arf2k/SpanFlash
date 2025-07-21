@@ -1,4 +1,3 @@
-
 const MW_API_BASE_URL_CONST = 'https://www.dictionaryapi.com/api/v3/references/spanish/json/';
 
 // Helper function to handle CORS preflight requests
@@ -12,14 +11,13 @@ function handleOptions(request) {
     // Handle CORS preflight requests.
     return new Response(null, {
       headers: {
-        'Access-Control-Allow-Origin': '*', // Or your specific PWA domain
+        'Access-Control-Allow-Origin': '*', 
         'Access-Control-Allow-Methods': 'GET, OPTIONS',
-        'Access-Control-Allow-Headers': headers.get('Access-Control-Request-Headers'), // Reflect requested headers
-        'Access-Control-Max-Age': '86400', // Cache preflight for 1 day
+        'Access-Control-Allow-Headers': headers.get('Access-Control-Request-Headers'), 
+        'Access-Control-Max-Age': '86400', 
       },
     });
   } else {
-    // Handle standard OPTIONS request.
     return new Response(null, {
       headers: {
         Allow: 'GET, OPTIONS',
@@ -29,11 +27,13 @@ function handleOptions(request) {
 }
 
 export async function onRequestGet(context) {
+  const requestStartTime = Date.now();
+  
   // Define CORS headers for actual responses
   const corsHeaders = {
-    'Access-Control-Allow-Origin': '*', // Or your specific PWA domain
-    'Access-Control-Allow-Methods': 'GET, OPTIONS', // Only GET is primarily used by this proxy
-    'Access-Control-Allow-Headers': 'Content-Type', // Allow common headers
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
     'Content-Type': 'application/json',
   };
   
@@ -50,7 +50,7 @@ export async function onRequestGet(context) {
     return new Response(JSON.stringify(errorResponse), { status: 400, headers: corsHeaders });
   }
 
-  const apiKey = context.env.MW_API_KEY; // Retrieve from Cloudflare environment secrets
+  const apiKey = context.env.MW_API_KEY;
   if (!apiKey) {
     console.error("Pages Function (MW Proxy): MW_API_KEY secret is NOT DEFINED in Cloudflare environment.");
     const errorResponse = { error: 'Configuration Error', details: 'API key for Merriam-Webster is not configured on the server.' };
@@ -61,8 +61,8 @@ export async function onRequestGet(context) {
   
   let targetMwUrlString;
   try {
-    const urlObject = new URL(`${MW_API_BASE_URL_CONST}${encodedWord}`); // Path construction
-    urlObject.searchParams.append('key', apiKey);                 // Append key as query param
+    const urlObject = new URL(`${MW_API_BASE_URL_CONST}${encodedWord}`);
+    urlObject.searchParams.append('key', apiKey);
     targetMwUrlString = urlObject.toString();
   } catch (e) {
     console.error("Pages Function (MW Proxy): Error constructing MW API URL object:", e);
@@ -71,34 +71,44 @@ export async function onRequestGet(context) {
   }
 
   console.log(`Pages Function (MW Proxy): Requesting word: "${wordToLookup}"`);
-  // Avoid logging the full URL with the key for better security in logs, even server-side.
-  console.log(`Pages Function (MW Proxy): Target MW Base: ${MW_API_BASE_URL_CONST}${encodedWord}?key=YOUR_API_KEY_IS_USED_HERE`);
 
   try {
     const mwResponse = await fetch(targetMwUrlString, {
       method: 'GET',
       headers: {
-        // MW API doesn't strictly require a User-Agent, but it can be good practice
         'User-Agent': 'Cloudflare-Pages-Function-Flashcard-App-MW-Proxy/1.0 (https://spanflash.pages.dev)',
+        'Accept': 'application/json',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Connection': 'keep-alive',
       },
+      signal: AbortSignal.timeout(4000), // 4 second timeout for MW API specifically
     });
+
+    const responseTime = Date.now() - requestStartTime;
+    console.log(`MW API responded in ${responseTime}ms for "${wordToLookup}"`);
 
     if (!mwResponse.ok) {
         let errorDetails = `MW API responded with status ${mwResponse.status}`;
         try {
             const errorText = await mwResponse.text();
-            errorDetails += `: ${errorText.substring(0, 200)}`; // Get first 200 chars of error
+            errorDetails += `: ${errorText.substring(0, 200)}`;
         } catch (e) { /* ignore if can't get text */ }
-        console.error(`Pages Function (MW Proxy): ${errorDetails}`);
-        const errorResponse = { error: 'Merriam-Webster API Error', status: mwResponse.status, details: errorDetails };
+        console.error(`Pages Function (MW Proxy): ${errorDetails} (after ${responseTime}ms)`);
+        const errorResponse = { 
+          error: 'Merriam-Webster API Error', 
+          status: mwResponse.status, 
+          details: errorDetails,
+          responseTime: `${responseTime}ms`
+        };
         return new Response(JSON.stringify(errorResponse), { status: mwResponse.status, headers: corsHeaders });
     }
 
-    const data = await mwResponse.json(); // Assume MW always returns JSON on success
+    const data = await mwResponse.json();
     
     const responseHeadersWithCache = { 
-        ...corsHeaders, 
-      'Cache-Control': 's-maxage=86400, stale-while-revalidate=43200' // Cache at edge for 1 day
+        ...corsHeaders,
+        'Cache-Control': 's-maxage=3600, stale-while-revalidate=1800, max-age=300', 
+        'X-Response-Time': `${responseTime}ms`, // Debug header to see performance
     };
     
     return new Response(JSON.stringify(data), {
@@ -107,13 +117,27 @@ export async function onRequestGet(context) {
     });
 
   } catch (error) {
-    console.error('Pages Function (MW Proxy): Error fetching from or processing MW API response:', error);
+    const responseTime = Date.now() - requestStartTime;
+    
+    // error identification
+    if (error.name === 'AbortError' || error.name === 'TimeoutError') {
+      console.error(`Pages Function (MW Proxy): MW API timeout after ${responseTime}ms for "${wordToLookup}"`);
+      const errorResponse = { 
+        error: 'MW API timeout', 
+        details: `Merriam-Webster API did not respond within 4 seconds`,
+        responseTime: `${responseTime}ms`,
+        word: wordToLookup
+      };
+      return new Response(JSON.stringify(errorResponse), { status: 504, headers: corsHeaders });
+    }
+
+    console.error(`Pages Function (MW Proxy): Error after ${responseTime}ms:`, error);
     const errorResponse = { 
         error: 'Proxy failed during MW API interaction', 
         details: error.message,
-        attemptedUrl: `${MW_API_BASE_URL_CONST}${encodedWord}?key=YOUR_API_KEY_WAS_USED_HERE` // Log problematic part without key
+        responseTime: `${responseTime}ms`,
+        word: wordToLookup
     };
     return new Response(JSON.stringify(errorResponse), { status: 502, headers: corsHeaders });
   }
 }
-
