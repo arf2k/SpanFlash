@@ -70,21 +70,6 @@ function App() {
     setWidgetId,
   } = useTurnstile();
 
-  // FIND this useEffect (should be around line 90):
-  useEffect(() => {
-    window.onTurnstileSuccess = (token) => {
-      window.turnstileToken = token;
-      onTurnstileSuccess(token);
-    };
-    window.onTurnstileError = onTurnstileError;
-
-    return () => {
-      delete window.onTurnstileSuccess;
-      delete window.onTurnstileError;
-      delete window.turnstileToken;
-    };
-  }, [onTurnstileSuccess, onTurnstileError]);
-
   const {
     sessionStats,
     todaysStats,
@@ -775,13 +760,8 @@ function App() {
               Verifying you're human...
             </small>
           </div>
-          <div
-            className="cf-turnstile"
-            data-sitekey={sitekey}
-            data-callback="onTurnstileSuccess"
-            data-error-callback="onTurnstileError"
-            data-action="api-protection"
-          ></div>
+          <div className="cf-turnstile"></div>
+
           {turnstileError && (
             <div
               style={{
