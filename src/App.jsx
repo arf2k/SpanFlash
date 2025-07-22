@@ -70,17 +70,18 @@ function App() {
     setWidgetId,
   } = useTurnstile();
 
+  // FIND this useEffect (should be around line 90):
   useEffect(() => {
-    window.onTurnstileSuccess = onTurnstileSuccess;
-    window.onTurnstileError = onTurnstileError;
-    window.showTurnstileWidget = () => {
-      console.log("Turnstile widget should show");
+    window.onTurnstileSuccess = (token) => {
+      window.turnstileToken = token;
+      onTurnstileSuccess(token);
     };
+    window.onTurnstileError = onTurnstileError;
 
     return () => {
       delete window.onTurnstileSuccess;
       delete window.onTurnstileError;
-      delete window.showTurnstileWidget;
+      delete window.turnstileToken;
     };
   }, [onTurnstileSuccess, onTurnstileError]);
 
@@ -762,8 +763,18 @@ function App() {
             top: "20px",
             right: "20px",
             zIndex: 1000,
+            background: "var(--bg-card)",
+            padding: "15px",
+            borderRadius: "8px",
+            border: "1px solid var(--color-border)",
+            boxShadow: "0 4px 16px rgba(0, 0, 0, 0.2)",
           }}
         >
+          <div style={{ marginBottom: "10px", textAlign: "center" }}>
+            <small style={{ color: "var(--text-muted)" }}>
+              Verifying you're human...
+            </small>
+          </div>
           <div
             className="cf-turnstile"
             data-sitekey={sitekey}
@@ -771,6 +782,33 @@ function App() {
             data-error-callback="onTurnstileError"
             data-action="api-protection"
           ></div>
+          {error && (
+            <div
+              style={{
+                marginTop: "10px",
+                textAlign: "center",
+                color: "var(--text-error)",
+              }}
+            >
+              <small>{error}</small>
+              <br />
+              <button
+                onClick={resetWidget}
+                style={{
+                  background: "var(--color-warning)",
+                  color: "white",
+                  border: "none",
+                  padding: "4px 8px",
+                  borderRadius: "4px",
+                  fontSize: "0.8rem",
+                  cursor: "pointer",
+                  marginTop: "5px",
+                }}
+              >
+                Retry
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>
