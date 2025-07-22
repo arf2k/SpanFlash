@@ -12,11 +12,9 @@ export const createApiHandlers = (
   setApiSuggestions,
   setIsLoadingTatoebaExamples,
   setTatoebaError,
-  setTatoebaExamples
+  setTatoebaExamples,
+  ensureValidToken
 ) => {
-  // Updated handleGetHint function for apiHandlers.js
-  // Replace the existing handleGetHint function with this version
-
   const handleGetHint = async (forceLookup = false) => {
     if (!currentPair || isHintLoading) return;
     if (
@@ -63,9 +61,21 @@ export const createApiHandlers = (
     };
 
     try {
-      const apiResponse = await getMwHint(wordForApi, onSlowRequest);
+      const apiResponse = await new Promise((resolve, reject) => {
+        ensureValidToken(async () => {
+          try {
+            const response = await getMwHint(
+              wordForApi,
+              onSlowRequest,
+              window.turnstileToken
+            );
+            resolve(response);
+          } catch (error) {
+            reject(error);
+          }
+        });
+      });
 
-      // Handle timeout and other specific errors
       if (apiResponse && apiResponse.error) {
         switch (apiResponse.type) {
           case "timeout":
