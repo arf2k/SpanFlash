@@ -29,6 +29,7 @@ import StatsModal from "./components/StatsModal";
 import VocabularyExtractionModal from "./components/VocabularyExtractionModal.jsx";
 import ReviewExtractedWordsModal from "./components/ReviewExtractedWordsModal.jsx";
 import { createVocabularyExtractionHandlers } from "./handlers/vocabularyExtractionHandlers.js";
+import { useTurnstile } from "./hooks/useTurnstile";
 
 function App() {
   // === App-specific State Variables ===
@@ -54,6 +55,20 @@ function App() {
     toggleTheme,
     toggleAdminMode,
   } = useAppSettings();
+
+  const {
+    hasValidToken,
+    ensureValidToken,
+    isWidgetVisible,
+    isLoading: isTurnstileLoading,
+    error: turnstileError,
+    sitekey,
+    onTurnstileSuccess,
+    onTurnstileError,
+    hideWidget,
+    resetWidget,
+    setWidgetId,
+  } = useTurnstile();
 
   const {
     sessionStats,
@@ -227,7 +242,8 @@ function App() {
     setApiSuggestions,
     setIsLoadingTatoebaExamples,
     setTatoebaError,
-    setTatoebaExamples
+    setTatoebaExamples,
+    ensureValidToken
   );
 
   const {
@@ -724,6 +740,24 @@ function App() {
       />
       {currentDataVersion && (
         <div className="version-overlay">v: {currentDataVersion}</div>
+      )}
+      {isWidgetVisible && (
+        <div
+          style={{
+            position: "fixed",
+            top: "20px",
+            right: "20px",
+            zIndex: 1000,
+          }}
+        >
+          <div
+            className="cf-turnstile"
+            data-sitekey={sitekey}
+            data-callback="onTurnstileSuccess"
+            data-error-callback="onTurnstileError"
+            data-action="api-protection"
+          ></div>
+        </div>
       )}
     </div>
   );
