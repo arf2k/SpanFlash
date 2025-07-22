@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 
-const SITEKEY = '0x4AAAAAABl9yX4ooY3T7i-e';
+const SITEKEY = '0x4AAAAAABl-voZH2oYZsi1W';
 const TOKEN_DURATION = 4.5 * 60 * 1000; 
 
 export const useTurnstile = () => {
