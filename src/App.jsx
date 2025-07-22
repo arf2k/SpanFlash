@@ -770,7 +770,7 @@ function App() {
                 color: "var(--text-error)",
               }}
             >
-              <small>{error}</small>
+              <small>{turnstileError}</small>
               <br />
               <button
                 onClick={resetWidget}

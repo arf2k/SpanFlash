@@ -21,6 +21,7 @@ export const useTurnstile = () => {
     setToken(null);
     setTokenExpiry(null);
     setError(null);
+    delete window.turnstileToken;
   }, []);
 
   const onTurnstileSuccess = useCallback((receivedToken) => {
@@ -46,9 +47,6 @@ export const useTurnstile = () => {
     setIsWidgetVisible(false);
     setIsLoading(false);
     clearToken();
-    
-    // Clear the global token on error
-    delete window.turnstileToken;
   }, [clearToken]);
 
   const resetWidget = useCallback(() => {
@@ -82,17 +80,41 @@ export const useTurnstile = () => {
     return hasValidToken() ? token : null;
   }, [hasValidToken, token]);
 
-  // Set up global callbacks for Turnstile
+  // Set up global callbacks ONCE and keep them stable
   useEffect(() => {
-    window.onTurnstileSuccess = onTurnstileSuccess;
-    window.onTurnstileError = onTurnstileError;
+    window.onTurnstileSuccess = (token) => {
+      console.log('Global callback triggered with token');
+      // Find the current onTurnstileSuccess function and call it
+      setToken(token);
+      setTokenExpiry(Date.now() + TOKEN_DURATION);
+      setIsWidgetVisible(false);
+      setIsLoading(false);
+      setError(null);
+      window.turnstileToken = token;
+      
+      // Execute pending callback if exists
+      if (pendingCallback.current) {
+        pendingCallback.current();
+        pendingCallback.current = null;
+      }
+    };
+    
+    window.onTurnstileError = (errorCode) => {
+      console.log('Global error callback triggered:', errorCode);
+      setError(`Verification failed: ${errorCode}`);
+      setIsWidgetVisible(false);
+      setIsLoading(false);
+      setToken(null);
+      setTokenExpiry(null);
+      delete window.turnstileToken;
+    };
 
     return () => {
       delete window.onTurnstileSuccess;
       delete window.onTurnstileError;
       delete window.turnstileToken;
     };
-  }, [onTurnstileSuccess, onTurnstileError]);
+  }, []); // Empty dependency array - callbacks set up once and never change
 
   // Render widget when visible
   useEffect(() => {
@@ -102,6 +124,12 @@ export const useTurnstile = () => {
         try {
           // Clear any existing content
           container.innerHTML = '';
+          
+          // Make sure callbacks are available before rendering
+          if (!window.onTurnstileSuccess || !window.onTurnstileError) {
+            console.error('Turnstile callbacks not ready');
+            return;
+          }
           
           widgetId.current = window.turnstile.render(container, {
             sitekey: SITEKEY,
@@ -119,6 +147,13 @@ export const useTurnstile = () => {
           setIsLoading(false);
         }
       }
+    }
+  }, [isWidgetVisible]);
+
+  // Clean up widget when hiding
+  useEffect(() => {
+    if (!isWidgetVisible && widgetId.current) {
+      widgetId.current = null;
     }
   }, [isWidgetVisible]);
 
