@@ -70,6 +70,20 @@ function App() {
     setWidgetId,
   } = useTurnstile();
 
+  useEffect(() => {
+    window.onTurnstileSuccess = onTurnstileSuccess;
+    window.onTurnstileError = onTurnstileError;
+    window.showTurnstileWidget = () => {
+      console.log("Turnstile widget should show");
+    };
+
+    return () => {
+      delete window.onTurnstileSuccess;
+      delete window.onTurnstileError;
+      delete window.showTurnstileWidget;
+    };
+  }, [onTurnstileSuccess, onTurnstileError]);
+
   const {
     sessionStats,
     todaysStats,
