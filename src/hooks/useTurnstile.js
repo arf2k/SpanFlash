@@ -24,8 +24,9 @@ export const useTurnstile = () => {
     delete window.turnstileToken;
   }, []);
 
+  // Create stable callback functions that don't change
   const onTurnstileSuccess = useCallback((receivedToken) => {
-    console.log('Turnstile validation successful');
+    console.log('Turnstile validation successful, token received:', receivedToken);
     setToken(receivedToken);
     setTokenExpiry(Date.now() + TOKEN_DURATION);
     setIsWidgetVisible(false);
@@ -36,6 +37,7 @@ export const useTurnstile = () => {
     window.turnstileToken = receivedToken;
 
     if (pendingCallback.current) {
+      console.log('Executing pending callback');
       pendingCallback.current();
       pendingCallback.current = null;
     }
@@ -80,43 +82,7 @@ export const useTurnstile = () => {
     return hasValidToken() ? token : null;
   }, [hasValidToken, token]);
 
-  // Set up global callbacks ONCE and keep them stable
-  useEffect(() => {
-    window.onTurnstileSuccess = (token) => {
-      console.log('Global callback triggered with token');
-      // Find the current onTurnstileSuccess function and call it
-      setToken(token);
-      setTokenExpiry(Date.now() + TOKEN_DURATION);
-      setIsWidgetVisible(false);
-      setIsLoading(false);
-      setError(null);
-      window.turnstileToken = token;
-      
-      // Execute pending callback if exists
-      if (pendingCallback.current) {
-        pendingCallback.current();
-        pendingCallback.current = null;
-      }
-    };
-    
-    window.onTurnstileError = (errorCode) => {
-      console.log('Global error callback triggered:', errorCode);
-      setError(`Verification failed: ${errorCode}`);
-      setIsWidgetVisible(false);
-      setIsLoading(false);
-      setToken(null);
-      setTokenExpiry(null);
-      delete window.turnstileToken;
-    };
-
-    return () => {
-      delete window.onTurnstileSuccess;
-      delete window.onTurnstileError;
-      delete window.turnstileToken;
-    };
-  }, []); // Empty dependency array - callbacks set up once and never change
-
-  // Render widget when visible
+  // Render widget when visible - using DIRECT function callbacks instead of strings
   useEffect(() => {
     if (isWidgetVisible && window.turnstile) {
       const container = document.querySelector('.cf-turnstile');
@@ -125,16 +91,12 @@ export const useTurnstile = () => {
           // Clear any existing content
           container.innerHTML = '';
           
-          // Make sure callbacks are available before rendering
-          if (!window.onTurnstileSuccess || !window.onTurnstileError) {
-            console.error('Turnstile callbacks not ready');
-            return;
-          }
+          console.log('Rendering Turnstile widget with direct function callbacks');
           
           widgetId.current = window.turnstile.render(container, {
             sitekey: SITEKEY,
-            callback: 'onTurnstileSuccess',
-            'error-callback': 'onTurnstileError',
+            callback: onTurnstileSuccess,  // Direct function reference
+            'error-callback': onTurnstileError,  // Direct function reference
             action: 'api-protection',
             theme: 'auto',
             size: 'normal',
@@ -148,11 +110,12 @@ export const useTurnstile = () => {
         }
       }
     }
-  }, [isWidgetVisible]);
+  }, [isWidgetVisible, onTurnstileSuccess, onTurnstileError]);
 
   // Clean up widget when hiding
   useEffect(() => {
     if (!isWidgetVisible && widgetId.current) {
+      console.log('Cleaning up widget ID');
       widgetId.current = null;
     }
   }, [isWidgetVisible]);
