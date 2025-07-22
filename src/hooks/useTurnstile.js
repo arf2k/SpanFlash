@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 
 const SITEKEY = '0x4AAAAAABl9yX4ooY3T7i-e';
 const TOKEN_DURATION = 4.5 * 60 * 1000; 
@@ -31,6 +31,9 @@ export const useTurnstile = () => {
     setIsLoading(false);
     setError(null);
 
+    // Store token globally for API calls
+    window.turnstileToken = receivedToken;
+
     if (pendingCallback.current) {
       pendingCallback.current();
       pendingCallback.current = null;
@@ -43,6 +46,9 @@ export const useTurnstile = () => {
     setIsWidgetVisible(false);
     setIsLoading(false);
     clearToken();
+    
+    // Clear the global token on error
+    delete window.turnstileToken;
   }, [clearToken]);
 
   const resetWidget = useCallback(() => {
@@ -75,6 +81,46 @@ export const useTurnstile = () => {
   const getToken = useCallback(() => {
     return hasValidToken() ? token : null;
   }, [hasValidToken, token]);
+
+  // Set up global callbacks for Turnstile
+  useEffect(() => {
+    window.onTurnstileSuccess = onTurnstileSuccess;
+    window.onTurnstileError = onTurnstileError;
+
+    return () => {
+      delete window.onTurnstileSuccess;
+      delete window.onTurnstileError;
+      delete window.turnstileToken;
+    };
+  }, [onTurnstileSuccess, onTurnstileError]);
+
+  // Render widget when visible
+  useEffect(() => {
+    if (isWidgetVisible && window.turnstile) {
+      const container = document.querySelector('.cf-turnstile');
+      if (container && !widgetId.current) {
+        try {
+          // Clear any existing content
+          container.innerHTML = '';
+          
+          widgetId.current = window.turnstile.render(container, {
+            sitekey: SITEKEY,
+            callback: 'onTurnstileSuccess',
+            'error-callback': 'onTurnstileError',
+            action: 'api-protection',
+            theme: 'auto',
+            size: 'normal',
+          });
+          
+          console.log('Turnstile widget rendered with ID:', widgetId.current);
+        } catch (error) {
+          console.error('Failed to render Turnstile widget:', error);
+          setError('Failed to load verification widget');
+          setIsLoading(false);
+        }
+      }
+    }
+  }, [isWidgetVisible]);
 
   return {
     // State
