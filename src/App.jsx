@@ -782,7 +782,7 @@ function App() {
             data-error-callback="onTurnstileError"
             data-action="api-protection"
           ></div>
-          {error && (
+          {turnstileError && (
             <div
               style={{
                 marginTop: "10px",
