@@ -64,10 +64,16 @@ export const createApiHandlers = (
       const apiResponse = await new Promise((resolve, reject) => {
         ensureValidToken(async () => {
           try {
+            // Get token from global window after validation
+            const currentToken = window.turnstileToken;
+            if (!currentToken) {
+              reject(new Error("No token available after validation"));
+              return;
+            }
             const response = await getMwHint(
               wordForApi,
               onSlowRequest,
-              window.turnstileToken
+              currentToken
             );
             resolve(response);
           } catch (error) {
