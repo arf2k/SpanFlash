@@ -3,19 +3,26 @@ import axios from "axios";
 const MW_PROXY_PATH = "/api/mw-dictionary-proxy";
 
 // Timeout configuration
-const REQUEST_TIMEOUT_MS = 6000; // 6 seconds
-const SLOW_REQUEST_THRESHOLD_MS = 3000; // 3 seconds to show "still loading"
+const REQUEST_TIMEOUT_MS = 6000;
+const SLOW_REQUEST_THRESHOLD_MS = 3000;
 
 /**
  * Fetches definition and usage examples for a Spanish word/phrase
  * by calling your Cloudflare Pages Function proxy for the Merriam-Webster API.
  * @param {string} spanishWord - The word or phrase to look up.
- * @param {Function} onSlowRequest - Optional callback called if request is taking longer than threshold
+ * @param {Function} onSlowRequest - callback called if request is taking longer than threshold
+ *  * @param {string} turnstileToken -  Turnstile token for API protection
  * @returns {Promise<object|null>} A promise that resolves to the API response data
- * (as returned by Merriam-Webster, usually an array)
  * or null if an error occurs.
  */
-export const getMwHint = async (spanishWord, onSlowRequest = null) => {
+export const getMwHint = async (
+  spanishWord,
+  onSlowRequest = null,
+  turnstileToken
+) => {
+  if (!turnstileToken) {
+    throw new Error('Turnstile token required for API access');
+  }
   if (
     !spanishWord ||
     typeof spanishWord !== "string" ||
@@ -44,21 +51,18 @@ export const getMwHint = async (spanishWord, onSlowRequest = null) => {
   try {
     const response = await axios.get(proxyUrl, {
       timeout: REQUEST_TIMEOUT_MS,
-      // Add explicit headers for better debugging
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        ...(turnstileToken && { "CF-Turnstile-Response": turnstileToken }),
       },
     });
-
-    // Clear slow request timer on success
     if (slowRequestTimer) {
       clearTimeout(slowRequestTimer);
     }
 
     console.log("Response from MW Proxy:", response.data);
 
-    // Check for proxy-level errors
     if (response.data && response.data.error) {
       console.error(
         `Error from MW Proxy Function: ${
@@ -70,12 +74,10 @@ export const getMwHint = async (spanishWord, onSlowRequest = null) => {
 
     return response.data;
   } catch (error) {
-    // Clear slow request timer on error
     if (slowRequestTimer) {
       clearTimeout(slowRequestTimer);
     }
 
-    // Enhanced error handling with timeout detection
     if (error.code === "ECONNABORTED" || error.message?.includes("timeout")) {
       console.error(
         `MW API request timed out after ${REQUEST_TIMEOUT_MS}ms for "${wordToLookup}"`
@@ -91,7 +93,6 @@ export const getMwHint = async (spanishWord, onSlowRequest = null) => {
       };
     }
 
-    // Network or other errors
     console.error(
       `Error fetching hint via proxy for "${wordToLookup}":`,
       error.message
@@ -101,7 +102,6 @@ export const getMwHint = async (spanishWord, onSlowRequest = null) => {
       console.error("MW Proxy Error Response Data:", error.response.data);
       console.error("MW Proxy Error Response Status:", error.response.status);
 
-      // Return specific error info for different HTTP status codes
       if (error.response.status >= 500) {
         return {
           error: true,
@@ -130,7 +130,6 @@ export const getMwHint = async (spanishWord, onSlowRequest = null) => {
       };
     }
 
-    // Generic error fallback
     return {
       error: true,
       type: "unknown_error",
