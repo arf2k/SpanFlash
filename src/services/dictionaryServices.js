@@ -116,7 +116,12 @@ export const getMwHint = async (
     }, SLOW_REQUEST_THRESHOLD_MS);
   }
 
-  try {
+  try {console.log("=== API CALL DEBUG ===");
+console.log("Session valid:", session);
+console.log("Current session token:", currentSessionToken);
+console.log("Headers being sent:", authHeaders);
+console.log("======================");
+
     const response = await axios.get(proxyUrl, {
       timeout: REQUEST_TIMEOUT_MS,
       headers: {

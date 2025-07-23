@@ -110,15 +110,13 @@ function handleOptions(request) {
   ) {
     // Handle CORS preflight requests.
     return new Response(null, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, OPTIONS",
-        "Access-Control-Allow-Headers": headers.get(
-          "Access-Control-Request-Headers"
-        ),
-        "Access-Control-Max-Age": "86400",
-      },
-    });
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, CF-Turnstile-Response, CF-Session-Token",
+    "Access-Control-Max-Age": "86400",
+  },
+});
   } else {
     return new Response(null, {
       headers: {
@@ -136,11 +134,11 @@ export async function onRequestGet(context) {
 
   // Define CORS headers for actual responses
   const corsHeaders = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, CF-Turnstile-Response, CF-Session-Token",
-    "Content-Type": "application/json",
-  };
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, CF-Turnstile-Response, CF-Session-Token",
+  "Content-Type": "application/json",
+};
 
   // Handle OPTIONS preflight requests for CORS
   if (context.request.method === "OPTIONS") {
