@@ -98,14 +98,12 @@ export const createApiHandlers = (
       const firstEntry = mwData[0];
       if (firstEntry && firstEntry.shortdef && firstEntry.shortdef.length > 0) {
         setHintData({
-          type: "success",
-          word: wordForApi,
-          definitions: firstEntry.shortdef.map((def, i) => ({
-            id: i,
-            text: def,
-            type: "shortdef"
-          }))
-        });
+  type: "definitions",
+  data: {
+    shortdef: firstEntry.shortdef,
+    fl: firstEntry.fl || ""
+  }
+});
         console.log("Hint set successfully");
       } else {
         setHintData({
