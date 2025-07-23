@@ -4,17 +4,21 @@ const MW_API_BASE_URL_CONST =
 // Session management
 const sessions = new Map();
 const SESSION_DURATION = 30 * 60 * 1000; // 30 minutes
-const CLEANUP_INTERVAL = 5 * 60 * 1000; // 5 minutes
 
-// Cleanup expired sessions periodically
-setInterval(() => {
+// Cleanup expired sessions (called during request processing)
+function cleanupExpiredSessions() {
   const now = Date.now();
+  let cleanedCount = 0;
   for (const [sessionId, session] of sessions.entries()) {
     if (now > session.expiresAt) {
       sessions.delete(sessionId);
+      cleanedCount++;
     }
   }
-}, CLEANUP_INTERVAL);
+  if (cleanedCount > 0) {
+    console.log(`Cleaned up ${cleanedCount} expired sessions`);
+  }
+}
 
 // Generate secure session token
 function generateSessionToken() {
@@ -126,6 +130,9 @@ function handleOptions(request) {
 
 export async function onRequestGet(context) {
   const requestStartTime = Date.now();
+
+  // Cleanup expired sessions on each request (lazy cleanup)
+  cleanupExpiredSessions();
 
   // Define CORS headers for actual responses
   const corsHeaders = {
