@@ -1,5 +1,71 @@
 const MW_API_BASE_URL_CONST =
   "https://www.dictionaryapi.com/api/v3/references/spanish/json/";
+
+// Session management
+const sessions = new Map();
+const SESSION_DURATION = 30 * 60 * 1000; // 30 minutes
+const CLEANUP_INTERVAL = 5 * 60 * 1000; // 5 minutes
+
+// Cleanup expired sessions periodically
+setInterval(() => {
+  const now = Date.now();
+  for (const [sessionId, session] of sessions.entries()) {
+    if (now > session.expiresAt) {
+      sessions.delete(sessionId);
+    }
+  }
+}, CLEANUP_INTERVAL);
+
+// Generate secure session token
+function generateSessionToken() {
+  return crypto.randomUUID() + '-' + Date.now().toString(36);
+}
+
+// Create new session
+function createSession(remoteIP) {
+  const sessionToken = generateSessionToken();
+  const expiresAt = Date.now() + SESSION_DURATION;
+  
+  sessions.set(sessionToken, {
+    remoteIP,
+    createdAt: Date.now(),
+    expiresAt,
+    lastUsed: Date.now(),
+    requestCount: 0
+  });
+  
+  console.log(`Created session ${sessionToken} for IP ${remoteIP}, expires at ${new Date(expiresAt)}`);
+  return { sessionToken, expiresAt };
+}
+
+// Validate session token
+function validateSession(sessionToken, remoteIP) {
+  const session = sessions.get(sessionToken);
+  
+  if (!session) {
+    return { valid: false, reason: 'Session not found' };
+  }
+  
+  if (Date.now() > session.expiresAt) {
+    sessions.delete(sessionToken);
+    return { valid: false, reason: 'Session expired' };
+  }
+  
+  // Optional: Validate IP consistency (comment out if causing issues)
+  if (session.remoteIP !== remoteIP) {
+    console.warn(`Session IP mismatch: expected ${session.remoteIP}, got ${remoteIP}`);
+    // Still allow but log the discrepancy
+  }
+  
+  // Extend session on use
+  session.expiresAt = Date.now() + SESSION_DURATION;
+  session.lastUsed = Date.now();
+  session.requestCount++;
+  
+  console.log(`Session ${sessionToken} validated and extended, expires at ${new Date(session.expiresAt)}`);
+  return { valid: true, session };
+}
+
 async function validateTurnstileToken(token, secretKey, remoteIP = null) {
   if (!token || !secretKey) {
     return { success: false, error: "Missing token or secret key" };
@@ -65,7 +131,7 @@ export async function onRequestGet(context) {
   const corsHeaders = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, CF-Turnstile-Response",
+    "Access-Control-Allow-Headers": "Content-Type, CF-Turnstile-Response, CF-Session-Token",
     "Content-Type": "application/json",
   };
 
@@ -73,54 +139,87 @@ export async function onRequestGet(context) {
   if (context.request.method === "OPTIONS") {
     return handleOptions(context.request);
   }
+
   const turnstileToken = context.request.headers.get("CF-Turnstile-Response");
+  const sessionToken = context.request.headers.get("CF-Session-Token");
   const remoteIP = context.request.headers.get("CF-Connecting-IP");
 
-  if (!turnstileToken) {
-    const errorResponse = {
-      error: "Security Validation Required",
-      details: "Turnstile token missing from request headers",
-    };
-    return new Response(JSON.stringify(errorResponse), {
-      status: 403,
-      headers: corsHeaders,
-    });
+  let isValidated = false;
+  let sessionInfo = null;
+
+  // Try session token first
+  if (sessionToken) {
+    console.log(`Validating session token: ${sessionToken}`);
+    const sessionResult = validateSession(sessionToken, remoteIP);
+    
+    if (sessionResult.valid) {
+      console.log("Session validation successful");
+      isValidated = true;
+      sessionInfo = { 
+        sessionToken, 
+        expiresAt: sessionResult.session.expiresAt,
+        isExisting: true 
+      };
+    } else {
+      console.log(`Session validation failed: ${sessionResult.reason}`);
+    }
   }
 
-  // Validate Turnstile token
-  const secretKey = context.env.TURNSTILE_SECRET_KEY;
-  if (!secretKey) {
-    console.error("MW Proxy: TURNSTILE_SECRET_KEY not configured");
-    const errorResponse = {
-      error: "Server Configuration Error",
-      details: "Turnstile validation not properly configured",
+  // Fall back to Turnstile token if session invalid
+  if (!isValidated) {
+    if (!turnstileToken) {
+      const errorResponse = {
+        error: "Security Validation Required",
+        details: "Either valid session token or Turnstile token required",
+      };
+      return new Response(JSON.stringify(errorResponse), {
+        status: 403,
+        headers: corsHeaders,
+      });
+    }
+
+    // Validate Turnstile token
+    const secretKey = context.env.TURNSTILE_SECRET_KEY;
+    if (!secretKey) {
+      console.error("MW Proxy: TURNSTILE_SECRET_KEY not configured");
+      const errorResponse = {
+        error: "Server Configuration Error",
+        details: "Turnstile validation not properly configured",
+      };
+      return new Response(JSON.stringify(errorResponse), {
+        status: 500,
+        headers: corsHeaders,
+      });
+    }
+
+    const validationResult = await validateTurnstileToken(
+      turnstileToken,
+      secretKey,
+      remoteIP
+    );
+
+    if (!validationResult.success) {
+      console.log("Turnstile validation failed:", validationResult);
+      const errorResponse = {
+        error: "Security Validation Failed",
+        details: "Invalid or expired security token",
+        turnstile_error: validationResult.error || "Unknown validation error",
+      };
+      return new Response(JSON.stringify(errorResponse), {
+        status: 403,
+        headers: corsHeaders,
+      });
+    }
+
+    console.log("Turnstile validation successful - creating new session");
+    const newSession = createSession(remoteIP);
+    sessionInfo = {
+      sessionToken: newSession.sessionToken,
+      expiresAt: newSession.expiresAt,
+      isExisting: false
     };
-    return new Response(JSON.stringify(errorResponse), {
-      status: 500,
-      headers: corsHeaders,
-    });
+    isValidated = true;
   }
-
-  const validationResult = await validateTurnstileToken(
-    turnstileToken,
-    secretKey,
-    remoteIP
-  );
-
-  if (!validationResult.success) {
-    console.log("Turnstile validation failed:", validationResult);
-    const errorResponse = {
-      error: "Security Validation Failed",
-      details: "Invalid or expired security token",
-      turnstile_error: validationResult.error || "Unknown validation error",
-    };
-    return new Response(JSON.stringify(errorResponse), {
-      status: 403,
-      headers: corsHeaders,
-    });
-  }
-
-  console.log("Turnstile validation successful for MW API request");
 
   const requestUrl = new URL(context.request.url);
   const wordToLookup = requestUrl.searchParams.get("word");
@@ -173,90 +272,61 @@ export async function onRequestGet(context) {
     });
   }
 
-  console.log(`Pages Function (MW Proxy): Requesting word: "${wordToLookup}"`);
+  console.log(`MW Proxy: Forwarding to MW API: ${targetMwUrlString}`);
 
   try {
     const mwResponse = await fetch(targetMwUrlString, {
       method: "GET",
       headers: {
-        "User-Agent":
-          "Cloudflare-Pages-Function-Flashcard-App-MW-Proxy/1.0 (https://spanflash.pages.dev)",
-        Accept: "application/json",
-        "Accept-Encoding": "gzip, deflate, br",
-        Connection: "keep-alive",
+        "User-Agent": "Cloudflare-Pages-Function-Spanish-App-Proxy/1.0",
       },
-      signal: AbortSignal.timeout(4000), // 4 second timeout for MW API specifically
     });
-
-    const responseTime = Date.now() - requestStartTime;
-    console.log(`MW API responded in ${responseTime}ms for "${wordToLookup}"`);
-
-    if (!mwResponse.ok) {
-      let errorDetails = `MW API responded with status ${mwResponse.status}`;
-      try {
-        const errorText = await mwResponse.text();
-        errorDetails += `: ${errorText.substring(0, 200)}`;
-      } catch (e) {
-        /* ignore if can't get text */
-      }
-      console.error(
-        `Pages Function (MW Proxy): ${errorDetails} (after ${responseTime}ms)`
-      );
-      const errorResponse = {
-        error: "Merriam-Webster API Error",
-        status: mwResponse.status,
-        details: errorDetails,
-        responseTime: `${responseTime}ms`,
-      };
-      return new Response(JSON.stringify(errorResponse), {
-        status: mwResponse.status,
-        headers: corsHeaders,
-      });
-    }
 
     const data = await mwResponse.json();
+    const requestDuration = Date.now() - requestStartTime;
 
-    const responseHeadersWithCache = {
-      ...corsHeaders,
-      "Cache-Control":
-        "s-maxage=3600, stale-while-revalidate=1800, max-age=300",
-      "X-Response-Time": `${responseTime}ms`, // Debug header to see performance
+    console.log(
+      `MW Proxy: Request completed in ${requestDuration}ms with status ${mwResponse.status}`
+    );
+
+    // Enhanced response with session info
+    const enhancedResponse = {
+      ...data,
+      _proxy: {
+        duration_ms: requestDuration,
+        timestamp: Date.now(),
+        session: {
+          token: sessionInfo.sessionToken,
+          expiresAt: sessionInfo.expiresAt,
+          isNew: !sessionInfo.isExisting
+        }
+      }
     };
 
-    return new Response(JSON.stringify(data), {
-      status: 200,
-      headers: responseHeadersWithCache,
+    return new Response(JSON.stringify(enhancedResponse), {
+      status: mwResponse.status,
+      headers: {
+        ...corsHeaders,
+        "Cache-Control": "public, max-age=300, s-maxage=600", // 5min client, 10min edge
+      },
     });
   } catch (error) {
-    const responseTime = Date.now() - requestStartTime;
-
-    // error identification
-    if (error.name === "AbortError" || error.name === "TimeoutError") {
-      console.error(
-        `Pages Function (MW Proxy): MW API timeout after ${responseTime}ms for "${wordToLookup}"`
-      );
-      const errorResponse = {
-        error: "MW API timeout",
-        details: `Merriam-Webster API did not respond within 4 seconds`,
-        responseTime: `${responseTime}ms`,
-        word: wordToLookup,
-      };
-      return new Response(JSON.stringify(errorResponse), {
-        status: 504,
-        headers: corsHeaders,
-      });
-    }
-
     console.error(
-      `Pages Function (MW Proxy): Error after ${responseTime}ms:`,
+      "Pages Function (MW Proxy): Error fetching from MW API:",
       error
     );
+
     const errorResponse = {
-      error: "Proxy failed during MW API interaction",
-      details: error.message,
-      responseTime: `${responseTime}ms`,
-      word: wordToLookup,
+      error: "Proxy Request Failed",
+      details: `Failed to fetch from Merriam-Webster API: ${error.message}`,
+      timestamp: Date.now(),
+      session: sessionInfo ? {
+        token: sessionInfo.sessionToken,
+        expiresAt: sessionInfo.expiresAt,
+        isNew: !sessionInfo.isExisting
+      } : null
     };
+
     return new Response(JSON.stringify(errorResponse), {
       status: 502,
       headers: corsHeaders,
