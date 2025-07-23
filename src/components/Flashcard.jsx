@@ -205,8 +205,17 @@ const Flashcard = ({
         </>
       )}
       {/* Hint Display */}
+      {console.log('=== HINT DEBUG ===') || null}
+{console.log('isHintLoading:', isHintLoading) || null}
+{console.log('hint exists:', !!hint) || null}
+{console.log('hint object:', hint) || null}
+{console.log('hint type:', hint?.type) || null}
+{console.log('hint keys:', hint ? Object.keys(hint) : 'no hint') || null}
+{console.log('==================') || null}
+
       {(isHintLoading || hint) && (
         <div className="hint-display">
+      
           {isHintLoading && !hint && <span>Loading synonyms...</span>}
           {hint && (
             <>
