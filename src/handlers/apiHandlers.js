@@ -1,4 +1,4 @@
-import { getMwHint } from "../services/dictionaryServices.js";
+import { getMwHint, sessionManager } from "../services/dictionaryServices.js";
 import { getTatoebaExamples } from "../services/tatoebaServices.js";
 
 export const createApiHandlers = (
@@ -61,27 +61,62 @@ export const createApiHandlers = (
     };
 
     try {
-      const apiResponse = await new Promise((resolve, reject) => {
-        ensureValidToken(async () => {
-          try {
-            // Get token from global window after validation
-            const currentToken = window.turnstileToken;
-            if (!currentToken) {
-              reject(new Error("No token available after validation"));
-              return;
+      // First attempt: Try with session token (if available) or Turnstile token
+      let apiResponse;
+      
+      if (sessionManager.hasValidSession()) {
+        console.log('Attempting MW API call with existing session');
+        apiResponse = await getMwHint(wordForApi, onSlowRequest);
+      } else {
+        console.log('No valid session, requesting Turnstile token');
+        // Request Turnstile token and make API call
+        apiResponse = await new Promise((resolve, reject) => {
+          ensureValidToken(async () => {
+            try {
+              const currentToken = window.turnstileToken;
+              if (!currentToken) {
+                reject(new Error("No token available after validation"));
+                return;
+              }
+              const response = await getMwHint(
+                wordForApi,
+                onSlowRequest,
+                currentToken
+              );
+              resolve(response);
+            } catch (error) {
+              reject(error);
             }
-            const response = await getMwHint(
-              wordForApi,
-              onSlowRequest,
-              currentToken
-            );
-            resolve(response);
-          } catch (error) {
-            reject(error);
-          }
+          });
         });
-      });
+      }
 
+      // Handle session expiry - retry with Turnstile
+      if (apiResponse?.error && apiResponse.needsTurnstile) {
+        console.log('Session expired or auth failed, retrying with Turnstile token');
+        
+        apiResponse = await new Promise((resolve, reject) => {
+          ensureValidToken(async () => {
+            try {
+              const currentToken = window.turnstileToken;
+              if (!currentToken) {
+                reject(new Error("No token available after validation"));
+                return;
+              }
+              const response = await getMwHint(
+                wordForApi,
+                onSlowRequest,
+                currentToken
+              );
+              resolve(response);
+            } catch (error) {
+              reject(error);
+            }
+          });
+        });
+      }
+
+      // Handle API response
       if (apiResponse && apiResponse.error) {
         switch (apiResponse.type) {
           case "timeout":
@@ -102,16 +137,16 @@ export const createApiHandlers = (
             break;
           case "not_found":
             setHintData({
-              type: "error",
-              message: `"${wordForApi}" not found in dictionary.`,
-              canRetry: false,
+              type: "not_found",
+              message: `No dictionary entry found for "${wordForApi}".`,
               word: wordForApi,
             });
             break;
-          case "network_error":
+          case "auth_error":
+          case "session_expired":
             setHintData({
               type: "error",
-              message: "Unable to connect to dictionary service.",
+              message: "Authentication failed. Please try again.",
               canRetry: true,
               word: wordForApi,
             });
@@ -119,129 +154,119 @@ export const createApiHandlers = (
           default:
             setHintData({
               type: "error",
-              message: "Dictionary lookup failed.",
+              message: apiResponse.message || "Dictionary lookup failed.",
               canRetry: true,
               word: wordForApi,
             });
         }
+        setIsHintLoading(false);
         return;
       }
 
-      console.log("Raw Hint Data from MW:", apiResponse);
-
-      // Parse English synonyms for suggestions (existing logic)
-      let parsedEngSynonyms = [];
+      // Success case
       if (apiResponse && Array.isArray(apiResponse) && apiResponse.length > 0) {
-        const firstResult = apiResponse[0];
-        if (
-          firstResult &&
-          typeof firstResult === "object" &&
-          firstResult.shortdef &&
-          Array.isArray(firstResult.shortdef) &&
-          firstResult.shortdef.length > 0
-        ) {
-          const shortDefString = firstResult.shortdef[0];
-          parsedEngSynonyms = shortDefString
-            .split(/,| or /)
-            .map((s) => {
-              let cleaned = s.replace(/\([^)]*?\)/g, "").trim();
-              if (cleaned.toLowerCase().startsWith("especially "))
-                cleaned = cleaned.substring(11).trim();
-              return cleaned;
-            })
-            .filter((s) => s && s.length > 1);
-          if (
-            parsedEngSynonyms.length > 0 &&
-            currentPair &&
-            currentPair.english
-          ) {
-            const primaryEnglishLower = currentPair.english
-              .toLowerCase()
-              .trim();
-            parsedEngSynonyms = parsedEngSynonyms.filter(
-              (s) => s.toLowerCase().trim() !== primaryEnglishLower
-            );
-          }
+        const extractedDefinitions = extractDefinitionsFromMwResponse(apiResponse);
+        
+        if (extractedDefinitions.length > 0) {
+          setHintData({
+            type: "success",
+            word: wordForApi,
+            originalWord: wordToLookup,
+            definitions: extractedDefinitions,
+          });
+        } else {
+          setHintData({
+            type: "not_found",
+            message: `No clear definitions found for "${wordForApi}".`,
+            word: wordForApi,
+          });
         }
-      }
-
-      if (parsedEngSynonyms.length > 0) {
-        parsedEngSynonyms = [...new Set(parsedEngSynonyms)];
-        setApiSuggestions({
-          wordId: currentPair.id,
-          type: "englishSynonyms",
-          values: parsedEngSynonyms,
+      } else {
+        setHintData({
+          type: "not_found",
+          message: `No dictionary entry found for "${wordForApi}".`,
+          word: wordForApi,
         });
-        console.log(
-          "API Suggested English Synonyms:",
-          parsedEngSynonyms,
-          "for ID:",
-          currentPair.id
-        );
       }
-
-      // Process definition data (existing logic)
-      let definitionData = null,
-        suggestionsFromApi = null;
-      if (Array.isArray(apiResponse) && apiResponse.length > 0) {
-        if (typeof apiResponse[0] === "string")
-          suggestionsFromApi = apiResponse;
-        else if (typeof apiResponse[0] === "object" && apiResponse[0]?.meta?.id)
-          definitionData = apiResponse[0];
-        else setHintData({ type: "unknown", raw: apiResponse });
-      } else if (
-        typeof apiResponse === "object" &&
-        !Array.isArray(apiResponse) &&
-        apiResponse !== null &&
-        apiResponse?.meta?.id
-      )
-        definitionData = apiResponse;
-      else if (Array.isArray(apiResponse) && apiResponse.length === 0)
+    } catch (error) {
+      console.error("Error in handleGetHint:", error);
+      
+      if (error.message?.includes("No token available")) {
         setHintData({
           type: "error",
-          message: `No definition or suggestions found for "${wordForApi}".`,
+          message: "Authentication required. Please try again.",
           canRetry: true,
           word: wordForApi,
         });
-      else setHintData({ type: "unknown", raw: apiResponse });
-
-      if (definitionData)
-        setHintData({ type: "definitions", data: definitionData });
-      else if (suggestionsFromApi)
-        setHintData({ type: "suggestions", suggestions: suggestionsFromApi });
-    } catch (err) {
-      console.error("Error in handleGetHint fetching/processing MW data:", err);
-      setHintData({
-        type: "error",
-        message: "Failed to fetch hint.",
-        canRetry: true,
-        word: wordForApi,
-      });
+      } else {
+        setHintData({
+          type: "error",
+          message: "Dictionary lookup failed. Please try again.",
+          canRetry: true,
+          word: wordForApi,
+        });
+      }
     } finally {
       setIsHintLoading(false);
     }
   };
 
-  const handleFetchTatoebaExamples = async (wordToFetch) => {
-    if (!wordToFetch) {
-      setTatoebaError("No Spanish word provided to fetch examples for.");
+  const handleGetTatoebaExamples = async () => {
+    if (!currentPair || !currentPair.spanish) {
+      console.warn("No current pair or Spanish word available for Tatoeba lookup");
       return;
     }
+
+    const spanishPhrase = currentPair.spanish.trim();
+    if (!spanishPhrase) {
+      console.warn("Spanish phrase is empty");
+      return;
+    }
+
+    console.log(`Getting Tatoeba examples for: "${spanishPhrase}"`);
     setIsLoadingTatoebaExamples(true);
     setTatoebaError(null);
     setTatoebaExamples([]);
-    console.log(`Fetching Tatoeba examples for "${wordToFetch}"`);
+
+    // Set up slow request callback
+    let hasShownSlowMessage = false;
+    const onSlowRequest = () => {
+      if (!hasShownSlowMessage) {
+        hasShownSlowMessage = true;
+        setTatoebaError("Example lookup is taking longer than usual...");
+      }
+    };
+
     try {
-      const examples = await getTatoebaExamples(wordToFetch);
-      if (examples.length === 0)
-        setTatoebaError(
-          `No example sentences found for "${wordToFetch}" on Tatoeba.`
-        );
-      setTatoebaExamples(examples);
+      const examples = await getTatoebaExamples(spanishPhrase, onSlowRequest);
+
+      if (examples && examples.error) {
+        switch (examples.type) {
+          case "timeout":
+            setTatoebaError(`Example lookup timed out. Try again?`);
+            break;
+          case "server_error":
+            setTatoebaError("Example service temporarily unavailable.");
+            break;
+          case "not_found":
+            setTatoebaError(`No examples found for "${spanishPhrase}".`);
+            break;
+          default:
+            setTatoebaError(examples.message || "Failed to load examples.");
+        }
+        setIsLoadingTatoebaExamples(false);
+        return;
+      }
+
+      if (examples && Array.isArray(examples) && examples.length > 0) {
+        setTatoebaExamples(examples);
+        console.log(`Found ${examples.length} Tatoeba examples for "${spanishPhrase}"`);
+      } else {
+        setTatoebaError(`No examples found for "${spanishPhrase}".`);
+      }
     } catch (error) {
-      console.error("Error in handleFetchTatoebaExamples:", error);
-      setTatoebaError(`Failed to fetch examples: ${error.message}`);
-      setTatoebaExamples([]);
+      console.error("Error fetching Tatoeba examples:", error);
+      setTatoebaError("Failed to load examples. Please try again.");
     } finally {
       setIsLoadingTatoebaExamples(false);
     }
@@ -249,6 +274,84 @@ export const createApiHandlers = (
 
   return {
     handleGetHint,
-    handleFetchTatoebaExamples,
+    handleGetTatoebaExamples,
   };
 };
+
+// Helper function to extract definitions from MW API response
+function extractDefinitionsFromMwResponse(mwResponse) {
+  const definitions = [];
+
+  if (!Array.isArray(mwResponse)) {
+    return definitions;
+  }
+
+  mwResponse.forEach((entry, entryIndex) => {
+    if (!entry || typeof entry !== "object") return;
+
+    // Handle suggestion arrays (when word not found)
+    if (typeof entry === "string") {
+      return;
+    }
+
+    // Extract headword
+    const headword = entry.meta?.id || entry.hwi?.hw || "Unknown";
+
+    // Extract part of speech
+    const partOfSpeech = entry.fl || "";
+
+    // Extract definitions from shortdef (simple definitions)
+    if (entry.shortdef && Array.isArray(entry.shortdef)) {
+      entry.shortdef.forEach((def, defIndex) => {
+        if (def && typeof def === "string" && def.trim()) {
+          definitions.push({
+            id: `${entryIndex}-shortdef-${defIndex}`,
+            text: def.trim(),
+            type: "shortdef",
+            partOfSpeech,
+            headword,
+          });
+        }
+      });
+    }
+
+    // Extract definitions from detailed definitions if shortdef not available
+    if (definitions.length === 0 && entry.def && Array.isArray(entry.def)) {
+      entry.def.forEach((defSection, defSectionIndex) => {
+        if (defSection.sseq && Array.isArray(defSection.sseq)) {
+          defSection.sseq.forEach((sense, senseIndex) => {
+            if (Array.isArray(sense) && sense.length > 0) {
+              const senseData = sense[0];
+              if (Array.isArray(senseData) && senseData.length > 1) {
+                const defData = senseData[1];
+                if (defData && defData.dt && Array.isArray(defData.dt)) {
+                  defData.dt.forEach((defText, defTextIndex) => {
+                    if (Array.isArray(defText) && defText[0] === "text" && defText[1]) {
+                      const cleanDef = defText[1]
+                        .replace(/\{[^}]*\}/g, "") // Remove markup
+                        .replace(/\s+/g, " ") // Normalize whitespace
+                        .trim();
+                      
+                      if (cleanDef) {
+                        definitions.push({
+                          id: `${entryIndex}-detailed-${defSectionIndex}-${senseIndex}-${defTextIndex}`,
+                          text: cleanDef,
+                          type: "detailed",
+                          partOfSpeech,
+                          headword,
+                        });
+                      }
+                    }
+                  });
+                }
+              }
+            }
+          });
+        }
+      });
+    }
+  });
+
+  // Limit to top 3 definitions to avoid overwhelming users
+  return definitions.slice(0, 3);
+}
