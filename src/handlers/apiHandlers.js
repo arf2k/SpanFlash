@@ -15,202 +15,232 @@ export const createApiHandlers = (
   setTatoebaExamples,
   ensureValidToken
 ) => {
-  const handleGetHint = async (forceLookup = false) => {
-    if (!currentPair || isHintLoading) return;
-    if (
-      !forceLookup &&
-      ((hintData && hintData.type !== "error") ||
-        (showFeedback && feedbackSignal === "incorrect"))
-    )
-      return;
+ // Fixed handleGetHint function for apiHandlers.js
+const handleGetHint = async (forceLookup = false) => {
+  if (!currentPair || isHintLoading) return;
+  if (
+    !forceLookup &&
+    ((hintData && hintData.type !== "error") ||
+      (showFeedback && feedbackSignal === "incorrect"))
+  )
+    return;
 
-    const wordToLookup = currentPair.spanish;
-    if (!wordToLookup) {
+  const wordToLookup = currentPair.spanish;
+  if (!wordToLookup) {
+    setHintData({
+      type: "error",
+      message: "Internal error: Word missing for hint.",
+    });
+    return;
+  }
+
+  const spanishArticleRegex = /^(el|la|los|las|un|una|unos|unas)\s+/i;
+  let wordForApi = wordToLookup.replace(spanishArticleRegex, "").trim();
+  if (!wordForApi) {
+    setHintData({
+      type: "error",
+      message: "Cannot look up article alone as hint.",
+    });
+    return;
+  }
+
+  setIsHintLoading(true);
+  setApiSuggestions(null);
+  if (forceLookup || !hintData) setHintData(null);
+
+  // Set up slow request callback
+  let hasShownSlowMessage = false;
+  const onSlowRequest = () => {
+    if (!hasShownSlowMessage) {
+      hasShownSlowMessage = true;
       setHintData({
-        type: "error",
-        message: "Internal error: Word missing for hint.",
+        type: "slow_loading",
+        message: "Dictionary lookup is taking longer than usual...",
+        word: wordForApi,
       });
-      return;
-    }
-
-    const spanishArticleRegex = /^(el|la|los|las|un|una|unos|unas)\s+/i;
-    let wordForApi = wordToLookup.replace(spanishArticleRegex, "").trim();
-    if (!wordForApi) {
-      setHintData({
-        type: "error",
-        message: "Cannot look up article alone as hint.",
-      });
-      return;
-    }
-
-    setIsHintLoading(true);
-    setApiSuggestions(null);
-    if (forceLookup || !hintData) setHintData(null);
-
-    // Set up slow request callback
-    let hasShownSlowMessage = false;
-    const onSlowRequest = () => {
-      if (!hasShownSlowMessage) {
-        hasShownSlowMessage = true;
-        setHintData({
-          type: "slow_loading",
-          message: "Dictionary lookup is taking longer than usual...",
-          word: wordForApi,
-        });
-      }
-    };
-
-    try {
-      // First attempt: Try with session token (if available) or Turnstile token
-      let apiResponse;
-      
-      if (sessionManager.hasValidSession()) {
-        console.log('Attempting MW API call with existing session');
-        apiResponse = await getMwHint(wordForApi, onSlowRequest);
-      } else {
-        console.log('No valid session, requesting Turnstile token');
-        // Request Turnstile token and make API call
-        apiResponse = await new Promise((resolve, reject) => {
-          ensureValidToken(async () => {
-            try {
-              const currentToken = window.turnstileToken;
-              if (!currentToken) {
-                reject(new Error("No token available after validation"));
-                return;
-              }
-              const response = await getMwHint(
-                wordForApi,
-                onSlowRequest,
-                currentToken
-              );
-              resolve(response);
-            } catch (error) {
-              reject(error);
-            }
-          });
-        });
-      }
-
-      // Handle session expiry - retry with Turnstile
-      if (apiResponse?.error && apiResponse.needsTurnstile) {
-        console.log('Session expired or auth failed, retrying with Turnstile token');
-        
-        apiResponse = await new Promise((resolve, reject) => {
-          ensureValidToken(async () => {
-            try {
-              const currentToken = window.turnstileToken;
-              if (!currentToken) {
-                reject(new Error("No token available after validation"));
-                return;
-              }
-              const response = await getMwHint(
-                wordForApi,
-                onSlowRequest,
-                currentToken
-              );
-              resolve(response);
-            } catch (error) {
-              reject(error);
-            }
-          });
-        });
-      }
-
-      // Handle API response
-      if (apiResponse && apiResponse.error) {
-        switch (apiResponse.type) {
-          case "timeout":
-            setHintData({
-              type: "error",
-              message: `Dictionary lookup timed out. Try again?`,
-              canRetry: true,
-              word: wordForApi,
-            });
-            break;
-          case "server_error":
-            setHintData({
-              type: "error",
-              message: "Dictionary service temporarily unavailable.",
-              canRetry: true,
-              word: wordForApi,
-            });
-            break;
-          case "not_found":
-            setHintData({
-              type: "not_found",
-              message: `No dictionary entry found for "${wordForApi}".`,
-              word: wordForApi,
-            });
-            break;
-          case "auth_error":
-          case "session_expired":
-            setHintData({
-              type: "error",
-              message: "Authentication failed. Please try again.",
-              canRetry: true,
-              word: wordForApi,
-            });
-            break;
-          default:
-            setHintData({
-              type: "error",
-              message: apiResponse.message || "Dictionary lookup failed.",
-              canRetry: true,
-              word: wordForApi,
-            });
-        }
-        setIsHintLoading(false);
-        return;
-      }
-
-      // Success case
-      if (apiResponse && Array.isArray(apiResponse) && apiResponse.length > 0) {
-        const extractedDefinitions = extractDefinitionsFromMwResponse(apiResponse);
-        
-        if (extractedDefinitions.length > 0) {
-          setHintData({
-            type: "success",
-            word: wordForApi,
-            originalWord: wordToLookup,
-            definitions: extractedDefinitions,
-          });
-        } else {
-          setHintData({
-            type: "not_found",
-            message: `No clear definitions found for "${wordForApi}".`,
-            word: wordForApi,
-          });
-        }
-      } else {
-        setHintData({
-          type: "not_found",
-          message: `No dictionary entry found for "${wordForApi}".`,
-          word: wordForApi,
-        });
-      }
-    } catch (error) {
-      console.error("Error in handleGetHint:", error);
-      
-      if (error.message?.includes("No token available")) {
-        setHintData({
-          type: "error",
-          message: "Authentication required. Please try again.",
-          canRetry: true,
-          word: wordForApi,
-        });
-      } else {
-        setHintData({
-          type: "error",
-          message: "Dictionary lookup failed. Please try again.",
-          canRetry: true,
-          word: wordForApi,
-        });
-      }
-    } finally {
-      setIsHintLoading(false);
     }
   };
 
+  try {
+    // First attempt: Try with session token (if available) or Turnstile token
+    let apiResponse;
+    
+    if (sessionManager.hasValidSession()) {
+      console.log('Attempting MW API call with existing session');
+      apiResponse = await getMwHint(wordForApi, onSlowRequest);
+    } else {
+      console.log('No valid session, requesting Turnstile token');
+      // Request Turnstile token and make API call
+      apiResponse = await new Promise((resolve, reject) => {
+        ensureValidToken(async () => {
+          try {
+            const currentToken = window.turnstileToken;
+            if (!currentToken) {
+              reject(new Error("No token available after validation"));
+              return;
+            }
+            const response = await getMwHint(
+              wordForApi,
+              onSlowRequest,
+              currentToken
+            );
+            resolve(response);
+          } catch (error) {
+            reject(error);
+          }
+        });
+      });
+    }
+
+    // Handle session expiry - retry with Turnstile
+    if (apiResponse?.error && apiResponse.needsTurnstile) {
+      console.log('Session expired or auth failed, retrying with Turnstile token');
+      
+      apiResponse = await new Promise((resolve, reject) => {
+        ensureValidToken(async () => {
+          try {
+            const currentToken = window.turnstileToken;
+            if (!currentToken) {
+              reject(new Error("No token available after validation"));
+              return;
+            }
+            const response = await getMwHint(
+              wordForApi,
+              onSlowRequest,
+              currentToken
+            );
+            resolve(response);
+          } catch (error) {
+            reject(error);
+          }
+        });
+      });
+    }
+
+    console.log("Raw MW API Response:", apiResponse);
+
+    // Handle API errors
+    if (apiResponse && apiResponse.error) {
+      switch (apiResponse.type) {
+        case "timeout":
+          setHintData({
+            type: "error",
+            message: `Dictionary lookup timed out. Try again?`,
+            canRetry: true,
+            word: wordForApi,
+          });
+          break;
+        case "server_error":
+          setHintData({
+            type: "error",
+            message: "Dictionary service temporarily unavailable.",
+            canRetry: true,
+            word: wordForApi,
+          });
+          break;
+        case "not_found":
+          setHintData({
+            type: "not_found",
+            message: `No dictionary entry found for "${wordForApi}".`,
+            word: wordForApi,
+          });
+          break;
+        case "auth_error":
+        case "session_expired":
+          setHintData({
+            type: "error",
+            message: "Authentication failed. Please try again.",
+            canRetry: true,
+            word: wordForApi,
+          });
+          break;
+        default:
+          setHintData({
+            type: "error",
+            message: apiResponse.message || "Dictionary lookup failed.",
+            canRetry: true,
+            word: wordForApi,
+          });
+      }
+      setIsHintLoading(false);
+      return;
+    }
+
+    // CRITICAL FIX: Strip _proxy metadata from response
+    let cleanMwData = apiResponse;
+    if (apiResponse && typeof apiResponse === 'object' && apiResponse._proxy) {
+      console.log('Stripping _proxy metadata from MW response');
+      // Create clean response without _proxy
+      cleanMwData = {};
+      Object.keys(apiResponse).forEach(key => {
+        if (key !== '_proxy') {
+          cleanMwData[key] = apiResponse[key];
+        }
+      });
+      // Convert to array format if needed
+      const dataKeys = Object.keys(cleanMwData).filter(key => !isNaN(key));
+      if (dataKeys.length > 0) {
+        cleanMwData = dataKeys.map(key => apiResponse[key]);
+      }
+    }
+
+    console.log("Cleaned MW Data for processing:", cleanMwData);
+
+    // Process the cleaned response using extractDefinitionsFromMwResponse
+    if (cleanMwData && Array.isArray(cleanMwData) && cleanMwData.length > 0) {
+      const extractedDefinitions = extractDefinitionsFromMwResponse(cleanMwData);
+      
+      console.log("Extracted definitions:", extractedDefinitions);
+      
+      if (extractedDefinitions.length > 0) {
+        setHintData({
+          type: "success",
+          word: wordForApi,
+          originalWord: wordToLookup,
+          definitions: extractedDefinitions,
+        });
+        console.log("Hint data set successfully:", {
+          type: "success",
+          word: wordForApi,
+          definitions: extractedDefinitions
+        });
+      } else {
+        setHintData({
+          type: "not_found",
+          message: `No clear definitions found for "${wordForApi}".`,
+          word: wordForApi,
+        });
+      }
+    } else {
+      console.log("No valid MW data to process:", cleanMwData);
+      setHintData({
+        type: "not_found",
+        message: `No dictionary entry found for "${wordForApi}".`,
+        word: wordForApi,
+      });
+    }
+  } catch (error) {
+    console.error("Error in handleGetHint:", error);
+    
+    if (error.message?.includes("No token available")) {
+      setHintData({
+        type: "error",
+        message: "Authentication required. Please try again.",
+        canRetry: true,
+        word: wordForApi,
+      });
+    } else {
+      setHintData({
+        type: "error",
+        message: "Dictionary lookup failed. Please try again.",
+        canRetry: true,
+        word: wordForApi,
+      });
+    }
+  } finally {
+    setIsHintLoading(false);
+  }
+};
   const handleGetTatoebaExamples = async () => {
     if (!currentPair || !currentPair.spanish) {
       console.warn("No current pair or Spanish word available for Tatoeba lookup");
