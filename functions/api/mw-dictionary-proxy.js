@@ -44,6 +44,11 @@ function createSession(remoteIP) {
 
 // Validate session token
 function validateSession(sessionToken, remoteIP) {
+   console.log(`=== SESSION VALIDATION DEBUG ===`);
+  console.log(`Looking for session: ${sessionToken}`);
+  console.log(`Total sessions in memory: ${sessions.size}`);
+  console.log(`Available sessions: ${Array.from(sessions.keys())}`);
+  
   const session = sessions.get(sessionToken);
   
   if (!session) {
