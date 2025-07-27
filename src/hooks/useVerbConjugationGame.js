@@ -23,20 +23,20 @@ export function useVerbConjugationGame(wordList, recordAnswer = null) {
     );
 
     const shuffledLikelyVerbs = shuffleArray(likelyVerbs);
-    const verbsToTest = shuffledLikelyVerbs.slice(0, 20);
+    const verbsToTest = shuffledLikelyVerbs.slice(0, 3);
 
     console.log(
-      `Found ${likelyVerbs.length} potential verbs, testing up to 20 sequentially to avoid rate limits.`
+      `Found ${likelyVerbs.length} potential verbs, testing up to 3 sequentially.`
     );
 
     const confirmedVerbs = [];
 
     // SEQUENTIAL processing instead of parallel to prevent rate limiting
-    for (let i = 0; i < Math.min(verbsToTest.length, 5); i++) {
+    for (let i = 0; i < Math.min(verbsToTest.length, 3); i++) {
       const word = verbsToTest[i];
 
       try {
-        console.log(`Testing verb ${i + 1}/5: ${word.spanish}`);
+        console.log(`Testing verb ${i + 1}/3: ${word.spanish}`);
 
         // Try generating a question for this verb
         const question = await conjugationService.generateConjugationQuestion(
