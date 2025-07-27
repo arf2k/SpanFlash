@@ -145,6 +145,86 @@ export class ConjugationService {
     }
     return null;
   }
+ async generateConjugationQuestion(wordObject) {
+    if (!wordObject || !wordObject.spanish) {
+      console.warn("generateConjugationQuestion: Invalid word object");
+      return null;
+    }
+
+    const verb = wordObject.spanish.toLowerCase().trim();
+    
+    try {
+      const conjugations = await this.getConjugations(verb);
+      
+      if (!conjugations || !conjugations.moods) {
+        console.warn(`No conjugations found for verb: ${verb}`);
+        return null;
+      }
+
+      // Available moods and tenses
+      const availableQuestions = [];
+      
+      // Extract all available conjugations
+      Object.entries(conjugations.moods).forEach(([moodName, moodData]) => {
+        if (moodData && typeof moodData === 'object') {
+          Object.entries(moodData).forEach(([tenseName, tenseData]) => {
+            if (Array.isArray(tenseData) && tenseData.length > 0) {
+              tenseData.forEach((conjugation, personIndex) => {
+                if (conjugation && typeof conjugation === 'string' && conjugation.trim() !== '') {
+                  availableQuestions.push({
+                    mood: moodName,
+                    tense: tenseName,
+                    person: personIndex,
+                    conjugation: conjugation.trim(),
+                    infinitive: verb
+                  });
+                }
+              });
+            }
+          });
+        }
+      });
+
+      if (availableQuestions.length === 0) {
+        console.warn(`No valid conjugations found for verb: ${verb}`);
+        return null;
+      }
+
+      // Select random question
+      const randomQuestion = availableQuestions[Math.floor(Math.random() * availableQuestions.length)];
+      
+      // Person pronouns mapping
+      const personPronouns = ['yo', 'tú', 'él/ella', 'nosotros', 'ellos/ellas'];
+      const pronoun = personPronouns[randomQuestion.person] || `person ${randomQuestion.person + 1}`;
+
+      // Format mood and tense names for display
+      const formatName = (name) => name.charAt(0).toUpperCase() + name.slice(1).replace(/_/g, ' ');
+      
+      return {
+        verb: wordObject,
+        infinitive: verb,
+        mood: randomQuestion.mood,
+        tense: randomQuestion.tense,
+        person: randomQuestion.person,
+        pronoun: pronoun,
+        correctAnswer: randomQuestion.conjugation,
+        question: `Conjugate "${verb}" for "${pronoun}" in ${formatName(randomQuestion.mood)} ${formatName(randomQuestion.tense)}`,
+        displayMood: formatName(randomQuestion.mood),
+        displayTense: formatName(randomQuestion.tense)
+      };
+
+    } catch (error) {
+      console.warn(`Error generating conjugation question for ${verb}:`, error.message);
+      
+      // Handle authentication errors gracefully
+      if (error.message.includes("authentication required") || 
+          error.message.includes("Session expired")) {
+        return null;
+      }
+      
+      return null;
+    }
+  }
 
   generateRegularArConjugation(verb) {
     const stem = verb.slice(0, -2);
