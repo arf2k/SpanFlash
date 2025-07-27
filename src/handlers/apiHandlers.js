@@ -15,125 +15,137 @@ export const createApiHandlers = (
   setTatoebaExamples,
   ensureValidToken
 ) => {
- const handleGetHint = async (forceLookup = false) => {
-  if (!currentPair || isHintLoading) return;
-  if (
-    !forceLookup &&
-    ((hintData && hintData.type !== "error") ||
-      (showFeedback && feedbackSignal === "incorrect"))
-  )
-    return;
+  const handleGetHint = async (forceLookup = false) => {
+    if (!currentPair || isHintLoading) return;
+    if (
+      !forceLookup &&
+      ((hintData && hintData.type !== "error") ||
+        (showFeedback && feedbackSignal === "incorrect"))
+    )
+      return;
 
-  const wordToLookup = currentPair.spanish;
-  if (!wordToLookup) {
-    setHintData({
-      type: "error",
-      message: "Internal error: Word missing for hint.",
-    });
-    return;
-  }
-
-  const spanishArticleRegex = /^(el|la|los|las|un|una|unos|unas)\s+/i;
-  let wordForApi = wordToLookup.replace(spanishArticleRegex, "").trim();
-  if (!wordForApi) {
-    setHintData({
-      type: "error",
-      message: "Cannot look up article alone as hint.",
-    });
-    return;
-  }
-
-  setIsHintLoading(true);
-  setApiSuggestions(null);
-  if (forceLookup || !hintData) setHintData(null);
-
-  try {
-    const apiResponse = await new Promise((resolve, reject) => {
-      ensureValidToken(async () => {
-        try {
-          const currentToken = window.turnstileToken;
-          if (!currentToken) {
-            reject(new Error("No token available after validation"));
-            return;
-          }
-          const response = await getMwHint(
-            wordForApi,
-            null, // onSlowRequest
-            currentToken
-          );
-          resolve(response);
-        } catch (error) {
-          reject(error);
-        }
-      });
-    });
-
-    console.log("MW API Response received:", apiResponse);
-
-    // Handle errors
-    if (apiResponse && apiResponse.error) {
+    const wordToLookup = currentPair.spanish;
+    if (!wordToLookup) {
       setHintData({
         type: "error",
-        message: apiResponse.message || "Dictionary lookup failed.",
-        canRetry: true,
-        word: wordForApi,
+        message: "Internal error: Word missing for hint.",
       });
-      setIsHintLoading(false);
       return;
     }
 
-    // SIMPLE FIX: Strip _proxy and extract definitions
-    let mwData = apiResponse;
-    if (mwData && mwData._proxy) {
-      console.log("Removing _proxy metadata");
-      // Convert {0: obj, 1: obj, _proxy: ...} to [obj, obj]
-      const keys = Object.keys(mwData).filter(k => k !== '_proxy' && !isNaN(k));
-      mwData = keys.map(k => mwData[k]);
+    const spanishArticleRegex = /^(el|la|los|las|un|una|unos|unas)\s+/i;
+    let wordForApi = wordToLookup.replace(spanishArticleRegex, "").trim();
+    if (!wordForApi) {
+      setHintData({
+        type: "error",
+        message: "Cannot look up article alone as hint.",
+      });
+      return;
     }
 
-    console.log("Processing MW data:", mwData);
+    setIsHintLoading(true);
+    setApiSuggestions(null);
+    if (forceLookup || !hintData) setHintData(null);
 
-    // Extract first definition
-    if (Array.isArray(mwData) && mwData.length > 0) {
-      const firstEntry = mwData[0];
-      if (firstEntry && firstEntry.shortdef && firstEntry.shortdef.length > 0) {
+    try {
+      const apiResponse = await new Promise((resolve, reject) => {
+        ensureValidToken(async () => {
+          try {
+            const currentToken = window.turnstileToken;
+            if (!currentToken) {
+              reject(new Error("No token available after validation"));
+              return;
+            }
+            const response = await getMwHint(
+              wordForApi,
+              null, // onSlowRequest
+              currentToken
+            );
+            resolve(response);
+          } catch (error) {
+            reject(error);
+          }
+        });
+      });
+
+      console.log("MW API Response received:", apiResponse);
+
+      // Handle errors
+      if (apiResponse && apiResponse.error) {
         setHintData({
-  type: "definitions",
-  data: {
-    shortdef: firstEntry.shortdef,
-    fl: firstEntry.fl || ""
-  }
-});
-        console.log("Hint set successfully");
+          type: "error",
+          message: apiResponse.message || "Dictionary lookup failed.",
+          canRetry: true,
+          word: wordForApi,
+        });
+        setIsHintLoading(false);
+        return;
+      }
+
+      // SIMPLE FIX: Strip _proxy and extract definitions
+      let mwData = apiResponse;
+      if (mwData && mwData._proxy) {
+        console.log("Removing _proxy metadata");
+        // Convert {0: obj, 1: obj, _proxy: ...} to [obj, obj]
+        const keys = Object.keys(mwData).filter(
+          (k) => k !== "_proxy" && !isNaN(k)
+        );
+        mwData = keys.map((k) => mwData[k]);
+      }
+
+      console.log("Processing MW data:", mwData);
+
+      // Extract first definition
+      if (Array.isArray(mwData) && mwData.length > 0) {
+        const firstEntry = mwData[0];
+        if (
+          firstEntry &&
+          firstEntry.shortdef &&
+          firstEntry.shortdef.length > 0
+        ) {
+          setHintData({
+            type: "definitions",
+            data: {
+              shortdef: firstEntry.shortdef,
+              fl: firstEntry.fl || "",
+            },
+          });
+          console.log("Hint set successfully");
+        } else {
+          setHintData({
+            type: "not_found",
+            message: `No definitions found for "${wordForApi}".`,
+            word: wordForApi,
+          });
+        }
       } else {
         setHintData({
           type: "not_found",
-          message: `No definitions found for "${wordForApi}".`,
+          message: `No dictionary entry found for "${wordForApi}".`,
           word: wordForApi,
         });
       }
-    } else {
+    } catch (error) {
+      console.error("Error in handleGetHint:", error);
       setHintData({
-        type: "not_found", 
-        message: `No dictionary entry found for "${wordForApi}".`,
+        type: "error",
+        message: "Dictionary lookup failed. Please try again.",
+        canRetry: true,
         word: wordForApi,
       });
+    } finally {
+      setIsHintLoading(false);
     }
-  } catch (error) {
-    console.error("Error in handleGetHint:", error);
-    setHintData({
-      type: "error",
-      message: "Dictionary lookup failed. Please try again.",
-      canRetry: true,
-      word: wordForApi,
-    });
-  } finally {
-    setIsHintLoading(false);
-  }
-};
+  };
+
+  // REPLACE the handleGetTatoebaExamples function in src/handlers/apiHandlers.js
+  // Starting around line 117, replace the entire function with this:
+
   const handleGetTatoebaExamples = async () => {
     if (!currentPair || !currentPair.spanish) {
-      console.warn("No current pair or Spanish word available for Tatoeba lookup");
+      console.warn(
+        "No current pair or Spanish word available for Tatoeba lookup"
+      );
       return;
     }
 
@@ -158,10 +170,53 @@ export const createApiHandlers = (
     };
 
     try {
-      const examples = await getTatoebaExamples(spanishPhrase, onSlowRequest);
+      const examples = await new Promise((resolve, reject) => {
+        // Check if we have a valid session first
+        const sessionInfo = sessionManager.getSessionInfo();
+
+        if (sessionInfo.isValid) {
+          // We have a valid session, call directly
+          console.log("Using existing session for Tatoeba examples");
+          getTatoebaExamples(
+            spanishPhrase,
+            onSlowRequest,
+            null // No turnstile token needed
+          )
+            .then(resolve)
+            .catch(reject);
+        } else {
+          // No valid session, need Turnstile token
+          console.log(
+            "No valid session, requiring Turnstile for Tatoeba examples"
+          );
+          ensureValidToken(async () => {
+            try {
+              const currentToken = window.turnstileToken;
+              if (!currentToken) {
+                reject(new Error("No token available after validation"));
+                return;
+              }
+              const response = await getTatoebaExamples(
+                spanishPhrase,
+                onSlowRequest,
+                currentToken
+              );
+              resolve(response);
+            } catch (error) {
+              reject(error);
+            }
+          });
+        }
+      });
 
       if (examples && examples.error) {
         switch (examples.type) {
+          case "session_expired":
+            setTatoebaError("Session expired. Please refresh and try again.");
+            break;
+          case "auth_error":
+            setTatoebaError("Authentication failed. Please try again.");
+            break;
           case "timeout":
             setTatoebaError(`Example lookup timed out. Try again?`);
             break;
@@ -180,13 +235,24 @@ export const createApiHandlers = (
 
       if (examples && Array.isArray(examples) && examples.length > 0) {
         setTatoebaExamples(examples);
-        console.log(`Found ${examples.length} Tatoeba examples for "${spanishPhrase}"`);
+        console.log(
+          `Found ${examples.length} Tatoeba examples for "${spanishPhrase}"`
+        );
       } else {
         setTatoebaError(`No examples found for "${spanishPhrase}".`);
       }
     } catch (error) {
       console.error("Error fetching Tatoeba examples:", error);
-      setTatoebaError("Failed to load examples. Please try again.");
+
+      // Handle specific error cases
+      if (
+        error.message ===
+        "Either valid session or Turnstile token required for Tatoeba API access"
+      ) {
+        setTatoebaError("Authentication required. Please refresh the page.");
+      } else {
+        setTatoebaError("Failed to load examples. Please try again.");
+      }
     } finally {
       setIsLoadingTatoebaExamples(false);
     }
@@ -246,12 +312,16 @@ function extractDefinitionsFromMwResponse(mwResponse) {
                 const defData = senseData[1];
                 if (defData && defData.dt && Array.isArray(defData.dt)) {
                   defData.dt.forEach((defText, defTextIndex) => {
-                    if (Array.isArray(defText) && defText[0] === "text" && defText[1]) {
+                    if (
+                      Array.isArray(defText) &&
+                      defText[0] === "text" &&
+                      defText[1]
+                    ) {
                       const cleanDef = defText[1]
                         .replace(/\{[^}]*\}/g, "") // Remove markup
                         .replace(/\s+/g, " ") // Normalize whitespace
                         .trim();
-                      
+
                       if (cleanDef) {
                         definitions.push({
                           id: `${entryIndex}-detailed-${defSectionIndex}-${senseIndex}-${defTextIndex}`,
