@@ -209,21 +209,23 @@ export class ConjugationService {
         if (moodData && typeof moodData === "object") {
           Object.entries(moodData).forEach(([tenseName, tenseData]) => {
             if (Array.isArray(tenseData) && tenseData.length > 0) {
-              tenseData.forEach((conjugation, personIndex) => {
-                if (
-                  conjugation &&
-                  typeof conjugation === "string" &&
-                  conjugation.trim() !== ""
-                ) {
-                  availableQuestions.push({
-                    mood: moodName,
-                    tense: tenseName,
-                    person: personIndex,
-                    conjugation: conjugation.trim(),
-                    infinitive: verb,
-                  });
-                }
-              });
+              if (this.isValidTenseForQuestions(tenseName, tenseData)) {
+                tenseData.forEach((conjugation, personIndex) => {
+                  if (
+                    conjugation &&
+                    typeof conjugation === "string" &&
+                    conjugation.trim() !== ""
+                  ) {
+                    availableQuestions.push({
+                      mood: moodName,
+                      tense: tenseName,
+                      person: personIndex,
+                      conjugation: conjugation.trim(),
+                      infinitive: verb,
+                    });
+                  }
+                });
+              }
             }
           });
         }
