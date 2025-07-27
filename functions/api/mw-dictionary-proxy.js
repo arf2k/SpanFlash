@@ -1,78 +1,85 @@
 const MW_API_BASE_URL_CONST =
   "https://www.dictionaryapi.com/api/v3/references/spanish/json/";
 
-// Session management
-const sessions = new Map();
-const SESSION_DURATION = 30 * 60 * 1000; // 30 minutes
-
-// Cleanup expired sessions (called during request processing)
-function cleanupExpiredSessions() {
-  const now = Date.now();
-  let cleanedCount = 0;
-  for (const [sessionId, session] of sessions.entries()) {
-    if (now > session.expiresAt) {
-      sessions.delete(sessionId);
-      cleanedCount++;
-    }
-  }
-  if (cleanedCount > 0) {
-    console.log(`Cleaned up ${cleanedCount} expired sessions`);
-  }
-}
+// Session configuration
+const SESSION_DURATION = 30 * 60 * 1000; 
+const SESSION_TTL_SECONDS = 30 * 60; 
 
 // Generate secure session token
 function generateSessionToken() {
   return crypto.randomUUID() + '-' + Date.now().toString(36);
 }
 
-// Create new session
-function createSession(remoteIP) {
+// Create new session in KV
+async function createSession(kv, remoteIP) {
   const sessionToken = generateSessionToken();
-  const expiresAt = Date.now() + SESSION_DURATION;
+  const now = Date.now();
+  const expiresAt = now + SESSION_DURATION;
   
-  sessions.set(sessionToken, {
+  const sessionData = {
     remoteIP,
-    createdAt: Date.now(),
+    createdAt: now,
     expiresAt,
-    lastUsed: Date.now(),
+    lastUsed: now,
     requestCount: 0
+  };
+  
+  // Store in KV with TTL
+  await kv.put(sessionToken, JSON.stringify(sessionData), {
+    expirationTtl: SESSION_TTL_SECONDS
   });
   
   console.log(`Created session ${sessionToken} for IP ${remoteIP}, expires at ${new Date(expiresAt)}`);
   return { sessionToken, expiresAt };
 }
 
-// Validate session token
-function validateSession(sessionToken, remoteIP) {
-   console.log(`=== SESSION VALIDATION DEBUG ===`);
+// Validate session token from KV
+async function validateSession(kv, sessionToken, remoteIP) {
+  console.log(`=== KV SESSION VALIDATION DEBUG ===`);
   console.log(`Looking for session: ${sessionToken}`);
-  console.log(`Total sessions in memory: ${sessions.size}`);
-  console.log(`Available sessions: ${Array.from(sessions.keys())}`);
   
-  const session = sessions.get(sessionToken);
+  const sessionDataStr = await kv.get(sessionToken);
   
-  if (!session) {
+  if (!sessionDataStr) {
+    console.log('Session not found in KV');
     return { valid: false, reason: 'Session not found' };
   }
   
+  let session;
+  try {
+    session = JSON.parse(sessionDataStr);
+  } catch (error) {
+    console.error('Failed to parse session data:', error);
+    return { valid: false, reason: 'Invalid session data' };
+  }
+  
+  // Check expiration (redundant with KV TTL but good for logging)
   if (Date.now() > session.expiresAt) {
-    sessions.delete(sessionToken);
+    console.log('Session expired, deleting from KV');
+    await kv.delete(sessionToken);
     return { valid: false, reason: 'Session expired' };
   }
   
-  // Optional: Validate IP consistency (comment out if causing issues)
+  // Optional: Validate IP consistency (log warning but still allow)
   if (session.remoteIP !== remoteIP) {
     console.warn(`Session IP mismatch: expected ${session.remoteIP}, got ${remoteIP}`);
-    // Still allow but log the discrepancy
   }
   
-  // Extend session on use
-  session.expiresAt = Date.now() + SESSION_DURATION;
-  session.lastUsed = Date.now();
-  session.requestCount++;
+  // Extend session on use - update both expiration and usage stats
+  const updatedSession = {
+    ...session,
+    expiresAt: Date.now() + SESSION_DURATION,
+    lastUsed: Date.now(),
+    requestCount: session.requestCount + 1
+  };
   
-  console.log(`Session ${sessionToken} validated and extended, expires at ${new Date(session.expiresAt)}`);
-  return { valid: true, session };
+  // Update in KV with fresh TTL
+  await kv.put(sessionToken, JSON.stringify(updatedSession), {
+    expirationTtl: SESSION_TTL_SECONDS
+  });
+  
+  console.log(`Session ${sessionToken} validated and extended, expires at ${new Date(updatedSession.expiresAt)}`);
+  return { valid: true, session: updatedSession };
 }
 
 async function validateTurnstileToken(token, secretKey, remoteIP = null) {
@@ -115,13 +122,13 @@ function handleOptions(request) {
   ) {
     // Handle CORS preflight requests.
     return new Response(null, {
-  headers: {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, CF-Turnstile-Response, CF-Session-Token",
-    "Access-Control-Max-Age": "86400",
-  },
-});
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, CF-Turnstile-Response, CF-Session-Token",
+        "Access-Control-Max-Age": "86400",
+      },
+    });
   } else {
     return new Response(null, {
       headers: {
@@ -134,16 +141,26 @@ function handleOptions(request) {
 export async function onRequestGet(context) {
   const requestStartTime = Date.now();
 
-  // Cleanup expired sessions on each request (lazy cleanup)
-  cleanupExpiredSessions();
+  // Access KV namespace through binding
+  const kv = context.env.SESSIONS;
+  if (!kv) {
+    console.error("SESSIONS KV namespace not bound - check Pages Function bindings");
+    return new Response(JSON.stringify({
+      error: "Configuration Error",
+      details: "Session storage not properly configured"
+    }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" }
+    });
+  }
 
   // Define CORS headers for actual responses
   const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, CF-Turnstile-Response, CF-Session-Token",
-  "Content-Type": "application/json",
-};
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, CF-Turnstile-Response, CF-Session-Token",
+    "Content-Type": "application/json",
+  };
 
   // Handle OPTIONS preflight requests for CORS
   if (context.request.method === "OPTIONS") {
@@ -160,7 +177,7 @@ export async function onRequestGet(context) {
   // Try session token first
   if (sessionToken) {
     console.log(`Validating session token: ${sessionToken}`);
-    const sessionResult = validateSession(sessionToken, remoteIP);
+    const sessionResult = await validateSession(kv, sessionToken, remoteIP);
     
     if (sessionResult.valid) {
       console.log("Session validation successful");
@@ -222,7 +239,7 @@ export async function onRequestGet(context) {
     }
 
     console.log("Turnstile validation successful - creating new session");
-    const newSession = createSession(remoteIP);
+    const newSession = await createSession(kv, remoteIP);
     sessionInfo = {
       sessionToken: newSession.sessionToken,
       expiresAt: newSession.expiresAt,
