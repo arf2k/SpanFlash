@@ -1,3 +1,5 @@
+import { sessionManager } from "./dictionaryServices.js";
+
 export class ConjugationService {
   constructor() {
     //this.apiBase = "http://localhost:8000";
@@ -26,6 +28,7 @@ export class ConjugationService {
       this.verbCache.has(word)
     );
   }
+
   async getConjugations(verb) {
     const cacheKey = `full-${verb}`;
 
@@ -39,20 +42,71 @@ export class ConjugationService {
     }
 
     try {
+      // Determine authentication strategy (same as other APIs)
+      const sessionInfo = sessionManager.getSessionInfo();
+      const hasValidSession = sessionInfo.isValid;
+      const authHeaders = {};
+      
+      if (hasValidSession) {
+        console.log('Using existing session token for Conjugation API call');
+        authHeaders["CF-Session-Token"] = sessionInfo.token;
+      } else {
+        // For conjugation, we'll try without auth first, then require Turnstile if needed
+        console.log('No valid session for Conjugation API call - attempting without auth');
+      }
+
+      console.log("=== CONJUGATION API CALL DEBUG ===");
+      console.log("Session valid:", hasValidSession);
+      console.log("Current session token:", sessionInfo.token);
+      console.log("Headers being sent:", authHeaders);
+      console.log("==================================");
+
       const response = await fetch(`${this.apiBase}/es/${verb}`, {
         method: "GET",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          ...authHeaders,
         },
         signal: AbortSignal.timeout(10000),
       });
 
       if (!response.ok) {
+        // Handle authentication errors
+        if (response.status === 403) {
+          console.log('Conjugation authentication failed, clearing session');
+          sessionManager.clearSession();
+          
+          // Return specific error for session expiry
+          if (hasValidSession) {
+            throw new Error("Session expired - authentication required for conjugation service");
+          }
+          
+          throw new Error("Authentication required for conjugation service");
+        }
+
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
       const data = await response.json();
+
+      // Handle session info from response (same pattern as other APIs)
+      if (data && data._proxy && data._proxy.session) {
+        const sessionInfo = data._proxy.session;
+        
+        if (sessionInfo.isNew) {
+          console.log('New session created by Conjugation server');
+        }
+        
+        // Note: Session storage is handled by dictionaryServices.js
+        // All APIs share the same session tokens
+      }
+
+      // Remove _proxy metadata before processing
+      if (data && data._proxy) {
+        console.log('Removing _proxy metadata from Conjugation response');
+        delete data._proxy;
+      }
 
       if (data.value && data.value.moods) {
         this.verbCache.add(verb); // Cache as known verb
@@ -63,6 +117,13 @@ export class ConjugationService {
       return null;
     } catch (error) {
       console.warn(`Failed to conjugate ${verb}:`, error.message);
+
+      // Handle authentication-specific errors
+      if (error.message.includes("authentication required") || 
+          error.message.includes("Session expired")) {
+        // Return null for auth errors - caller can handle gracefully
+        return null;
+      }
 
       if (!error.message.includes("timeout")) {
         return await this.tryFallbackConjugation(verb);
@@ -134,103 +195,5 @@ export class ConjugationService {
         },
       },
     };
-  }
-
-  async generateConjugationQuestion(word) {
-    if (!this.isVerb(word.spanish)) {
-      return null;
-    }
-
-    const tenseMapping = {
-      presente: "presente",
-      pretérito: "pretérito-perfecto-simple",
-      imperfecto: "pretérito-imperfecto",
-      futuro: "futuro",
-      condicional: "condicional-simple",
-      "subjuntivo presente": "subjuntivo-presente",
-      "subjuntivo imperfecto": "subjuntivo-imperfecto",
-    };
-
-    const displayTenses = Object.keys(tenseMapping);
-    const persons = [
-      { label: "yo", index: 0 },
-      { label: "tú", index: 1 },
-      { label: "él/ella/usted", index: 2 },
-      { label: "nosotros/as", index: 3 },
-      { label: "vosotros/as", index: 4 },
-      { label: "ellos/ellas/ustedes", index: 5 },
-    ];
-
-    const personsToPractice = persons.filter((p) => p.label !== "vosotros/as");
-    // Pick random tense and person
-    const displayTense =
-      displayTenses[Math.floor(Math.random() * displayTenses.length)];
-    const apiTense = tenseMapping[displayTense];
-    const person =
-      personsToPractice[Math.floor(Math.random() * personsToPractice.length)]; // Use the filtered list
-
-    try {
-      const conjugations = await this.getConjugations(word.spanish);
-
-      if (
-        !conjugations ||
-        !conjugations.moods?.indicativo?.[apiTense] // Using optional chaining for safety
-      ) {
-        return null;
-      }
-
-      const tenseConjugations = conjugations.moods.indicativo[apiTense];
-
-      if (!tenseConjugations || !tenseConjugations[person.index]) {
-        return null;
-      }
-
-      let answer = tenseConjugations[person.index];
-      answer = answer.replace(
-        /^(yo|tú|él|ella|Ud\.|nosotros|vosotros|ellos|ellas|Uds\.)\s+/, // Added Ud. and Uds.
-        ""
-      );
-
-      return {
-        type: "conjugation",
-        word: word,
-        question: `Conjugate "${word.spanish}" for "${person.label}" in the ${displayTense} tense`,
-        answer: answer.trim(),
-        fullAnswer: tenseConjugations[person.index],
-        mood: "indicativo",
-        tense: displayTense,
-        person: person.label,
-        englishMeaning: word.english,
-      };
-    } catch (error) {
-      console.warn(`Error generating question for ${word.spanish}:`, error);
-      return null;
-    }
-  }
-
-  // Get verbs from your word list
-  async identifyVerbsInWordList(words) {
-    const verbs = [];
-
-    for (const word of words) {
-      if (this.isVerb(word.spanish)) {
-        // Test if we can actually conjugate it
-        const conjugations = await this.getConjugations(word.spanish);
-        if (conjugations) {
-          verbs.push({
-            ...word,
-            isConfirmedVerb: true,
-          });
-        }
-      }
-    }
-
-    return verbs;
-  }
-
-  // Clear cache (useful for development)
-  clearCache() {
-    this.cache.clear();
-    this.verbCache.clear();
   }
 }
