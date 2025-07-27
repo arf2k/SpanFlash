@@ -32,11 +32,11 @@ export function useVerbConjugationGame(wordList, recordAnswer = null) {
     const confirmedVerbs = [];
 
     // SEQUENTIAL processing instead of parallel to prevent rate limiting
-    for (let i = 0; i < Math.min(verbsToTest.length, 10); i++) {
+    for (let i = 0; i < Math.min(verbsToTest.length, 5); i++) {
       const word = verbsToTest[i];
 
       try {
-        console.log(`Testing verb ${i + 1}/10: ${word.spanish}`);
+        console.log(`Testing verb ${i + 1}/5: ${word.spanish}`);
 
         // Try generating a question for this verb
         const question = await conjugationService.generateConjugationQuestion(
@@ -64,7 +64,7 @@ export function useVerbConjugationGame(wordList, recordAnswer = null) {
           error.message.includes("Too Many Requests")
         ) {
           console.log("Rate limited, waiting 2 seconds before continuing...");
-          await new Promise((resolve) => setTimeout(resolve, 2000));
+await new Promise(resolve => setTimeout(resolve, 5000));
         }
       }
 
