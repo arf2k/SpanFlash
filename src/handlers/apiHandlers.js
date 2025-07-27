@@ -138,7 +138,7 @@ export const createApiHandlers = (
     }
   };
 
-  const handleGetTatoebaExamples = async (spanishPhrase) => {
+  const handleFetchTatoebaExamples = async (spanishPhrase) => {
     if (!currentPair || !currentPair.spanish) {
       console.warn(
         "No current pair or Spanish word available for Tatoeba lookup"
@@ -258,7 +258,7 @@ export const createApiHandlers = (
 
   return {
     handleGetHint,
-    handleGetTatoebaExamples,
+    handleFetchTatoebaExamples,
   };
 };
 
