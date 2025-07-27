@@ -138,10 +138,7 @@ export const createApiHandlers = (
     }
   };
 
-  // REPLACE the handleGetTatoebaExamples function in src/handlers/apiHandlers.js
-  // Starting around line 117, replace the entire function with this:
-
-  const handleGetTatoebaExamples = async () => {
+  const handleGetTatoebaExamples = async (spanishPhrase) => {
     if (!currentPair || !currentPair.spanish) {
       console.warn(
         "No current pair or Spanish word available for Tatoeba lookup"
