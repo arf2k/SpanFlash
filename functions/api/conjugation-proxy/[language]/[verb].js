@@ -1,5 +1,4 @@
-import { authenticateRequest, handleOptionsRequest } from '../../../../utils/sessionAuth.js';
-
+import { authenticateRequest, handleOptionsRequest } from '../../../utils/sessionAuth.js';
 
 const VERBECC_API_BASE = "http://verbe.cc/verbecc";
 
@@ -103,3 +102,4 @@ export async function onRequestGet(context) {
     });
   }
 }
+
