@@ -1,4 +1,6 @@
 import axios from "axios";
+// Import session management from dictionary services
+import { sessionManager } from "./dictionaryServices.js";
 
 const TATOEBA_PROXY_PATH = "/api/tatoeba-proxy";
 
@@ -8,12 +10,14 @@ const SLOW_REQUEST_THRESHOLD_MS = 4000;
 /**
  * @param {string} spanishQuery
  * @param {Function} onSlowRequest - Optional callback called if request is taking longer than threshold
+ * @param {string} turnstileToken - Turnstile token for API protection (fallback when no session)
  * @returns {Promise<Array<{id_spa: number, text_spa: string, id_eng: number, text_eng: string}>>}
  * A promise that resolves to an array of example sentence pairs, or an empty array if none found/error.
  */
 export const getTatoebaExamples = async (
   spanishQuery,
-  onSlowRequest = null
+  onSlowRequest = null,
+  turnstileToken = null
 ) => {
   if (
     !spanishQuery ||
@@ -35,7 +39,24 @@ export const getTatoebaExamples = async (
 
   const apiUrl = `${TATOEBA_PROXY_PATH}?${params.toString()}`;
 
-  console.log(`Calling PWA's Tatoeba Proxy: ${apiUrl}`);
+  console.log(`Calling Tatoeba Proxy: ${apiUrl}`);
+
+  // Determine authentication strategy (same as MW Dictionary)
+  const sessionInfo = sessionManager.getSessionInfo();
+  const hasValidSession = sessionInfo.isValid;
+  const authHeaders = {};
+
+  if (hasValidSession) {
+    console.log("Using existing session token for Tatoeba API call");
+    authHeaders["CF-Session-Token"] = sessionInfo.token;
+  } else if (turnstileToken) {
+    console.log("Using Turnstile token for Tatoeba API call");
+    authHeaders["CF-Turnstile-Response"] = turnstileToken;
+  } else {
+    throw new Error(
+      "Either valid session or Turnstile token required for Tatoeba API access"
+    );
+  }
 
   // Set up slow request timer
   let slowRequestTimer = null;
@@ -49,11 +70,18 @@ export const getTatoebaExamples = async (
   }
 
   try {
+    console.log("=== TATOEBA API CALL DEBUG ===");
+    console.log("Session valid:", hasValidSession);
+    console.log("Current session token:", sessionInfo.token);
+    console.log("Headers being sent:", authHeaders);
+    console.log("===============================");
+
     const response = await axios.get(apiUrl, {
       timeout: REQUEST_TIMEOUT_MS,
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        ...authHeaders,
       },
     });
 
@@ -62,9 +90,44 @@ export const getTatoebaExamples = async (
       clearTimeout(slowRequestTimer);
     }
 
-    console.log("Response from PWA's Tatoeba Proxy:", response.data);
+    console.log("Response from Tatoeba Proxy:", response.data);
 
+    // Handle session info from response (same pattern as MW Dictionary)
+    if (response.data && response.data._proxy && response.data._proxy.session) {
+      const sessionInfo = response.data._proxy.session;
+
+      if (sessionInfo.isNew) {
+        console.log("New session created by Tatoeba server");
+      }
+
+      // Note: Session storage is handled by dictionaryServices.js
+      // Both APIs share the same session tokens
+    }
+
+    // Handle API errors
     if (response.data && response.data.error) {
+      // Check if it's a session-related error
+      if (
+        response.data.error === "Security Validation Failed" ||
+        response.data.error === "Security Validation Required"
+      ) {
+        console.log(
+          "Tatoeba session validation failed, clearing stored session"
+        );
+        sessionManager.clearSession();
+
+        // If we were using a session token, this indicates session expired
+        if (hasValidSession && !turnstileToken) {
+          return {
+            error: true,
+            type: "session_expired",
+            message: "Session expired, please refresh",
+            query: spanishQuery,
+            needsTurnstile: true,
+          };
+        }
+      }
+
       console.error(
         "Error from Tatoeba proxy function:",
         response.data.details || response.data.error
@@ -76,6 +139,12 @@ export const getTatoebaExamples = async (
         message: response.data.details || response.data.error,
         query: spanishQuery,
       };
+    }
+
+    // Remove _proxy metadata before processing
+    if (response.data && response.data._proxy) {
+      console.log("Removing _proxy metadata from Tatoeba response");
+      delete response.data._proxy;
     }
 
     // Process successful response
@@ -139,13 +208,41 @@ export const getTatoebaExamples = async (
 
     // Network or other errors
     console.error(
-      `Error fetching examples via PWA's Tatoeba Proxy for "${spanishQuery}":`,
+      `Error fetching examples via Tatoeba Proxy for "${spanishQuery}":`,
       error.message
     );
 
     if (error.response) {
-      console.error("Proxy API Error Response Data:", error.response.data);
-      console.error("Proxy API Error Response Status:", error.response.status);
+      console.error("Tatoeba Proxy Error Response Data:", error.response.data);
+      console.error(
+        "Tatoeba Proxy Error Response Status:",
+        error.response.status
+      );
+
+      // Handle authentication errors (same as MW Dictionary)
+      if (error.response.status === 403) {
+        console.log("Tatoeba authentication failed, clearing session");
+        sessionManager.clearSession();
+
+        // Return specific error for session expiry
+        if (hasValidSession && !turnstileToken) {
+          return {
+            error: true,
+            type: "session_expired",
+            message: "Session expired, please refresh",
+            query: spanishQuery,
+            needsTurnstile: true,
+          };
+        }
+
+        return {
+          error: true,
+          type: "auth_error",
+          message: "Authentication required",
+          query: spanishQuery,
+          needsTurnstile: true,
+        };
+      }
 
       if (error.response.status >= 500) {
         return {
@@ -163,10 +260,7 @@ export const getTatoebaExamples = async (
         };
       }
     } else if (error.request) {
-      console.error(
-        "Tatoeba Proxy: No response received for the request.",
-        error.request
-      );
+      console.error("Tatoeba Proxy: No response received for the request.");
       return {
         error: true,
         type: "network_error",
