@@ -146,13 +146,14 @@ export const createApiHandlers = (
       return;
     }
 
-    const spanishPhrase = currentPair.spanish.trim();
-    if (!spanishPhrase) {
+      const phrase = spanishPhrase || (currentPair && currentPair.spanish) || '';
+    if (!phrase.trim()) {
       console.warn("Spanish phrase is empty");
       return;
     }
+  
 
-    console.log(`Getting Tatoeba examples for: "${spanishPhrase}"`);
+    console.log(`Getting Tatoeba examples for: "${phrase}"`);
     setIsLoadingTatoebaExamples(true);
     setTatoebaError(null);
     setTatoebaExamples([]);
