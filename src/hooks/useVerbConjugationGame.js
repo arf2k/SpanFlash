@@ -23,39 +23,75 @@ export function useVerbConjugationGame(wordList, recordAnswer = null) {
     );
 
     const shuffledLikelyVerbs = shuffleArray(likelyVerbs);
-    const verbsToTest = shuffledLikelyVerbs.slice(0, 50);
+    const verbsToTest = shuffledLikelyVerbs.slice(0, 20);
 
     console.log(
-      `Found ${likelyVerbs.length} potential verbs, testing up to 50 of them.`
+      `Found ${likelyVerbs.length} potential verbs, testing up to 20 sequentially to avoid rate limits.`
     );
 
-    // Create promises for parallel verb testing (much faster)
-    const verbTestPromises = verbsToTest.slice(0, 25).map(async (word) => {
+    const confirmedVerbs = [];
+
+    // SEQUENTIAL processing instead of parallel to prevent rate limiting
+    for (let i = 0; i < Math.min(verbsToTest.length, 10); i++) {
+      const word = verbsToTest[i];
+
       try {
+        console.log(`Testing verb ${i + 1}/10: ${word.spanish}`);
+
+        // Try generating a question for this verb
         const question = await conjugationService.generateConjugationQuestion(
           word
         );
-        return question ? word : null;
+
+        if (question) {
+          confirmedVerbs.push(word);
+          console.log(`✓ Confirmed working verb: ${word.spanish}`);
+
+          // Stop when we have enough working verbs
+          if (confirmedVerbs.length >= 8) {
+            console.log(
+              `Got ${confirmedVerbs.length} working verbs, stopping early`
+            );
+            break;
+          }
+        }
       } catch (error) {
-        console.warn(`Failed to test verb ${word.spanish}:`, error);
-        return null;
+        console.warn(`Failed to test verb ${word.spanish}:`, error.message);
+
+        // Handle rate limiting - longer delay
+        if (
+          error.message.includes("429") ||
+          error.message.includes("Too Many Requests")
+        ) {
+          console.log("Rate limited, waiting 2 seconds before continuing...");
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+        }
       }
-    });
 
-    // Wait for all tests to complete simultaneously
-    const testResults = await Promise.all(verbTestPromises);
+      // Small delay between requests to be API-friendly
+      if (i < verbsToTest.length - 1) {
+        await new Promise((resolve) => setTimeout(resolve, 300));
+      }
+    }
 
-    // Filter successful verbs and take first 20
-    const confirmedVerbs = testResults
-      .filter((word) => word !== null)
-      .slice(0, 20);
-
-    console.log(`Confirmed ${confirmedVerbs.length} working verbs`);
+    console.log(
+      `Confirmed ${confirmedVerbs.length} working verbs for conjugation game`
+    );
     setVerbWords(confirmedVerbs);
     setIsLoading(false);
 
     if (confirmedVerbs.length > 0) {
       generateNewQuestion(confirmedVerbs);
+    } else {
+      console.warn(
+        "No working verbs found - will rely on fallback conjugations"
+      );
+      // Use first few -ar/-er/-ir verbs as fallback
+      const fallbackVerbs = likelyVerbs.slice(0, 5);
+      setVerbWords(fallbackVerbs);
+      if (fallbackVerbs.length > 0) {
+        generateNewQuestion(fallbackVerbs);
+      }
     }
   };
 
