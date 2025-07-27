@@ -64,7 +64,7 @@ export function useVerbConjugationGame(wordList, recordAnswer = null) {
           error.message.includes("Too Many Requests")
         ) {
           console.log("Rate limited, waiting 2 seconds before continuing...");
-await new Promise(resolve => setTimeout(resolve, 5000));
+          await new Promise((resolve) => setTimeout(resolve, 5000));
         }
       }
 
@@ -137,7 +137,7 @@ await new Promise(resolve => setTimeout(resolve, 5000));
     setShowAnswer(true);
 
     try {
-      await updateWordExposure(currentQuestion.word, isCorrect, "conjugation");
+      await updateWordExposure(currentQuestion.verb, isCorrect, "conjugation");
     } catch (error) {
       console.error("Failed to update Leitner data:", error);
     }
