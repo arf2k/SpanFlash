@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useRef } from "react";
+import React, { useEffect, useCallback, useRef, useState } from "react";
 import "./SearchModal.css";
 import "./SettingsModal.css";
 
@@ -13,6 +13,9 @@ const SettingsModal = ({
   onTriggerAddWordModal,
 }) => {
   const modalDialogRef = useRef(null);
+  const [adminKeyInput, setAdminKeyInput] = useState("");
+  const [statusMessage, setStatusMessage] = useState(null);
+  const sitekey = import.meta.env.VITE_TURNSTILE_SITEKEY;
 
   const handleEscapeKey = useCallback(
     (event) => {
@@ -22,6 +25,17 @@ const SettingsModal = ({
     },
     [onClose]
   );
+
+  useEffect(() => {
+    if (!window.turnstile && !document.getElementById("turnstile-script")) {
+      const script = document.createElement("script");
+      script.id = "turnstile-script";
+      script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+      script.async = true;
+      script.defer = true;
+      document.body.appendChild(script);
+    }
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -46,9 +60,36 @@ const SettingsModal = ({
     [onClose]
   );
 
-  if (!isOpen) {
-    return null;
-  }
+  const handleAdminAccess = async () => {
+    setStatusMessage(null);
+    const turnstileToken = window.turnstile?.getResponse();
+    if (!turnstileToken || !adminKeyInput) {
+      setStatusMessage("Turnstile and admin key required");
+      return;
+    }
+    try {
+      const res = await fetch("/api/admin-init", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          turnstileToken,
+          adminKey: adminKeyInput,
+        }),
+      });
+      if (!res.ok) {
+        throw new Error("Unauthorized");
+      }
+      const data = await res.json();
+      localStorage.setItem("CF-Session-Token", data.token);
+      setStatusMessage("Admin session activated ✅");
+      onToggleAdminMode();
+    } catch (err) {
+      console.error("Admin auth failed:", err);
+      setStatusMessage("Failed to authenticate as admin ❌");
+    }
+  };
+
+  if (!isOpen) return null;
 
   return (
     <div className="search-modal-overlay" onClick={handleClickOutside}>
@@ -78,81 +119,46 @@ const SettingsModal = ({
           </div>
 
           <div className="settings-section">
-            <strong className="settings-section-title">
-              Admin Configuration
-            </strong>
-            <div className="setting-item">
-              <label htmlFor="adminModeToggle" className="admin-toggle-label">
-                <input
-                  type="checkbox"
-                  id="adminModeToggle"
-                  checked={isAdminMode}
-                  onChange={onToggleAdminMode}
-                  className="admin-toggle-checkbox"
-                />
-                Enable Admin Features
-              </label>
-              <p className="setting-description">
-                Shows extra options like data export and word addition. This
-                setting is saved in your browser.
-              </p>
-            </div>
-          </div>
-
-          {isAdminMode && ( // Only show Data Management if admin mode is enabled
-            <div className="settings-section">
-              <strong className="settings-section-title">
-                Data Management
-              </strong>
-              {/* Add New Word Button */}
+            <strong className="settings-section-title">Admin Access</strong>
+            {!isAdminMode && (
               <div className="setting-item">
-                <button
-                  onClick={onTriggerAddWordModal}
-                  className="button-add-word-settings"
-                  title="Add a new word pair to your local list"
-                >
-                  <span role="img" aria-label="add icon">
-                    ➕
-                  </span>{" "}
-                  Add New Word
+                <p>Unlock admin features with Turnstile + key:</p>
+                <div
+                  className="cf-turnstile"
+                  data-sitekey={sitekey}
+                  data-theme="light"
+                ></div>
+                <input
+                  type="password"
+                  placeholder="Admin key"
+                  value={adminKeyInput}
+                  onChange={(e) => setAdminKeyInput(e.target.value)}
+                />
+                <button onClick={handleAdminAccess}>
+                  Activate Admin Session
                 </button>
-                <p className="setting-description">
-                  Opens the form to add a new word with details to your local
-                  list.
-                </p>
+                {statusMessage && <p>{statusMessage}</p>}
               </div>
+            )}
 
-              {/* Export Word List Button */}
-              <div className="setting-item" style={{ marginTop: "20px" }}>
-                {" "}
-                {/* Added some top margin */}
-                <button
-                  onClick={onExportWordList}
-                  className="button-export-settings"
-                  title="Export current local word list to JSON"
-                >
-                  <span role="img" aria-label="export icon">
-                    📤
-                  </span>{" "}
-                  Export Word List
-                </button>
+            {isAdminMode && (
+              <div className="setting-item">
+                <label htmlFor="adminModeToggle" className="admin-toggle-label">
+                  <input
+                    type="checkbox"
+                    id="adminModeToggle"
+                    checked={isAdminMode}
+                    onChange={onToggleAdminMode}
+                    className="admin-toggle-checkbox"
+                  />
+                  Enable Admin Features
+                </label>
                 <p className="setting-description">
-                  Downloads your current word list. Remember to manually update
-                  the 'version' in the downloaded file before replacing your
-                  master `scrapedSpan411.json`.
+                  Shows extra options like data export and word addition.
                 </p>
               </div>
-            </div>
-          )}
-        </div>
-        <div className="settings-modal-actions">
-          <button
-            type="button"
-            onClick={onClose}
-            className="button-close-settings"
-          >
-            Close
-          </button>
+            )}
+          </div>
         </div>
       </div>
     </div>
