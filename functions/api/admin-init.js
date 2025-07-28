@@ -1,12 +1,17 @@
-// functions/api/admin-init.js
-import { verifyTurnstile } from "../utils/sessionAuth";
+import { validateTurnstileToken } from "../utils/sessionAuth";
 import { generateSessionToken, storeSession } from "../utils/sessionManager";
 
 export async function onRequestPost(context) {
   const { request, env, cf } = context;
   const { turnstileToken, adminKey } = await request.json();
 
-  const isHuman = await verifyTurnstile(turnstileToken, env);
+  const validationResult = await validateTurnstileToken(
+    turnstileToken,
+    env.TURNSTILE_SECRET_KEY,
+    cf?.connectingIp
+  );
+
+  const isHuman = validationResult.success;
   const validKey = adminKey === env.ADMIN_SECRET;
 
   if (!isHuman || !validKey) {
