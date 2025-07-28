@@ -42,19 +42,24 @@ export class ConjugationService {
     const isInfinitive = verbEndings.some((ending) => word.endsWith(ending));
 
     if (isInfinitive) {
-      // Additional check: exclude obvious adjectives ending in -ar
-      const adjectivePatterns = [
-        /acular$/, // espectacular, particular
-        /ular$/, // circular, popular
-        /ilar$/, // similar
-        /elar$/, // ... other patterns
+      // Exclude common false positive patterns
+      const exclusionPatterns = [
+        /cular$/,
+        /ular$/,
+        /ilar$/,
+        /elar$/,
+        /ado$/,
+        /ido$/,
+        /mente$/,
+        /ón$/,
+        /ente$/,
       ];
 
-      const isLikelyAdjective = adjectivePatterns.some((pattern) =>
+      const isFalsePositive = exclusionPatterns.some((pattern) =>
         pattern.test(word)
       );
 
-      if (!isLikelyAdjective) {
+      if (!isFalsePositive && word.length <= 10) {
         this.verbCache.add(word);
         return true;
       }
