@@ -18,6 +18,17 @@ export function useVerbConjugationGame(wordList, recordAnswer = null) {
   const initializeGame = async () => {
     setIsLoading(true);
 
+    const sessionInfo = sessionManager.getSessionInfo();
+    if (!sessionInfo.isValid) {
+      console.warn(
+        "Session invalid or missing — requesting auth before conjugation"
+      );
+      // Optionally trigger Turnstile or route the user
+      alert("Please complete verification before using this game.");
+      setIsLoading(false);
+      return;
+    }
+
     const likelyVerbs = wordList.filter((word) =>
       conjugationService.isVerb(word.spanish)
     );
