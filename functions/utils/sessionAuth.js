@@ -70,7 +70,7 @@ async function validateSession(kv, sessionToken, remoteIP) {
 }
 
 // Validate Turnstile token
-async function validateTurnstileToken(token, secretKey, remoteIP = null) {
+export async function validateTurnstileToken(token, secretKey, remoteIP = null) {
   if (!token || !secretKey) {
     return { success: false, error: "Missing token or secret key" };
   }
