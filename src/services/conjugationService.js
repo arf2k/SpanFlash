@@ -259,12 +259,13 @@ export class ConjugationService {
         tense: randomQuestion.tense,
         person: randomQuestion.person,
         pronoun: pronoun,
-        correctAnswer: randomQuestion.conjugation,
+        answer: randomQuestion.conjugation, // 🔄 renamed from correctAnswer
         question: `Conjugate "${verb}" for "${pronoun}" in ${formatName(
           randomQuestion.mood
         )} ${formatName(randomQuestion.tense)}`,
         displayMood: formatName(randomQuestion.mood),
         displayTense: formatName(randomQuestion.tense),
+        englishMeaning: wordObject.english || "", // ✅ added for UI display
       };
     } catch (error) {
       console.warn(
