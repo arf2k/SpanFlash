@@ -13,6 +13,7 @@ const SettingsModal = ({
   onTriggerAddWordModal,
 }) => {
   const modalDialogRef = useRef(null);
+  const turnstileRef = useRef(null);
   const [adminKeyInput, setAdminKeyInput] = useState("");
   const [statusMessage, setStatusMessage] = useState(null);
   const sitekey = import.meta.env.VITE_TURNSTILE_SITEKEY;
@@ -36,6 +37,15 @@ const SettingsModal = ({
       document.body.appendChild(script);
     }
   }, []);
+
+  useEffect(() => {
+    if (isOpen && window.turnstile && turnstileRef.current) {
+      window.turnstile.render(turnstileRef.current, {
+        sitekey,
+        theme: "light",
+      });
+    }
+  }, [isOpen, sitekey]);
 
   useEffect(() => {
     if (isOpen) {
@@ -123,11 +133,7 @@ const SettingsModal = ({
             {!isAdminMode && (
               <div className="setting-item">
                 <p>Unlock admin features with Turnstile + key:</p>
-                <div
-                  className="cf-turnstile"
-                  data-sitekey={sitekey}
-                  data-theme="light"
-                ></div>
+                <div ref={turnstileRef}></div>
                 <input
                   type="password"
                   placeholder="Admin key"
