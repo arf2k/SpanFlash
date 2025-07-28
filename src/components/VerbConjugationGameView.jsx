@@ -186,9 +186,6 @@ export default function VerbConjugationGameView({
             <div className="verb-conjugation-feedback-details">
               <div>Your answer: <strong className="verb-conjugation-user-answer">{feedback.userAnswer}</strong></div>
               <div>Correct answer: <strong className="verb-conjugation-correct-answer">{feedback.correctAnswer}</strong></div>
-              <div className="verb-conjugation-full-form">
-                Full form: {feedback.fullAnswer}
-              </div>
             </div>
           )}
         </div>
