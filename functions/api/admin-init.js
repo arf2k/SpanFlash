@@ -5,6 +5,9 @@ export async function onRequestPost(context) {
   const { request, env, cf } = context;
   const { turnstileToken, adminKey } = await request.json();
 
+  console.log("Turnstile passed?", isHuman, "Key matched?", validKey);
+
+
   const validationResult = await validateTurnstileToken(
     turnstileToken,
     env.TURNSTILE_SECRET_KEY,
