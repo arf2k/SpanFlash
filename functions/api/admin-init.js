@@ -4,12 +4,21 @@ import { generateSessionToken, storeSession } from "../utils/sessionManager";
 export async function onRequestPost(context) {
   const { request, env, cf } = context;
   const { turnstileToken, adminKey } = await request.json();
+export async function onRequestPost(context) {
+  console.log("🔐 onRequestPost triggered");
 
   const validationResult = await validateTurnstileToken(
     turnstileToken,
     env.TURNSTILE_SECRET_KEY,
     cf?.connectingIp
   );
+  console.log("🔒 admin-init function hit");
+
+
+
+
+
+
 
   const isHuman = validationResult.success;
   const validKey = adminKey === env.ADMIN_SECRET;
@@ -39,4 +48,5 @@ export async function onRequestPost(context) {
     console.error("Admin-init crashed:", err);
     return new Response("Internal Error", { status: 500 });
   }
+}
 }
