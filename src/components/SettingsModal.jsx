@@ -70,34 +70,54 @@ const SettingsModal = ({
     [onClose]
   );
 
-  const handleAdminAccess = async () => {
-    setStatusMessage(null);
-    const turnstileToken = window.turnstile?.getResponse();
-    if (!turnstileToken || !adminKeyInput) {
-      setStatusMessage("Turnstile and admin key required");
+const handleAdminAccess = async () => {
+  setStatusMessage(null);
+
+  // 1) Get the Turnstile token
+  const turnstileToken = window.turnstile?.getResponse?.();
+
+  // 2) Client-side sanity check + DEBUG LOG (shows in browser devtools console)
+  console.log("Submitting admin-init with:", {
+    turnstileTokenPresent: !!turnstileToken,
+    adminKeyLength: adminKeyInput?.length ?? 0,
+  });
+
+  if (!turnstileToken || !adminKeyInput) {
+    setStatusMessage("Turnstile and admin key required");
+    return;
+  }
+
+  try {
+    // 3) Call your Pages Function
+    const res = await fetch("/api/admin-init", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        turnstileToken,
+        adminKey: adminKeyInput,
+      }),
+    });
+
+    if (!res.ok) {
+      const txt = await res.text();
+      console.warn("admin-init failed:", res.status, txt);
+      setStatusMessage("Admin auth failed");
       return;
     }
-    try {
-      const res = await fetch("/api/admin-init", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          turnstileToken,
-          adminKey: adminKeyInput,
-        }),
-      });
-      if (!res.ok) {
-        throw new Error("Unauthorized");
-      }
-      const data = await res.json();
+
+    const data = await res.json();
+    // 4) Store the session token for subsequent calls
+    if (data?.token) {
       localStorage.setItem("CF-Session-Token", data.token);
-      setStatusMessage("Admin session activated ✅");
-      onToggleAdminMode();
-    } catch (err) {
-      console.error("Admin auth failed:", err);
-      setStatusMessage("Failed to authenticate as admin ❌");
+      setStatusMessage("Admin session activated");
+    } else {
+      setStatusMessage("No token returned from server");
     }
-  };
+  } catch (err) {
+    console.error("admin-init error:", err);
+    setStatusMessage("Admin auth error");
+  }
+}
 
   if (!isOpen) return null;
 
