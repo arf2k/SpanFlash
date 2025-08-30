@@ -1,32 +1,25 @@
-import { validateTurnstileToken } from "../utils/sessionAuth";
-import { generateSessionToken, storeSession } from "../utils/sessionManager";
-
 export async function onRequestPost(context) {
   const { request, env, cf } = context;
   const { turnstileToken, adminKey } = await request.json();
-export async function onRequestPost(context) {
-  console.log("🔐 onRequestPost triggered");
+
+  // Log received data
+  console.log('Received Admin Key:', adminKey);
+  console.log('Expected Admin Key:', env.ADMIN_SECRET);
 
   const validationResult = await validateTurnstileToken(
     turnstileToken,
     env.TURNSTILE_SECRET_KEY,
     cf?.connectingIp
   );
-  console.log("🔒 admin-init function hit");
-
-
-
-
-
-
+  console.log("Turnstile validation result:", validationResult);
 
   const isHuman = validationResult.success;
   const validKey = adminKey === env.ADMIN_SECRET;
-
   console.log("Turnstile passed?", isHuman, "Key matched?", validKey);
 
   try {
     if (!isHuman || !validKey) {
+      console.log("Failed authentication: Turnstile or Admin Key");
       return new Response("Unauthorized", { status: 403 });
     }
 
@@ -40,6 +33,7 @@ export async function onRequestPost(context) {
     };
 
     await storeSession(env, sessionToken, sessionData);
+    console.log("Session created:", sessionData);
 
     return new Response(JSON.stringify({ token: sessionToken }), {
       headers: { "Content-Type": "application/json" },
@@ -48,5 +42,4 @@ export async function onRequestPost(context) {
     console.error("Admin-init crashed:", err);
     return new Response("Internal Error", { status: 500 });
   }
-}
 }
