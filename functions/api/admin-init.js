@@ -1,67 +1,114 @@
-// functions/api/admin-init.js
 import { validateTurnstileToken } from "../utils/sessionAuth";
 import { generateSessionToken, storeSession } from "../utils/sessionManager";
+
+/** Constant-time string compare to reduce timing leaks. */
+function constantTimeEqual(a, b) {
+  if (typeof a !== "string" || typeof b !== "string") return false;
+  if (a.length !== b.length) return false;
+  let out = 0;
+  for (let i = 0; i < a.length; i++) out |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return out === 0;
+}
 
 export async function onRequestPost(context) {
   const { request, env, cf } = context;
 
-  // Parse body up front
-  let turnstileToken, adminKey;
-  try {
-    ({ turnstileToken, adminKey } = await request.json());
-  } catch {
-    return new Response("Bad JSON", { status: 400 });
+  // Enforce POST
+  if (request.method !== "POST") {
+    return new Response(JSON.stringify({ error: "Method Not Allowed" }), {
+      status: 405,
+      headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
+    });
   }
 
-  // ---- SAFE DEBUG (no secrets) ----
-  console.log("🔒 admin-init hit");
-  console.log("env.ADMIN_SECRET present?", !!env.ADMIN_SECRET);
-  console.log("env.TURNSTILE_SECRET_KEY present?", !!env.TURNSTILE_SECRET_KEY);
-  console.log("KV binding present?", !!env.SESSIONS);
-  console.log("Client IP:", cf?.connectingIp ?? null);
+  // Enforce JSON
+  const contentType = request.headers.get("content-type") || "";
+  if (!contentType.includes("application/json")) {
+    return new Response(JSON.stringify({ error: "Unsupported Media Type" }), {
+      status: 415,
+      headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
+    });
+  }
 
-  // Turnstile verification (kept, but you said focus on admin key first)
-  let isHuman = false;
+  // Parse body
+  let body;
   try {
+    body = await request.json();
+  } catch {
+    return new Response(JSON.stringify({ error: "Bad JSON" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
+    });
+  }
+
+  const turnstileToken = body?.turnstileToken;
+  const adminKey = body?.adminKey;
+  const remoteIP = cf?.connectingIp || null;
+
+  // Config presence
+  if (!env?.TURNSTILE_SECRET_KEY || !env?.ADMIN_SECRET) {
+    return new Response(JSON.stringify({ error: "Server not configured" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
+    });
+  }
+
+  // Require BOTH inputs
+  if (!turnstileToken || typeof adminKey !== "string") {
+    return new Response(JSON.stringify({ error: "Missing credentials" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
+    });
+  }
+
+  try {
+    // 1) Verify Turnstile on the server
     const result = await validateTurnstileToken(
       turnstileToken,
       env.TURNSTILE_SECRET_KEY,
-      cf?.connectingIp
+      remoteIP
     );
-    isHuman = !!result?.success;
-  } catch (e) {
-    console.error("Turnstile validation error:", e?.message || e);
-  }
+    const isHuman = !!result?.success;
+    if (!isHuman) {
+      return new Response(
+        JSON.stringify({ error: "Turnstile verification failed", details: result?.error || null }),
+        { status: 403, headers: { "Content-Type": "application/json", "Cache-Control": "no-store" } }
+      );
+    }
 
-  // Timing-safe-ish check (simple approach; adequate here)
-  const validKey = typeof adminKey === "string" && typeof env.ADMIN_SECRET === "string" && adminKey === env.ADMIN_SECRET;
+    // 2) Verify admin key using constant-time comparison
+    const keyOK = constantTimeEqual(adminKey, env.ADMIN_SECRET);
+    if (!keyOK) {
+      // Do NOT reveal whether key or Turnstile was wrong
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
+      });
+    }
 
-  console.log("Turnstile ok?", isHuman, "| Admin key match?", validKey);
-
-  // You asked to prioritize admin key troubleshooting:
-  // temporarily allow admin if key matches even if Turnstile is flaky in DDG, toggle this back later.
-  if (!validKey) {
-    return new Response("Unauthorized", { status: 403 });
-  }
-
-  try {
+    // 3) Create short-lived admin session
     const sessionToken = generateSessionToken();
+    const now = Date.now();
     const sessionData = {
-      token: sessionToken,
+      role: "admin",
       isAdmin: true,
-      createdAt: Date.now(),
-      ip: cf?.connectingIp || null,
-      expiresAt: Date.now() + 60 * 60 * 1000, // 1 hour
+      createdAt: now,
+      ip: remoteIP,
+      expiresAt: now + 60 * 60 * 1000, // 1 hour
     };
 
     await storeSession(env, sessionToken, sessionData);
-    console.log("✅ Admin session created (masked token length):", sessionToken.length);
 
-    return new Response(JSON.stringify({ token: sessionToken }), {
-      headers: { "Content-Type": "application/json" },
+    // Success
+    return new Response(JSON.stringify({ token: sessionToken, role: "admin" }), {
+      status: 200,
+      headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
     });
-  } catch (err) {
-    console.error("Admin-init crashed:", err?.message || err);
-    return new Response("Internal Error", { status: 500 });
+  } catch {
+    // Safe server error
+    return new Response(JSON.stringify({ error: "Internal Error" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
+    });
   }
 }
