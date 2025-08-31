@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./SearchModal.css";
 import "./SettingsModal.css";
 
@@ -7,242 +7,264 @@ const SettingsModal = ({
   onClose,
   onExportWordList,
   isAdminMode,
-  onToggleAdminMode,
+  onToggleAdminMode,     
   currentTheme,
   onToggleTheme,
   onTriggerAddWordModal,
 }) => {
   const modalDialogRef = useRef(null);
-  const turnstileRef = useRef(null);
-  const [adminKeyInput, setAdminKeyInput] = useState("");
+  const adminKeyInputRef = useRef(null);
+
+  const [adminKey, setAdminKey] = useState("");
   const [statusMessage, setStatusMessage] = useState(null);
   const [submitting, setSubmitting] = useState(false);
-  const sitekey = import.meta.env.VITE_TURNSTILE_SITEKEY;
 
-  const handleEscapeKey = useCallback(
-    (event) => {
-      if (event.key === "Escape") {
-        onClose();
+  const [usernameForA11y] = useState("admin");
+
+  // Pull Turnstile token if your hook puts it here; otherwise window.turnstile?.getResponse()
+  const getTurnstileToken = () => {
+    try {
+      const t = sessionStorage.getItem("cf_turnstile_token") || localStorage.getItem("cf_turnstile_token");
+      if (t) return t;
+      if (window?.turnstile && typeof window.turnstile.getResponse === "function") {
+        return window.turnstile.getResponse();
       }
-    },
-    [onClose]
-  );
+    } catch {}
+    return null;
+  };
 
-  // Load Turnstile script once
-  useEffect(() => {
-    if (!window.turnstile && !document.getElementById("turnstile-script")) {
-      const script = document.createElement("script");
-      script.id = "turnstile-script";
-      script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
-      script.async = true;
-      script.defer = true;
-      document.body.appendChild(script);
-    }
-  }, []);
+  const sanitizeKey = (value) => {
+    if (typeof value !== "string") return "";
+    // Normalize line breaks and trim outer whitespace
+    let v = value.replace(/\r\n/g, "\n").replace(/\s+/g, " ").trim();
+    // Hard cap to prevent accidental mega-pastes
+    const MAX = 128; // adjust if your real key is longer
+    if (v.length > MAX) v = v.slice(0, MAX);
+    return v;
+  };
 
-  // Render Turnstile when modal opens
-  useEffect(() => {
-    if (isOpen && window.turnstile && turnstileRef.current) {
-      window.turnstile.render(turnstileRef.current, {
-        sitekey,
-        theme: "light",
-      });
-    }
-  }, [isOpen, sitekey]);
-
-  // ESC handler
-  useEffect(() => {
-    if (isOpen) {
-      document.addEventListener("keydown", handleEscapeKey);
-    } else {
-      document.removeEventListener("keydown", handleEscapeKey);
-    }
-    return () => {
-      document.removeEventListener("keydown", handleEscapeKey);
-    };
-  }, [isOpen, handleEscapeKey]);
-
-  const handleClickOutside = useCallback(
-    (event) => {
-      if (
-        modalDialogRef.current &&
-        !modalDialogRef.current.contains(event.target)
-      ) {
-        onClose();
-      }
-    },
-    [onClose]
-  );
-
-  // Submit handler wrapped in a proper <form>
-  const handleAdminAccess = async (e) => {
+  const handleSubmitAdmin = useCallback(async (e) => {
     e?.preventDefault?.();
-    if (submitting) return;
-    setSubmitting(true);
     setStatusMessage(null);
 
-    // 1) Get the Turnstile token
-    const turnstileToken = window.turnstile?.getResponse?.();
-
-    // 2) Client-side sanity + DEBUG
-    console.log("Submitting admin-init with:", {
-      turnstileTokenPresent: !!turnstileToken,
-      adminKeyLength: adminKeyInput?.length ?? 0,
-    });
-
-    if (!turnstileToken || !adminKeyInput) {
-      setStatusMessage("Turnstile and admin key required");
-      setSubmitting(false);
+    // Sanitize + bound the key
+    const cleanKey = sanitizeKey(adminKey);
+    if (!cleanKey) {
+      setStatusMessage({ type: "error", text: "Please enter the admin key." });
+      adminKeyInputRef.current?.focus();
+      return;
+    }
+    if (cleanKey.length < 6) {
+      setStatusMessage({ type: "error", text: "Admin key looks too short." });
+      adminKeyInputRef.current?.focus();
       return;
     }
 
+    const turnstileToken = getTurnstileToken();
+    if (!turnstileToken) {
+      setStatusMessage({
+        type: "error",
+        text: "Human verification missing. Please complete the Turnstile check and try again.",
+      });
+      return;
+    }
+
+    setSubmitting(true);
     try {
-      // 3) Pages Function call
-      const res = await fetch("/api/admin-init", {
+      // Debug line you saw earlier—keep but make it accurate
+      console.log("Submitting admin-init with:", {
+        turnstileTokenPresent: !!turnstileToken,
+        adminKeyLength: cleanKey.length,
+      });
+
+      const resp = await fetch("/api/admin-init", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           turnstileToken,
-          adminKey: adminKeyInput,
+          adminKey: cleanKey,
         }),
       });
 
-      if (!res.ok) {
-        const txt = await res.text();
-        console.warn("admin-init failed:", res.status, txt);
-        setStatusMessage("Admin auth failed");
-        setSubmitting(false);
+      const isJSON = (resp.headers.get("content-type") || "").includes("application/json");
+      const data = isJSON ? await resp.json() : null;
+
+      if (resp.status === 200 && data?.token) {
+        // Store session token for admin-only actions
+        sessionStorage.setItem("sf_admin_token", data.token);
+        // Only now flip the UI admin mode
+        onToggleAdminMode?.();
+        setStatusMessage({ type: "success", text: "Admin mode enabled." });
+        setAdminKey("");
         return;
       }
 
-      const data = await res.json();
-
-      // 4) Store token + immediately flip admin mode ON
-      if (data?.token) {
-        localStorage.setItem("CF-Session-Token", data.token);
-        setStatusMessage("Admin session activated");
-
-        if (typeof onToggleAdminMode === "function" && !isAdminMode) {
-          onToggleAdminMode();
-        }
-      } else {
-        setStatusMessage("No token returned from server");
+      if (resp.status === 401) {
+        setStatusMessage({
+          type: "error",
+          text: "Unauthorized: admin key incorrect.",
+        });
+        return;
       }
+      if (resp.status === 403) {
+        setStatusMessage({
+          type: "error",
+          text: "Human verification failed. Please retry the Turnstile check.",
+        });
+        return;
+      }
+      if (resp.status === 415) {
+        setStatusMessage({
+          type: "error",
+          text: "Unsupported request format. Please try again.",
+        });
+        return;
+      }
+      if (resp.status === 405) {
+        setStatusMessage({
+          type: "error",
+          text: "Method not allowed. Please try again.",
+        });
+        return;
+      }
+      setStatusMessage({
+        type: "error",
+        text: "Server error. Please try again shortly.",
+      });
     } catch (err) {
-      console.error("admin-init error:", err);
-      setStatusMessage("Admin auth error");
+      console.error("Admin init error:", err);
+      setStatusMessage({ type: "error", text: "Network error. Please try again." });
     } finally {
       setSubmitting(false);
     }
-  };
+  }, [adminKey, onToggleAdminMode]);
+
+  useEffect(() => {
+    if (isOpen) {
+      // Focus the admin input when opening
+      setTimeout(() => adminKeyInputRef.current?.focus(), 50);
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    // Close on Escape
+    const handler = (ev) => {
+      if (ev.key === "Escape") onClose?.();
+    };
+    if (isOpen) {
+      window.addEventListener("keydown", handler);
+      return () => window.removeEventListener("keydown", handler);
+    }
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
   return (
-    <div className="search-modal-overlay" onClick={handleClickOutside}>
+    <div className="modal-overlay" onClick={onClose}>
       <div
-        className="search-modal-content settings-modal-shell"
+        className="modal-dialog"
         ref={modalDialogRef}
         onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Settings"
       >
-        <div className="search-modal-header">
+        <div className="modal-header">
           <h2>Settings</h2>
-          <button onClick={onClose} className="search-modal-close-btn">
-            &times;
-          </button>
+          <button className="close-button" onClick={onClose} aria-label="Close">×</button>
         </div>
 
-        <div className="settings-modal-scrollable-area">
-          <div className="settings-section">
-            <strong className="settings-section-title">Appearance</strong>
-            <div className="setting-item">
-              <button onClick={onToggleTheme} className="button-theme-toggle">
-                Switch to {currentTheme === "light" ? "Dark" : "Light"} Mode
-                {currentTheme === "light" ? " 🌙" : " ☀️"}
+        <div className="modal-content">
+          <section className="settings-section">
+            <h3>Theme</h3>
+            <p>Current: <strong>{currentTheme}</strong></p>
+            <button onClick={onToggleTheme}>Toggle Theme</button>
+          </section>
+
+          <section className="settings-section">
+            <h3>Admin</h3>
+
+            <form className="admin-form" onSubmit={handleSubmitAdmin} autoComplete="off">
+              {/* a11y username field (hidden) */}
+              <input
+                type="text"
+                name="username"
+                value={usernameForA11y}
+                readOnly
+                tabIndex={-1}
+                aria-hidden="true"
+                style={{ position: "absolute", left: "-10000px", width: "1px", height: "1px", overflow: "hidden" }}
+              />
+
+              <label htmlFor="adminKey">Admin key</label>
+              <input
+                id="adminKey"
+                ref={adminKeyInputRef}
+                type="password"
+                inputMode="text"
+                autoComplete="current-password"
+                placeholder="Enter admin key"
+                value={adminKey}
+                onChange={(e) => setAdminKey(e.target.value)}
+                onBlur={(e) => {
+                  const v = sanitizeKey(e.target.value);
+                  if (v !== e.target.value) {
+                    setAdminKey(v);
+                  }
+                }}
+                maxLength={128}
+                aria-describedby="adminKeyHelp"
+              />
+              <small id="adminKeyHelp" className="form-hint">
+                For security, only the server can enable admin mode.
+              </small>
+
+              <div className="admin-actions">
+                <button type="submit" disabled={submitting}>
+                  {submitting ? "Verifying…" : (isAdminMode ? "Re-authenticate" : "Enable Admin")}
+                </button>
+              </div>
+            </form>
+
+            {statusMessage && (
+              <div
+                role="status"
+                className={`status ${statusMessage.type}`}
+                style={{ marginTop: "8px" }}
+              >
+                {statusMessage.text}
+              </div>
+            )}
+          </section>
+
+          <section className="settings-section">
+            <h3>Data</h3>
+            <div className="data-actions">
+              <button
+                onClick={onTriggerAddWordModal}
+                title="Add a new word"
+              >
+                Add Word
               </button>
-              <p className="setting-description">
-                Change the application's color theme.
-              </p>
+              <button
+                onClick={() => {
+                  const hasToken = !!sessionStorage.getItem("sf_admin_token");
+                  if (!hasToken) {
+                    setStatusMessage({
+                      type: "error",
+                      text: "Admin session required to export. Please enable admin first.",
+                    });
+                    return;
+                  }
+                  onExportWordList?.();
+                }}
+                disabled={!isAdminMode}
+                title="Export word list (admin only)"
+              >
+                Export Words
+              </button>
             </div>
-          </div>
-
-          <div className="settings-section">
-            <strong className="settings-section-title">Admin Access</strong>
-
-            {!isAdminMode && (
-              <div className="setting-item">
-                <p>Unlock admin features with Turnstile + key:</p>
-
-                {/* Turnstile widget */}
-                <div ref={turnstileRef} />
-
-                {/* Proper form wrapper fixes Chrome warning */}
-                <form onSubmit={handleAdminAccess} className="admin-form">
-                  <label htmlFor="adminKey" className="sr-only">
-                    Admin key
-                  </label>
-                  <input
-                    id="adminKey"
-                    type="password"
-                    placeholder="Admin key"
-                    value={adminKeyInput}
-                    onChange={(e) => setAdminKeyInput(e.target.value)}
-                    autoComplete="current-password"
-                    required
-                  />
-                  <button type="submit" disabled={submitting}>
-                    {submitting ? "Activating…" : "Activate Admin Session"}
-                  </button>
-                </form>
-
-                {statusMessage && (
-                  <p aria-live="polite" className="status-text">
-                    {statusMessage}
-                  </p>
-                )}
-              </div>
-            )}
-
-            {isAdminMode && (
-              <div className="setting-item">
-                <label htmlFor="adminModeToggle" className="admin-toggle-label">
-                  <input
-                    type="checkbox"
-                    id="adminModeToggle"
-                    checked={isAdminMode}
-                    onChange={onToggleAdminMode}
-                    className="admin-toggle-checkbox"
-                  />
-                  Enable Admin Features
-                </label>
-                <p className="setting-description">
-                  Shows extra options like data export and word addition.
-                </p>
-
-                {/* Admin-only controls */}
-                <div className="admin-actions-row">
-                  <button
-                    type="button"
-                    onClick={onExportWordList}
-                    className="button-secondary"
-                  >
-                    Export Word List
-                  </button>
-
-                  {/* Optional quick-add entrypoint if you want it here too */}
-                  {typeof onTriggerAddWordModal === "function" && (
-                    <button
-                      type="button"
-                      onClick={onTriggerAddWordModal}
-                      className="button-secondary"
-                    >
-                      Add Word
-                    </button>
-                  )}
-                </div>
-              </div>
-            )}
-          </div>
+          </section>
         </div>
       </div>
     </div>
