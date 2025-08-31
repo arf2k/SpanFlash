@@ -1,2 +1,59 @@
 /*
-Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-turnstile-api' https://challenges.cloudflare.com blob:; frame-src 'self' https://challenges.cloudflare.com; connect-src 'self' https://challenges.cloudflare.com https://www.dictionaryapi.com https://tatoeba.org http://verbe.cc; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; object-src 'none';
+
+# ========================
+# Global Security Headers
+# ========================
+
+X-Content-Type-Options: nosniff
+Referrer-Policy: strict-origin-when-cross-origin
+Permissions-Policy: accelerometer=(), autoplay=(), camera=(), encrypted-media=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), usb=(), xr-spatial-tracking=()
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+# ------------------------
+# Content Security Policy
+# ------------------------
+# Notes:
+# - Allows Turnstile (frame + script) and its challenge fetches.
+# - Allows local fonts/images and Google Fonts (if you use them).
+# - Keep 'unsafe-inline' ONLY for styles if needed (CSS-in-JS, inline <style>).
+# - Avoid 'unsafe-inline' for scripts; Vite/React production doesn't need it.
+
+Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; upgrade-insecure-requests; worker-src 'self' blob:; img-src 'self' data: blob:; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; frame-src https://challenges.cloudflare.com; connect-src 'self' https://spanflash.pages.dev https://api.tatoeba.org https://challenges.cloudflare.com; script-src 'self' https://challenges.cloudflare.com;
+
+# ------------------------
+# Global Caching Defaults
+# ------------------------
+# HTML (and anything not matched later) should not be aggressively cached.
+Cache-Control: no-cache
+
+# ------------------------
+# (Optional) Advanced Isolation — enable if you don't embed 3rd-party
+# ------------------------
+# Cross-Origin-Resource-Policy: same-site
+# Cross-Origin-Embedder-Policy: require-corp
+# Cross-Origin-Opener-Policy: same-origin
+*/
+
+# ========================
+# API: Never cache
+# ========================
+/api/*
+  Cache-Control: no-store
+
+# ========================
+# Service Worker: revalidate
+# ========================
+/sw.js
+  Cache-Control: no-cache
+
+# ========================
+# Web App Manifest
+# ========================
+/manifest.webmanifest
+  Cache-Control: public, max-age=3600
+
+# ========================
+# Static Assets (hashed)
+# ========================
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
