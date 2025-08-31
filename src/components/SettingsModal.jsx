@@ -16,6 +16,7 @@ const SettingsModal = ({
   const turnstileRef = useRef(null);
   const [adminKeyInput, setAdminKeyInput] = useState("");
   const [statusMessage, setStatusMessage] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
   const sitekey = import.meta.env.VITE_TURNSTILE_SITEKEY;
 
   const handleEscapeKey = useCallback(
@@ -27,6 +28,7 @@ const SettingsModal = ({
     [onClose]
   );
 
+  // Load Turnstile script once
   useEffect(() => {
     if (!window.turnstile && !document.getElementById("turnstile-script")) {
       const script = document.createElement("script");
@@ -38,6 +40,7 @@ const SettingsModal = ({
     }
   }, []);
 
+  // Render Turnstile when modal opens
   useEffect(() => {
     if (isOpen && window.turnstile && turnstileRef.current) {
       window.turnstile.render(turnstileRef.current, {
@@ -47,6 +50,7 @@ const SettingsModal = ({
     }
   }, [isOpen, sitekey]);
 
+  // ESC handler
   useEffect(() => {
     if (isOpen) {
       document.addEventListener("keydown", handleEscapeKey);
@@ -70,13 +74,17 @@ const SettingsModal = ({
     [onClose]
   );
 
-  const handleAdminAccess = async () => {
+  // Submit handler wrapped in a proper <form>
+  const handleAdminAccess = async (e) => {
+    e.preventDefault();
+    if (submitting) return;
+    setSubmitting(true);
     setStatusMessage(null);
 
     // 1) Get the Turnstile token
     const turnstileToken = window.turnstile?.getResponse?.();
 
-    // 2) Client-side sanity check + DEBUG LOG (shows in browser devtools console)
+    // 2) Client-side sanity + DEBUG
     console.log("Submitting admin-init with:", {
       turnstileTokenPresent: !!turnstileToken,
       adminKeyLength: adminKeyInput?.length ?? 0,
@@ -84,11 +92,12 @@ const SettingsModal = ({
 
     if (!turnstileToken || !adminKeyInput) {
       setStatusMessage("Turnstile and admin key required");
+      setSubmitting(false);
       return;
     }
 
     try {
-      // 3) Call your Pages Function
+      // 3) Pages Function call
       const res = await fetch("/api/admin-init", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -102,17 +111,17 @@ const SettingsModal = ({
         const txt = await res.text();
         console.warn("admin-init failed:", res.status, txt);
         setStatusMessage("Admin auth failed");
+        setSubmitting(false);
         return;
       }
 
       const data = await res.json();
 
-      // 4) Store the session token and immediately flip admin mode ON
+      // 4) Store token + immediately flip admin mode ON
       if (data?.token) {
         localStorage.setItem("CF-Session-Token", data.token);
         setStatusMessage("Admin session activated");
 
-        // NEW: immediately enable admin mode in the app state
         if (typeof onToggleAdminMode === "function" && !isAdminMode) {
           onToggleAdminMode();
         }
@@ -122,6 +131,8 @@ const SettingsModal = ({
     } catch (err) {
       console.error("admin-init error:", err);
       setStatusMessage("Admin auth error");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -140,6 +151,7 @@ const SettingsModal = ({
             &times;
           </button>
         </div>
+
         <div className="settings-modal-scrollable-area">
           <div className="settings-section">
             <strong className="settings-section-title">Appearance</strong>
@@ -156,20 +168,37 @@ const SettingsModal = ({
 
           <div className="settings-section">
             <strong className="settings-section-title">Admin Access</strong>
+
             {!isAdminMode && (
               <div className="setting-item">
                 <p>Unlock admin features with Turnstile + key:</p>
-                <div ref={turnstileRef}></div>
-                <input
-                  type="password"
-                  placeholder="Admin key"
-                  value={adminKeyInput}
-                  onChange={(e) => setAdminKeyInput(e.target.value)}
-                />
-                <button onClick={handleAdminAccess}>
-                  Activate Admin Session
-                </button>
-                {statusMessage && <p>{statusMessage}</p>}
+
+                {/* Turnstile widget */}
+                <div ref={turnstileRef} />
+
+                <form onSubmit={handleAdminAccess} className="admin-form">
+                  <label htmlFor="adminKey" className="sr-only">
+                    Admin key
+                  </label>
+                  <input
+                    id="adminKey"
+                    type="password"
+                    placeholder="Admin key"
+                    value={adminKeyInput}
+                    onChange={(e) => setAdminKeyInput(e.target.value)}
+                    autoComplete="current-password"
+                    required
+                  />
+                  <button type="submit" disabled={submitting}>
+                    {submitting ? "Activating…" : "Activate Admin Session"}
+                  </button>
+                </form>
+
+                {statusMessage && (
+                  <p aria-live="polite" className="status-text">
+                    {statusMessage}
+                  </p>
+                )}
               </div>
             )}
 
