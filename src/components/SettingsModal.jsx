@@ -76,7 +76,7 @@ const SettingsModal = ({
 
   // Submit handler wrapped in a proper <form>
   const handleAdminAccess = async (e) => {
-    e.preventDefault();
+    e?.preventDefault?.();
     if (submitting) return;
     setSubmitting(true);
     setStatusMessage(null);
@@ -176,6 +176,7 @@ const SettingsModal = ({
                 {/* Turnstile widget */}
                 <div ref={turnstileRef} />
 
+                {/* Proper form wrapper fixes Chrome warning */}
                 <form onSubmit={handleAdminAccess} className="admin-form">
                   <label htmlFor="adminKey" className="sr-only">
                     Admin key
@@ -217,6 +218,28 @@ const SettingsModal = ({
                 <p className="setting-description">
                   Shows extra options like data export and word addition.
                 </p>
+
+                {/* Admin-only controls */}
+                <div className="admin-actions-row">
+                  <button
+                    type="button"
+                    onClick={onExportWordList}
+                    className="button-secondary"
+                  >
+                    Export Word List
+                  </button>
+
+                  {/* Optional quick-add entrypoint if you want it here too */}
+                  {typeof onTriggerAddWordModal === "function" && (
+                    <button
+                      type="button"
+                      onClick={onTriggerAddWordModal}
+                      className="button-secondary"
+                    >
+                      Add Word
+                    </button>
+                  )}
+                </div>
               </div>
             )}
           </div>
