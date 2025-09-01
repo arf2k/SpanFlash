@@ -1,4 +1,4 @@
-import { adminGuard, handleOptionsRequest } from "../sessionAuth.js";
+import { adminGuard, handleOptionsRequest } from "../utils/sessionAuth.js";
 
 export async function onRequestOptions() {
   // Keep your standard preflight behavior.

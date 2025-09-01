@@ -7,7 +7,7 @@ const SettingsModal = ({
   onClose,
   onExportWordList,
   isAdminMode,
-  onToggleAdminMode,     
+  onToggleAdminMode,
   currentTheme,
   onToggleTheme,
   onTriggerAddWordModal,
@@ -21,10 +21,12 @@ const SettingsModal = ({
 
   const [usernameForA11y] = useState("admin");
 
-  // Pull Turnstile token if your hook puts it here; otherwise window.turnstile?.getResponse()
+  // Turnstile token helper (keeps your prior behavior)
   const getTurnstileToken = () => {
     try {
-      const t = sessionStorage.getItem("cf_turnstile_token") || localStorage.getItem("cf_turnstile_token");
+      const t =
+        sessionStorage.getItem("cf_turnstile_token") ||
+        localStorage.getItem("cf_turnstile_token");
       if (t) return t;
       if (window?.turnstile && typeof window.turnstile.getResponse === "function") {
         return window.turnstile.getResponse();
@@ -35,119 +37,150 @@ const SettingsModal = ({
 
   const sanitizeKey = (value) => {
     if (typeof value !== "string") return "";
-    // Normalize line breaks and trim outer whitespace
     let v = value.replace(/\r\n/g, "\n").replace(/\s+/g, " ").trim();
-    // Hard cap to prevent accidental mega-pastes
-    const MAX = 128; // adjust if your real key is longer
+    const MAX = 128;
     if (v.length > MAX) v = v.slice(0, MAX);
     return v;
   };
 
-  const handleSubmitAdmin = useCallback(async (e) => {
-    e?.preventDefault?.();
-    setStatusMessage(null);
-
-    // Sanitize + bound the key
-    const cleanKey = sanitizeKey(adminKey);
-    if (!cleanKey) {
-      setStatusMessage({ type: "error", text: "Please enter the admin key." });
-      adminKeyInputRef.current?.focus();
-      return;
-    }
-    if (cleanKey.length < 6) {
-      setStatusMessage({ type: "error", text: "Admin key looks too short." });
-      adminKeyInputRef.current?.focus();
-      return;
-    }
-
-    const turnstileToken = getTurnstileToken();
-    if (!turnstileToken) {
-      setStatusMessage({
-        type: "error",
-        text: "Human verification missing. Please complete the Turnstile check and try again.",
-      });
-      return;
-    }
-
-    setSubmitting(true);
+  // NEW: central ping check used after admin-init and before privileged client actions
+  const verifyAdminSessionViaPing = useCallback(async () => {
     try {
-      // Debug line you saw earlier—keep but make it accurate
-      console.log("Submitting admin-init with:", {
-        turnstileTokenPresent: !!turnstileToken,
-        adminKeyLength: cleanKey.length,
+      const resp = await fetch("/api/admin-ping", {
+        method: "GET",
+        credentials: "include", // ensure cookie is sent even if future origin shifts
+        headers: { "Accept": "application/json" },
       });
+      if (!resp.ok) return { ok: false, status: resp.status };
+      const data = await resp.json().catch(() => ({}));
+      return { ok: !!data?.ok, status: 200 };
+    } catch (e) {
+      console.error("admin-ping failed:", e);
+      return { ok: false, status: 0 };
+    }
+  }, []);
 
-      const resp = await fetch("/api/admin-init", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          turnstileToken,
-          adminKey: cleanKey,
-        }),
-      });
+  const handleSubmitAdmin = useCallback(
+    async (e) => {
+      e?.preventDefault?.();
+      setStatusMessage(null);
 
-      const isJSON = (resp.headers.get("content-type") || "").includes("application/json");
-      const data = isJSON ? await resp.json() : null;
+      const cleanKey = sanitizeKey(adminKey);
+      if (!cleanKey) {
+        setStatusMessage({ type: "error", text: "Please enter the admin key." });
+        adminKeyInputRef.current?.focus();
+        return;
+      }
+      if (cleanKey.length < 6) {
+        setStatusMessage({ type: "error", text: "Admin key looks too short." });
+        adminKeyInputRef.current?.focus();
+        return;
+      }
 
-      if (resp.status === 200 && data?.token) {
-        // Store session token for admin-only actions
-        sessionStorage.setItem("sf_admin_token", data.token);
-        // Only now flip the UI admin mode
+      const turnstileToken = getTurnstileToken();
+      if (!turnstileToken) {
+        setStatusMessage({
+          type: "error",
+          text: "Human verification missing. Please complete the Turnstile check and try again.",
+        });
+        return;
+      }
+
+      setSubmitting(true);
+      try {
+        console.log("Submitting admin-init with:", {
+          turnstileTokenPresent: !!turnstileToken,
+          adminKeyLength: cleanKey.length,
+        });
+
+        // Step 1: ask server to verify Turnstile + admin key and set HttpOnly cookie
+        const resp = await fetch("/api/admin-init", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            turnstileToken,
+            adminKey: cleanKey,
+          }),
+        });
+
+        const isJSON = (resp.headers.get("content-type") || "").includes("application/json");
+        const data = isJSON ? await resp.json() : null;
+
+        // Handle common failure statuses first
+        if (resp.status === 401) {
+          setStatusMessage({ type: "error", text: "Unauthorized: admin key incorrect." });
+          return;
+        }
+        if (resp.status === 403) {
+          setStatusMessage({
+            type: "error",
+            text: "Human verification failed. Please retry the Turnstile check.",
+          });
+          return;
+        }
+        if (resp.status === 415) {
+          setStatusMessage({
+            type: "error",
+            text: "Unsupported request format. Please try again.",
+          });
+          return;
+        }
+        if (resp.status === 405) {
+          setStatusMessage({
+            type: "error",
+            text: "Method not allowed. Please try again.",
+          });
+          return;
+        }
+        if (!resp.ok) {
+          setStatusMessage({
+            type: "error",
+            text: "Server error. Please try again shortly.",
+          });
+          return;
+        }
+
+        // Legacy: if server still returns a token, keep writing it for compatibility
+        if (data?.token) {
+          try {
+            sessionStorage.setItem("sf_admin_token", data.token);
+          } catch {}
+        }
+
+        // Step 2 (NEW): verify cookie-based session with a ping BEFORE flipping UI
+        const ping = await verifyAdminSessionViaPing();
+        if (!ping.ok) {
+          setStatusMessage({
+            type: "error",
+            text:
+              ping.status === 401 || ping.status === 403
+                ? "Admin session was not established. Please try again."
+                : "Could not verify admin session. Check your connection and try again.",
+          });
+          return;
+        }
+
+        // Step 3: only now flip the local UI admin switch
         onToggleAdminMode?.();
         setStatusMessage({ type: "success", text: "Admin mode enabled." });
         setAdminKey("");
-        return;
+      } catch (err) {
+        console.error("Admin init error:", err);
+        setStatusMessage({ type: "error", text: "Network error. Please try again." });
+      } finally {
+        setSubmitting(false);
       }
-
-      if (resp.status === 401) {
-        setStatusMessage({
-          type: "error",
-          text: "Unauthorized: admin key incorrect.",
-        });
-        return;
-      }
-      if (resp.status === 403) {
-        setStatusMessage({
-          type: "error",
-          text: "Human verification failed. Please retry the Turnstile check.",
-        });
-        return;
-      }
-      if (resp.status === 415) {
-        setStatusMessage({
-          type: "error",
-          text: "Unsupported request format. Please try again.",
-        });
-        return;
-      }
-      if (resp.status === 405) {
-        setStatusMessage({
-          type: "error",
-          text: "Method not allowed. Please try again.",
-        });
-        return;
-      }
-      setStatusMessage({
-        type: "error",
-        text: "Server error. Please try again shortly.",
-      });
-    } catch (err) {
-      console.error("Admin init error:", err);
-      setStatusMessage({ type: "error", text: "Network error. Please try again." });
-    } finally {
-      setSubmitting(false);
-    }
-  }, [adminKey, onToggleAdminMode]);
+    },
+    [adminKey, onToggleAdminMode, verifyAdminSessionViaPing]
+  );
 
   useEffect(() => {
     if (isOpen) {
-      // Focus the admin input when opening
       setTimeout(() => adminKeyInputRef.current?.focus(), 50);
     }
   }, [isOpen]);
 
   useEffect(() => {
-    // Close on Escape
     const handler = (ev) => {
       if (ev.key === "Escape") onClose?.();
     };
@@ -216,7 +249,7 @@ const SettingsModal = ({
                 aria-describedby="adminKeyHelp"
               />
               <small id="adminKeyHelp" className="form-hint">
-                For security, only the server can enable admin mode.
+                For security, the server must confirm your session before admin mode is enabled.
               </small>
 
               <div className="admin-actions">
@@ -246,15 +279,31 @@ const SettingsModal = ({
               >
                 Add Word
               </button>
+
+              {/* NEW: gate export by admin-ping instead of only sessionStorage */}
               <button
-                onClick={() => {
-                  const hasToken = !!sessionStorage.getItem("sf_admin_token");
-                  if (!hasToken) {
+                onClick={async () => {
+                  setStatusMessage(null);
+                  // First check: do we have legacy token? (kept for compat while migrating)
+                  const hasLegacy = !!sessionStorage.getItem("sf_admin_token");
+
+                  // Enforce server-confirmed session before allowing export
+                  const ping = await verifyAdminSessionViaPing();
+                  if (!ping.ok) {
                     setStatusMessage({
                       type: "error",
-                      text: "Admin session required to export. Please enable admin first.",
+                      text:
+                        ping.status === 401 || ping.status === 403
+                          ? "Admin session required to export. Please enable admin first."
+                          : "Could not verify admin session. Check connection and try again.",
                     });
                     return;
+                  }
+
+                  // Both passes: server session is valid; proceed with client-side export
+                  if (!hasLegacy) {
+                    // Quietly proceed, but you can remove legacy gating later.
+                    console.log("Export proceeding with cookie-verified admin session (no legacy token).");
                   }
                   onExportWordList?.();
                 }}
