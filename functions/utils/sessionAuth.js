@@ -1,234 +1,197 @@
-// Session configuration
-const SESSION_DURATION = 30 * 60 * 1000;
-const SESSION_TTL_SECONDS = 30 * 60;
+// ======== Config ========
+const COOKIE_NAME = "sf_admin_session"; // Issued by /api/admin-init (HttpOnly)
+const KV_PREFIX = "session:"; // Matches sessionManager.js
+const SESSION_HEADER = "CF-Session-Token"; // Legacy header (temporary fallback)
 
-// Generate secure session token
-function generateSessionToken() {
-  return crypto.randomUUID() + "-" + Date.now().toString(36);
-}
-
-// Create new session in KV
-async function createSession(kv, remoteIP) {
-  const sessionToken = generateSessionToken();
-  const now = Date.now();
-  const expiresAt = now + SESSION_DURATION;
-
-  const sessionData = {
-    remoteIP,
-    createdAt: now,
-    expiresAt,
-    lastUsed: now,
-    requestCount: 0,
-  };
-
-  await kv.put(sessionToken, JSON.stringify(sessionData), {
-    expirationTtl: SESSION_TTL_SECONDS,
-  });
-
-  return { sessionToken, expiresAt };
-}
-
-// Validate session token from KV
-async function validateSession(kv, sessionToken, remoteIP) {
-  const sessionDataStr = await kv.get(sessionToken);
-
-  if (!sessionDataStr) {
-    return { valid: false, reason: "Session not found" };
+// ======== Cookie utils ========
+function parseCookies(cookieHeader) {
+  const out = {};
+  if (!cookieHeader) return out;
+  const parts = cookieHeader.split(";"); // simple parse; fine for our single cookie
+  for (const p of parts) {
+    const [k, ...rest] = p.trim().split("=");
+    if (!k) continue;
+    out[k] = decodeURIComponent((rest.join("=") || "").trim());
   }
+  return out;
+}
 
-  let session;
+// ======== KV session helpers ========
+// Returns { valid: true, session } or { valid: false, reason }
+async function validateSession(kv, token) {
   try {
-    session = JSON.parse(sessionDataStr);
-  } catch (error) {
-    return { valid: false, reason: "Invalid session data" };
+    const raw = await kv.get(`${KV_PREFIX}${token}`);
+    if (!raw) return { valid: false, reason: "not_found" };
+    //  TTL is enforced by KV expirationTtl.
+    const session = JSON.parse(raw);
+    return { valid: true, session };
+  } catch (err) {
+    console.error("validateSession error:", err);
+    return { valid: false, reason: "kv_error" };
   }
-
-  if (Date.now() > session.expiresAt) {
-    await kv.delete(sessionToken);
-    return { valid: false, reason: "Session expired" };
-  }
-
-  if (session.remoteIP !== remoteIP) {
-    console.warn(
-      `Session IP mismatch: expected ${session.remoteIP}, got ${remoteIP}`
-    );
-  }
-
-  // Extend session on use
-  const updatedSession = {
-    ...session,
-    expiresAt: Date.now() + SESSION_DURATION,
-    lastUsed: Date.now(),
-    requestCount: session.requestCount + 1,
-  };
-
-  await kv.put(sessionToken, JSON.stringify(updatedSession), {
-    expirationTtl: SESSION_TTL_SECONDS,
-  });
-
-  return { valid: true, session: updatedSession };
 }
 
-// Validate Turnstile token
-export async function validateTurnstileToken(token, secretKey, remoteIP = null) {
+// ======== Turnstile verify ========
+export async function validateTurnstileToken(
+  token,
+  secretKey,
+  remoteIP = null
+) {
   if (!token || !secretKey) {
     return { success: false, error: "Missing token or secret key" };
   }
-
   try {
-    const response = await fetch(
+    const resp = await fetch(
       "https://challenges.cloudflare.com/turnstile/v0/siteverify",
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           secret: secretKey,
           response: token,
-          remoteip: remoteIP,
+          remoteip: remoteIP || undefined,
         }),
       }
     );
-
-    return await response.json();
-  } catch (error) {
-    return { success: false, error: "Validation request failed" };
+    return await resp.json();
+  } catch (e) {
+    console.error("Turnstile verify error:", e);
+    return { success: false, error: "network_error" };
   }
 }
 
-// Main authentication function - handles complete auth flow
-export async function authenticateRequest(context, apiName = "API") {
-  const kv = context.env.SESSIONS;
+/**
+ * authenticateRequest(context, apiName?, options?)
+ * - By default, maintains your current behavior (cookie → header → optional Turnstile fallback).
+ * - For **admin routes**, use adminGuard() below (no Turnstile fallback).
+ *
+ * Returns:
+ *   { isAuthenticated: true, sessionInfo: {...} } OR
+ *   { isAuthenticated: false, errorResponse: Response }
+ */
+export async function authenticateRequest(
+  context,
+  apiName = "API",
+  options = { allowTurnstileFallback: true }
+) {
+  const kv = context.env?.SESSIONS;
   if (!kv) {
     return {
       isAuthenticated: false,
       errorResponse: new Response(
         JSON.stringify({
           error: "Configuration Error",
-          details: "Session storage not properly configured",
+          details: "SESSIONS KV binding missing",
         }),
-        {
-          status: 500,
-          headers: { "Content-Type": "application/json" },
-        }
+        { status: 500, headers: { "Content-Type": "application/json" } }
       ),
     };
   }
 
-  const turnstileToken = context.request.headers.get("CF-Turnstile-Response");
-  const sessionToken = context.request.headers.get("CF-Session-Token");
-  const remoteIP = context.request.headers.get("CF-Connecting-IP");
+  const req = context.request;
+  const headers = req.headers;
 
-  // Try session token first
-  if (sessionToken) {
-    console.log(`${apiName}: Validating session token: ${sessionToken}`);
-    const sessionResult = await validateSession(kv, sessionToken, remoteIP);
+  // 1) Prefer cookie-based session (HttpOnly)
+  const cookieHeader = headers.get("Cookie") || headers.get("cookie");
+  const cookies = parseCookies(cookieHeader);
+  const cookieToken = cookies[COOKIE_NAME];
 
-    if (sessionResult.valid) {
-      console.log(`${apiName}: Session validation successful`);
+  if (cookieToken) {
+    const res = await validateSession(kv, cookieToken);
+    if (res.valid) {
       return {
         isAuthenticated: true,
         sessionInfo: {
-          sessionToken,
-          expiresAt: sessionResult.session.expiresAt,
-          isExisting: true,
+          token: cookieToken,
+          session: res.session,
+          via: "cookie",
         },
       };
-    } else {
-      console.log(
-        `${apiName}: Session validation failed: ${sessionResult.reason}`
-      );
     }
   }
 
-  // Fall back to Turnstile token
-  if (!turnstileToken) {
+  // 2) Legacy header fallback (while migrating client off localStorage)
+  const headerToken = headers.get(SESSION_HEADER);
+  if (headerToken) {
+    const res = await validateSession(kv, headerToken);
+    if (res.valid) {
+      return {
+        isAuthenticated: true,
+        sessionInfo: {
+          token: headerToken,
+          session: res.session,
+          via: "header",
+        },
+      };
+    }
+  }
+
+  // 3) (Optional) Turnstile fallback — NOT for admin routes
+  if (options?.allowTurnstileFallback) {
+    const tsToken =
+      headers.get("CF-Turnstile-Response") ||
+      headers.get("cf-turnstile-response");
+    const remoteIP = headers.get("CF-Connecting-IP") || undefined;
+
+    if (!tsToken) {
+      return {
+        isAuthenticated: false,
+        errorResponse: new Response(
+          JSON.stringify({
+            error: "Security Validation Required",
+            details:
+              "No session found. Complete human verification and/or sign in.",
+          }),
+          { status: 401, headers: { "Content-Type": "application/json" } }
+        ),
+      };
+    }
+
+    const secret = context.env?.TURNSTILE_SECRET;
+    const result = await validateTurnstileToken(tsToken, secret, remoteIP);
+    if (result?.success) {
+      return {
+        isAuthenticated: true,
+        sessionInfo: { token: null, session: null, via: "turnstile" },
+      };
+    }
+
     return {
       isAuthenticated: false,
       errorResponse: new Response(
-        JSON.stringify({
-          error: "Security Validation Required",
-          details: "Either valid session token or Turnstile token required",
-        }),
-        {
-          status: 403,
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
+        JSON.stringify({ error: "Human verification failed" }),
+        { status: 403, headers: { "Content-Type": "application/json" } }
       ),
     };
   }
 
-  const secretKey = context.env.TURNSTILE_SECRET_KEY;
-  if (!secretKey) {
-    return {
-      isAuthenticated: false,
-      errorResponse: new Response(
-        JSON.stringify({
-          error: "Server Configuration Error",
-          details: "Turnstile validation not properly configured",
-        }),
-        {
-          status: 500,
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      ),
-    };
-  }
-
-  const validationResult = await validateTurnstileToken(
-    turnstileToken,
-    secretKey,
-    remoteIP
-  );
-
-  if (!validationResult.success) {
-    console.log(`${apiName}: Turnstile validation failed:`, validationResult);
-    return {
-      isAuthenticated: false,
-      errorResponse: new Response(
-        JSON.stringify({
-          error: "Security Validation Failed",
-          details: "Invalid or expired security token",
-          turnstile_error: validationResult.error || "Unknown validation error",
-        }),
-        {
-          status: 403,
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      ),
-    };
-  }
-
-  console.log(
-    `${apiName}: Turnstile validation successful - creating new session`
-  );
-  const newSession = await createSession(kv, remoteIP);
+  // No cookie/header session and fallback disabled
   return {
-    isAuthenticated: true,
-    sessionInfo: {
-      sessionToken: newSession.sessionToken,
-      expiresAt: newSession.expiresAt,
-      isExisting: false,
-    },
+    isAuthenticated: false,
+    errorResponse: new Response(JSON.stringify({ error: "Unauthorized" }), {
+      status: 401,
+      headers: { "Content-Type": "application/json" },
+    }),
   };
 }
 
-// Handle OPTIONS requests
+/**
+ * adminGuard(context, apiName?)
+ * - For **admin-only** endpoints. Requires a valid KV-backed cookie session.
+ * - No Turnstile fallback allowed here.
+ */
+export async function adminGuard(context, apiName = "Admin API") {
+  return authenticateRequest(context, apiName, {
+    allowTurnstileFallback: false,
+  });
+}
+
+// Simple OPTIONS handler for CORS preflights (keep existing behavior)
 export function handleOptionsRequest() {
   return new Response(null, {
     headers: {
       "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, OPTIONS",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
       "Access-Control-Allow-Headers":
         "Content-Type, CF-Turnstile-Response, CF-Session-Token",
       "Access-Control-Max-Age": "86400",
