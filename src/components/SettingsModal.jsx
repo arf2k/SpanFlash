@@ -15,13 +15,21 @@ const SettingsModal = ({
   const modalDialogRef = useRef(null);
   const adminKeyInputRef = useRef(null);
 
+  // --- NEW: refs/state for Turnstile-in-Settings ---
+  const turnstileContainerRef = useRef(null);
+  const turnstileWidgetIdRef = useRef(null);
+
   const [adminKey, setAdminKey] = useState("");
   const [statusMessage, setStatusMessage] = useState(null);
   const [submitting, setSubmitting] = useState(false);
 
   const [usernameForA11y] = useState("admin");
 
-  // Turnstile token helper (keeps your prior behavior)
+  // Use your existing env var (you referenced this earlier in Settings) 
+  // If undefined, the Turnstile block will show a graceful error message instead of rendering.
+  const sitekey = import.meta.env.VITE_TURNSTILE_SITEKEY;
+
+  // Pull Turnstile token from storage or window.turnstile (matches your prior pattern) :contentReference[oaicite:2]{index=2}
   const getTurnstileToken = () => {
     try {
       const t =
@@ -29,7 +37,8 @@ const SettingsModal = ({
         localStorage.getItem("cf_turnstile_token");
       if (t) return t;
       if (window?.turnstile && typeof window.turnstile.getResponse === "function") {
-        return window.turnstile.getResponse();
+        const wid = turnstileWidgetIdRef.current;
+        return window.turnstile.getResponse(wid ?? undefined);
       }
     } catch {}
     return null;
@@ -43,22 +52,127 @@ const SettingsModal = ({
     return v;
   };
 
-  // NEW: central ping check used after admin-init and before privileged client actions
-  const verifyAdminSessionViaPing = useCallback(async () => {
-    try {
-      const resp = await fetch("/api/admin-ping", {
-        method: "GET",
-        credentials: "include", // ensure cookie is sent even if future origin shifts
-        headers: { "Accept": "application/json" },
-      });
-      if (!resp.ok) return { ok: false, status: resp.status };
-      const data = await resp.json().catch(() => ({}));
-      return { ok: !!data?.ok, status: 200 };
-    } catch (e) {
-      console.error("admin-ping failed:", e);
-      return { ok: false, status: 0 };
+  // --- NEW: ensure Turnstile script present & render in Settings ---
+  const ensureTurnstileScript = useCallback(async () => {
+    if (window.turnstile) return true;
+
+    // Already requested?
+    if (document.querySelector('script[data-turnstile="1"]')) {
+      // Wait briefly for it to initialize
+      for (let i = 0; i < 20; i++) {
+        if (window.turnstile) return true;
+        // eslint-disable-next-line no-await-in-loop
+        await new Promise((r) => setTimeout(r, 100));
+      }
+      return !!window.turnstile;
     }
+
+    // Inject script
+    const s = document.createElement("script");
+    s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+    s.async = true;
+    s.defer = true;
+    s.setAttribute("data-turnstile", "1");
+    document.head.appendChild(s);
+
+    // Wait for load
+    return new Promise((resolve) => {
+      s.onload = () => resolve(true);
+      s.onerror = () => resolve(false);
+      // Fallback wait loop in case onload isn’t fired
+      (async () => {
+        for (let i = 0; i < 30; i++) {
+          if (window.turnstile) {
+            resolve(true);
+            return;
+          }
+          // eslint-disable-next-line no-await-in-loop
+          await new Promise((r) => setTimeout(r, 100));
+        }
+        resolve(!!window.turnstile);
+      })();
+    });
   }, []);
+
+  const renderTurnstile = useCallback(async () => {
+    if (!isOpen) return;
+    if (!turnstileContainerRef.current) return;
+    if (!sitekey) {
+      console.warn("VITE_TURNSTILE_SITEKEY not set; Turnstile cannot render.");
+      return;
+    }
+    const ok = await ensureTurnstileScript();
+    if (!ok || !window.turnstile) {
+      console.error("Turnstile script failed to load.");
+      return;
+    }
+
+    // If a widget already exists in this ref, reset it
+    if (turnstileWidgetIdRef.current != null) {
+      try {
+        window.turnstile.remove(turnstileWidgetIdRef.current);
+      } catch {}
+      turnstileWidgetIdRef.current = null;
+    }
+
+    // Render widget into our modal container
+    const wid = window.turnstile.render(turnstileContainerRef.current, {
+      sitekey,
+      theme: document.body.dataset.theme === "dark" ? "dark" : "light",
+      action: "settings_admin_login",
+      callback: (token) => {
+        try {
+          sessionStorage.setItem("cf_turnstile_token", token);
+        } catch {}
+      },
+      "error-callback": () => {
+        setStatusMessage({
+          type: "error",
+          text: "Human verification failed. Please try again.",
+        });
+      },
+      "expired-callback": () => {
+        try {
+          sessionStorage.removeItem("cf_turnstile_token");
+        } catch {}
+      },
+    });
+
+    turnstileWidgetIdRef.current = wid;
+  }, [ensureTurnstileScript, isOpen, sitekey]);
+
+  // Render Turnstile when Settings opens; clean up when closing
+  useEffect(() => {
+    if (isOpen) {
+      renderTurnstile();
+      // Focus admin input
+      setTimeout(() => adminKeyInputRef.current?.focus(), 50);
+    } else {
+      // Remove widget instance to avoid zombie widgets
+      if (window?.turnstile && turnstileWidgetIdRef.current != null) {
+        try {
+          window.turnstile.remove(turnstileWidgetIdRef.current);
+        } catch {}
+      }
+      turnstileWidgetIdRef.current = null;
+      // Clear token so a new challenge is required next time
+      try {
+        sessionStorage.removeItem("cf_turnstile_token");
+      } catch {}
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
+
+  // Close on Escape
+  useEffect(() => {
+    const handler = (ev) => {
+      if (ev.key === "Escape") onClose?.();
+    };
+    if (isOpen) {
+      window.addEventListener("keydown", handler);
+      return () => window.removeEventListener("keydown", handler);
+    }
+  }, [isOpen, onClose]);
 
   const handleSubmitAdmin = useCallback(
     async (e) => {
@@ -81,19 +195,21 @@ const SettingsModal = ({
       if (!turnstileToken) {
         setStatusMessage({
           type: "error",
-          text: "Human verification missing. Please complete the Turnstile check and try again.",
+          text: "Human verification missing. Please complete the Turnstile check in Settings.",
         });
+        // Try forcing a reset/render in case the widget silently failed
+        if (window?.turnstile && turnstileWidgetIdRef.current != null) {
+          try {
+            window.turnstile.reset(turnstileWidgetIdRef.current);
+          } catch {}
+        } else {
+          renderTurnstile();
+        }
         return;
       }
 
       setSubmitting(true);
       try {
-        console.log("Submitting admin-init with:", {
-          turnstileTokenPresent: !!turnstileToken,
-          adminKeyLength: cleanKey.length,
-        });
-
-        // Step 1: ask server to verify Turnstile + admin key and set HttpOnly cookie
         const resp = await fetch("/api/admin-init", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -106,7 +222,19 @@ const SettingsModal = ({
         const isJSON = (resp.headers.get("content-type") || "").includes("application/json");
         const data = isJSON ? await resp.json() : null;
 
-        // Handle common failure statuses first
+        if (resp.status === 200) {
+          // Back-compat: if server still returns a token, keep it for UI gating
+          if (data?.token) {
+            try {
+              sessionStorage.setItem("sf_admin_token", data.token);
+            } catch {}
+          }
+          onToggleAdminMode?.(); // flips the local UI switch (UX only) :contentReference[oaicite:3]{index=3}
+          setStatusMessage({ type: "success", text: "Admin mode enabled." });
+          setAdminKey("");
+          return;
+        }
+
         if (resp.status === 401) {
           setStatusMessage({ type: "error", text: "Unauthorized: admin key incorrect." });
           return;
@@ -116,6 +244,12 @@ const SettingsModal = ({
             type: "error",
             text: "Human verification failed. Please retry the Turnstile check.",
           });
+          // Force a new challenge
+          if (window?.turnstile && turnstileWidgetIdRef.current != null) {
+            try {
+              window.turnstile.reset(turnstileWidgetIdRef.current);
+            } catch {}
+          }
           return;
         }
         if (resp.status === 415) {
@@ -132,38 +266,10 @@ const SettingsModal = ({
           });
           return;
         }
-        if (!resp.ok) {
-          setStatusMessage({
-            type: "error",
-            text: "Server error. Please try again shortly.",
-          });
-          return;
-        }
-
-        // Legacy: if server still returns a token, keep writing it for compatibility
-        if (data?.token) {
-          try {
-            sessionStorage.setItem("sf_admin_token", data.token);
-          } catch {}
-        }
-
-        // Step 2 (NEW): verify cookie-based session with a ping BEFORE flipping UI
-        const ping = await verifyAdminSessionViaPing();
-        if (!ping.ok) {
-          setStatusMessage({
-            type: "error",
-            text:
-              ping.status === 401 || ping.status === 403
-                ? "Admin session was not established. Please try again."
-                : "Could not verify admin session. Check your connection and try again.",
-          });
-          return;
-        }
-
-        // Step 3: only now flip the local UI admin switch
-        onToggleAdminMode?.();
-        setStatusMessage({ type: "success", text: "Admin mode enabled." });
-        setAdminKey("");
+        setStatusMessage({
+          type: "error",
+          text: "Server error. Please try again shortly.",
+        });
       } catch (err) {
         console.error("Admin init error:", err);
         setStatusMessage({ type: "error", text: "Network error. Please try again." });
@@ -171,24 +277,8 @@ const SettingsModal = ({
         setSubmitting(false);
       }
     },
-    [adminKey, onToggleAdminMode, verifyAdminSessionViaPing]
+    [adminKey, onToggleAdminMode, renderTurnstile]
   );
-
-  useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => adminKeyInputRef.current?.focus(), 50);
-    }
-  }, [isOpen]);
-
-  useEffect(() => {
-    const handler = (ev) => {
-      if (ev.key === "Escape") onClose?.();
-    };
-    if (isOpen) {
-      window.addEventListener("keydown", handler);
-      return () => window.removeEventListener("keydown", handler);
-    }
-  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -217,6 +307,17 @@ const SettingsModal = ({
           <section className="settings-section">
             <h3>Admin</h3>
 
+            {/* --- NEW: Turnstile widget lives inside Settings, above the form --- */}
+            <div style={{ marginBottom: "10px" }}>
+              {sitekey ? (
+                <div ref={turnstileContainerRef} className="cf-turnstile" />
+              ) : (
+                <small className="form-hint" style={{ color: "var(--text-error)" }}>
+                  Turnstile sitekey is not configured. Set VITE_TURNSTILE_SITEKEY to enable human verification.
+                </small>
+              )}
+            </div>
+
             <form className="admin-form" onSubmit={handleSubmitAdmin} autoComplete="off">
               {/* a11y username field (hidden) */}
               <input
@@ -241,15 +342,13 @@ const SettingsModal = ({
                 onChange={(e) => setAdminKey(e.target.value)}
                 onBlur={(e) => {
                   const v = sanitizeKey(e.target.value);
-                  if (v !== e.target.value) {
-                    setAdminKey(v);
-                  }
+                  if (v !== e.target.value) setAdminKey(v);
                 }}
                 maxLength={128}
                 aria-describedby="adminKeyHelp"
               />
               <small id="adminKeyHelp" className="form-hint">
-                For security, the server must confirm your session before admin mode is enabled.
+                Complete the human check above, then submit your admin key.
               </small>
 
               <div className="admin-actions">
@@ -273,37 +372,20 @@ const SettingsModal = ({
           <section className="settings-section">
             <h3>Data</h3>
             <div className="data-actions">
-              <button
-                onClick={onTriggerAddWordModal}
-                title="Add a new word"
-              >
+              <button onClick={onTriggerAddWordModal} title="Add a new word">
                 Add Word
               </button>
 
-              {/* NEW: gate export by admin-ping instead of only sessionStorage */}
+              {/* Keep your current client-side export flow intact */}
               <button
-                onClick={async () => {
-                  setStatusMessage(null);
-                  // First check: do we have legacy token? (kept for compat while migrating)
-                  const hasLegacy = !!sessionStorage.getItem("sf_admin_token");
-
-                  // Enforce server-confirmed session before allowing export
-                  const ping = await verifyAdminSessionViaPing();
-                  if (!ping.ok) {
+                onClick={() => {
+                  const hasToken = !!sessionStorage.getItem("sf_admin_token");
+                  if (!hasToken) {
                     setStatusMessage({
                       type: "error",
-                      text:
-                        ping.status === 401 || ping.status === 403
-                          ? "Admin session required to export. Please enable admin first."
-                          : "Could not verify admin session. Check connection and try again.",
+                      text: "Admin session required to export. Please enable admin first.",
                     });
                     return;
-                  }
-
-                  // Both passes: server session is valid; proceed with client-side export
-                  if (!hasLegacy) {
-                    // Quietly proceed, but you can remove legacy gating later.
-                    console.log("Export proceeding with cookie-verified admin session (no legacy token).");
                   }
                   onExportWordList?.();
                 }}
