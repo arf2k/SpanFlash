@@ -1,0 +1,500 @@
+{
+  "version": "1.4.7",
+  "words": [
+    {
+      "spanish": "cargar",
+      "english": "to load",
+      "leitnerBox": 0,
+      "lastReviewed": 1750284216808,
+      "dueDate": 1750284216808,
+      "exposureLevel": "learning",
+      "timesStudied": 6,
+      "timesCorrect": 1,
+      "lastStudied": 1752869564447,
+      "source": "scraped",
+      "gamePerformance": {
+        "flashcards": {
+          "correct": 1,
+          "total": 6
+        },
+        "matching": {
+          "correct": 0,
+          "total": 0
+        },
+        "fillInBlank": {
+          "correct": 0,
+          "total": 0
+        },
+        "conjugation": {
+          "correct": 0,
+          "total": 0
+        }
+      },
+      "frequencyRank": 4366
+    },
+    {
+      "spanish": "guardar",
+      "english": "to save",
+      "leitnerBox": 0,
+      "lastReviewed": 1750284216808,
+      "dueDate": 1750284216808,
+      "exposureLevel": "mastered",
+      "timesStudied": 8,
+      "timesCorrect": 8,
+      "lastStudied": 1752720796161,
+      "source": "scraped",
+      "frequencyRank": 2992,
+      "gamePerformance": {
+        "flashcards": {
+          "correct": 8,
+          "total": 8
+        },
+        "matching": {
+          "correct": 0,
+          "total": 0
+        },
+        "fillInBlank": {
+          "correct": 0,
+          "total": 0
+        },
+        "conjugation": {
+          "correct": 0,
+          "total": 0
+        }
+      }
+    },
+    {
+      "spanish": "escanear",
+      "english": "to scan",
+      "leitnerBox": 0,
+      "lastReviewed": 1750284216808,
+      "dueDate": 1750284216808,
+      "exposureLevel": "new",
+      "timesStudied": 0,
+      "timesCorrect": 0,
+      "lastStudied": null,
+      "source": "scraped",
+      "gamePerformance": {
+        "flashcards": {
+          "correct": 0,
+          "total": 0
+        },
+        "matching": {
+          "correct": 0,
+          "total": 0
+        },
+        "fillInBlank": {
+          "correct": 0,
+          "total": 0
+        },
+        "conjugation": {
+          "correct": 0,
+          "total": 0
+        }
+      }
+    },
+    {
+      "spanish": "instalar",
+      "english": "to install",
+      "leitnerBox": 0,
+      "lastReviewed": 1750284216808,
+      "dueDate": 1750284216808,
+      "exposureLevel": "new",
+      "timesStudied": 0,
+      "timesCorrect": 0,
+      "lastStudied": null,
+      "source": "scraped",
+      "gamePerformance": {
+        "flashcards": {
+          "correct": 0,
+          "total": 0
+        },
+        "matching": {
+          "correct": 0,
+          "total": 0
+        },
+        "fillInBlank": {
+          "correct": 0,
+          "total": 0
+        },
+        "conjugation": {
+          "correct": 0,
+          "total": 0
+        }
+      }
+    },
+    {
+      "spanish": "hacer clic en",
+      "english": "to click on",
+      "leitnerBox": 0,
+      "lastReviewed": 1750284216808,
+      "dueDate": 1750284216808,
+      "exposureLevel": "new",
+      "timesStudied": 0,
+      "timesCorrect": 0,
+      "lastStudied": null,
+      "source": "scraped",
+      "gamePerformance": {
+        "flashcards": {
+          "correct": 0,
+          "total": 0
+        },
+        "matching": {
+          "correct": 0,
+          "total": 0
+        },
+        "fillInBlank": {
+          "correct": 0,
+          "total": 0
+        },
+        "conjugation": {
+          "correct": 0,
+          "total": 0
+        }
+      }
+    },
+    {
+      "spanish": "pulsar",
+      "english": "to click",
+      "notes": "",
+      "synonyms_spanish": [],
+      "synonyms_english": ["to press", "to push"],
+      "category": "",
+      "exposureLevel": "new",
+      "timesStudied": 0,
+      "timesCorrect": 0,
+      "lastStudied": null,
+      "source": "scraped",
+      "gamePerformance": {
+        "flashcards": {
+          "correct": 0,
+          "total": 0
+        },
+        "matching": {
+          "correct": 0,
+          "total": 0
+        },
+        "fillInBlank": {
+          "correct": 0,
+          "total": 0
+        },
+        "conjugation": {
+          "correct": 0,
+          "total": 0
+        }
+      },
+      "leitnerBox": 0,
+      "lastReviewed": 1752457752666,
+      "dueDate": 1752457752666
+    },
+    {
+      "spanish": "desplazar",
+      "english": "to scroll",
+      "leitnerBox": 0,
+      "lastReviewed": 1750284216808,
+      "dueDate": 1750284216808,
+      "exposureLevel": "new",
+      "timesStudied": 0,
+      "timesCorrect": 0,
+      "lastStudied": null,
+      "source": "scraped",
+      "gamePerformance": {
+        "flashcards": {
+          "correct": 0,
+          "total": 0
+        },
+        "matching": {
+          "correct": 0,
+          "total": 0
+        },
+        "fillInBlank": {
+          "correct": 0,
+          "total": 0
+        },
+        "conjugation": {
+          "correct": 0,
+          "total": 0
+        }
+      }
+    },
+    {
+      "spanish": "pegar",
+      "english": "to paste",
+      "leitnerBox": 0,
+      "lastReviewed": 1750284216808,
+      "dueDate": 1750284216808,
+      "exposureLevel": "new",
+      "timesStudied": 0,
+      "timesCorrect": 0,
+      "lastStudied": null,
+      "source": "scraped",
+      "gamePerformance": {
+        "flashcards": {
+          "correct": 0,
+          "total": 0
+        },
+        "matching": {
+          "correct": 0,
+          "total": 0
+        },
+        "fillInBlank": {
+          "correct": 0,
+          "total": 0
+        },
+        "conjugation": {
+          "correct": 0,
+          "total": 0
+        }
+      }
+    },
+    {
+      "spanish": "cortar",
+      "english": "to cut",
+      "leitnerBox": 0,
+      "lastReviewed": 1750284216808,
+      "dueDate": 1750284216808,
+      "exposureLevel": "mastered",
+      "timesStudied": 5,
+      "timesCorrect": 5,
+      "lastStudied": 1752721007098,
+      "source": "scraped",
+      "frequencyRank": 2201,
+      "gamePerformance": {
+        "flashcards": {
+          "correct": 5,
+          "total": 5
+        },
+        "matching": {
+          "correct": 0,
+          "total": 0
+        },
+        "fillInBlank": {
+          "correct": 0,
+          "total": 0
+        },
+        "conjugation": {
+          "correct": 0,
+          "total": 0
+        }
+      }
+    },
+    {
+      "spanish": "copiar",
+      "english": "to copy",
+      "leitnerBox": 0,
+      "lastReviewed": 1750284216808,
+      "dueDate": 1750284216808,
+      "exposureLevel": "new",
+      "timesStudied": 0,
+      "timesCorrect": 0,
+      "lastStudied": null,
+      "source": "scraped",
+      "gamePerformance": {
+        "flashcards": {
+          "correct": 0,
+          "total": 0
+        },
+        "matching": {
+          "correct": 0,
+          "total": 0
+        },
+        "fillInBlank": {
+          "correct": 0,
+          "total": 0
+        },
+        "conjugation": {
+          "correct": 0,
+          "total": 0
+        }
+      }
+    },
+    {
+      "spanish": "oprimir",
+      "english": "to press",
+      "leitnerBox": 0,
+      "lastReviewed": 1750284216808,
+      "dueDate": 1750284216808,
+      "exposureLevel": "new",
+      "timesStudied": 0,
+      "timesCorrect": 0,
+      "lastStudied": null,
+      "source": "scraped",
+      "gamePerformance": {
+        "flashcards": {
+          "correct": 0,
+          "total": 0
+        },
+        "matching": {
+          "correct": 0,
+          "total": 0
+        },
+        "fillInBlank": {
+          "correct": 0,
+          "total": 0
+        },
+        "conjugation": {
+          "correct": 0,
+          "total": 0
+        }
+      }
+    },
+    {
+      "spanish": "introducir",
+      "english": "to enter",
+      "leitnerBox": 0,
+      "lastReviewed": 1750284216808,
+      "dueDate": 1750284216808,
+      "exposureLevel": "new",
+      "timesStudied": 0,
+      "timesCorrect": 0,
+      "lastStudied": null,
+      "source": "scraped",
+      "gamePerformance": {
+        "flashcards": {
+          "correct": 0,
+          "total": 0
+        },
+        "matching": {
+          "correct": 0,
+          "total": 0
+        },
+        "fillInBlank": {
+          "correct": 0,
+          "total": 0
+        },
+        "conjugation": {
+          "correct": 0,
+          "total": 0
+        }
+      }
+    },
+    {
+      "spanish": "cerrar",
+      "english": "to close",
+      "leitnerBox": 0,
+      "lastReviewed": 1750284216808,
+      "dueDate": 1750284216808,
+      "exposureLevel": "mastered",
+      "timesStudied": 8,
+      "timesCorrect": 8,
+      "lastStudied": 1752721267093,
+      "source": "scraped",
+      "frequencyRank": 1718,
+      "gamePerformance": {
+        "flashcards": {
+          "correct": 8,
+          "total": 8
+        },
+        "matching": {
+          "correct": 0,
+          "total": 0
+        },
+        "fillInBlank": {
+          "correct": 0,
+          "total": 0
+        },
+        "conjugation": {
+          "correct": 0,
+          "total": 0
+        }
+      }
+    },
+    {
+      "spanish": "abrir",
+      "english": "to open",
+      "leitnerBox": 0,
+      "lastReviewed": 1750284216808,
+      "dueDate": 1750284216808,
+      "exposureLevel": "mastered",
+      "timesStudied": 7,
+      "timesCorrect": 7,
+      "lastStudied": 1752869568269,
+      "source": "scraped",
+      "frequencyRank": 1188,
+      "gamePerformance": {
+        "flashcards": {
+          "correct": 7,
+          "total": 7
+        },
+        "matching": {
+          "correct": 0,
+          "total": 0
+        },
+        "fillInBlank": {
+          "correct": 0,
+          "total": 0
+        },
+        "conjugation": {
+          "correct": 0,
+          "total": 0
+        }
+      }
+    },
+    {
+      "spanish": "adjuntar",
+      "english": "to attach",
+      "leitnerBox": 0,
+      "lastReviewed": 1750284216808,
+      "dueDate": 1750284216808,
+      "exposureLevel": "new",
+      "timesStudied": 0,
+      "timesCorrect": 0,
+      "lastStudied": null,
+      "source": "scraped",
+      "gamePerformance": {
+        "flashcards": {
+          "correct": 0,
+          "total": 0
+        },
+        "matching": {
+          "correct": 0,
+          "total": 0
+        },
+        "fillInBlank": {
+          "correct": 0,
+          "total": 0
+        },
+        "conjugation": {
+          "correct": 0,
+          "total": 0
+        }
+      }
+    },
+    {
+      "spanish": "enviar por correo electrónico",
+      "english": "to email",
+      "leitnerBox": 0,
+      "lastReviewed": 1750284216808,
+      "dueDate": 1750284216808,
+      "exposureLevel": "new",
+      "timesStudied": 0,
+      "timesCorrect": 0,
+      "lastStudied": null,
+      "source": "scraped",
+      "gamePerformance": {
+        "flashcards": {
+          "correct": 0,
+          "total": 0
+        },
+        "matching": {
+          "correct": 0,
+          "total": 0
+        },
+        "fillInBlank": {
+          "correct": 0,
+          "total": 0
+        },
+        "conjugation": {
+          "correct": 0,
+          "total": 0
+        }
+      }
+    },
+    {
+      "spanish": "descargar",
+      "english": "to download",
+      "leitnerBox": 0,
+      "lastReviewed": 1750284216808,
+      "dueDate": 1750284216808,
+      "exposureLevel": "new",
+      "timesStudied": 0,

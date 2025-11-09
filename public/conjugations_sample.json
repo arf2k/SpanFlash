@@ -1,0 +1,300 @@
+{
+  "version": "1.0.0",
+  "source": "ellaverbs.com",
+  "scrapeDate": "2025-06-07T20:01:15.619Z",
+  "totalVerbs": 383,
+  "verbs": {
+    "ser": {
+      "verb": "ser",
+      "english": "",
+      "type": "er",
+      "irregular": true,
+      "tenses": {
+        "infinitive_forms": {
+          "infinitive": "ser",
+          "past participle": "sido",
+          "gerund": "siendo"
+        },
+        "present": {
+          "yo": "soy",
+          "tú": "eres",
+          "ella / él / usted": "es",
+          "nosotras / nosotros": "somos",
+          "vosotras / vosotros": "sois",
+          "ellas / ellos / ustedes": "son"
+        },
+        "preterite": {
+          "yo": "fui",
+          "tú": "fuiste",
+          "ella / él / usted": "fue",
+          "nosotras / nosotros": "fuimos",
+          "vosotras / vosotros": "fuisteis",
+          "ellas / ellos / ustedes": "fueron"
+        },
+        "imperfect": {
+          "yo": "era",
+          "tú": "eras",
+          "ella / él / usted": "era",
+          "nosotras / nosotros": "éramos",
+          "vosotras / vosotros": "erais",
+          "ellas / ellos / ustedes": "eran"
+        },
+        "present_continuous": {
+          "yo": "estoy siendo",
+          "tú": "estás siendo",
+          "ella / él / usted": "está siendo",
+          "nosotras / nosotros": "estamos siendo",
+          "vosotras / vosotros": "estáis siendo",
+          "ellas / ellos / ustedes": "están siendo"
+        },
+        "informal_future": {
+          "yo": "voy a ser",
+          "tú": "vas a ser",
+          "ella / él / usted": "va a ser",
+          "nosotras / nosotros": "vamos a ser",
+          "vosotras / vosotros": "vais a ser",
+          "ellas / ellos / ustedes": "van a ser"
+        },
+        "future": {
+          "yo": "seré",
+          "tú": "serás",
+          "ella / él / usted": "será",
+          "nosotras / nosotros": "seremos",
+          "vosotras / vosotros": "seréis",
+          "ellas / ellos / ustedes": "serán"
+        },
+        "conditional": {
+          "yo": "sería",
+          "tú": "serías",
+          "ella / él / usted": "sería",
+          "nosotras / nosotros": "seríamos",
+          "vosotras / vosotros": "seríais",
+          "ellas / ellos / ustedes": "serían"
+        },
+        "present_perfect": {
+          "yo": "he sido",
+          "tú": "has sido",
+          "ella / él / usted": "ha sido",
+          "nosotras / nosotros": "hemos sido",
+          "vosotras / vosotros": "habéis sido",
+          "ellas / ellos / ustedes": "han sido"
+        },
+        "past_perfect": {
+          "yo": "había sido",
+          "tú": "habías sido",
+          "ella / él / usted": "había sido",
+          "nosotras / nosotros": "habíamos sido",
+          "vosotras / vosotros": "habíais sido",
+          "ellas / ellos / ustedes": "habían sido"
+        },
+        "future_perfect": {
+          "yo": "habré sido",
+          "tú": "habrás sido",
+          "ella / él / usted": "habrá sido",
+          "nosotras / nosotros": "habremos sido",
+          "vosotras / vosotros": "habréis sido",
+          "ellas / ellos / ustedes": "habrán sido"
+        },
+        "conditional_perfect": {
+          "yo": "habría sido",
+          "tú": "habrías sido",
+          "ella / él / usted": "habría sido",
+          "nosotras / nosotros": "habríamos sido",
+          "vosotras / vosotros": "habríais sido",
+          "ellas / ellos / ustedes": "habrían sido"
+        },
+        "subjunctive_present": {
+          "yo": "sea",
+          "tú": "seas",
+          "ella / él / usted": "sea",
+          "nosotras / nosotros": "seamos",
+          "vosotras / vosotros": "seáis",
+          "ellas / ellos / ustedes": "sean"
+        },
+        "subjunctive_imperfect": {
+          "yo": "fuera",
+          "tú": "fueras",
+          "ella / él / usted": "fuera",
+          "nosotras / nosotros": "fuéramos",
+          "vosotras / vosotros": "fuerais",
+          "ellas / ellos / ustedes": "fueran"
+        },
+        "subjunctive_future": {
+          "yo": "fuere",
+          "tú": "fueres",
+          "ella / él / usted": "fuere",
+          "nosotras / nosotros": "fuéremos",
+          "vosotras / vosotros": "fuereis",
+          "ellas / ellos / ustedes": "fueren"
+        },
+        "subjunctive_present_perfect": {
+          "yo": "haya sido",
+          "tú": "hayas sido",
+          "ella / él / usted": "haya sido",
+          "nosotras / nosotros": "hayamos sido",
+          "vosotras / vosotros": "hayáis sido",
+          "ellas / ellos / ustedes": "hayan sido"
+        },
+        "subjunctive_past_perfect": {
+          "yo": "hubiera sido",
+          "tú": "hubieras sido",
+          "ella / él / usted": "hubiera sido",
+          "nosotras / nosotros": "hubiéramos sido",
+          "vosotras / vosotros": "hubierais sido",
+          "ellas / ellos / ustedes": "hubieran sido"
+        },
+        "subjunctive_future_perfect": {
+          "yo": "hubiere sido",
+          "tú": "hubieres sido",
+          "ella / él / usted": "hubiere sido",
+          "nosotras / nosotros": "hubiéremos sido",
+          "vosotras / vosotros": "hubiereis sido",
+          "ellas / ellos / ustedes": "hubieren sido"
+        },
+        "imperative_affirmative": {
+          "yo": "-",
+          "tú": "sé",
+          "ella / él / usted": "sea",
+          "nosotras / nosotros": "seamos",
+          "vosotras / vosotros": "sed",
+          "ellas / ellos / ustedes": "sean"
+        },
+        "imperative_negative": {
+          "yo": "-",
+          "tú": "no seas",
+          "ella / él / usted": "no sea",
+          "nosotras / nosotros": "no seamos",
+          "vosotras / vosotros": "no seáis",
+          "ellas / ellos / ustedes": "no sean"
+        }
+      },
+      "scraped": "2025-06-07T20:01:16.148Z"
+    },
+    "estar": {
+      "verb": "estar",
+      "english": "",
+      "type": "ar",
+      "irregular": true,
+      "tenses": {
+        "infinitive_forms": {
+          "infinitive": "estar",
+          "past participle": "estado",
+          "gerund": "estando"
+        },
+        "present": {
+          "yo": "estoy",
+          "tú": "estás",
+          "ella / él / usted": "está",
+          "nosotras / nosotros": "estamos",
+          "vosotras / vosotros": "estáis",
+          "ellas / ellos / ustedes": "están"
+        },
+        "preterite": {
+          "yo": "estuve",
+          "tú": "estuviste",
+          "ella / él / usted": "estuvo",
+          "nosotras / nosotros": "estuvimos",
+          "vosotras / vosotros": "estuvisteis",
+          "ellas / ellos / ustedes": "estuvieron"
+        },
+        "imperfect": {
+          "yo": "estaba",
+          "tú": "estabas",
+          "ella / él / usted": "estaba",
+          "nosotras / nosotros": "estábamos",
+          "vosotras / vosotros": "estabais",
+          "ellas / ellos / ustedes": "estaban"
+        },
+        "present_continuous": {
+          "yo": "estoy estando",
+          "tú": "estás estando",
+          "ella / él / usted": "está estando",
+          "nosotras / nosotros": "estamos estando",
+          "vosotras / vosotros": "estáis estando",
+          "ellas / ellos / ustedes": "están estando"
+        },
+        "informal_future": {
+          "yo": "voy a estar",
+          "tú": "vas a estar",
+          "ella / él / usted": "va a estar",
+          "nosotras / nosotros": "vamos a estar",
+          "vosotras / vosotros": "vais a estar",
+          "ellas / ellos / ustedes": "van a estar"
+        },
+        "future": {
+          "yo": "estaré",
+          "tú": "estarás",
+          "ella / él / usted": "estará",
+          "nosotras / nosotros": "estaremos",
+          "vosotras / vosotros": "estaréis",
+          "ellas / ellos / ustedes": "estarán"
+        },
+        "conditional": {
+          "yo": "estaría",
+          "tú": "estarías",
+          "ella / él / usted": "estaría",
+          "nosotras / nosotros": "estaríamos",
+          "vosotras / vosotros": "estaríais",
+          "ellas / ellos / ustedes": "estarían"
+        },
+        "present_perfect": {
+          "yo": "he estado",
+          "tú": "has estado",
+          "ella / él / usted": "ha estado",
+          "nosotras / nosotros": "hemos estado",
+          "vosotras / vosotros": "habéis estado",
+          "ellas / ellos / ustedes": "han estado"
+        },
+        "past_perfect": {
+          "yo": "había estado",
+          "tú": "habías estado",
+          "ella / él / usted": "había estado",
+          "nosotras / nosotros": "habíamos estado",
+          "vosotras / vosotros": "habíais estado",
+          "ellas / ellos / ustedes": "habían estado"
+        },
+        "future_perfect": {
+          "yo": "habré estado",
+          "tú": "habrás estado",
+          "ella / él / usted": "habrá estado",
+          "nosotras / nosotros": "habremos estado",
+          "vosotras / vosotros": "habréis estado",
+          "ellas / ellos / ustedes": "habrán estado"
+        },
+        "conditional_perfect": {
+          "yo": "habría estado",
+          "tú": "habrías estado",
+          "ella / él / usted": "habría estado",
+          "nosotras / nosotros": "habríamos estado",
+          "vosotras / vosotros": "habríais estado",
+          "ellas / ellos / ustedes": "habrían estado"
+        },
+        "subjunctive_present": {
+          "yo": "esté",
+          "tú": "estés",
+          "ella / él / usted": "esté",
+          "nosotras / nosotros": "estemos",
+          "vosotras / vosotros": "estéis",
+          "ellas / ellos / ustedes": "estén"
+        },
+        "subjunctive_imperfect": {
+          "yo": "estuviera",
+          "tú": "estuvieras",
+          "ella / él / usted": "estuviera",
+          "nosotras / nosotros": "estuviéramos",
+          "vosotras / vosotros": "estuvierais",
+          "ellas / ellos / ustedes": "estuvieran"
+        },
+        "subjunctive_future": {
+          "yo": "estuviere",
+          "tú": "estuvieres",
+          "ella / él / usted": "estuviere",
+          "nosotras / nosotros": "estuviéremos",
+          "vosotras / vosotros": "estuviereis",
+          "ellas / ellos / ustedes": "estuvieren"
+        },
+        "subjunctive_present_perfect": {
+          "yo": "haya estado",
+          "tú": "hayas estado",
+          "ella / él / usted": "haya estado",
+          "nosotras / nosotros": "hayamos estado",
