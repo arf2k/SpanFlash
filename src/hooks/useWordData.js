@@ -66,7 +66,6 @@ export function useWordData() {
           );
 
           if (validRemoteWords.length > 0) {
-            const now = Date.now();
 
             const existingWords = await db.allWords.toArray();
             const existingWordsMap = new Map();
@@ -102,11 +101,7 @@ export function useWordData() {
                     timesCorrect: existingWord.timesCorrect,
                     lastStudied: existingWord.lastStudied,
                     gamePerformance: existingWord.gamePerformance,
-                    // Preserve legacy Leitner data for migration
-                    leitnerBox: existingWord.leitnerBox,
-                    lastReviewed: existingWord.lastReviewed,
-                    dueDate: existingWord.dueDate,
-                  });
+                     });
                   console.log(
                     `Merged existing word: "${newWord.spanish}" (preserving learning progress)`
                   );
@@ -125,10 +120,7 @@ export function useWordData() {
                       fillInBlank: { correct: 0, total: 0 },
                       conjugation: { correct: 0, total: 0 },
                     },
-                    // Legacy Leitner data for backward compatibility
-                    leitnerBox: newWord.leitnerBox || 0,
-                    lastReviewed: newWord.lastReviewed || now,
-                    dueDate: newWord.dueDate || now,
+              
                   });
                   console.log(
                     `Added word: "${newWord.spanish}" (${
@@ -171,10 +163,8 @@ export function useWordData() {
               await db.appState.delete("dataUpdateInProgress");
             });
 
-            const wordsWithProgress = deduplicatedWords.filter(
-              (w) =>
-                (w.exposureLevel && w.exposureLevel !== "new") ||
-                w.leitnerBox > 0
+    const wordsWithProgress = deduplicatedWords.filter(
+              (w) => w.exposureLevel && w.exposureLevel !== "new"
             ).length;
 
             console.log(
