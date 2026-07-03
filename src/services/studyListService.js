@@ -37,18 +37,10 @@ export class StudyListService {
 
   generateNewWordsList(maxWords = 20) {
     try {
-      // Work with current Leitner data until migration
+      // Exposure-system filter: exclude words already mastered/known
       const newWords = this.wordList.filter(word => {
-        const leitnerBox = word.leitnerBox || 0;
-        const exposureLevel = word.exposureLevel;
-
-        // If has exposureLevel, use it; otherwise use Leitner conversion
-        if (exposureLevel) {
-          return !['mastered', 'known'].includes(exposureLevel);
-        } else {
-          // Leitner boxes 0-2 are good for new word games (need context clues)
-          return leitnerBox <= 2;
-        }
+        const exposureLevel = word.exposureLevel || 'new';
+        return !['mastered', 'known'].includes(exposureLevel);
       });
 
       // Prefer high-frequency words for learning
@@ -64,7 +56,7 @@ export class StudyListService {
         name: 'New & Learning Words',
         description: 'Newer words perfect for matching and fill-in-blank games (they have context clues)',
         words: rankedWords.slice(0, maxWords),
-        algorithmUsed: 'leitner_compatible_new_words',
+        algorithmUsed: 'exposure_new_words',
         gameRecommendation: ['matching', 'fillInBlank'],
         targetExposureLevel: ['new', 'learning']
       };

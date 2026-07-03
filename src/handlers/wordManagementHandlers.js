@@ -81,11 +81,13 @@ export const createWordManagementHandlers = (
       const allWordsFromDB = await db.allWords.toArray();
       const wordsForExport = allWordsFromDB.map(({ id, ...restOfWord }) => restOfWord);
       
-      const wordsWithProgress = wordsForExport.filter((w) => w.leitnerBox > 0).length;
-      const boxDistribution = {};
+      const wordsWithProgress = wordsForExport.filter(
+        (w) => (w.timesStudied || 0) > 0
+      ).length;
+      const exposureDistribution = {};
       wordsForExport.forEach((w) => {
-        const box = w.leitnerBox || 0;
-        boxDistribution[box] = (boxDistribution[box] || 0) + 1;
+        const level = w.exposureLevel || "new";
+        exposureDistribution[level] = (exposureDistribution[level] || 0) + 1;
       });
 
       const exportObject = {
@@ -94,10 +96,9 @@ export const createWordManagementHandlers = (
         exportMetadata: {
           totalWords: wordsForExport.length,
           wordsWithProgress: wordsWithProgress,
-          boxDistribution: boxDistribution,
-          deviceInfo: navigator.userAgent,
+          exposureDistribution: exposureDistribution,
           deviceType: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ? "mobile" : "desktop",
-          warning: "DO NOT manually edit leitnerBox, lastReviewed, or dueDate fields - use merge script instead",
+          warning: "DO NOT manually edit progress fields (exposureLevel, timesStudied, timesCorrect, lastStudied, gamePerformance) - use merge script instead",
           mergeInstructions: "To merge with master: node scripts/mergePhoneExport.cjs",
         },
         words: wordsForExport,

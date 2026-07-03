@@ -20,9 +20,8 @@ function askConfirmation(question) {
 
 // Helper to check if word has learning progress
 function hasLearningProgress(word) {
-    return (word.timesStudied > 0) || 
-           (word.exposureLevel && word.exposureLevel !== 'new') ||
-           (word.leitnerBox > 0); // Keep backward compatibility
+    return (word.timesStudied > 0) ||
+           (word.exposureLevel && word.exposureLevel !== 'new');
 }
 
 // Helper to get progress summary for display
@@ -30,8 +29,6 @@ function getProgressSummary(word) {
     if (word.timesStudied > 0) {
         const accuracy = Math.round((word.timesCorrect / word.timesStudied) * 100);
         return `${word.exposureLevel} (${word.timesStudied} attempts, ${accuracy}% accuracy)`;
-    } else if (word.leitnerBox > 0) {
-        return `Leitner Box ${word.leitnerBox}`;
     }
     return 'no progress';
 }
@@ -226,7 +223,7 @@ async function enhancedMergePhoneExportWithMaster() {
         
         fs.writeFileSync(outputPath, JSON.stringify(mergedData, null, 2), 'utf-8');
         
-        // Step 9: Progress distribution (shows exposure levels instead of Leitner boxes)
+        // Step 9: Progress distribution by exposure level
         const exposureDist = {};
         const progressDist = {};
         
